@@ -4,7 +4,7 @@ class CreateContacts < ActiveRecord::Migration[7.0]
       t.string :first_name
       t.string :last_name
       t.string :email
-      t.string :type
+      t.string :category
       t.string :organization
       t.string :linkedin_url
       t.string :phone_num
