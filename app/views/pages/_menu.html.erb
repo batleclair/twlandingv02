@@ -1,0 +1,11 @@
+<nav class="menu" data-controller="menu">
+  <i class="fa-solid fa-bars menu-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
+  <div class="tabs">
+
+    <%= link_to "HOME", root_path %>
+    <%= link_to "ASSOCIATIONS", nonprofits_path %>
+    <%= link_to "CANDIDATS", candidates_path %>
+    <%= link_to "ENTREPRISES", companies_path %>
+  </div>
+  <span class="sm-logo">Logo</span>
+</nav>

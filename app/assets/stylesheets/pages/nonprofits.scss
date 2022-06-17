@@ -1,0 +1,43 @@
+.lg-illustration {
+  width: 50%;
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.text-card-xl{
+  position: relative;
+  padding: 30px;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 3px 3px 20px rgba(0,0,0,0.2);
+  width: 50%;
+  h4 {
+    margin-bottom: 15px;
+    color: $first-main-color;
+  }
+  i{
+    position: absolute;
+    left: -10px;
+    color: $first-main-color;
+    font-weight: 900;
+  }
+}
+
+.mid-page-ctn {
+  width: 50%;
+}
+
+@media(max-width: 520px) {
+  .lg-illustration {
+    width: 100%;
+  }
+  .text-card-xl{
+    width: 100%;
+  }
+  .mid-page-ctn {
+    width: 100%;
+    margin-top: 40px;
+  }
+}

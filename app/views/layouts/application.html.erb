@@ -10,7 +10,12 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body style="background-image: url('<%= image_path "bg2.png" %>')" data-controller="modal">
+    <%= render partial: "menu" %>
+    <div class="min-height-wrap">
+      <%= yield %>
+    </div>
+    <%= render partial: "contact" %>
+    <%= render partial: "footer" %>
   </body>
 </html>

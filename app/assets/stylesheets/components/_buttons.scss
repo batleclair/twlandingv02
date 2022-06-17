@@ -1,0 +1,31 @@
+.button {
+  display: block;
+  text-align: center;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 3px;
+}
+
+.btn-main-color {
+  background-color: $first-main-color;
+  color: white;
+  &:hover {
+    color: white;
+    opacity: 0.8;
+  }
+}
+
+.btn-flag-color {
+  background-color: $first-flag-color;
+  color: white;
+  &:hover {
+    color: white;
+    opacity: 0.8;
+  }
+}
+
+@media(max-width: 520px) {
+  .button {
+    width: 100%;
+  }
+}

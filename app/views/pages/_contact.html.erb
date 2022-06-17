@@ -1,0 +1,58 @@
+<div class="modal-bg" data-modal-target="window">
+  <div class="modal-inner">
+    <div class="d-flex justify-content-between mb-4 form-header">
+      <h5>Indiquez-nous vos coordonnées</h5>
+
+      <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
+    </div>
+    <div class="modal-body">
+      <div>
+        <%= simple_form_for(@contact, remote: true) do |f| %>
+          <div class="form-wrapper">
+            <h6 class="inline-label">Prénom</h6>
+            <%= f.input :first_name,
+                        label: false,
+                        wrapper: false,
+                        class: "inline-field" %>
+          </div>
+          <div class="form-wrapper">
+            <h6 class="inline-label">Nom</h6>
+            <%= f.input :last_name,
+                        label: false,
+                        wrapper: false,
+                        class: "inline-field" %>
+          </div>
+          <div class="form-wrapper">
+            <h6 class="inline-label">E-Mail</h6>
+            <%= f.input :email,
+                        label: false,
+                        wrapper: false,
+                        class: "inline-field" %>
+          </div>
+          <div class="form-wrapper">
+            <h6 class="inline-label">Organisation</h6>
+            <%= f.input :organization,
+                        label: false,
+                        wrapper: false,
+                        placeholder: "Nom de la structure",
+                        class: "inline-field" %>
+          </div>
+          <h6 class="center-text mb-2">Vous etes un.e</h6>
+          <div class="form-wrapper form-radio">
+            <%= f.collection_radio_buttons :contact_type,
+                                            [['Association', 'Association'], ['Entreprise', 'Entreprise'], ['Salarié', 'Salarié.e']], :first, :last %>
+          </div>
+          <h6 class="center-text mb-2">Votre message</h6>
+          <div class="form-wrapper">
+            <%= f.input :message,
+                        label: false,
+                        wrapper: false,
+                        placeholder: "N'hésitez pas a nous en dire un peu plus" %>
+          </div>
+          <button type="submit" class="button btn-main-color">Enregistrer</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

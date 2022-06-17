@@ -1,0 +1,30 @@
+.ctn{
+  padding: 0 5vw;
+  margin-top: 5vh;
+}
+
+.big-header{
+  margin-top: 80px;
+  margin-bottom: 40px;
+  color: $first-main-color;
+}
+
+.flex-resp {
+  display: flex;
+}
+
+@media(max-width: 520px) {
+  .flex-resp {
+    display: block;
+  }
+}
+
+.stress {
+  background: linear-gradient(180deg,rgba(255,255,255,0) 65%, rgba(83, 28, 179, 0.2) 65%);
+  font-weight: bolder;
+  padding-bottom: 0.05em;
+}
+
+.center-text {
+  text-align: center;
+}
