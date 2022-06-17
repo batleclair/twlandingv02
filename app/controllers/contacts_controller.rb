@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
     if @contact.save
       redirect_to root_path
     else
-      raise
+
     end
   end
 
