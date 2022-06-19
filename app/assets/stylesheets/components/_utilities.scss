@@ -9,6 +9,11 @@
   color: $first-main-color;
 }
 
+.big-header-with-bg{
+  margin-bottom: 40px;
+  color: $first-main-color;
+}
+
 .flex-resp {
   display: flex;
 }
@@ -27,4 +32,11 @@
 
 .center-text {
   text-align: center;
+}
+
+.light-bg{
+  background-color: rgb(222, 214, 236);
+  top: 0;
+  padding-top: 80px;
+  padding-bottom: 20px;
 }
