@@ -15,7 +15,15 @@
     <div class="min-height-wrap">
       <%= yield %>
     </div>
+    <% if flash.any? %>
+      <% flash.each do |notice, msg| %>
+      <div>
+      <p class="notice"><%= msg %></p>
+      </div>
+      <% end %>
+    <% end %>
     <%= render partial: "contact" %>
     <%= render partial: "footer" %>
+
   </body>
 </html>

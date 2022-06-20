@@ -16,7 +16,7 @@
 }
 
 .form-wrapper{
-  margin-bottom: 20px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -25,13 +25,12 @@
   }
 }
 
-.form-radio{
-	> input {
-		&:checked + span {
-			background-color: mix(#fff, red, 84%) !important;
-			&:before {
-				box-shadow: inset 0 0 0 0.4375em red !important;
-			}
-		}
-	}
+.sm-red-msg{
+  font-size: 14px;
+  color: red;
+  text-align: end;
+}
+
+.alert{
+  z-index: 2;
 }
