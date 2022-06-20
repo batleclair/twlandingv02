@@ -1,33 +1,59 @@
 <div class="banner">
-  <h1>Logo</h1>
+  <%= image_tag "logowhite.svg" %>
   <h3>La plateforme du recrutement solidaire au service <span data-controller="typed-js"></span></h3>
   <a class="button btn-flag-color" href="" data-action="click->modal#popup">Contactez-nous !</a>
 </div>
 
+
+
 <div class="ctn">
-  <div class="carousel-ctn">
-    <div class="carousel-card">
-      <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="carousel-card-img"></div>
-      <div class="carousel-card-content">
-        <h2>Associations & Fondations</h2>
-        <p>Pour vos recrutements, attirez des candidats en poste en entreprise et souhaitant s'engager de quelques jours par mois à plusieurs par semaine</p>
-        <a href=#>&#10230; en savoir plus</a>
+  <div class="row">
+    <div class="col-sm-12 col-lg-4">
+      <div class="home-card">
+        <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="home-card-img"></div>
+        <%= link_to nonprofits_path do %>
+          <div class="home-card-content">
+            <div>
+              <h2>Associations & Fondations</h2>
+              <p>Pour vos recrutements, attirez des candidats en poste en entreprise et souhaitant s'engager de quelques jours par mois à plusieurs par semaine</p>
+            </div>
+            <%= link_to nonprofits_path do %>
+              &#10230; en savoir plus
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="carousel-card">
-      <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="carousel-card-img"></div>
-      <div class="carousel-card-content">
-        <h2>Salariés d'entreprise</h2>
-        <p>Redonnez du sens à votre travail au quotidien à travers un engagement concret dans la durée, sans quitter votre poste en entreprise</p>
-        <a href=#>&#10230; en savoir plus</a>
+    <div class="col-sm-12 col-lg-4">
+      <div class="home-card">
+        <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="home-card-img"></div>
+        <%= link_to candidates_path do %>
+          <div class="home-card-content">
+            <div>
+              <h2>Salariés d'entreprise</h2>
+              <p>Redonnez du sens à votre travail au quotidien à travers un engagement concret dans la durée, sans quitter votre poste en entreprise</p>
+            </div>
+            <%= link_to candidates_path do %>
+              &#10230; en savoir plus
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="carousel-card">
-      <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="carousel-card-img"></div>
-      <div class="carousel-card-content">
-        <h2>Entreprises</h2>
-        <p>Adoptez une démarche RH/RSE différenciante en permettant aux collaborateurs qui le souhaitent de travailler en temps partagé pour une cause de leur choix</p>
-        <a href=#>&#10230; en savoir plus</a>
+    <div class="col-sm-12 col-lg-4">
+      <div class="home-card">
+        <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="home-card-img"></div>
+        <%= link_to candidates_path do %>
+          <div class="home-card-content">
+            <div>
+              <h2>Entreprises</h2>
+              <p>Adoptez une démarche RH/RSE différenciante en permettant aux collaborateurs qui le souhaitent de travailler en temps partagé pour une cause de leur choix</p>
+            </div>
+            <%= link_to companies_path do %>
+              &#10230; en savoir plus
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

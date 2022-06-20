@@ -95,20 +95,20 @@
   left: 0;
   text-align: center;
   opacity: 0;
-  animation: "monosplay" 10s infinite;
+  animation: "monosplay" 20s infinite;
   display: flex;
   align-items: center;
   &:nth-child(2) {
-    animation-delay: 2s;
-  }
-  &:nth-child(3) {
     animation-delay: 4s;
   }
+  &:nth-child(3) {
+    animation-delay: 8s;
+  }
   &:nth-child(4) {
-    animation-delay: 6s;
+    animation-delay: 12s;
   }
   &:nth-child(5) {
-    animation-delay: 8s;
+    animation-delay: 16s;
   }
 }
 

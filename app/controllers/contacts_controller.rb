@@ -28,24 +28,7 @@ class ContactsController < ApplicationController
 
   private
 
-  # def form_errors(contact) {
-  #   first_name:contact.errors.full_messages_for(:first_name),
-  #   email: contact.errors.full_messages_for(:email),
-  #   contact.errors.full_messages_for(:email)
-  # }
-
   def contact_params
     params.require(:contact).permit(:first_name, :last_name, :email, :contact_type, :organization, :message)
   end
 end
-
-# first_name"
-#     t.string "last_name"
-#     t.string "email"
-#     t.string "contact_type"
-#     t.string "organization"
-#     t.string "linkedin_url"
-#     t.string "phone_num"
-#     t.text "message"
-
-# { render turbo_stream: turbo_stream.remove('test') }

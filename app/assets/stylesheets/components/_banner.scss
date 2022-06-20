@@ -23,11 +23,19 @@
     margin-bottom: 20px;
   }
 
+  img {
+    max-width: 40vw;
+    margin-bottom: 10px;
+  }
+
 }
 
 @media(max-width: 520px) {
   .banner {
     align-items: center;
     text-align: center;
+    img {
+      max-width: 85vw;
+    }
   }
 }
