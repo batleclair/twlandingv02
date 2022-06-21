@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
     @contact.save
 
-    if @contact.save
+    if @contact.save && verify_recaptcha(model: @contact)
       redirect_to root_path
       flash[:notice] = "Bien reçu ! Nous vous recontacterons rapidement 😀"
     else

@@ -50,16 +50,18 @@
           </div>
           <p id="contact_type_errors" class="sm-red-msg"></p>
           <h6 class="center-text mt-3">Votre message</h6>
-          <div class="form-wrapper">
+          <div class="form-wrapper mb-3">
             <%= f.input :message,
                         label: false,
                         wrapper: false,
                         placeholder: "N'hésitez pas a nous en dire un peu plus" %>
           </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
-            <p id="errors" class="sm-red-msg"></p>
+          <div class="submission">
+              <%= recaptcha_tags %>
+              <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
           </div>
+          <p id="errors" class="sm-red-msg"></p>
+
         <% end %>
       </div>
     </div>

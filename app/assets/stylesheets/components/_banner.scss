@@ -1,7 +1,6 @@
 .banner {
   height: 55vh;
   width: 100%;
-  background-image: linear-gradient(45deg, rgba(83, 28, 179, 1), rgba(0, 157, 220, 0.6)), url('https://img.freepik.com/photos-gratuite/gros-plan-diverses-personnes-joignant-leurs-mains_53876-96081.jpg?t=st=1655193551~exp=1655194151~hmac=5e5b6fbbcba0c298d692abb4c109dbfcf9989917275fffb255b2c2d8a29e14b9&w=1380');
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -24,7 +23,7 @@
   }
 
   img {
-    max-width: 40vw;
+    max-width: 30vw;
     margin-bottom: 10px;
   }
 
