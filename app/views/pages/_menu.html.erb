@@ -2,10 +2,12 @@
   <i class="fa-solid fa-bars menu-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
   <div class="tabs">
 
-    <%= link_to "ACCUEIL", root_path %>
     <%= link_to "ASSOCIATIONS", nonprofits_path %>
     <%= link_to "CANDIDATS", candidates_path %>
     <%= link_to "ENTREPRISES", companies_path %>
+    <%= link_to "A PROPOS", about_path %>
   </div>
-  <%= image_tag("logowhite.svg", class: "sm-logo") %>
+  <%= link_to root_path do %>
+    <%= image_tag("logowhite.svg", class: "sm-logo") %>
+  <% end %>
 </nav>

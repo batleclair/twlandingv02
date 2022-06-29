@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "nonprofits", to: "pages#nonprofits"
   get "candidates", to: "pages#candidates"
   get "companies", to: "pages#companies"
+  get "about", to: "pages#about"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

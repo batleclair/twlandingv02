@@ -17,19 +17,20 @@
     margin-bottom: 15px;
     color: $first-main-color;
   }
-  i{
-    position: absolute;
-    left: -10px;
-    color: $first-main-color;
-    font-weight: 900;
-  }
+}
+
+.fixed-title-icon{
+  position: absolute;
+  left: -10px;
+  color: $first-main-color;
+  font-weight: 900;
 }
 
 .mid-page-ctn {
   width: 50%;
 }
 
-@media(max-width: 520px) {
+@media(max-width: 720px) {
   .lg-illustration {
     width: 100%;
   }
