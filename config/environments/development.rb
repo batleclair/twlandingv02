@@ -40,7 +40,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000', protocol: 'http' }
   config.action_mailer.smtp_settings = {
     address: 'mail.privateemail.com',
-    port: 465,
+    port: 587,
     user_name: ENV['ADMIN_EMAIL'],
     password: ENV['ADMIN_PASSWORD'],
     authentication: :plain,

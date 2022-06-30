@@ -4,18 +4,12 @@
   </head>
   <body>
     <p>Nouveau contact !!!</p>
-    <p>
-    Détails<br>
-    --------------------------
-    </p>
+    <p>--------------------------</p>
     <p>Nom : <%= @contact.first_name %> <%= @contact.last_name.upcase %></p>
     <p>Email : <%= @contact.email %></p>
     <p>Type : <%= @contact.contact_type %></p>
     <p>Organisation : <%= @contact.organization %></p>
-    <p>
-    Message:<br>
-    ----------
-    </p>
-    <p><%= @contact.message %></p>
+    <p>Message : <%= @contact.message %></p>
+    <p>--------------------------</p>
   </body>
 </html>
