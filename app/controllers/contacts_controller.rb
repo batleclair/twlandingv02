@@ -4,6 +4,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
     if @contact.valid? && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
       @contact.save
+      ContactMailer.with(contact: @contact).new_contact_email.deliver_later
       redirect_to root_path
       flash[:notice] = "Bien reçu ! Nous vous recontacterons rapidement 😀"
     else

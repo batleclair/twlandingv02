@@ -62,6 +62,17 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "twlandingv02_production"
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'demain.works' }
+  config.action_mailer.smtp_settings = {
+    address: 'mail.privateemail.com',
+    port: 465,
+    user_name: ENV['ADMIN_EMAIL'],
+    password: ENV['ADMIN_PASSWORD'],
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
