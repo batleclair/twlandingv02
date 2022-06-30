@@ -20,3 +20,15 @@
     color: $first-main-color;
   }
 }
+
+.mg-resp{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+@media(max-width: 720px) {
+  .mg-resp{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
