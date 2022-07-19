@@ -1,0 +1,8 @@
+.fixed-size-box{
+  width: 500px;
+  background-color: $light-grey;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+  flex-shrink: 0.5;
+  height: fit-content;
+  padding: 20px;
+}

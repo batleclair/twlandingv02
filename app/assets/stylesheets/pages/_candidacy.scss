@@ -1,0 +1,10 @@
+.terms-box{
+  background-color: $light-grey;
+  border: solid 1px grey;
+  border-radius: 5px;
+  max-height: 250px;
+  padding: 20px;
+  width: 100%;
+  user-select: none;
+  overflow-y: scroll;
+}

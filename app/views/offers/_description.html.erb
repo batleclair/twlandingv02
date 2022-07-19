@@ -1,0 +1,21 @@
+<div class="modal-bg" data-modal-target="window">
+  <div class="modal-inner">
+    <div class="d-flex justify-content-between form-header">
+      <h5>Ajouter ou modifier la description de l'offre</h5>
+
+      <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
+    </div>
+    <div class="modal-body">
+      <div>
+        <%= simple_form_for(@offer) do |f| %>
+          <div class="form-wrapper">
+            <%= f.input :description, as: :rich_text_area %>
+          </div>
+          <div>
+            <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

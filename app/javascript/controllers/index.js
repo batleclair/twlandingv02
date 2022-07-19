@@ -13,5 +13,11 @@ application.register("menu", MenuController)
 import ModalController from "./modal_controller.js"
 application.register("modal", ModalController)
 
+import ProgressController from "./progress_controller.js"
+application.register("progress", ProgressController)
+
+import SliderController from "./slider_controller.js"
+application.register("slider", SliderController)
+
 import TypedJsController from "./typed_js_controller.js"
 application.register("typed-js", TypedJsController)

@@ -1,0 +1,38 @@
+<div class="ctn top-mg">
+
+  <h2><%= @beneficiary.name %></h2>
+
+  <h5><%= @offers.count %> offre(s) publiée(s)</h5>
+
+  <% @offers.each do |offer| %>
+    <div class="d-flex">
+      <div>
+        <h5>Titre : <%= offer.title %></h5>
+        <p>Poste basé à : <%= offer.location %></p>
+        <p>Fréquence d'engagement : Entre <%= offer.half_days_min %> et <%= offer.half_days_max %> par semaine</p>
+        <p>Durée d'engagement : Entre <%= offer.months_min %> et <%= offer.months_max %> mois</p>
+        <p>Salaire brut mensuel : <%= offer.monthly_gross_salary %></p>
+      </div>
+      <div>
+        <%= link_to "Voir", offer_path(offer) %>
+        <%= link_to 'Supprimer', offer_path(offer), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} %>
+      </div>
+    </div>
+  <% end %>
+
+<h2>Créer une nouvelle offre</h2>
+
+  <div>
+    <%= simple_form_for([@beneficiary, @offer]) do |f| %>
+      <%= f.input :title %>
+      <%= f.input :location %>
+      <%= f.input :half_days_min %>
+      <%= f.input :half_days_max %>
+      <%= f.input :months_min %>
+      <%= f.input :months_max %>
+      <%= f.input :monthly_gross_salary %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+
+</div>

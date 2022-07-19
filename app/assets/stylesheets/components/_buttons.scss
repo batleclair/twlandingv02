@@ -25,8 +25,36 @@
   }
 }
 
+.btn-light-main{
+  background-color: white;
+  border: solid 1px $first-main-color;
+  color: $first-main-color;
+  padding: 8px 18px;
+  &:hover {
+    color: $first-main-color;
+    opacity: 0.8;
+  }
+}
+
+.btn-light-flag{
+  background-color: white;
+  border: solid 1px $first-flag-color;
+  color: $first-flag-color;
+  padding: 8px 18px;
+  &:hover {
+    color: $first-flag-color;
+    opacity: 0.8;
+  }
+}
+
 @media(max-width: 720px) {
   .button {
     width: 100%;
   }
+}
+
+.sticky-cta{
+  position: sticky;
+  top: 100px;
+  align-self: flex-start
 }

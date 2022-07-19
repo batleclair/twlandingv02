@@ -1,0 +1,11 @@
+<%= simple_form_for(@candidate, html: {'data-progress-target': "form2"}) do |f| %>
+  <%= f.input :linkedin_url %>
+  <%= f.input :phone_num %>
+  <%= f.input :cv, as: :file %>
+
+  <div class="d-flex justify-content-end">
+    <button class="button btn-light-flag me-2" data-action="click->progress#back1">Retour</button>
+    <button type="submit" class="button btn-flag-color" data-action="click->progress#step3">Suivant</button>
+  </div>
+
+<% end %>

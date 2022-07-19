@@ -1,0 +1,22 @@
+// .progress-bars{
+//   height: 8px;
+// }
+
+@keyframes step {
+  from {width: 0%;}
+  to {width: 100%;}
+}
+
+.step-bar {
+  width: 100%;
+  height: 8px;
+  background: grey;
+}
+
+.sb-active {
+  background-color: $first-main-color;
+  height: 100%;
+  width: 100%;
+  animation-name: step;
+  animation-duration: 1s;
+}

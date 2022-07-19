@@ -1,0 +1,13 @@
+.logo-box-lg{
+  height: 125px;
+  width: 125px;
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  >img{
+    width: 100%;
+  }
+}

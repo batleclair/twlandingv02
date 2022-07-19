@@ -1,0 +1,19 @@
+<%= simple_form_for([offer, candidacy], html: {'data-progress-target': "form3"}) do |f| %>
+
+  <p>Informations importantes</p>
+  <div class="terms-box mb-3">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla finibus leo, eget aliquet enim pellentesque ut. In ut consequat felis, eu tincidunt libero. Curabitur rutrum quam sed sem pellentesque, ut venenatis velit tristique. Vestibulum varius tempus tincidunt. Morbi nec magna velit. Proin sit amet nunc congue, accumsan diam a, sollicitudin diam. Sed vel sodales justo. Mauris vehicula efficitur sem, in hendrerit nisl eleifend ac. Mauris quis mattis massa.</p>
+    <p>Aliquam a dui sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent fermentum justo magna, eget iaculis urna laoreet in. Nunc accumsan nisi dictum libero aliquet porttitor. Quisque sed mollis tortor. In eget auctor sapien, ac ultrices urna. Integer in luctus metus. Aenean vitae aliquam ante, at varius nisl. Aliquam sollicitudin, eros in fringilla sollicitudin, magna justo maximus lectus, at gravida augue justo a leo.</p>
+  </div>
+
+  <%= f.input :consent,
+              input_html: { class: "toggle" },
+              wrapper_html: { class: "div-align" },
+              label: 'Je confirme avoir pris connaissance des éléménts ci-dessus' %>
+
+  <div class="d-flex justify-content-end">
+    <button class="button btn-light-flag me-2" data-action="click->progress#back2">Retour</button>
+    <button type="submit" class="button btn-flag-color" data-action="click->progress#submit">Envoyer</button>
+  </div>
+
+<% end %>

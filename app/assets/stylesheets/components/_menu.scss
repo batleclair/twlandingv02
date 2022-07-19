@@ -96,3 +96,30 @@
     }
   }
 }
+
+.menu-fixed {
+  position: fixed;
+  top: 0px;
+  padding: 10px 5vw;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $first-main-color;
+  width: 100%;
+
+  .tabs {
+    display: flex;
+    opacity: 1;
+    justify-content: end;
+    a {
+      color: white;
+      padding-right: 10px;
+      font-weight: 100;
+      &:hover{
+        font-weight: 400;
+        color: white;
+      }
+    }
+  }
+}

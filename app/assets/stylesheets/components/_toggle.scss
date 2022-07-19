@@ -1,0 +1,48 @@
+.div-align > div {
+  padding-left: 0;
+}
+
+.toggle{
+  display: none;
+}
+
+.toggle + label {
+  width: 100%;
+  position: relative;
+  user-select: none;
+
+  &::before{
+    content: '';
+    width: 50px;
+    height: 26px;
+    background-color: $light-grey;
+    border: solid 1px $first-light-color;
+    border-radius: 50em;
+    position: absolute;
+    right: 0px;
+    transition: 0.2s ease-in-out;
+  }
+
+  &::after{
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-color: $first-light-color;
+    border-radius: 50em;
+    position: absolute;
+    right: 27px;
+    top: 3px;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+.toggle:checked + label {
+  &::before{
+    background-color: $first-light-color;
+    border: solid 1px $first-main-color;
+  }
+  &::after{
+    background-color: $first-main-color;
+    right: 3px;
+  }
+}

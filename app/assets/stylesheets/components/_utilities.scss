@@ -3,6 +3,10 @@
   margin-top: 5vh;
 }
 
+.top-mg{
+  padding-top: 80px;
+}
+
 .big-header{
   margin-top: 80px;
   margin-bottom: 40px;
@@ -38,6 +42,7 @@
 .list-inline{
   list-style: none;
   padding: 0;
+  margin: 0;
   li{
     display: inline;
   }
@@ -47,8 +52,20 @@
   color: white;
   &:hover{
     color: white;
-    font-weight: bolder;
+    font-weight: 400;
   }
+}
+
+.sm-thin-text{
+  font-size: 15px;
+  font-weight: 100;
+}
+
+.white-wrapper{
+  background-color: white;
+  margin: 0 5vw;
+  min-height: 60vh;
+  padding: 80px 20px 20px 20px;
 }
 
 @media(max-width: 720px) {
@@ -58,4 +75,16 @@
   .light-bg{
     padding-top: 40px;
   }
+}
+
+.full-width{
+  width: 100%;
+}
+
+.primary-text-color{
+  color: $first-main-color;
+}
+
+.bolder{
+  font-weight: bolder;
 }

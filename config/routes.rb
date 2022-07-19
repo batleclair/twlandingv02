@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: "pages#home"
   get "nonprofits", to: "pages#nonprofits"
   get "candidates", to: "pages#candidates"
@@ -9,4 +10,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   resources :contacts, only: %i[create]
+  resources :beneficiaries, only: %i[index show create edit update destroy] do
+    resources :offers, only: %i[create]
+  end
+  resources :offers, only: %i[index show edit update destroy] do
+    resources :candidacies, only: %i[new create]
+  end
+  resources :candidates, only: %i[create update]
 end

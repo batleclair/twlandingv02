@@ -4,8 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["close", "window"]
   connect() {
-    console.log(this.closeTarget)
-    console.log(this.windowTarget)
   }
 
   popup(event) {
