@@ -64,7 +64,7 @@
 .white-wrapper{
   background-color: white;
   margin: 0 5vw;
-  min-height: 60vh;
+  min-height: 100vh;
   padding: 80px 20px 20px 20px;
 }
 
@@ -87,4 +87,8 @@
 
 .bolder{
   font-weight: bolder;
+}
+
+.downsize90{
+  transform: scale(90%);
 }

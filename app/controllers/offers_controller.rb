@@ -1,13 +1,18 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[show edit update destroy]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def show
     @candidacy = Candidacy.new
-    if current_user.candidate.nil?
+    if !user_signed_in? || current_user.candidate.nil?
       @candidate = Candidate.new
     else
       @candidate = Candidate.find_by(user_id: current_user.id)
     end
+  end
+
+  def index
+    @offers = Offer.all
   end
 
   def create
@@ -44,7 +49,7 @@ class OffersController < ApplicationController
   end
 
   def offer_params
-    params.require(:offer).permit(:title, :location, :half_days_min, :half_days_max, :months_min, :months_max, :monthly_gross_salary, :description)
+    params.require(:offer).permit(:title, :location, :half_days_min, :half_days_max, :months_min, :months_max, :monthly_gross_salary, :description, :status)
   end
 
 end

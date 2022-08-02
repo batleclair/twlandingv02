@@ -13,6 +13,12 @@ export default class extends Controller {
 
   close(event) {
     event.preventDefault()
-    this.windowTarget.style.display = "none"
+    if ((event.type === 'keyup' && event.key === 'Escape') || event.type === 'click') {
+      this.windowTarget.style.display = "none"
+    }
+  }
+
+  keep(event) {
+    event.stopImmediatePropagation()
   }
 }

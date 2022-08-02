@@ -1,0 +1,41 @@
+<div class="white-wrapper">
+ <h1 class="center-text big-header-with-bg mt-5">Les jobs de <span class="stress">Demain</strong></h1>
+  <div class="row">
+    <% @offers.each do |offer| %>
+      <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : image_tag('heart_globe.png') %>
+      <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
+        <% if offer.active? %>
+          <%= link_to offer_path(offer) do %>
+            <div>
+              <div class="job-card-text">
+                <h4><%= offer.title %></h4>
+                <h6><%= offer.location %></h6>
+              </div>
+              <div class="job-card-footer">
+                <h6>👊 <%= offer.beneficiary.cause %></h6>
+                <div class="logo-box downsize90 card-logo-offset">
+                  <%= b_logo %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+            <div class='upcoming-badge'>
+              <h6>à venir</h6>
+              <div class="job-card-text">
+                <h4><%= offer.title %></h4>
+                <h6><%= offer.location %></h6>
+              </div>
+              <div class="job-card-footer">
+                <h6>👊 <%= offer.beneficiary.cause %></h6>
+                <div class="logo-box downsize90 card-logo-offset">
+                  <%= image_tag('heart_globe.png') %>
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

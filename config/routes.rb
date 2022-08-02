@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
   resources :offers, only: %i[index show edit update destroy] do
     resources :candidacies, only: %i[new create]
+    post "check", to: "candidacies#check", as: :candidacy_check
   end
   resources :candidates, only: %i[create update]
 end

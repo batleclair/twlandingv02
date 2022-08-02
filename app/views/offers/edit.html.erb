@@ -12,6 +12,7 @@
       <%= f.input :months_min %>
       <%= f.input :months_max %>
       <%= f.input :monthly_gross_salary %>
+      <%= f.input :status, collection: ['active', 'upcoming', 'old'] %>
       <%= f.input :description, as: :rich_text_area %>
       <div class="d-flex">
         <%= link_to "Retour", offer_path(@offer), class: "button btn-light-main me-2" %>

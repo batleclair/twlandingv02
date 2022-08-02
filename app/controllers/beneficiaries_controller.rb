@@ -14,6 +14,7 @@ class BeneficiariesController < ApplicationController
 
   def create
     @beneficiary = Beneficiary.new(beneficiary_params)
+    @beneficiary.valid?
     if @beneficiary.save
       redirect_to beneficiaries_path
     else
