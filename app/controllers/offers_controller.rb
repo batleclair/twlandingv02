@@ -3,6 +3,7 @@ class OffersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def show
+    authorize @offer
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?
       @candidate = Candidate.new
@@ -12,11 +13,12 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Offer.all
+    @offers = policy_scope(Offer)
   end
 
   def create
     @offer = Offer.new(offer_params)
+    authorize @offer
     @offer.beneficiary_id = params[:beneficiary_id]
     if @offer.save
       redirect_to offer_path(@offer)
@@ -26,10 +28,12 @@ class OffersController < ApplicationController
   end
 
   def edit
+    authorize @offer
   end
 
   def update
     @offer.update(offer_params)
+    authorize @offer
     if @offer.save
       redirect_to offer_path(@offer)
     else

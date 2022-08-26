@@ -1,6 +1,7 @@
 class CandidatesController < ApplicationController
   def create
     if current_user.candidate.nil?
+      authorize @candidate
       @candidate = Candidate.new(candidate_params)
       @candidate.user_id = current_user.id
       @candidate.save
@@ -10,6 +11,7 @@ class CandidatesController < ApplicationController
   end
 
   def update
+    authorize @candidate
     @candidate = Candidate.find_by(user_id: current_user.id)
     @candidate.update(candidate_params)
     @candidate.valid?

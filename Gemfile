@@ -51,8 +51,11 @@ gem "sassc-rails"
 # Use devise for authentication
 gem "devise"
 
-# Cloudinary for diogital asset management
+# Cloudinary for digital asset management
 gem "cloudinary"
+
+# Pundit for authorization management
+gem "pundit"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"

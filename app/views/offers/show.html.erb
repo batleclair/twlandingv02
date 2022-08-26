@@ -22,15 +22,22 @@
       <h4 class="mb-4"><span class="stress"><%= @offer.title %></span></h4>
       <%= @offer.description %>
     </div>
-    <div class="fixed-size-box ms-5 sticky-cta">
-      <%= link_to 'Postuler !', new_offer_candidacy_path(@offer), class:"button full-width btn-flag-color mb-3", "data-action": "click->modal#popup" %>
-      <h5 class="text-center primary-text-color">Un impact limité sur votre rémunération ?</h5>
+    <div class="fixed-size-box ms-5 sticky-cta" data-controller="lock">
+      <% action = user_signed_in? ? "click->modal#popup" : "click->lock#unhide" %>
+      <button class="button full-width btn-flag-color mb-3" data-action=<%= action %> data-lock-target="apply">Postuler!</button>
+      <div class="d-none" data-lock-target="login">
+        <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-3 me-2"%>
+        <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-3 ms-2"%>
+      </div>
+      <h5 class="text-center primary-text-color">Un impact limité sur votre rémunération !</h5>
       <h6 class="mt-3">Grâce à Demain :</h6>
       <p>Votre rémunération sera <span class="stress">au moins équivalente au cumul de 2 temps partiels</span>, l'un dans votre entreprise et l'autre chez <strong><%= @offer.beneficiary.name %></strong></p>
       <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
     </div>
   </div>
-<%= link_to "Modifier l'offre", edit_offer_path(@offer), class: "button" %>
+  <% if user_signed_in? && policy(Offer).edit? %>
+    <%= link_to "Modifier l'offre", edit_offer_path(@offer), class: "button" %>
+  <% end %>
 </div>
 
 <%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %>

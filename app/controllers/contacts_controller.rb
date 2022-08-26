@@ -1,7 +1,9 @@
 class ContactsController < ApplicationController
+  skip_before_action :authenticate_user!
 
   def create
     @contact = Contact.new(contact_params)
+    authorize @contact
     if @contact.valid? && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
       @contact.save
       ContactMailer.with(contact: @contact).new_contact_email.deliver_later
