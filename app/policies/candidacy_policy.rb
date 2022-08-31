@@ -1,10 +1,10 @@
-class CandidatePolicy < ApplicationPolicy
+class CandidacyPolicy < ApplicationPolicy
   def create?
     true
   end
 
-  def update?
-    record.user == user
+  def check?
+    true
   end
 
   class Scope < Scope

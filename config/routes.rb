@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :beneficiaries, only: %i[index show create edit update destroy] do
     resources :offers, only: %i[create]
   end
+  get "offers/:id/select", to: "offers#select", as: :offer_select
   resources :offers, only: %i[index show edit update destroy] do
     resources :candidacies, only: %i[new create]
     post "check", to: "candidacies#check", as: :candidacy_check

@@ -2,18 +2,22 @@ class BeneficiariesController < ApplicationController
   before_action :set_beneficiary, only: %i[show edit update destroy]
 
   def index
-    @beneficiaries = Beneficiary.all
+    # @beneficiaries = Beneficiary.all
+    @beneficiaries = policy_scope(Beneficiary)
     @beneficiary = Beneficiary.new
+    authorize @beneficiary
   end
 
   def show
     @offers = @beneficiary.offers
     @offer = Offer.new
     @offer.beneficiary = @beneficiary
+    authorize @beneficiary
   end
 
   def create
     @beneficiary = Beneficiary.new(beneficiary_params)
+    authorize @beneficiary
     @beneficiary.valid?
     if @beneficiary.save
       redirect_to beneficiaries_path
@@ -27,6 +31,7 @@ class BeneficiariesController < ApplicationController
 
   def update
     @beneficiary.update(beneficiary_params)
+    authorize @beneficiary
     if @beneficiary.save
       redirect_to beneficiaries_path
     else
@@ -36,6 +41,7 @@ class BeneficiariesController < ApplicationController
 
   def destroy
     @beneficiary.destroy
+    authorize @beneficiary
     redirect_to beneficiaries_path, status: :see_other
   end
 

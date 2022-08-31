@@ -19,6 +19,7 @@
   justify-content: center;
   height: 200px;
   padding: 0px 10px;
+  transition: ease-in-out 0.2s;
 }
 
 .card-logo-offset{
@@ -26,6 +27,38 @@
   bottom: -30px;
   left: -30px;
   box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.job-card{
+  &:hover{
+    .job-card-text{
+      transition: ease-in-out 0.2s;
+      background-color: $first-light-darker;
+    }
+    .job-card-footer{
+      transition: ease-in-out 0.2s;
+      background-color: $first-main-darker;
+    }
+    .job-card-tag>h6{
+      opacity: 1;
+    }
+  }
+}
+
+.job-card-tag{
+  position: relative;
+  >h6{
+    opacity: 0;
+    color: $first-main-color;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    font-size: smaller;
+    transition: ease-in-out 0.2s;
+    font-weight: bolder;
+  }
 }
 
 .job-card-footer{
@@ -40,17 +73,96 @@
     white-space: nowrap;
   }
   position: relative;
+  transition: ease-in-out 0.2s;
 }
 
 .upcoming-badge{
   position: relative;
+  .job-card-text{
+    background-color: $light-gray;
+  }
   >h6{
-    background-color: $first-flag-color;
+    background-color: $first-main-color;
     color: white;
     position: absolute;
     top: 0px;
     right: 0px;
-    padding: 10px;
+    padding: 5px;
     font-size: smaller;
+    z-index: 2;
+  }
+  >button{
+    opacity: 0;
+    position: absolute;
+    top: 80px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+  .centered-overlay{
+    opacity: 0;
+    position: absolute;
+    top: 80px;
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+  &:hover{
+    >button{
+      opacity: 1;
+    }
+    .centered-overlay{
+      opacity: 1;
+    }
+    >span{
+      transition: ease-in-out 0.2s;
+      backdrop-filter: blur(3px);
+      z-index: 1;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.job-card-dark{
+  background-color: $first-main-color;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  height: 260px;
+  padding: 0px 10px;
+  transition: ease-in-out 0.2s;
+  position: relative;
+  overflow: hidden;
+  >span{
+    position: absolute;
+    left: 0;
+    height: 260px;
+    width: 100%;
+    bottom: -260px;
+    background-color: $first-main-darker;
+    transition: ease-in-out 0.2s;
+  }
+  h1{
+    color: white;
+    // font-weight: 700;
+    font-size: 150px;
+    padding-top: 30px;
+  }
+  h5{
+    color: white;
+  }
+  &:hover{
+    >span{
+      bottom: 0px;
+      transition: ease-in-out 0.2s;
+    }
   }
 }

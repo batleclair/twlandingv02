@@ -5,6 +5,10 @@
   padding: 10px 20px;
   border-radius: 3px;
   height: fit-content;
+  transition: ease-in-out 0.2s;
+  &:hover {
+    transition: ease-in-out 0.2s;
+  }
 }
 
 .btn-main-color {
@@ -12,7 +16,7 @@
   color: white;
   &:hover {
     color: white;
-    opacity: 0.8;
+    background-color: $first-main-darker;
   }
 }
 
@@ -21,7 +25,7 @@
   color: white;
   &:hover {
     color: white;
-    opacity: 0.8;
+    background-color: $first-flag-darker;
   }
 }
 
@@ -31,8 +35,7 @@
   color: $first-main-color;
   padding: 8px 18px;
   &:hover {
-    color: $first-main-color;
-    opacity: 0.8;
+    color: $first-main-darker;
   }
 }
 
@@ -42,8 +45,7 @@
   color: $first-flag-color;
   padding: 8px 18px;
   &:hover {
-    color: $first-flag-color;
-    opacity: 0.8;
+    color: $first-flag-darker;
   }
 }
 

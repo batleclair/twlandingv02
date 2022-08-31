@@ -11,8 +11,8 @@ class CandidatesController < ApplicationController
   end
 
   def update
-    authorize @candidate
     @candidate = Candidate.find_by(user_id: current_user.id)
+    authorize @candidate
     @candidate.update(candidate_params)
     @candidate.valid?
     render json: json_response(@candidate)

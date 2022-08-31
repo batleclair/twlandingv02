@@ -9,8 +9,32 @@
   <div class="offer-specs">
     <ul class="list-inline">
       <li>📍 Lieu : <%= @offer.location %></li>
-      <li class="ps-3 pe-3">🕐 Fréquence : <%= @offer.half_days_min.fdiv(2).round(1) %> à <%= @offer.half_days_max.fdiv(2).round(1) %> j / sem</li>
-      <li>📅 Durée : <%= @offer.months_min %> à <%= @offer.months_max %> mois</li>
+
+      <% case
+      when @offer.half_days_min.nil? && @offer.half_days_max.nil?
+        f = "à définir"
+      when  ( @offer.half_days_min.nil? && !@offer.half_days_max.nil? ) || @offer.half_days_min == @offer.half_days_max
+        f = "#{@offer.half_days_max.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
+      when  ( !@offer.half_days_min.nil? && @offer.half_days_max.nil? )
+        f = "#{@offer.half_days_min.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
+      else
+        f = "#{@offer.half_days_min.fdiv(2).round(1).to_s.chomp('.0')} à #{@offer.half_days_max.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
+      end %>
+
+      <li class="ps-3 pe-3">🕐 Fréquence : <%= f %></li>
+
+      <% case
+      when @offer.months_min.nil? && @offer.months_max.nil?
+        d = "à définir"
+      when  ( @offer.months_min.nil? && !@offer.months_max.nil? ) || @offer.months_min == @offer.months_max
+        d = "#{@offer.months_max} mois"
+      when  ( !@offer.months_min.nil? && @offer.months_max.nil? )
+        d = "#{@offer.months_min} mois"
+      else
+        d = "#{@offer.months_min} à #{@offer.months_max} mois"
+      end %>
+
+      <li>📅 Durée : <%= d %></li>
     </ul>
   </div>
 </div>
@@ -24,12 +48,22 @@
     </div>
     <div class="fixed-size-box ms-5 sticky-cta" data-controller="lock">
       <% action = user_signed_in? ? "click->modal#popup" : "click->lock#unhide" %>
-      <button class="button full-width btn-flag-color mb-3" data-action=<%= action %> data-lock-target="apply">Postuler!</button>
-      <div class="d-none" data-lock-target="login">
-        <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-3 me-2"%>
-        <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-3 ms-2"%>
-      </div>
-      <h5 class="text-center primary-text-color">Un impact limité sur votre rémunération !</h5>
+      <% if user_signed_in? %>
+        <% if @offer.candidates.where(user_id: current_user.id).none? %>
+          <button class="button full-width btn-flag-color mb-3" data-action=<%= action %> data-lock-target="apply">Candidater !</button>
+          <h5 class="text-center primary-text-color">Un impact limité sur votre rémunération !</h5>
+        <% else %>
+          <h5 class="text-center primary-text-color mb-4">Votre candidature a bien été prise en compte 🙌</h5>
+        <% end %>
+      <% else %>
+        <button class="button full-width btn-flag-color mb-3" data-action=<%= action %> data-lock-target="apply">Candidater !</button>
+        <div class="d-none" data-lock-target="login">
+          <div class="d-flex">
+            <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-3 me-2"%>
+            <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-3 ms-2"%>
+          </div>
+        </div>
+      <% end %>
       <h6 class="mt-3">Grâce à Demain :</h6>
       <p>Votre rémunération sera <span class="stress">au moins équivalente au cumul de 2 temps partiels</span>, l'un dans votre entreprise et l'autre chez <strong><%= @offer.beneficiary.name %></strong></p>
       <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>

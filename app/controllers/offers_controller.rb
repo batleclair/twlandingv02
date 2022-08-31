@@ -13,7 +13,29 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = policy_scope(Offer)
+    @offers = policy_scope(Offer).order(:status)
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+    @no_offer = Offer.find_by(title: "no_offer")
+    authorize @no_offer
+  end
+
+  def select
+    params[:id] == "nil" ? @offer = Offer.new : @offer = Offer.find(params[:id])
+    authorize @offer
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+    respond_to do |format|
+      format.json
+    end
   end
 
   def create
@@ -55,5 +77,4 @@ class OffersController < ApplicationController
   def offer_params
     params.require(:offer).permit(:title, :location, :half_days_min, :half_days_max, :months_min, :months_max, :monthly_gross_salary, :description, :status)
   end
-
 end

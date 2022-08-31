@@ -1,7 +1,18 @@
 <div class="modal-bg" data-modal-target="window" data-action="click->modal#close">>
   <div class="modal-inner" data-action="click->modal#keep">
     <div class="d-flex justify-content-between form-header">
-      <h5><%= offer.title %></h5>
+      <div>
+        <h5>
+          <% if offer.title == "no_offer" %>
+            Candidature spontanée
+          <% else %>
+            <%= offer.title %>
+          <% end %>
+        </h5>
+        <% if offer.status == 'upcoming' %>
+          <p>Cette offre sera bientôt dispo 🤩 Candidatez dès maintenant !</p>
+        <% end %>
+      </div>
 
       <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
     </div>
@@ -9,7 +20,7 @@
 
       <div data-progress-target="header">
         <h5 class="primary-text-color bolder mb-3">étape <span data-progress-target="num">1</span>/3</h5>
-        <div class="full-width d-flex justify-content-between">
+        <div class="full-width d-flex justify-content-between mb-4">
           <div class="step-bar"><div data-progress-target="bar1" class="sb-active"></div></div>
           <div class="step-bar ms-2 me-2"><div data-progress-target="bar2"></div></div>
           <div class="step-bar"><div data-progress-target="bar3"></div></div>

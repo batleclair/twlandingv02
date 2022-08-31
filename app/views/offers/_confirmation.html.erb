@@ -2,5 +2,5 @@
   <h1 style="font-size: 100px" class="mb-5 text-center">🎉</h1>
   <h2 class="mb-3 primary-text-color bolder text-center">Votre candidature a bien été prise en compte !</h2>
   <h4 class="mb-4 text-center">Nous prendrons très rapidement contact avec vous</h4>
-  <%= link_to 'Retour', offer_path(offer), class: "button btn-light-flag me-2" %>
+  <%= link_to 'Retour', offer.status == 'active' ? offer_path(offer) : root_path, class: "button btn-light-flag me-2" %>
 </div>
