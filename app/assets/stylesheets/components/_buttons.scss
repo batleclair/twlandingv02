@@ -60,3 +60,27 @@
   top: 100px;
   align-self: flex-start
 }
+
+
+.btn-white-on-main {
+  background-color: $first-main-color;
+  border: solid 2px white;
+  color: white;
+  &:hover {
+    color: $first-main-color;
+    background-color: white;
+  }
+}
+
+.button-round{
+  border-radius: 50px;
+  display: block;
+  text-align: center;
+  width: fit-content;
+  padding: 2px 10px;
+  height: fit-content;
+  transition: ease-in-out 0.2s;
+  &:hover {
+    transition: ease-in-out 0.2s;
+  }
+}

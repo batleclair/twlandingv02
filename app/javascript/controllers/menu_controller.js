@@ -2,14 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="menu"
 export default class extends Controller {
-  static targets = ['icon', 'tab1', 'tab2', 'tab3']
+  static targets = ['icon', 'nav']
 
   connect() {
 
   }
 
   toggle(event) {
-    this.element.classList.toggle("menu-expand");
+    this.navTarget.classList.toggle("menu-expand");
+    this.iconTarget.classList.toggle("main-color");
   }
 
   // scroll(event) {

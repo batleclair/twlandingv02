@@ -63,6 +63,7 @@
               <h5 class="white-text center-text primary-text-color mb-4 mt-2">Votre candidature a bien été prise en compte 🙌</h5>
             <% end %>
           <% else %>
+            <button data-lock-target="apply" class="button btn-flag-color" data-action=<%=action%> data-id=<%=@no_offer.id%>>Candidater !</button>
             <div class="d-none centered-overlay" data-lock-target="login">
               <div class="d-flex justify-content-center">
                 <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color mb-1 me-2"%>

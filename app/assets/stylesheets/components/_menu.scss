@@ -1,124 +1,142 @@
-.menu-icon {
-  margin: 15px 15px 15px 5vw;
-  padding: 10px;
-  border-radius: 50%;
-  background-color: white;
-  color: $first-main-color;
-  transition: ease-in-out 0.2s;
-  &:hover{
-    transform: rotate(180deg);
-    transition: ease-in-out 0.2s;
-  }
-}
-
-.sm-logo {
-  height: 20px;
-  margin-right: 5vw;
-  display: block;
-  opacity: 1;
-  transition: ease-in-out 0.3s;
-}
-
-.menu {
+.menu{
   position: fixed;
-  top: 0px;
-  z-index: 3;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $first-main-color;
   width: 100%;
-  transition: ease-in-out 0.3s;
-
-  .tabs {
+  background-color: $first-main-color;
+  padding: 0px 5vw;
+  z-index: 3;
+  >div{
     display: flex;
-    opacity: 1;
-    padding: 15px;
-    justify-content: end;
-    transition: ease-in-out 0.3s;
-    a {
-      padding: 0 10px;
-      color: white;
-      font-weight: 100;
-      &:hover{
-        font-weight: 400;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40px;
+  }
+  transition: ease-in-out 0.2s;
+}
+
+.menu-expand{
+  translate: -100vw;
+  transition: ease-in-out 0.2s;
+}
+
+.burger-icon{
+  position: fixed;
+  top: 17px;
+  left: 5vw;
+  color: white;
+  z-index: 4;
+  background-color: $first-main-color;
+  border-radius: 50%;
+  padding: 10px;
+  height: 36px;
+  width: 36px;
+  text-align: center;
+}
+.main-color{
+  color: $first-main-color;
+  background-color: white;
+}
+
+.sm-logo{
+  height: 20px;
+}
+
+// .dropdown-tabs{
+//   position: relative;
+//   display: flex;
+//   background-color: $first-main-color;
+//   >div{
+//     display: flex;
+//     flex-direction: column;
+//     position: absolute;
+//     background-color: $first-main-color;
+//     top: -200px;
+//     transition: ease-in-out 0.2s;
+//     width: 100%;
+//     >a{
+//       padding: 10px;
+//     }
+//   }
+//   &:hover{
+//     >div{
+//       transition: ease-in-out 0.2s;
+//       top: 20px
+//     }
+//   }
+// }
+
+// .tabs{
+//   height: 50px;
+//   background-color: red;
+//   position: relative;
+//   padding: 10px 10px 0px 10px;
+//   margin-bottom: 10px;
+//   >div{
+//     padding: 20px;
+//     transition: ease-in-out 0.2s;
+//     background-color: $first-main-color;
+//     position: absolute;
+//     top: -200px;
+//     left: 0;
+//     z-index: -2;
+//   }
+//   &:hover{
+//     >div{
+//       transition: ease-in-out 0.2s;
+//       top: 50px;
+//     }
+//   }
+// }
+
+.tabs{
+  height: 65px;
+  position: relative;
+  cursor: pointer;
+  .dropdown-tabs{
+    transition: ease-in-out 0.2s;
+    background-color: $first-main-color;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: -200px;
+    z-index: -1;
+    padding-left: 35px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+  .dropdown{
+    height: 55px;
+    background-color: $first-main-color;
+    padding: 22px 10px 0 10px;
+    display: flex;
+    >h6{
+      font-weight: 200;
+    }
+    .carret{
+      height: 20px;
+      width: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: ease-in-out 0.2s;
+      >i{
         color: white;
+        font-weight: bolder;
       }
     }
   }
-}
-
-.menu-expand {
-  width: 0%;
-  transition: ease-in-out 0.3s;
-  .tabs {
-    display: none;
-    opacity: 0;
-  }
-  .sm-logo {
-    display: none;
-    opacity: 0;
-  }
-}
-
-@media(max-width: 720px) {
-  .menu {
-    display: block;
-    height: 100vh;
-    width: 0%;
-
-    .tabs {
-      display: block;
-      opacity: 0;
+  &:hover{
+    .dropdown-tabs{
+      transition: ease-in-out 0.2s;
+      top: 60px;
     }
-    a {
-      display: block;
-      padding-left: 10px;
-    }
-    .menu-icon{
-      padding-left: 10px;
-    }
-    .sm-logo {
-      margin-left: 5vw;
-      opacity: 0;
-    }
-  }
-
-  .menu-expand {
-    height: 100vh;
-    width: 100%;
-    .tabs {
-      opacity: 1;
-    }
-    .sm-logo {
-      display: block;
-      opacity: 1;
-    }
-  }
-}
-
-.menu-fixed {
-  position: fixed;
-  top: 0px;
-  padding: 10px 5vw;
-  z-index: 3;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $first-main-color;
-  width: 100%;
-
-  .tabs {
-    display: flex;
-    opacity: 1;
-    justify-content: end;
-    a {
-      color: white;
-      padding-right: 10px;
-      font-weight: 100;
-      &:hover{
+    .dropdown{
+      >h6{
         font-weight: 400;
-        color: white;
+      }
+      .carret{
+        transform: rotate(90deg);
+        transition: ease-in-out 0.2s;
       }
     }
   }
