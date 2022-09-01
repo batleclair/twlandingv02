@@ -6,10 +6,10 @@
               <%= image_tag("logowhite.svg", class: "sm-logo") %>
             <% end %>
 
-            <div class="d-flex align-items-center">
+            <div class="tabs-ctn">
               <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
 
-              <div class="tabs ms-3">
+              <div class="tabs">
                 <div class="dropdown">
                   <div class="carret">
                     <i class="fa-solid fa-angle-right"></i>
@@ -27,7 +27,7 @@
             </div>
 
             <% if user_signed_in? %>
-              <div class="text-end">
+              <div class="user-nav-box">
                 <p style="color: white">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
                 <%= link_to "se déconnecter", destroy_user_session_path, method: :delete, class: "white-link sm-thin-text" %>
               </div>

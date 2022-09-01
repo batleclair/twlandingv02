@@ -5,4 +5,47 @@
   flex-shrink: 0.5;
   height: fit-content;
   padding: 20px;
+  margin-left: 25px;
+}
+
+.sticky-box{
+  position: sticky;
+  top: 100px;
+  align-self: flex-start
+}
+
+.resp-flex-ctn{
+  display: flex;
+}
+
+.toggle-sm{
+  display: none;
+}
+
+@media(max-width: 720px) {
+  .fixed-size-box{
+    width: 100%;
+  }
+  .resp-flex-ctn{
+    flex-direction: column;
+  }
+  .fixed-size-box{
+    margin: 0;
+    >div{
+      display: none;
+    }
+  }
+  .toggle-lg{
+    display: none;
+  }
+  .toggle-sm{
+    display: unset;
+  }
+  .sticky-btn{
+    position: sticky;
+    align-self: flex-start;
+    width: 100%;
+    top: 35px;
+    z-index: 2;
+  }
 }

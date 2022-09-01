@@ -55,7 +55,6 @@
           <% action = user_signed_in? ? "click->modal#popup2" : "click->lock#unhide" %>
           <h6 class="white-text center-text mb-2">Tu ne trouves pas le job qui te correspond ? Laisse-nous trouver pour toi !</h6>
 
-
           <% if user_signed_in? %>
             <% if @no_offer.candidates.where(user_id: current_user.id).none? %>
               <button data-lock-target="apply" class="button btn-flag-color" data-action=<%=action%> data-id=<%=@no_offer.id%>>Candidater !</button>

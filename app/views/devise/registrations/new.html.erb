@@ -1,6 +1,9 @@
-<div class="light-bg">
+<div class="white-wrapper">
   <div class="ctn">
-    <h2 class="mb-4">Créez votre compte !</h2>
+  <div class="form-header">
+    <h5>Création de compte Demain</h5>
+  </div>
+    <h4 class="mt-4 mb-4 primary-text-color center-text">Créez votre compte pour candidater aux offres de nos partenaires</h4>
 
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
       <%= f.error_notification %>
@@ -27,11 +30,14 @@
 
       </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, "Enregistrer" %>
+      <div class="form-actions flex-resp justify-content-between">
+        <%= f.button :submit, "Enregistrer", class:"button btn-flag-color mb-3" %>
+        <div class="flex-resp align-items-center mb-3">
+          <h6 class="primary-text-color ps-4 pe-4 center-text mb-1">Déja inscrit.e ?</h6>
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
     <% end %>
 
-    <%= render "devise/shared/links" %>
   </div>
 </div>

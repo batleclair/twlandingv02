@@ -30,67 +30,22 @@
   height: 36px;
   width: 36px;
   text-align: center;
-}
-.main-color{
-  color: $first-main-color;
-  background-color: white;
+  cursor: pointer;
 }
 
 .sm-logo{
   height: 20px;
 }
 
-// .dropdown-tabs{
-//   position: relative;
-//   display: flex;
-//   background-color: $first-main-color;
-//   >div{
-//     display: flex;
-//     flex-direction: column;
-//     position: absolute;
-//     background-color: $first-main-color;
-//     top: -200px;
-//     transition: ease-in-out 0.2s;
-//     width: 100%;
-//     >a{
-//       padding: 10px;
-//     }
-//   }
-//   &:hover{
-//     >div{
-//       transition: ease-in-out 0.2s;
-//       top: 20px
-//     }
-//   }
-// }
-
-// .tabs{
-//   height: 50px;
-//   background-color: red;
-//   position: relative;
-//   padding: 10px 10px 0px 10px;
-//   margin-bottom: 10px;
-//   >div{
-//     padding: 20px;
-//     transition: ease-in-out 0.2s;
-//     background-color: $first-main-color;
-//     position: absolute;
-//     top: -200px;
-//     left: 0;
-//     z-index: -2;
-//   }
-//   &:hover{
-//     >div{
-//       transition: ease-in-out 0.2s;
-//       top: 50px;
-//     }
-//   }
-// }
+.user-nav-box {
+  text-align: end;
+}
 
 .tabs{
   height: 65px;
   position: relative;
   cursor: pointer;
+  margin-left: 20px;
   .dropdown-tabs{
     transition: ease-in-out 0.2s;
     background-color: $first-main-color;
@@ -139,5 +94,54 @@
         transition: ease-in-out 0.2s;
       }
     }
+  }
+}
+
+.tabs-ctn{
+  display: flex;
+  align-items: center;
+}
+
+@media(max-width: 720px) {
+  .menu{
+    height: 100vh;
+    translate: -100vw;
+    >div{
+      flex-direction: column;
+      height: 70%;
+      min-height: 500px;
+      justify-content: space-around;
+      margin-left: 0px;
+    }
+  }
+  .tabs-ctn{
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .menu-expand{
+    translate: 0vw;
+  }
+  .tabs{
+    margin-left: 0;
+    .dropdown{
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .dropdown-tabs{
+      position: unset;
+      padding: 0;
+      margin: 0;
+      align-items: center;
+    }
+  }
+  .sm-logo{
+    height: auto;
+    width: 50vw;
+    max-width: 250px;
+  }
+  .user-nav-box {
+    text-align: center;
   }
 }
