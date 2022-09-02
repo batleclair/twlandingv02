@@ -1,8 +1,18 @@
 <%= simple_form_for(@candidate, html: {'data-progress-target': "form1"}) do |f| %>
 
-  <%= f.input :linkedin_url %>
-  <%= f.input :phone_num %>
-  <%= f.input :cv, as: :file %>
+  <div class="d-flex flex-column mb-3 full-width">
+    <%= f.input :status,
+                label:'Vous êtes actuellement :',
+                collection: [['ft_employee', 'Salarié.e temps plein'], ['pt_employee', 'Salarié.e temps partiel'], ['freelance', 'Indépendant.e'], ['inactive', 'Sans activité']],
+                label_method: :last,
+                value_method: :first,
+                as: :radio_buttons,
+                item_wrapper_class: "radio-button-ctn" %>
+  </div>
+
+  <%= f.input :linkedin_url, label: "URL de votre page LinkedIn" %>
+  <%= f.input :phone_num, label: "Numéro de téléphone" %>
+  <%= f.input :cv, as: :file, label: "Télécharger votre CV (doc/pdf)" %>
 
   <div class="d-flex justify-content-end">
     <button type="submit" class="button btn-flag-color" data-action="click->progress#step2">Suivant</button>

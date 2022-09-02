@@ -8,8 +8,9 @@
 
   <%= f.input :consent,
               input_html: { class: "toggle" },
-              wrapper_html: { class: "div-align" },
+              wrapper_html: { class: "div-align position-relative" },
               label: 'Je confirme avoir pris connaissance des éléménts ci-dessus' %>
+  <p id="consent-error" class="sm-red-msg"></p>
 
   <div class="d-flex justify-content-end">
     <button class="button btn-light-flag me-2" data-action="click->progress#back2">Retour</button>

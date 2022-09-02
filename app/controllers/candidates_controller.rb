@@ -1,8 +1,8 @@
 class CandidatesController < ApplicationController
   def create
     if current_user.candidate.nil?
-      authorize @candidate
       @candidate = Candidate.new(candidate_params)
+      authorize @candidate
       @candidate.user_id = current_user.id
       @candidate.save
       @candidate.valid?
@@ -29,6 +29,6 @@ class CandidatesController < ApplicationController
   end
 
   def candidate_params
-    params.require(:candidate).permit(:linkedin_url, :phone_num, :cv)
+    params.require(:candidate).permit(:linkedin_url, :phone_num, :cv, :status)
   end
 end

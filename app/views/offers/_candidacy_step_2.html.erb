@@ -1,25 +1,33 @@
 <%= simple_form_for([offer, candidacy], html: {'data-progress-target': "form2"}) do |f| %>
 
-  <%= f.input :employer_name,
-              label: 'Votre employeur actuel' %>
+  <% if user_signed_in? %>
+    <% if !current_user.candidate.nil? %>
+      <% display = "d-none" unless current_user.candidate.status == "ft_employee" || current_user.candidate.status == "pt_employee" %>
+    <% end %>
+  <% end %>
 
-  <%= f.input :employer_aware,
-              input_html: { class: "toggle" },
-              wrapper_html: { class: "div-align" },
-              label: 'Votre employeur est-il au courant de votre démarche ?' %>
+  <div data-progress-target="foremployees" class="d-none">
+    <%= f.input :employer_name,
+                label: 'Votre employeur actuel' %>
 
-  <div class="mb-3 d-flex justify-content-between" data-controller="slider" data-slider-type="custom">
-    <%= f.label 'Les chances qu’il accepte de vous passer en temps partiel ?' %>
-    <div>
-      <%= f.input_field :employer_ok_chance,
-                        as: :range,
-                        class: "slider",
-                        min: 1,
-                        max: 5,
-                        value: 3,
-                        'data-slider-target': "input",
-                        'data-action': "input->slider#update" %>
-      <p class="text-end" ><span data-slider-target="output">-</span></p>
+    <%= f.input :employer_aware,
+                input_html: { class: "toggle" },
+                wrapper_html: { class: "div-align position-relative" },
+                label: 'Votre employeur est-il au courant de votre démarche ?' %>
+
+    <div class="mb-3 d-flex justify-content-between" data-controller="slider" data-slider-type="custom">
+      <%= f.label "Votre employeur est-il" %>
+      <div>
+        <%= f.input_field :employer_ok_chance,
+                          as: :range,
+                          class: "slider",
+                          min: 1,
+                          max: 5,
+                          value: 3,
+                          'data-slider-target': "input",
+                          'data-action': "input->slider#update" %>
+        <p class="text-end" ><span data-slider-target="output">-</span></p>
+      </div>
     </div>
   </div>
 
@@ -29,18 +37,13 @@
       <%= f.input_field :half_days_wish,
                         as: :range,
                         class: "slider",
-                        min: offer.half_days_min,
-                        max: offer.half_days_max,
+                        min: offer.active? ? offer.half_days_min : 1,
+                        max: offer.active? ? offer.half_days_max : 10,
                         'data-slider-target': "input",
                         'data-action': "input->slider#update" %>
       <p class="text-end" ><span data-slider-target="output">-</span> demi-j / sem</p>
     </div>
   </div>
-
-  <%= f.input :start_date_wish,
-              label: 'A quelle date pourriez-vous démarrer ?',
-              as: :string,
-              input_html: { class: 'datepicker' } %>
 
   <%= f.input :motivation_msg,
               label: "Quelques mots sur votre motivation ?" %>

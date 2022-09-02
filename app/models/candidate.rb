@@ -4,6 +4,7 @@ class Candidate < ApplicationRecord
   has_one_attached :cv
 
   validates :phone_num, presence: { message: "Veuillez renseigner votre tel" }
+  validates :status, presence: { message: "Veuillez sélectionner parmi les options" }
   validate :basics
   validate :cv_file_type
 

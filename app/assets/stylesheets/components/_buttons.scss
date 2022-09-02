@@ -33,9 +33,9 @@
   background-color: white;
   border: solid 1px $first-main-color;
   color: $first-main-color;
-  padding: 8px 18px;
   &:hover {
     background-color: $first-light-color;
+    color: $first-main-color;
   }
 }
 
@@ -43,7 +43,6 @@
   background-color: white;
   border: solid 1px $first-flag-color;
   color: $first-flag-color;
-  padding: 8px 18px;
   &:hover {
     color: $first-flag-darker;
   }
@@ -75,5 +74,14 @@
   transition: ease-in-out 0.2s;
   &:hover {
     transition: ease-in-out 0.2s;
+  }
+}
+
+.btn-admin-cta{
+  background-color: green;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: greenyellow;
   }
 }

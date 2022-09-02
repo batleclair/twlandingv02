@@ -9,6 +9,7 @@ class CandidaciesController < ApplicationController
   def check
     @candidacy = Candidacy.new(candidacy_params)
     authorize @candidacy
+    @candidacy.consent = true
     @candidacy.offer_id = params[:offer_id]
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
@@ -17,15 +18,13 @@ class CandidaciesController < ApplicationController
 
   def create
     @candidacy = Candidacy.new(candidacy_params)
+    @candidacy.consent = params['consent'] == 'true'
     authorize @candidacy
     @candidacy.offer_id = params[:offer_id]
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
-    if @candidacy.save
-      render json: json_response(@candidacy)
-    else
-      render json: { employer_name: @candidacy.errors[:employer_name].first }
-    end
+    @candidacy.save
+    render json: json_response(@candidacy)
   end
 
   private

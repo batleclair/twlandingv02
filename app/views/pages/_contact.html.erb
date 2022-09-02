@@ -13,6 +13,7 @@
             <%= f.input :first_name,
                         label: false,
                         wrapper: false,
+                        placeholder: "Greta",
                         class: "inline-field" %>
           </div>
           <p id="first_name_errors" class="sm-red-msg"></p>
@@ -21,6 +22,7 @@
             <%= f.input :last_name,
                         label: false,
                         wrapper: false,
+                        placeholder: "Thunberg",
                         class: "inline-field" %>
           </div>
           <p id="last_name_errors" class="sm-red-msg"></p>
@@ -29,6 +31,7 @@
             <%= f.input :email,
                         label: false,
                         wrapper: false,
+                        placeholder: "greta@demain.works",
                         class: "inline-field" %>
           </div>
           <p id="email_errors" class="sm-red-msg"></p>
@@ -41,20 +44,24 @@
                         class: "inline-field" %>
           </div>
           <p id="organization_errors" class="sm-red-msg"></p>
-          <div class="form-wrapper flex-column">
-            <h6 class="center-text mb-2">Vous etes un.e</h6>
-            <div class="d-flex justify-content-evenly" style="width: 100%">
-              <%= f.collection_radio_buttons :contact_type,
-                                              [['Association', 'Association'], ['Entreprise', 'Entreprise'], ['Salarié', 'Salarié.e']], :first, :last %>
-            </div>
+          <div class="form-wrapper radio-box align-items-start">
+            <h6 class="inline-label">Vous êtes</h6>
+              <%= f.input :contact_type,
+                          label:'Vous êtes un.e :',
+                          collection: [['Association', "Une organisation de l'ESS"], ['Candidat', 'Un.e candidat.e en quêete de sens'], ['Entreprise', 'Une entreprise']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: "radio-button-ctn" %>
           </div>
           <p id="contact_type_errors" class="sm-red-msg"></p>
-          <h6 class="center-text mt-3">Votre message</h6>
-          <div class="form-wrapper mb-3">
+          <div class="form-wrapper mb-3  align-items-start">
+            <h6 class="inline-label">Votre message</h6>
             <%= f.input :message,
                         label: false,
                         wrapper: false,
-                        placeholder: "N'hésitez pas a nous en dire un peu plus" %>
+                        placeholder: "N'hésitez pas a nous en dire un peu plus",
+                        class: "inline-field" %>
           </div>
           <div class="submission">
               <%= recaptcha_tags %>

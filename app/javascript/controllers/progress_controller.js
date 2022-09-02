@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="progress"
 export default class extends Controller {
-  static targets = ['bar1', 'bar2', 'bar3', 'step1', 'step2', 'step3', 'next', 'form1', 'form2', 'header', 'num', 'confirmation']
+  static targets = ['bar1', 'bar2', 'bar3', 'step1', 'step2', 'step3', 'next', 'form1', 'form2', 'header', 'num', 'confirmation', 'foremployees']
 
   connect() {
     console.log(this.form1Target)
@@ -12,6 +12,8 @@ export default class extends Controller {
     event.preventDefault()
     const token = document.querySelector("[name='csrf-token']").content
     const form2 = new FormData(this.form2Target)
+    // form2.append('consent', true)
+    // console.log(form2.get('consent'))
     const offerId = this.nextTarget.dataset.offer
     const urlCheck = `/offers/${offerId}/check`
     this.form2Target.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
@@ -59,6 +61,12 @@ export default class extends Controller {
           this.step2Target.classList.remove("d-none")
           this.bar2Target.classList.add("sb-active")
           this.numTarget.innerHTML = '2'
+          this.foremployeesTarget.classList.remove("d-none")
+          if (form1.getAll("candidate[status]")[1] === 'pt_employee' || form1.getAll("candidate[status]")[1] === 'ft_employee') {
+            this.foremployeesTarget.classList.remove("d-none")
+          } else {
+            this.foremployeesTarget.classList.add("d-none")
+          }
         } else {
           Object.keys(data['errors']).forEach(key => {
             Object.values(data['errors'][key]).forEach(value => {
@@ -72,10 +80,10 @@ export default class extends Controller {
   submit(event) {
     event.preventDefault()
     const token = document.querySelector("[name='csrf-token']").content
-
     const form2 = new FormData(this.form2Target)
     form2.append('consent', document.getElementById('candidacy_consent').checked)
     const urlCandidacy = this.form2Target.action
+    document.getElementById('consent-error').innerHTML = ''
     fetch(urlCandidacy, {
       method: "POST",
       headers: {"X-CSRF-Token": token },
@@ -83,12 +91,15 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(data)
+        if (data['valid']) {
+          this.step3Target.classList.add("d-none")
+          this.headerTarget.classList.add("d-none")
+          this.confirmationTarget.classList.remove("d-none")
+        } else {
+          document.getElementById('consent-error').innerHTML = data['errors']['consent'][0]
+        }
       })
 
-    this.step3Target.classList.add("d-none")
-    this.headerTarget.classList.add("d-none")
-    this.confirmationTarget.classList.remove("d-none")
   }
 
   back1(event) {

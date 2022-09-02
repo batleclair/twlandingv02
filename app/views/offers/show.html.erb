@@ -1,9 +1,6 @@
 <% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : image_path('bannerbg.jpg') %>
 <% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key) : image_tag('illustration5.png') %>
 
-  <% if user_signed_in? && policy(Offer).edit? %>
-    <%= link_to "Modifier l'offre", edit_offer_path(@offer), class: "button" %>
-  <% end %>
 
 <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="offer-banner">
   <div class="logo-box mb-3">
@@ -60,6 +57,12 @@
         <h6 class="mt-3">Grâce à Demain :</h6>
         <p>Votre rémunération sera <span class="stress">au moins équivalente au cumul de 2 temps partiels</span>, l'un dans votre entreprise et l'autre chez <strong><%= @offer.beneficiary.name %></strong></p>
         <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
+          <% if user_signed_in? && policy(Offer).edit? %>
+            <%= link_to edit_offer_path(@offer), class: "button full-width btn-admin-cta mt-3" do %>
+              <i class="fa-solid fa-gear"></i>
+              Modifier l'offre
+            <% end %>
+          <% end %>
     </div>
   </div>
   <div class="toggle-sm">

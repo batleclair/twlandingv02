@@ -1,0 +1,59 @@
+.radio-box > fieldset > legend{
+  display: none;
+}
+.radio-box > fieldset{
+  width: 100%;
+  > legend{
+  display: none;
+  }
+}
+
+.radio-button-ctn{
+
+  &:hover{
+    >label{
+    background-color: $light-gray;
+    }
+  }
+  >input{
+    display: none;
+  }
+  >label{
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 50em;
+    &::before{
+      content: '';
+      padding: 0px 10px;
+      border: 2px solid $first-main-color;
+      background-color: white;
+      border-radius: 50em;
+      margin-right: 10px;
+    }
+    &::after{
+      content: '';
+      position: absolute;
+      background-color: $first-main-color;
+      left: 0;
+      box-sizing: border-box;
+      border: 1px solid white;
+      left: 2px;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50em;
+      scale: 0;
+      transition: 0.2s ease-in-out;
+    }
+  }
+
+  >input:checked + label{
+    font-weight: 500;
+    &::after{
+      scale: 100%;
+      transition: 0.2s ease-in-out;
+    }
+  }
+
+}
