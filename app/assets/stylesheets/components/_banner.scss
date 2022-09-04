@@ -37,6 +37,12 @@
       max-width: 85vw;
     }
   }
+  .offer-banner{
+    padding: 100px 5vw 50px 5vw;
+    >h2{
+      margin-bottom: 30px;
+    }
+  }
 }
 
 .offer-banner{
@@ -51,6 +57,9 @@
   box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
   color: white;
   position: relative;
+  >h2{
+    text-align: center;
+  }
 }
 
 .offer-specs{

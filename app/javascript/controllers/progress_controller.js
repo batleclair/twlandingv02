@@ -5,15 +5,12 @@ export default class extends Controller {
   static targets = ['bar1', 'bar2', 'bar3', 'step1', 'step2', 'step3', 'next', 'form1', 'form2', 'header', 'num', 'confirmation', 'foremployees']
 
   connect() {
-    console.log(this.form1Target)
   }
 
   step3(event) {
     event.preventDefault()
     const token = document.querySelector("[name='csrf-token']").content
     const form2 = new FormData(this.form2Target)
-    // form2.append('consent', true)
-    // console.log(form2.get('consent'))
     const offerId = this.nextTarget.dataset.offer
     const urlCheck = `/offers/${offerId}/check`
     this.form2Target.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });

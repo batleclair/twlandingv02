@@ -42,7 +42,7 @@
 
 
 <div class="white-wrapper">
-  <div class="resp-flex-ctn">
+  <div class="resp-flex-ctn" data-controller="lock">
     <div class="toggle-sm sticky-btn">
       <%= render partial: "apply", locals: {offer: @offer} %>
     </div>
@@ -50,7 +50,7 @@
       <h4 class="mb-4"><span class="stress"><%= @offer.title %></span></h4>
       <%= @offer.description %>
     </div>
-    <div class="fixed-size-box sticky-box toggle-lg" data-controller="lock">
+    <div class="fixed-size-box sticky-box toggle-lg">
 
         <%= render partial: "apply", locals: {offer: @offer} %>
         <h5 class="text-center primary-text-color">Un impact limité sur votre rémunération !</h5>

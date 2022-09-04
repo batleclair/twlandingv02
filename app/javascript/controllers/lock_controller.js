@@ -10,6 +10,5 @@ export default class extends Controller {
   unhide(event) {
     this.applyTarget.classList.add('d-none')
     this.loginTarget.classList.remove('d-none')
-    // this.loginTarget.classList.add('d-flex')
   }
 }
