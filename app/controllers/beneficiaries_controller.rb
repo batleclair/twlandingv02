@@ -27,6 +27,7 @@ class BeneficiariesController < ApplicationController
   end
 
   def edit
+    authorize @beneficiary
   end
 
   def update
