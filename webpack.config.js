@@ -7,6 +7,22 @@ module.exports = {
   entry: {
     application: "./app/javascript/application.js"
   },
+  resolve: {
+    modules: ['node_modules'] // Added my ./node_modules folder to be taken into account
+  },
+  resolve: {
+    enforceExtension: false // allows webpack to use imports with extension-less
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false // allows webpack to ignore some package rules as the Strict EcmaScript Module mode.
+        }
+      }
+    ],
+  },
   output: {
     filename: "[name].js",
     sourceMapFilename: "[name].js.map",
