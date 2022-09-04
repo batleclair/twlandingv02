@@ -76,4 +76,6 @@
   </div>
 </div>
 
-<span data-modal-target="content"><%= render partial: "candidacy", locals: {offer: @offers.last, candidacy: @candidacy} %></span>
+<% unless @offers.where(status: 'active') == [] && @offers.where(status: 'upcoming') == []%>
+  <span data-modal-target="content"><%= render partial: "candidacy", locals: {offer: @offers.last, candidacy: @candidacy} %></span>
+<% end %>
