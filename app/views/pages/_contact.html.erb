@@ -1,5 +1,5 @@
-<div class="modal-bg" data-modal-target="window">
-  <div class="modal-inner">
+<div class="modal-bg" data-contact-target="window" data-modal-target="window" data-action="click->modal#close">
+  <div class="modal-inner" data-action="click->modal#keep">
     <div class="d-flex justify-content-between form-header">
       <h5>Indiquez-nous vos coordonnées</h5>
 
@@ -47,8 +47,8 @@
           <div class="form-wrapper radio-box align-items-start">
             <h6 class="inline-label">Vous êtes</h6>
               <%= f.input :contact_type,
-                          label:'Vous êtes un.e :',
-                          collection: [['Association', "Une organisation de l'ESS"], ['Candidat', 'Un.e candidat.e en quêete de sens'], ['Entreprise', 'Une entreprise']],
+                          label:'Vous êtes un/une :',
+                          collection: [['Association', "Acteur de l'ESS"], ['Candidat', 'Talent en quête de sens'], ['Entreprise', 'Une entreprise']],
                           label_method: :last,
                           value_method: :first,
                           as: :radio_buttons,

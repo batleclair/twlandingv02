@@ -24,6 +24,9 @@
         <li>Conservez votre emploi actuel à temps partiel, en le combinant avec un deuxième emploi associatif qui vous ressemble</li>
         <li>Cassez la routine de votre semaine en entreprise, et gagnez en compétences (soft skills, hard skills)</li>
       </ul>
+      <div class="d-flex justify-content-end">
+        <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
+      </div>
     </div>
     <div class="mid-page-ctn">
       <div>
@@ -31,9 +34,9 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center">
-    <a class="button btn-flag-color" href="" data-action="click->modal#popup">Contactez-nous !</a>
+  <div class="flex-resp justify-content-center align-items-center" data-controller="contact">
+    <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
+    <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+    <%= render partial: "contact" %>
   </div>
 </div>
-
-<%= render partial: "contact" %>

@@ -25,16 +25,16 @@ export default class extends Controller {
           this.outputTarget.innerHTML = 'impossible ! 😩';
           break;
         case '2':
-          this.outputTarget.innerHTML = 'difficile 😟';
+          this.outputTarget.innerHTML = 'pas sûr... 😟';
           break;
         case '3':
-          this.outputTarget.innerHTML = 'incertain 😗';
+          this.outputTarget.innerHTML = 'je ne sais pas 😗';
           break;
         case '4':
           this.outputTarget.innerHTML = 'possible 🙂';
           break;
         case '5':
-          this.outputTarget.innerHTML = 'facile ! 🤩';
+          this.outputTarget.innerHTML = "c'est sûr ! 🤩";
           break;
         default:
           break;
@@ -58,16 +58,16 @@ export default class extends Controller {
           this.outputTarget.innerHTML = 'impossible ! 😩';
           break;
         case '2':
-          this.outputTarget.innerHTML = 'difficile 😟';
+          this.outputTarget.innerHTML = 'pas sûr... 😟';
           break;
         case '3':
-          this.outputTarget.innerHTML = 'incertain 😗';
+          this.outputTarget.innerHTML = 'je ne sais pas 😗';
           break;
         case '4':
           this.outputTarget.innerHTML = 'possible 🙂';
           break;
         case '5':
-          this.outputTarget.innerHTML = 'facile ! 🤩';
+          this.outputTarget.innerHTML = "c'est sûr ! 🤩";
           break;
         default:
           break;

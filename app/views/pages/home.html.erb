@@ -1,8 +1,9 @@
 
-<div style="background-image: linear-gradient(45deg, rgba(83, 28, 179, 1), rgba(0, 157, 220, 0.6)), url('<%= image_path "bannerbg.jpg" %>');" class="banner">
+<div style="background-image: linear-gradient(45deg, rgba(83, 28, 179, 1), rgba(0, 157, 220, 0.6)), url('<%= image_path "bannerbg.jpg" %>');" class="banner" data-controller="contact">
   <%= image_tag "logowhite.svg" %>
   <h3>La plateforme du recrutement solidaire au service <span data-controller="typed-js"></span></h3>
-  <a class="button btn-flag-color" href="" data-action="click->modal#popup">Contactez-nous !</a>
+  <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+  <%= render partial: "contact" %>
 </div>
 
 <div class="ctn">
@@ -61,5 +62,3 @@
 
   </div>
 </div>
-
-<%= render partial: "contact" %>

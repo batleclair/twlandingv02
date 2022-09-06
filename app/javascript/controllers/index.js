@@ -4,6 +4,12 @@
 
 import { application } from "./application"
 
+import CandidacyController from "./candidacy_controller.js"
+application.register("candidacy", CandidacyController)
+
+import ContactController from "./contact_controller.js"
+application.register("contact", ContactController)
+
 import HelloController from "./hello_controller.js"
 application.register("hello", HelloController)
 

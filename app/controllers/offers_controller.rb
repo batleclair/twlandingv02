@@ -13,6 +13,7 @@ class OffersController < ApplicationController
   end
 
   def index
+    @contact = Contact.new
     @offers = policy_scope(Offer).order(:status)
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?
