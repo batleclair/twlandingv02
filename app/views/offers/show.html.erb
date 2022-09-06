@@ -42,7 +42,7 @@
 
 
 <div class="white-wrapper">
-  <div class="resp-flex-ctn">
+  <div class="resp-flex-ctn" data-controller="candidacy">
     <div class="toggle-sm sticky-btn" data-controller="lock">
       <%= render partial: "apply", locals: {offer: @offer} %>
     </div>
@@ -51,7 +51,6 @@
       <%= @offer.description %>
     </div>
     <div class="fixed-size-box sticky-box toggle-lg" data-controller="lock">
-
         <%= render partial: "apply", locals: {offer: @offer} %>
         <h5 class="text-center primary-text-color">Demain vous accompagne...</h5>
         <h6 class="mt-3 mb-1">L'engagement qui vous correspond</h6>
@@ -64,6 +63,7 @@
             <% end %>
           <% end %>
     </div>
+    <%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %>
   </div>
   <div class="toggle-sm">
     <h5 class="text-center primary-text-color mt-5
@@ -73,7 +73,3 @@
     <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
   </div>
 </div>
-
-
-
-<%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %>

@@ -8,15 +8,19 @@ export default class extends Controller {
 
   popup2(event) {
     event.preventDefault()
-    const urlSelect = `offers/${event.target.dataset.id}/select`
-    fetch(urlSelect, {
+    if (event.target.dataset.id === undefined) {
+      this.windowTarget.style.display = "block"
+    } else {
+      const urlSelect = `offers/${event.target.dataset.id}/select`
+      fetch(urlSelect, {
 
-    })
-    .then(response => response.json())
-    .then((data) => {
-     this.contentTarget.innerHTML = data.content
-     this.windowTarget.style.display = "block"
-    })
+      })
+      .then(response => response.json())
+      .then((data) => {
+       this.contentTarget.innerHTML = data.content
+       this.windowTarget.style.display = "block"
+      })
+    }
   }
 
 }
