@@ -11,6 +11,19 @@
   }
 }
 
+.round-button{
+  width: 40px;
+  height: 40px;
+  border-radius: 50em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease-in-out 0.2s;
+  &:hover {
+    transition: ease-in-out 0.2s;
+  }
+}
+
 .btn-main-color {
   background-color: $first-main-color;
   color: white;

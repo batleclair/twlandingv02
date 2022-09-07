@@ -1,0 +1,48 @@
+<%= render partial: "shared/navpan", locals: {active: 4} %>
+
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Formulaires de contact</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Organisation</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @contacts.each do |c| %>
+            <tr>
+              <td class="no-wrap"><%= c.created_at.strftime("%d-%m-%Y") %></td>
+              <td class="no-wrap"><%= c.contact_type %></td>
+              <td class="no-wrap"><%= c.organization %></td>
+              <td class="no-wrap"><%= c.first_name %></td>
+              <td class="no-wrap"><%= c.last_name %></td>
+              <td class="no-wrap"><%= c.email %></td>
+              <td><%= c.message %></td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <%= link_to contact_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash primary-text-color"></i>
+                  <% end %>
+                </div>
+              </td>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

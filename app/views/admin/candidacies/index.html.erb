@@ -1,0 +1,72 @@
+<%= render partial: "shared/navpan", locals: {active: 3} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Candidatures reçues</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Association</th>
+            <th>Offre</th>
+            <th>Candidat</th>
+            <th>Status</th>
+            <th>Employeur</th>
+            <th class="center-text">CV transmis</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @candidacies.each do |c| %>
+            <tr>
+              <td class="no-wrap"><%= c.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= c.offer.beneficiary.name %></td>
+              <td><%= c.offer.title %></td>
+              <td><%= "#{c.candidate.user.first_name} #{c.candidate.user.last_name.upcase}" %></td>
+              <td><%= c.candidate.status %></td>
+              <td><%= c.employer_name %></td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <% if c.candidate.cv.attached? %>
+                    <i class="fa-solid fa-circle-check green-color"></i>
+                  <% else %>
+                    <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                  <% end %>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to(admin_candidacy_path(c)) do %>
+                    <i class="fa-solid fa-eye primary-text-color"></i>
+                  <% end %>
+                  <%= link_to candidacy_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash primary-text-color"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+"candidate_id", null: false
+    t.bigint "offer_id", null: false
+    t.boolean "consent", default: false
+    t.string "employer_name"
+    t.boolean "employer_aware"
+    t.integer "employer_ok_chance"
+    t.integer "half_days_wish"
+    t.date "start_date_wish"
+    t.text "motivation_msg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"

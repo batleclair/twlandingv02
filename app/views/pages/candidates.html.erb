@@ -1,42 +1,44 @@
-<div class="light-bg">
+<div class="pb-5">
+  <div class="light-bg">
+    <div class="ctn">
+      <h1 class="center-text big-header-with-bg">Salariés d'entreprise</h1>
+
+      <div class="flex-resp mb-5">
+        <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="lg-illustration"></div>
+        <div class="text-card-xl">
+          <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Vous avez le <span class="stress">pouvoir</span></h4>
+          <p class="mb-1">Vous souhaitez trouver du sens dans votre travail au quotidien ?</p>
+          <p class="mb-1">Vous voulez vous engager concrètement et durablement en faveur de la transition sociale et environementale ?</p>
+          <p class="mb-1">Grâce à <span class="stress">Demain</span> : vous avez le pouvoir de <strong>changer le monde sans changer d'employeur</strong> !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="ctn">
-    <h1 class="center-text big-header-with-bg">Salariés d'entreprise</h1>
-
     <div class="flex-resp mb-5">
-      <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="lg-illustration"></div>
       <div class="text-card-xl">
-        <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Vous avez le <span class="stress">pouvoir</span></h4>
-        <p class="mb-1">Vous souhaitez trouver du sens dans votre travail au quotidien ?</p>
-        <p class="mb-1">Vous voulez vous engager concrètement et durablement en faveur de la transition sociale et environementale ?</p>
-        <p class="mb-1">Grâce à <span class="stress">Demain</span> : vous avez le pouvoir de <strong>changer le monde sans changer d'employeur</strong> !</p>
+        <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Rejoignez le <span class="stress">mouvement</span> !</h4>
+        <p class="mb-1">Concrétisez vos projets d'engagement en toute sécurité grâce au dispositif de <span class="stress">Demain</span></p>
+        <ul>
+          <li>Candidatez à des postes à temps partiel en toute discrétion, et bénéficiez de notre accompagnement pour faire valoir vos aspirations auprès de votre employeur</li>
+          <li>Conservez votre emploi actuel à temps partiel, en le combinant avec un deuxième emploi associatif qui vous ressemble</li>
+          <li>Cassez la routine de votre semaine en entreprise, et gagnez en compétences (soft skills, hard skills)</li>
+        </ul>
+        <div class="d-flex justify-content-end">
+          <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
+        </div>
+      </div>
+      <div class="mid-page-ctn">
+        <div>
+          <h5 class="center-text mt-5"></h5>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="ctn">
-  <div class="flex-resp mb-5">
-    <div class="text-card-xl">
-      <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Rejoignez le <span class="stress">mouvement</span> !</h4>
-      <p class="mb-1">Concrétisez vos projets d'engagement en toute sécurité grâce au dispositif de <span class="stress">Demain</span></p>
-      <ul>
-        <li>Candidatez à des postes à temps partiel en toute discrétion, et bénéficiez de notre accompagnement pour faire valoir vos aspirations auprès de votre employeur</li>
-        <li>Conservez votre emploi actuel à temps partiel, en le combinant avec un deuxième emploi associatif qui vous ressemble</li>
-        <li>Cassez la routine de votre semaine en entreprise, et gagnez en compétences (soft skills, hard skills)</li>
-      </ul>
-      <div class="d-flex justify-content-end">
-        <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
-      </div>
+    <div class="flex-resp justify-content-center align-items-center" data-controller="contact">
+      <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
+      <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+      <%= render partial: "contact" %>
     </div>
-    <div class="mid-page-ctn">
-      <div>
-        <h5 class="center-text mt-5"></h5>
-      </div>
-    </div>
-  </div>
-  <div class="flex-resp justify-content-center align-items-center" data-controller="contact">
-    <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
-    <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
-    <%= render partial: "contact" %>
   </div>
 </div>

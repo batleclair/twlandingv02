@@ -1,5 +1,6 @@
 class Beneficiary < ApplicationRecord
-  has_many :offers
+  has_many :offers, dependent: :destroy
+  has_many :candidacies, through: :offers
   has_one_attached :photo
   has_one_attached :logo
   validate :basics

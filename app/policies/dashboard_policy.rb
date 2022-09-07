@@ -1,13 +1,5 @@
-class ContactPolicy < ApplicationPolicy
-  def create?
-    true
-  end
-
-  def index?
-    user.user_type == 'admin'
-  end
-
-  def destroy?
+class DashboardPolicy < ApplicationPolicy
+  def show?
     user.user_type == 'admin'
   end
 

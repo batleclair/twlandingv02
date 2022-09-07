@@ -1,0 +1,43 @@
+.navpan{
+  background-color: $first-main-color;
+  height: 100vh;
+  width: 300px;
+  padding-top: 85px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: calc(5vw + 40px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  >p{
+    color: white;
+  }
+  >a{
+    display: block;
+  }
+}
+
+.navpan-mg-ctn{
+  margin-left: 300px;
+}
+
+.navpan-transp-ctn{
+  height: 200px;
+  padding: 80px 5vw 20px 20px;
+}
+
+.navpan-white-ctn{
+  min-height: calc(100vh - 40px - 200px);
+  background-color: white;
+  padding: 20px 5vw 20px 20px;
+}
+
+a[data-active="true"] {
+  font-weight: 600;
+  position: relative;
+  &::before{
+    content: '▶';
+    position: absolute;
+    left: -30px;
+  }
+}

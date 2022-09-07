@@ -27,6 +27,12 @@ class CandidaciesController < ApplicationController
     render json: json_response(@candidacy)
   end
 
+  def destroy
+    @candidacy.destroy
+    authorize @candidacy
+    redirect_to admin_candidacies_path, status: :see_other
+  end
+
   private
 
   def json_response(candidacy)

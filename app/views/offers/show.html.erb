@@ -51,17 +51,11 @@
       <%= @offer.description %>
     </div>
     <div class="fixed-size-box sticky-box toggle-lg" data-controller="lock">
-        <%= render partial: "apply", locals: {offer: @offer} %>
-        <h5 class="text-center primary-text-color">Demain vous accompagne...</h5>
-        <h6 class="mt-3 mb-1">L'engagement qui vous correspond</h6>
-        <p>Que vous soyez indépendant.e ou salarié.e en entreprise, Demain vous permet de vous engager dans la durée pour <strong><%= @offer.beneficiary.name %></strong> tout en poursuivant votre activité professionnelle !</p>
-        <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
-          <% if user_signed_in? && policy(Offer).edit? %>
-            <%= link_to edit_offer_path(@offer), class: "button full-width btn-admin-cta mt-3" do %>
-              <i class="fa-solid fa-gear"></i>
-              Modifier l'offre
-            <% end %>
-          <% end %>
+      <%= render partial: "apply", locals: {offer: @offer} %>
+      <h5 class="text-center primary-text-color">Demain vous accompagne...</h5>
+      <h6 class="mt-3 mb-1">L'engagement qui vous correspond</h6>
+      <p>Que vous soyez indépendant.e ou salarié.e en entreprise, Demain vous permet de vous engager dans la durée pour <strong><%= @offer.beneficiary.name %></strong> tout en poursuivant votre activité professionnelle !</p>
+      <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
     </div>
     <%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %>
   </div>

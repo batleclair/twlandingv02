@@ -1,6 +1,6 @@
 class OfferPolicy < ApplicationPolicy
   def show?
-    record.status == 'active' || user.user_type == 'admin'
+    record.publish || user.user_type == 'admin'
   end
 
   def index?
@@ -19,10 +19,14 @@ class OfferPolicy < ApplicationPolicy
     user.user_type == 'admin'
   end
 
+  def destroy?
+    user.user_type == 'admin'
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.where(status: "active").or(scope.where(status: "upcoming"))
+      (scope.where(status: "active").or(scope.where(status: "upcoming"))).and(scope.where(publish: true))
     end
   end
 end

@@ -20,7 +20,7 @@ class BeneficiariesController < ApplicationController
     authorize @beneficiary
     @beneficiary.valid?
     if @beneficiary.save
-      redirect_to beneficiaries_path
+      redirect_to admin_beneficiaries_path
     else
 
     end
@@ -34,7 +34,7 @@ class BeneficiariesController < ApplicationController
     @beneficiary.update(beneficiary_params)
     authorize @beneficiary
     if @beneficiary.save
-      redirect_to beneficiaries_path
+      redirect_to admin_beneficiaries_path
     else
 
     end
@@ -43,7 +43,7 @@ class BeneficiariesController < ApplicationController
   def destroy
     @beneficiary.destroy
     authorize @beneficiary
-    redirect_to beneficiaries_path, status: :see_other
+    redirect_to admin_beneficiaries_path, status: :see_other
   end
 
   private

@@ -17,6 +17,13 @@ class ContactsController < ApplicationController
     end
   end
 
+  def destroy
+    @contact = Contact.find(params[:id])
+    @contact.destroy
+    authorize @contact
+    redirect_to admin_contacts_path, status: :see_other
+  end
+
   private
 
   def form_errors

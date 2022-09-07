@@ -1,0 +1,59 @@
+<%= render partial: "shared/navpan", locals: {active: 2} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Liste des offres</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <%= link_to "+ Créer", new_admin_offer_path, class:"button btn-main-color mb-3" %>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Association</th>
+            <th>Titre</th>
+            <th>Lieu</th>
+            <th>Status</th>
+            <th class="center-text">En ligne</th>
+            <th class="center-text">Candidatures</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @offers.each do |o| %>
+            <tr>
+              <td><%= o.beneficiary.name %></td>
+              <td><%= o.title %></td>
+              <td><%= o.location %></td>
+              <td><%= o.status %></td>
+              <td class="center-text">
+                <% if o.publish %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
+              <td class="center-text"><%= o.candidacies.count %></td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to(offer_path(o), target: "_blank") do %>
+                    <i class="fa-solid fa-eye primary-text-color"></i>
+                  <% end %>
+                  <%= link_to edit_admin_offer_path(o) do %>
+                    <i class="fa-solid fa-pen-to-square primary-text-color"></i>
+                  <% end %>
+                  <%= link_to offer_path(o), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash primary-text-color"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

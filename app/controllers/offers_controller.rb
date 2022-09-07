@@ -42,11 +42,11 @@ class OffersController < ApplicationController
   def create
     @offer = Offer.new(offer_params)
     authorize @offer
-    @offer.beneficiary_id = params[:beneficiary_id]
+    # @offer.beneficiary_id = params[:beneficiary_id]
     if @offer.save
       redirect_to offer_path(@offer)
     else
-
+      render new_admin_offer_path, status: :unprocessable_entity
     end
   end
 
@@ -58,15 +58,16 @@ class OffersController < ApplicationController
     @offer.update(offer_params)
     authorize @offer
     if @offer.save
-      redirect_to offer_path(@offer)
+      redirect_to admin_offers_path
     else
-
+      redirect_to edit_admin_offer_path(@offer)
     end
   end
 
   def destroy
+    authorize @offer
     @offer.destroy
-    redirect_to beneficiary_path(@offer.beneficiary), status: :see_other
+    redirect_to admin_offers_path, status: :see_other
   end
 
   private
@@ -76,6 +77,6 @@ class OffersController < ApplicationController
   end
 
   def offer_params
-    params.require(:offer).permit(:title, :location, :half_days_min, :half_days_max, :months_min, :months_max, :monthly_gross_salary, :description, :status)
+    params.require(:offer).permit(:title, :location, :half_days_min, :half_days_max, :months_min, :months_max, :monthly_gross_salary, :description, :status, :publish, :beneficiary_id)
   end
 end

@@ -1,39 +1,46 @@
 <div data-controller="menu">
   <i class="fa-solid fa-bars burger-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
   <nav class="menu" data-menu-target="nav" >
-          <div>
-            <%= link_to root_path do %>
-              <%= image_tag("logowhite.svg", class: "sm-logo") %>
-            <% end %>
+    <div>
+      <%= link_to root_path do %>
+        <%= image_tag("logowhite.svg", class: "sm-logo") %>
+      <% end %>
 
-            <div class="tabs-ctn">
-              <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
+      <div class="tabs-ctn">
+        <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
 
-              <div class="tabs">
-                <div class="dropdown">
-                  <div class="carret">
-                    <i class="fa-solid fa-angle-right"></i>
-                  </div>
-                  <h6 class="white-text ms-1">En savoir plus</h6>
-                </div>
-                <div class="dropdown-tabs">
-                  <%= link_to "Associations", nonprofits_path, class:"white-link" %>
-                  <%= link_to "Candidats", candidates_path, class:"white-link" %>
-                  <%= link_to "Entreprises", companies_path, class:"white-link" %>
-                  <%= link_to "A propos", about_path, class:"white-link" %>
-                </div>
-              </div>
-
+        <div class="tabs">
+          <div class="dropdown">
+            <div class="carret">
+              <i class="fa-solid fa-angle-right"></i>
             </div>
-
-            <% if user_signed_in? %>
-              <div class="user-nav-box">
-                <p style="color: white">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
-                <%= link_to "se déconnecter", destroy_user_session_path, method: :delete, class: "white-link sm-thin-text" %>
-              </div>
-            <% else %>
-              <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color"%>
-            <% end %>
+            <h6 class="white-text ms-1">En savoir plus</h6>
           </div>
+          <div class="dropdown-tabs">
+            <%= link_to "Associations", nonprofits_path, class:"white-link" %>
+            <%= link_to "Candidats", candidates_path, class:"white-link" %>
+            <%= link_to "Entreprises", companies_path, class:"white-link" %>
+            <%= link_to "A propos", about_path, class:"white-link" %>
+          </div>
+        </div>
+
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="d-flex align-items-center">
+          <div class="user-nav-box">
+            <p style="color: white">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
+            <%= link_to "se déconnecter", destroy_user_session_path, method: :delete, class: "white-link sm-thin-text" %>
+          </div>
+          <% if current_user.user_type == 'admin' %>
+            <%= link_to admin_path, class: "round-button btn-admin-cta ms-3" do %>
+              <i class="fa-solid fa-gear"></i>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color"%>
+      <% end %>
+    </div>
   </nav>
 </div>

@@ -1,0 +1,36 @@
+<%= render partial: "shared/navpan", locals: {active: 1} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <h3>Associations bénéficiaires</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+    <%= link_to "Retour", admin_beneficiaries_path, class:"button btn-light-main mb-2" %>
+    <%= simple_form_for(@beneficiary) do |f| %>
+      <%= f.input :name %>
+      <%= f.input :cause %>
+      <%= f.input :siren %>
+      <%= f.input :rna %>
+      <%= f.input :address %>
+      <%= f.input :city %>
+
+      <%= f.input :logo, as: :file %>
+      <% if @beneficiary.logo.attached? %>
+        <%= cl_image_tag @beneficiary.logo.key, height: 100, width: 100, crop: :fill %>
+      <% else %>
+        <p>pas de logo associé</p>
+      <% end %>
+
+      <%= f.input :photo, as: :file %>
+      <% if @beneficiary.photo.attached? %>
+        <%= cl_image_tag @beneficiary.photo.key, height: 300, width: 800, crop: :fill %>
+      <% else %>
+        <p>pas de photo associée</p>
+      <% end %>
+
+      <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
+    <% end %>
+
+  </div>
+</div>

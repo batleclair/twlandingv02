@@ -22,6 +22,9 @@ application.register("menu", MenuController)
 import ModalController from "./modal_controller.js"
 application.register("modal", ModalController)
 
+import NavpanController from "./navpan_controller.js"
+application.register("navpan", NavpanController)
+
 import ProgressController from "./progress_controller.js"
 application.register("progress", ProgressController)
 

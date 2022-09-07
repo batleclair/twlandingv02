@@ -1,0 +1,66 @@
+<%= render partial: "shared/navpan", locals: {active: 3} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Formulaires de contact</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <%= link_to "Retour", admin_candidacies_path, class:"button btn-light-main mb-3" %>
+      <h5>Nom : <%= "#{@candidacy.candidate.user.first_name} #{@candidacy.candidate.user.last_name.upcase}" %></h5>
+      <p>Status :
+        <% case @candidacy.candidate.status%>
+        <% when "ft_employee" %>
+        Salarié.e temps plein
+        <% when "pt_employee" %>
+        Salarié.e temps partiel
+        <% when "freelance" %>
+        Indépendant.e
+        <% when "inactive" %>
+        Sans activité
+        <% else %>
+        ???
+        <% end %>
+      <p>Employeur : <%= @candidacy.employer_name %></p>
+      <p>L'employeur est-il au courant ?
+        <% if @candidacy.employer_aware %>
+          <i class="fa-solid fa-circle-check green-color"></i>
+        <% else %>
+          <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+        <% end %>
+      </p>
+      <p>Les chances qu'il accepte : <%= "#{@candidacy.employer_ok_chance}/5" %></p>
+      <p>Fréquence souhaitée : <%= "#{@candidacy.half_days_wish} demi/j par semaine" %></p>
+      <p>Email : <%= @candidacy.candidate.user.email %></p>
+      <p>Tel : <%= @candidacy.candidate.phone_num %></p>
+      <p>LinkedIn : <a target="blank" href="<%= @candidacy.candidate.linkedin_url %>"><%= @candidacy.candidate.linkedin_url %></a></p>
+      <p>CV transmis ?
+        <% if @candidacy.candidate.cv.attached? %>
+          <i class="fa-solid fa-circle-check green-color"></i>
+        <% else %>
+          <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+        <% end %>
+      </p>
+      <p>Message : <%= @candidacy.motivation_msg %></p>
+
+    </div>
+
+  </div>
+</div>
+
+"candidate_id", null: false
+    t.bigint "offer_id", null: false
+    t.boolean "consent", default: false
+
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"
+
+    t.string "linkedin_url"
+    t.string "phone_num"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"

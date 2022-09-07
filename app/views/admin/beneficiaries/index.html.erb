@@ -1,0 +1,48 @@
+<%= render partial: "shared/navpan", locals: {active: 1} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Associations bénéficiaires</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <%= link_to "+ Ajouter", new_admin_beneficiary_path, class:"button btn-main-color mb-3" %>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Association</th>
+            <th>Cause</th>
+            <th>Ville</th>
+            <th class="center-text">Offres</th>
+            <th class="center-text">Candidatures</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @beneficiaries.each do |b| %>
+            <tr>
+              <td><%= b.name %></td>
+              <td><%= b.cause %></td>
+              <td><%= b.city %></td>
+              <td class="center-text"><%= b.offers.count %></td>
+              <td class="center-text"><%= b.candidacies.count %></td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                <%= link_to edit_admin_beneficiary_path(b) do %>
+                  <i class="fa-solid fa-pen-to-square primary-text-color"></i>
+                <% end %>
+                <%= link_to beneficiary_path(b), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                  <i class="fa-solid fa-trash primary-text-color"></i>
+                <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -32,7 +32,9 @@
 @media(max-width: 720px) {
   .banner {
     align-items: center;
-    text-align: center;
+    >h3{
+      text-align: center;
+    }
     img {
       max-width: 85vw;
     }

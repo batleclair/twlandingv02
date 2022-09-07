@@ -6,59 +6,61 @@
   <%= render partial: "contact" %>
 </div>
 
-<div class="ctn">
-  <div class="row">
+<div class="pb-5">
+  <div class="ctn">
+    <div class="row">
 
-    <div class="col-sm-12 col-lg-4">
-      <%= link_to nonprofits_path do %>
-        <div class="home-card">
-          <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="home-card-img"></div>
-            <div class="home-card-content">
-              <div>
-                <h2>Associations & Fondations</h2>
-                <p>Pour vos recrutements, attirez des candidats en poste en entreprise et souhaitant s'engager de quelques jours par mois à plusieurs par semaine</p>
+      <div class="col-sm-12 col-lg-4">
+        <%= link_to nonprofits_path do %>
+          <div class="home-card">
+            <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="home-card-img"></div>
+              <div class="home-card-content">
+                <div>
+                  <h2>Associations & Fondations</h2>
+                  <p>Pour vos recrutements, attirez des candidats en poste en entreprise et souhaitant s'engager de quelques jours par mois à plusieurs par semaine</p>
+                </div>
+                <%= link_to nonprofits_path do %>
+                  &#10230; en savoir plus
+                <% end %>
               </div>
-              <%= link_to nonprofits_path do %>
-                &#10230; en savoir plus
-              <% end %>
-            </div>
-        </div>
-      <% end %>
-    </div>
+          </div>
+        <% end %>
+      </div>
 
-    <div class="col-sm-12 col-lg-4">
-      <%= link_to candidates_path do %>
-        <div class="home-card">
-          <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="home-card-img"></div>
-            <div class="home-card-content">
-              <div>
-                <h2>Salariés d'entreprise</h2>
-                <p>Redonnez du sens à votre travail au quotidien à travers un engagement concret dans la durée, sans quitter votre poste en entreprise</p>
+      <div class="col-sm-12 col-lg-4">
+        <%= link_to candidates_path do %>
+          <div class="home-card">
+            <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="home-card-img"></div>
+              <div class="home-card-content">
+                <div>
+                  <h2>Salariés d'entreprise</h2>
+                  <p>Redonnez du sens à votre travail au quotidien à travers un engagement concret dans la durée, sans quitter votre poste en entreprise</p>
+                </div>
+                <%= link_to candidates_path do %>
+                  &#10230; en savoir plus
+                <% end %>
               </div>
-              <%= link_to candidates_path do %>
-                &#10230; en savoir plus
-              <% end %>
-            </div>
-        </div>
-      <% end %>
-    </div>
+          </div>
+        <% end %>
+      </div>
 
-    <div class="col-sm-12 col-lg-4">
-      <%= link_to companies_path do %>
-        <div class="home-card">
-          <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="home-card-img"></div>
-            <div class="home-card-content">
-              <div>
-                <h2>Entreprises</h2>
-                <p>Adoptez une démarche RH/RSE différenciante en permettant aux collaborateurs qui le souhaitent de travailler en temps partagé pour une cause de leur choix</p>
+      <div class="col-sm-12 col-lg-4">
+        <%= link_to companies_path do %>
+          <div class="home-card">
+            <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="home-card-img"></div>
+              <div class="home-card-content">
+                <div>
+                  <h2>Entreprises</h2>
+                  <p>Adoptez une démarche RH/RSE différenciante en permettant aux collaborateurs qui le souhaitent de travailler en temps partagé pour une cause de leur choix</p>
+                </div>
+                <%= link_to companies_path do %>
+                  &#10230; en savoir plus
+                <% end %>
               </div>
-              <%= link_to companies_path do %>
-                &#10230; en savoir plus
-              <% end %>
-            </div>
-        </div>
-      <% end %>
-    </div>
+          </div>
+        <% end %>
+      </div>
 
+    </div>
   </div>
 </div>

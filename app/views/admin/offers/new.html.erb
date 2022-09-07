@@ -1,0 +1,30 @@
+<%= render partial: "shared/navpan", locals: {active: 2} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <h3>Créer une nouvelle offre</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+    <div class="d-flex">
+      <%= link_to "Retour", admin_offers_path, class:"button btn-light-main mb-2 me-2" %>
+      <%= link_to "Ajouter un bénéficiaire", new_admin_beneficiary_path, class:"button btn-flag-color ms-2" %>
+    </div>
+    <%= simple_form_for(@offer) do |f| %>
+      <%= f.association :beneficiary %>
+      <%= f.input :title %>
+      <%= f.input :location %>
+      <%= f.input :half_days_min %>
+      <%= f.input :half_days_max %>
+      <%= f.input :months_min %>
+      <%= f.input :months_max %>
+      <%= f.input :monthly_gross_salary %>
+      <%= f.input :status, collection: ['active', 'upcoming', 'old', 'draft'] %>
+      <%= f.input :publish, as: :boolean %>
+      <%= f.input :description, as: :rich_text_area %>
+
+      <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
+    <% end %>
+
+  </div>
+</div>
