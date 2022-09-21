@@ -1,7 +1,7 @@
 
 <div style="background-image: linear-gradient(45deg, rgba(83, 28, 179, 1), rgba(0, 157, 220, 0.6)), url('<%= image_path "bannerbg.jpg" %>');" class="banner" data-controller="contact">
   <%= image_tag "logowhite.svg" %>
-  <h3>La plateforme du recrutement solidaire au service <span data-controller="typed-js"></span></h3>
+  <h3>Talents engagés au service <span data-controller="typed-js"></span></h3>
   <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
   <%= render partial: "contact" %>
 </div>
@@ -16,8 +16,8 @@
             <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="home-card-img"></div>
               <div class="home-card-content">
                 <div>
-                  <h2>Associations & Fondations</h2>
-                  <p>Pour vos recrutements, attirez des candidats en poste en entreprise et souhaitant s'engager de quelques jours par mois à plusieurs par semaine</p>
+                  <h2>Acteurs de l’intérêt général</h2>
+                  <p>Associations, fondations, organismes de l’ESS… : intégrez durablement des compétences pour tous vos besoins support moyen ou long-terme, quel que soit votre budget</p>
                 </div>
                 <%= link_to nonprofits_path do %>
                   &#10230; en savoir plus
@@ -33,10 +33,10 @@
             <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="home-card-img"></div>
               <div class="home-card-content">
                 <div>
-                  <h2>Salariés d'entreprise</h2>
-                  <p>Redonnez du sens à votre travail au quotidien à travers un engagement concret dans la durée, sans quitter votre poste en entreprise</p>
+                  <h2>Entreprises</h2>
+                  <p>Une démarche RH et RSE différenciante pour permettre à vos candidats et collaborateurs en quête d'engagement de travailler à temps partagé pour un organisme d’intérêt général</p>
                 </div>
-                <%= link_to candidates_path do %>
+                <%= link_to companies_path do %>
                   &#10230; en savoir plus
                 <% end %>
               </div>
@@ -50,10 +50,10 @@
             <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="home-card-img"></div>
               <div class="home-card-content">
                 <div>
-                  <h2>Entreprises</h2>
-                  <p>Adoptez une démarche RH/RSE différenciante en permettant aux collaborateurs qui le souhaitent de travailler en temps partagé pour une cause de leur choix</p>
+                  <h2>Candidat·e·s</h2>
+                  <p>Mettez vos compétences au service d'une cause qui vous tient à coeur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
                 </div>
-                <%= link_to companies_path do %>
+                <%= link_to candidates_path do %>
                   &#10230; en savoir plus
                 <% end %>
               </div>
