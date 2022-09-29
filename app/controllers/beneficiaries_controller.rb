@@ -53,6 +53,6 @@ class BeneficiariesController < ApplicationController
   end
 
   def beneficiary_params
-    params.require(:beneficiary).permit(:name, :siren, :rna, :address, :city, :cause, :logo, :photo)
+    params.require(:beneficiary).permit(:name, :siren, :rna, :address, :city, :cause, :logo, :photo, :goal)
   end
 end

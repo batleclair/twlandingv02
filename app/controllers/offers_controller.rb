@@ -15,6 +15,32 @@ class OffersController < ApplicationController
   def index
     @contact = Contact.new
     @offers = policy_scope(Offer).order(:status)
+
+    unless params[:social].blank? && params[:environment].blank?
+      if params[:social].blank?
+        @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: 'Social' })
+      end
+      if params[:environment].blank?
+        @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: 'Environement' })
+      end
+    end
+
+    unless params[:employee].blank? && params[:freelance].blank? && params[:candidate].blank? && params[:volunteer].blank?
+      unless params[:volunteer].present?
+        if params[:employee].blank?
+          @offers = @offers.where.not(offer_type: 'Mécénat/Temps partagé')
+        end
+        if params[:freelance].blank?
+          @offers = @offers.where.not(offer_type: 'Freelance')
+        end
+      end
+      if params[:candidate].blank?
+        @offers = @offers.where.not(offer_type: 'Co-recrutement')
+      end
+    end
+
+    @offers = @offers.where(function: params[:function]) unless params[:function].blank?
+
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?
       @candidate = Candidate.new
@@ -50,10 +76,6 @@ class OffersController < ApplicationController
     end
   end
 
-  def edit
-    authorize @offer
-  end
-
   def update
     @offer.update(offer_params)
     authorize @offer
@@ -77,6 +99,20 @@ class OffersController < ApplicationController
   end
 
   def offer_params
-    params.require(:offer).permit(:title, :location, :half_days_min, :half_days_max, :months_min, :months_max, :monthly_gross_salary, :description, :status, :publish, :beneficiary_id)
+    params.require(:offer).permit(
+      :title,
+      :location,
+      :half_days_min,
+      :half_days_max,
+      :months_min,
+      :months_max,
+      :monthly_gross_salary,
+      :description,
+      :status,
+      :publish,
+      :beneficiary_id,
+      :offer_type,
+      :function
+    )
   end
 end

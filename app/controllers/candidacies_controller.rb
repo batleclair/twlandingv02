@@ -28,6 +28,7 @@ class CandidaciesController < ApplicationController
   end
 
   def destroy
+    @candidacy = Candidacy.find(params[:id])
     @candidacy.destroy
     authorize @candidacy
     redirect_to admin_candidacies_path, status: :see_other

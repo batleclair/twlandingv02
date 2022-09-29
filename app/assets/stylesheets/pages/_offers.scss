@@ -1,0 +1,52 @@
+.filter-ctn {
+  position: relative;
+  margin: 0 5vw;
+}
+
+.filters{
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
+}
+
+.filters-expand{
+  max-height: 80vh;
+  transition: 0.3s ease-in-out;
+}
+
+.filter-icon{
+  position: absolute;
+  top: -18px;
+  left: calc(50% - 18px);
+  color: white;
+  background-color: $first-main-color;
+  border-radius: 50%;
+  padding: 10px;
+  height: 36px;
+  width: 36px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover{
+    background-color: $first-light-darker;
+    transition: 0.2s ease-in-out;
+  }
+  div{
+    font-size: 8px;
+    background-color: $first-flag-darker;
+    color: white;
+    border-radius: 50%;
+    position: relative;
+    top: -30px;
+    right: -15px;
+    padding: 4px;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.filter-icon-active{
+  color: $first-main-color;
+  background-color: $first-light-color;
+  transition: 0.2s ease-in-out;
+}

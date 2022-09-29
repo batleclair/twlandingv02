@@ -13,13 +13,15 @@
     <%= simple_form_for(@offer) do |f| %>
       <%= f.association :beneficiary %>
       <%= f.input :title %>
+      <%= f.input :function, collection: Offer::FUNCTIONS %>
       <%= f.input :location %>
       <%= f.input :half_days_min %>
       <%= f.input :half_days_max %>
       <%= f.input :months_min %>
       <%= f.input :months_max %>
       <%= f.input :monthly_gross_salary %>
-      <%= f.input :status, collection: ['active', 'upcoming', 'old', 'draft'] %>
+      <%= f.input :offer_type, collection: Offer::OFFER_TYPES %>
+      <%= f.input :status, collection: Offer::STATUSES %>
       <%= f.input :publish, as: :boolean %>
       <%= f.input :description, as: :rich_text_area %>
 

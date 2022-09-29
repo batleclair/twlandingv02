@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th>Association</th>
+            <th>Objectif</th>
             <th>Cause</th>
             <th>Ville</th>
             <th class="center-text">Offres</th>
@@ -24,6 +25,7 @@
           <% @beneficiaries.each do |b| %>
             <tr>
               <td><%= b.name %></td>
+              <td><%= b.goal %></td>
               <td><%= b.cause %></td>
               <td><%= b.city %></td>
               <td class="center-text"><%= b.offers.count %></td>

@@ -28,6 +28,9 @@ application.register("navpan", NavpanController)
 import ProgressController from "./progress_controller.js"
 application.register("progress", ProgressController)
 
+import SearchFormController from "./search_form_controller.js"
+application.register("search-form", SearchFormController)
+
 import SliderController from "./slider_controller.js"
 application.register("slider", SliderController)
 

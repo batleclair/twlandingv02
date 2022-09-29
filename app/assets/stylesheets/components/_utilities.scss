@@ -70,8 +70,13 @@
   background-color: white;
   margin: 0 5vw;
   min-height: 100vh;
+  padding: 80px 20px 100px 20px;
+}
+
+.white-wrapper-sm{
+  background-color: white;
+  margin: 0 5vw;
   padding: 80px 20px 20px 20px;
-  padding-bottom: 100px;
 }
 
 @media(max-width: 720px) {
@@ -120,4 +125,10 @@
   margin: 0;
   font-weight: 200;
   color: $dark-grey;
+}
+
+.round-shadow-box {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
 }

@@ -6,6 +6,11 @@ class Beneficiary < ApplicationRecord
   validate :basics
   validate :logo_file_type
 
+  GOALS = [
+    'Environement',
+    'Social'
+  ]
+
   private
 
   def basics
