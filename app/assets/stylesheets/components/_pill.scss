@@ -52,3 +52,21 @@
     background-color: $first-light-color;
   }
 }
+
+.pill-tag-list{
+  padding: 0;
+  list-style: none;
+  display: inline-flex;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  li{
+    font-family: $body-font;
+    font-size: 12px;
+    display: inline;
+    padding: 5px 15px;
+    background-color: $first-main-color;
+    color: white;
+    border-radius: 50em;
+    font-weight: 200;
+  }
+}

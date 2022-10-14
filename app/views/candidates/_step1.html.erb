@@ -1,0 +1,70 @@
+<% c_pic = candidate.photo.attached? ? cl_image_tag(candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.png', class: "big-rounded-avatar", data: {'profile-form-target': 'picactual'}) %>
+<% init_display = (candidate.status == 'ft_employee' || candidate.status == 'pt_employee') ? 'flex-resp align-items-center mb-0' : 'd-none'  %>
+
+<div data-profile-form-target="basics" data-position="active">
+
+  <div class="d-flex align-items-center mb-4">
+    <h5 class="primary-text-color bold-6 me-4">mes infos de base</h5>
+    <span class="chevron-ctrl disabled bold-6 me-1">◄</span></span>
+    <span class="chevron-ctrl bold-6" data-action="click->profile-form#step2">►</span></span>
+  </div>
+
+  <div class="flex-resp mb-3">
+
+    <div class="position-relative">
+      <%= c_pic %>
+      <%= image_tag "", class: "d-none big-rounded-avatar pic-resized", data: {'profile-form-target': 'picpreview'} %>
+      <%= f.input :photo,
+                  as: :file,
+                  input_html: { class: 'd-none',
+                  data: {'profile-form-target': 'picinput', 'action': 'change->profile-form#preview'} },
+                  label_html: { class: 'upload-photo'},
+                  label: ('<i class="fa-solid fa-camera me-2"></i>Modifier').html_safe %>
+    </div>
+
+    <div class="ps-3 full-width d-flex flex-column justify-content-center">
+      <h6 class="mb-1"><%= candidate.user.first_name %> <%= candidate.user.last_name.upcase %></h6>
+      <p>🎂 <%= candidate.birth_date.present? ? candidate.birth_date : "non renseigné"  %></p>
+      <p>🏠 <%= candidate.location.present? ? candidate.location : "non renseigné"  %></p>
+      <p>📧 <%= candidate.user.email %> <i class="fa-solid fa-eye-slash sm-thin-text grey-color ms-2 me-1"></i> <span class="grey-color"> (non-visible)</span></p>
+      <p>🤙 <%= candidate.phone_num.present? ? candidate.phone_num : "non renseigné"  %> <i class="fa-solid fa-eye-slash sm-thin-text grey-color ms-2 me-1"></i> <span class="grey-color"> (non-visible)</span></p>
+      <p>des infos perso à modifier ? rdv dans ton <i class="fa-solid fa-gear primary-text-color me-1"></i><span class="stress primary-text-color">compte</span></p>
+    </div>
+  </div>
+
+  <div class="flex-resp align-items-center custom-label mb-3">
+    <label for="candidate_linkedin_url" class="me-3 flex-width-150">Page LinkedIn :</label>
+    <%= f.input :linkedin_url, label: false, wrapper_html: {class: 'flex-resp align-items-center full-width'} %>
+  </div>
+
+  <div class="flex-resp align-items-center custom-label mb-3">
+    <label for="candidate_cv" class="me-3 inline-label">CV :</label>
+    <%= f.input :cv,
+                as: :file,
+                input_html: { class: 'd-none', data: {'profile-form-target': 'cv', action: 'change->profile-form#cv'}},
+                label: ('<i class="fa-regular fa-file mb-0 me-2"></i>Fichier').html_safe,
+                label_html: { class: 'upload'} %>
+    <% if candidate.cv.attached? %>
+      <p class="sm-thin-text grey-color ms-2" data-profile-form-target="cvmsg">ton CV est en ligne</p>
+    <% end %>
+  </div>
+
+  <div class="flex-resp custom-label">
+    <label for="" class="inline-label me-3">Situation :</label>
+    <%= f.input :status,
+                collection: [['ft_employee', 'Salarié.e temps plein'], ['pt_employee', 'Salarié.e temps partiel'], ['freelance', 'Indépendant.e'], ['inactive', 'Sans activité']],
+                label_method: :last,
+                value_method: :first,
+                as: :radio_buttons,
+                item_wrapper_class: "radio-button-ctn",
+                input_html: {data: {action: 'change->profile-form#hide'}},
+                disabled: candidate.employer_approved %>
+  </div>
+
+  <%= f.input :employer_name,
+              label: "Employeur :",
+              label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
+              input_html: {data: {action: 'keydown->profile-form#step2'}},
+              wrapper_html: {data: {'profile-form-target': 'company'}, class: init_display},
+              disabled: candidate.employer_approved %>
+</div>

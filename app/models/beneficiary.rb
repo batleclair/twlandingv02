@@ -11,6 +11,21 @@ class Beneficiary < ApplicationRecord
     'Social'
   ]
 
+  CAUSES = [
+    "Aide humanitaire",
+    "Hébergement d'urgence",
+    "Aide alimentaire",
+    "Education & égalité des chances",
+    "(Ré)insertion professionnelle",
+    "Protection des personnes",
+    "Protection du vivant",
+    "Protection de l'environnement",
+    "Handicaps & maladies",
+    "Lien social",
+    "Art, culture & patrimoine",
+    "Egalité & citoyenneté"
+  ]
+
   private
 
   def basics

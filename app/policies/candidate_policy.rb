@@ -1,10 +1,23 @@
 class CandidatePolicy < ApplicationPolicy
+
+  def show?
+    record.user == user || user.user_type == 'admin'
+  end
+
+  def new?
+    user.candidate.blank?
+  end
+
   def create?
     true
   end
 
+  def synch_update?
+    update?
+  end
+
   def update?
-    record.user == user
+    record.user == user || user.user_type == 'admin'
   end
 
   class Scope < Scope

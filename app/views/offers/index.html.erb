@@ -73,8 +73,8 @@
               <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
               <div class="d-none centered-overlay" data-lock-target="login">
                 <div class="d-flex">
-                  <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2"%>
-                  <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-1 ms-2"%>
+                  <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>
+                  <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-1 ms-2", data: { turbo: false }%>
                 </div>
                 <p class="center-text">connectez-vous pour candidater dès maintenant !</p>
               </div>
@@ -111,8 +111,8 @@
               <button data-lock-target="apply" class="button btn-flag-color" data-action=<%=action%> data-id=<%=@no_offer.id%>>Candidater !</button>
               <div class="d-none centered-overlay" data-lock-target="login">
                 <div class="d-flex justify-content-center">
-                  <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color mb-1 me-2"%>
-                  <%= link_to "Inscription",  new_user_registration_path, class: "button btn-light-main mb-1 ms-2"%>
+                  <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color mb-1 me-2", data: { turbo: false }%>
+                  <%= link_to "Inscription",  new_user_registration_path, class: "button btn-light-main mb-1 ms-2", data: { turbo: false }%>
                 </div>
               </div>
             <% end %>

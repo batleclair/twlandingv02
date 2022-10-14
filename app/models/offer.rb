@@ -5,11 +5,16 @@ class Offer < ApplicationRecord
   has_many :candidates, through: :candidacies
 
   FUNCTIONS = [
-    'IT/Data/Product',
+    'IT/Data/Produit',
     'Finance/Gestion/Comptabilité',
-    'RH/Legal',
+    'Ressources Humaines',
     'Marketing/Communication',
-    'Stratégie/Financement'
+    'Stratégie/Conseil',
+    'Ventes/Business Development',
+    'Achats/Logistique',
+    'Administration',
+    'Juridique',
+    'Qualité/Environement'
   ]
 
   OFFER_TYPES = [

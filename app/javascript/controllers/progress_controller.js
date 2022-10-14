@@ -43,7 +43,7 @@ export default class extends Controller {
     const candidateId = this.nextTarget.dataset.candidate
     const form1 = new FormData(this.form1Target)
     const method = candidateId === 'nil' ? "POST" : "PATCH"
-    const url = candidateId === 'nil' ? `/candidates` : `/candidates/${candidateId}`
+    const url = candidateId === 'nil' ? `/candidates/synch` : `/candidates/${candidateId}/synch`
     this.form1Target.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
     fetch(url, {
       method: method,

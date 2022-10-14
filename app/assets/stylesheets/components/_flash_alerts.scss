@@ -32,12 +32,16 @@
 
 .notice{
   padding: 10px;
-  background-color: hsl(120, 100%, 90%);
-  color: green;
-  border-radius: 3px;
-  border: solid 1px green;
+  background-color: $first-light-color;
+  color: $first-main-color;
+  font-weight: 400;
+  border-radius: 5px;
+  border: solid 1px $first-main-color;
   box-shadow: 4px 6px 8px rgba(0,0,0,0.2);
   position: fixed;
   bottom: 20px;
   left: 20px;
+  animation: fade 5s;
+  animation-iteration-count: 1;
+  opacity: 0;
 }

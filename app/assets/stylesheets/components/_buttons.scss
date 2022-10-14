@@ -26,6 +26,7 @@
 
 .btn-main-color {
   background-color: $first-main-color;
+  border: solid 1px $first-main-color;
   color: white;
   &:hover {
     color: white;
@@ -35,6 +36,7 @@
 
 .btn-flag-color {
   background-color: $first-flag-color;
+  border: solid 1px $first-flag-color;
   color: white;
   &:hover {
     color: white;
@@ -96,5 +98,28 @@
   &:hover {
     color: white;
     background-color: greenyellow;
+  }
+}
+
+.btn-save-cta{
+  background-color: $first-main-color;
+  cursor: pointer;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: $first-main-darker;
+  }
+}
+
+.upload{
+  border: solid $first-main-color 1px;
+  border-radius: 50em;
+  color: $first-main-color;
+  cursor: pointer;
+  padding: 5px 15px;
+  transition: 0.2s ease-in-out;
+  &:hover{
+    background-color: $first-light-color;
+    transition: 0.2s ease-in-out;
   }
 }

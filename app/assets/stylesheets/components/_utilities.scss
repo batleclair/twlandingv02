@@ -61,6 +61,15 @@
   }
 }
 
+.color-link{
+  color: $first-main-color;
+  font-weight: 200;
+  &:hover{
+    color: $first-main-darker;
+    font-weight: 400;
+  }
+}
+
 .sm-thin-text{
   font-size: 15px;
   font-weight: 100;
@@ -100,6 +109,14 @@
   font-weight: bolder;
 }
 
+.bold-7{
+  font-weight: 700;
+}
+
+.bold-6{
+  font-weight: 600;
+}
+
 .downsize90{
   transform: scale(90%);
 }
@@ -131,4 +148,8 @@
   background-color: white;
   border-radius: 5px;
   box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+}
+
+.subtle-shadow{
+  box-shadow: 4px 6px 8px rgba(0,0,0,0.2);
 }

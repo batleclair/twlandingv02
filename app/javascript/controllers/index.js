@@ -10,6 +10,9 @@ application.register("candidacy", CandidacyController)
 import ContactController from "./contact_controller.js"
 application.register("contact", ContactController)
 
+import ExperienceController from "./experience_controller.js"
+application.register("experience", ExperienceController)
+
 import HelloController from "./hello_controller.js"
 application.register("hello", HelloController)
 
@@ -25,6 +28,9 @@ application.register("modal", ModalController)
 import NavpanController from "./navpan_controller.js"
 application.register("navpan", NavpanController)
 
+import ProfileFormController from "./profile_form_controller.js"
+application.register("profile-form", ProfileFormController)
+
 import ProgressController from "./progress_controller.js"
 application.register("progress", ProgressController)
 
@@ -33,6 +39,9 @@ application.register("search-form", SearchFormController)
 
 import SliderController from "./slider_controller.js"
 application.register("slider", SliderController)
+
+import TomSelectController from "./tom_select_controller.js"
+application.register("tom-select", TomSelectController)
 
 import TypedJsController from "./typed_js_controller.js"
 application.register("typed-js", TypedJsController)

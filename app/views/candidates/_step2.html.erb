@@ -1,0 +1,35 @@
+<div data-profile-form-target="skills" data-position="right">
+  <div class="d-flex align-items-center mb-4">
+    <h5 class="primary-text-color bold-6 me-4">mon expérience</h5>
+    <span class="chevron-ctrl bold-6 me-1" data-action="click->profile-form#step1">◄</span></span>
+    <span class="chevron-ctrl bold-6" data-action="click->profile-form#step3">►</span></span>
+  </div>
+  <%= f.input :title,
+              label: "Poste actuel :",
+              label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
+              wrapper_html: {class: 'flex-resp align-items-center full-width'} %>
+  <%= f.input :function,
+              collection: Candidate::FUNCTIONS,
+              label: "Domaine :",
+              label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
+              wrapper_html: {class: 'flex-resp align-items-center full-width'} %>
+
+  <div class="flex-resp align-items-center mb-3">
+    <label for="" class="custom-label-lg mb-0 flex-width-150 me-3">Expériences pro :</label>
+    <div class="full-width">
+      <%= render partial: "experiences/xp_list", locals: {experiences: @candidate.experiences.order(start_date: :desc)} %>
+      <span class="upload" data-action="click->experience#popup"><i class="fa-solid fa-plus me-2"></i>Ajouter</span>
+    </div>
+
+  </div>
+  <%= f.input :skill_list,
+              input_html: {value: @candidate.skill_list.join(","), data: {controller: "tom-select"}},
+              label: "Compétences :",
+              label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
+              wrapper_html: {class: 'flex-resp align-items-center full-width'} %>
+  <%= f.input :description,
+              input_html: {data: {action: 'keydown->profile-form#step3'}},
+              label: ('Description :<p class="sm-thin-text mt-2">Résume ton profil et ton parcours en quelques mots !</p>').html_safe,
+              label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
+              wrapper_html: {class: 'flex-resp align-items-center full-width'}  %>
+</div>
