@@ -4,4 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :candidate
+
+  def admin?
+    user_type == 'admin'
+  end
 end

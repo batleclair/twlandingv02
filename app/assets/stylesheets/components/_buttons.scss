@@ -101,14 +101,24 @@
   }
 }
 
-.btn-save-cta{
+.btn-round-cta{
   background-color: $first-main-color;
   cursor: pointer;
   color: white;
+  position: relative;
   &:hover {
     color: white;
     background-color: $first-main-darker;
   }
+  .cta-top-legend{
+    position: absolute;
+    top: -20px;
+  }
+}
+
+.btn-round-cta.inactive{
+  background-color: $first-light-darker;
+  cursor: default;
 }
 
 .upload{

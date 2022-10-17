@@ -1,6 +1,6 @@
 <% c_pic = @candidate.photo.attached? ? cl_image_tag(@candidate.photo.key, class: "big-rounded-avatar twist subtle-shadow", angle: 5, width: 180, height: 180, gravity: "faces", crop: "fill") : cl_image_tag('../no_avatar.png', class: "twisted-avatar subtle-shadow", transformation: [{angle: 5}]) %>
 
-<div class="shaded-wrapper-sm d-flex align-items-center">
+<div class="shaded-wrapper-sm flex-resp align-items-center">
   <%= c_pic %>
   <div class="p-4 flex-grow-1">
     <h5 class="primary-text-color bold-6"><%= @candidate.user.first_name %></h5>
@@ -22,8 +22,26 @@
       <p>💼 Candidat·e</p>
     <% end %>
   </div>
-  <div>
-    <%= link_to 'Editer profil', edit_candidate_path(@candidate), class: "button btn-flag-color" %>
+  <div class="d-flex justify-content-evenly">
+    <% if @candidate.linkedin_url.present? %>
+      <%= link_to @candidate.linkedin_url, target: "_blank" do %>
+        <i class="fa-brands fa-linkedin-in round-button btn-round-cta me-2"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+      <% end %>
+    <% else %>
+      <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive me-2"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+    <% end %>
+    <% if @candidate.cv.attached? %>
+      <%= link_to cl_image_path(@candidate.cv.key), target: "_blank" do %>
+        <i class="fa-regular fa-file round-button btn-round-cta me-2"><span class="cta-top-legend sm-thin-text primary-text-color">cv</span></i>
+      <% end %>
+    <% else %>
+    <% end %>
+    <% if current_user.candidate == @candidate || current_user.admin? %>
+      <%= link_to edit_candidate_path(@candidate) do %>
+        <i class="fa-solid fa-pen-to-square round-button btn-round-cta"><span class="cta-top-legend sm-thin-text primary-text-color">modif'</span></i>
+      <% end %>
+    <% end %>
+
   </div>
 </div>
 

@@ -3,6 +3,7 @@
   width: 150px;
   border-radius: 50px;
   object-fit: none;
+  // border: $first-main-color 8px solid;
 }
 
 .twist{
@@ -12,7 +13,7 @@
 .shaded-wrapper-sm{
   margin: 0 5vw;
   padding: 120px 40px 40px 40px;
-  background-color: $first-light-color;
+  background-color: #e2d8f454;
 }
 
 .main-2flex-wrapper{
@@ -214,7 +215,7 @@
     }
   }
   .form-check-label{
-    border: $first-main-color solid 1px;
+    // border: $first-main-color solid 1px;
     border-radius: 10px;
     background-color: $first-light-color;
     font-size: 12px;

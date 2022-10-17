@@ -2,7 +2,7 @@
 
   <% if user_signed_in? %>
     <% if !current_user.candidate.nil? %>
-      <% display = "d-none" unless current_user.candidate.status == "ft_employee" || current_user.candidate.status == "pt_employee" %>
+      <% display = "d-none" unless current_user.candidate.employed? %>
     <% end %>
   <% end %>
 

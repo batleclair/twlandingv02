@@ -1,5 +1,5 @@
 <% c_pic = candidate.photo.attached? ? cl_image_tag(candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.png', class: "big-rounded-avatar", data: {'profile-form-target': 'picactual'}) %>
-<% init_display = (candidate.status == 'ft_employee' || candidate.status == 'pt_employee') ? 'flex-resp align-items-center mb-0' : 'd-none'  %>
+<% init_display = candidate.employed? ? 'flex-resp align-items-center mb-0' : 'd-none'  %>
 
 <div data-profile-form-target="basics" data-position="active">
 

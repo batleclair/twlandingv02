@@ -14,6 +14,10 @@ class Candidate < ApplicationRecord
 
   FUNCTIONS = Offer::FUNCTIONS
 
+  def employed?
+    status == 'pt_employee' || status == 'ft_employee'
+  end
+
   private
 
   def basics
