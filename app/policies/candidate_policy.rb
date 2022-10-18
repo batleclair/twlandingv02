@@ -5,14 +5,26 @@ class CandidatePolicy < ApplicationPolicy
   end
 
   def new?
-    user.candidate.blank?
+    create?
+  end
+
+  def synch_create?
+    create?
+  end
+
+  def synch_create_min?
+    create?
   end
 
   def create?
-    true
+    user.candidate.blank?
   end
 
   def synch_update?
+    update?
+  end
+
+  def synch_update_min?
     update?
   end
 

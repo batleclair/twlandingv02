@@ -23,7 +23,7 @@
       <div class="form-actions flex-resp flex-column align-items-end justify-content-end">
         <%= f.button :submit, "Connexion", class: "button btn-flag-color mb-3" %>
         <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-          <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "button btn-light-flag" %><br />
+          <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "button btn-light-flag d-none" %><br />
         <% end %>
       </div>
     <% end %>

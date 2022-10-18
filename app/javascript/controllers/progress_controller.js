@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="progress"
 export default class extends Controller {
-  static targets = ['bar1', 'bar2', 'bar3', 'step1', 'step2', 'step3', 'next', 'form1', 'form2', 'header', 'num', 'confirmation', 'foremployees']
+  static targets = ['bar1', 'bar2', 'bar3', 'step1', 'step2', 'step3', 'next', 'form1', 'form2', 'header', 'num', 'confirmation', 'foremployees', 'company', 'cvmsg', 'cv']
 
   connect() {
   }
@@ -52,6 +52,7 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
+        console.log(data)
         if (data['valid']) {
           this.nextTarget.setAttribute("data-candidate", data["id"])
           this.step1Target.classList.add("d-none")
@@ -63,6 +64,9 @@ export default class extends Controller {
             this.foremployeesTarget.classList.remove("d-none")
           } else {
             this.foremployeesTarget.classList.add("d-none")
+          }
+          if (method === "POST") {
+            document.getElementById('profile-link').href = `/candidates/${data['id']}`
           }
         } else {
           Object.keys(data['errors']).forEach(key => {
@@ -92,6 +96,7 @@ export default class extends Controller {
           this.step3Target.classList.add("d-none")
           this.headerTarget.classList.add("d-none")
           this.confirmationTarget.classList.remove("d-none")
+          this.confirmationTarget.insertAdjacentHTML('beforeend', '<p class="notice">🤩 ta candidature a été enregistrée !</p>')
         } else {
           document.getElementById('consent-error').innerHTML = data['errors']['consent'][0]
         }
@@ -113,5 +118,18 @@ export default class extends Controller {
     this.step2Target.classList.remove("d-none")
     this.bar3Target.classList.remove("sb-active")
     this.numTarget.innerHTML = '2'
+  }
+
+  hide() {
+    this.companyTarget.classList.remove('d-none')
+    if (event.currentTarget.value === 'freelance' || event.currentTarget.value === 'inactive') {
+      this.companyTarget.classList.add('d-none')
+    }
+  }
+
+  cv() {
+    if (this.cvTarget.files && this.cvTarget.files[0]) {
+      this.cvmsgTarget.innerHTML = this.cvTarget.value.replace('fakepath', '...')
+    }
   }
 }

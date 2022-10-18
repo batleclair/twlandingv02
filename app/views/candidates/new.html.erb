@@ -1,2 +1,49 @@
-<div class="white-wrapper">
+<div class="profile-form-wrapper" data-controller="new-profile">
+
+  <h5 class="primary-text-color bolder mb-5">Avant d'aller plus loin</h5>
+
+  <%= simple_form_for(@candidate, data: {"new-profile-target": "form", action: "submit->new-profile#save"}) do |f| %>
+    <div>
+
+      <div class="flex-resp custom-label mb-3">
+        <label for="candidate_phone_num" class="me-3 flex-width-150">Téléphone :</label>
+        <%= f.input :phone_num, label: false, wrapper_html: {class: 'full-width'} %>
+      </div>
+
+      <div class="flex-resp custom-label mb-3">
+        <label for="candidate_linkedin_url" class="me-3 flex-width-150">Page LinkedIn :</label>
+        <%= f.input :linkedin_url, label: false, wrapper_html: {class: 'full-width'} %>
+      </div>
+
+      <div class="flex-resp custom-label mb-3">
+        <label for="candidate_cv" class="me-3 inline-label">CV :</label>
+        <%= f.input :cv,
+                    as: :file,
+                    input_html: { class: 'd-none', data: {'profile-form-target': 'cv', action: 'change->profile-form#cv'}},
+                    label: ('<i class="fa-regular fa-file mb-0 me-2"></i>Fichier').html_safe,
+                    label_html: { class: 'upload'} %>
+      </div>
+
+      <div class="flex-resp custom-label">
+        <label for="" class="inline-label me-3">Situation :</label>
+        <%= f.input :status,
+                    collection: [['ft_employee', 'Salarié.e temps plein'], ['pt_employee', 'Salarié.e temps partiel'], ['freelance', 'Indépendant.e'], ['inactive', 'Sans activité']],
+                    label_method: :last,
+                    value_method: :first,
+                    as: :radio_buttons,
+                    item_wrapper_class: "radio-button-ctn",
+                    input_html: {data: {action: 'change->new-profile#hide'}} %>
+      </div>
+
+      <div class="flex-resp custom-label mb-3" data-new-profile-target="company">
+        <label for="candidate_employer_name" class="me-3 flex-width-150">Employeur :</label>
+        <%= f.input :employer_name, label: false, wrapper_html: {class: 'full-width'} %>
+      </div>
+
+    </div>
+    <div class="d-flex justify-content-end">
+      <%= f.submit "Terminer", "data-profile-form-target": 'submit', class: "button btn-flag-color" %>
+    </div>
+  <% end %>
+
 </div>

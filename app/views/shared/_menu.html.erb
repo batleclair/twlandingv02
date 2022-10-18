@@ -31,21 +31,28 @@
           <div class="user-nav-box">
             <p style="color: white">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
             <div>
-              <% if current_user.candidate.present? %>
-                <%= link_to candidate_path(current_user.candidate), class: "white-link sm-thin-text" do %>
+              <% if current_user.candidate.blank? %>
+                <%= link_to new_candidate_path, class: "white-link sm-thin-text", id: "profile-link" do %>
                   <i class="fa-solid fa-user me-1"></i>
                   profil
                 <% end %>
               <% else %>
-                <%= link_to new_candidate_path, class: "white-link sm-thin-text" do %>
-                  <i class="fa-solid fa-user me-1"></i>
-                  profil
+                <% if current_user.candidate.info_missing? %>
+                  <%= link_to candidate_path(current_user.candidate), class: "white-link sm-thin-text", data: {'action': 'click->menu#popup' } do %>
+                    <i class="fa-solid fa-user me-1"></i>
+                    profil
+                  <% end %>
+                <% else %>
+                  <%= link_to candidate_path(current_user.candidate), class: "white-link sm-thin-text" do %>
+                    <i class="fa-solid fa-user me-1"></i>
+                    profil
+                  <% end %>
                 <% end %>
               <% end %>
               <span class="ms-2 me-2 white-text">|</span>
-              <%= link_to candidate_path(current_user.candidate), class: "white-link sm-thin-text" do %>
-                <i class="fa-solid fa-gear me-1"></i>
-                compte
+                <%= link_to edit_user_registration_path, class: "white-link sm-thin-text" do %>
+                  <i class="fa-solid fa-gear me-1"></i>
+                  compte
               <% end %>
               <span class="ms-2 me-2 white-text">|</span>
               <%= link_to destroy_user_session_path, method: :delete, class: "white-link sm-thin-text" do %>
@@ -66,4 +73,13 @@
       <% end %>
     </div>
   </nav>
+
+  <% if user_signed_in? %>
+    <% if current_user.candidate.present? %>
+      <% if current_user.candidate.info_missing? %>
+        <%= render partial: "candidates/min_info" %>
+      <% end %>
+    <% end %>
+  <% end %>
+
 </div>

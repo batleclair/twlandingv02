@@ -20,7 +20,7 @@
     <%= simple_form_for(@candidate, html: {'data-profile-form-target': "form"}) do |f| %>
       <div class="step-ctn" >
         <%= render partial: "step1", locals: {candidate: @candidate, f: f} %>
-          <%= render partial: "step2", locals: {candidate: @candidate, f: f} %>
+        <%= render partial: "step2", locals: {candidate: @candidate, f: f} %>
         <%= render partial: "step3", locals: {candidate: @candidate, f: f} %>
       </div>
       <div class="d-flex justify-content-end">

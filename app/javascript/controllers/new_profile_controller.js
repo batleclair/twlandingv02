@@ -1,21 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="menu"
+// Connects to data-controller="new-profile"
 export default class extends Controller {
-  static targets = ['icon', 'nav', 'window', 'close', 'form']
+  static targets = ['form', 'company']
 
   connect() {
-    console.log(this.formTarget.action)
-  }
-
-  toggle(event) {
-    this.navTarget.classList.toggle("menu-expand");
-    this.iconTarget.classList.toggle("main-color");
-  }
-
-  popup(event) {
-    event.preventDefault()
-    this.windowTarget.style.display = "block"
   }
 
   save() {
@@ -25,17 +14,16 @@ export default class extends Controller {
     this.formTarget.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
     this.formTarget.querySelectorAll(".notice").forEach((p) => { p.outerHTML = ''; });
 
-    fetch(`${this.formTarget.action}/synch_min`, {
+    fetch(`${this.formTarget.action}/synch`, {
       method: this.formTarget.method,
       headers: {"X-CSRF-Token": token },
       body: form
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(data)
         if (data.valid) {
+          window.location.href = '/offers'
           document.querySelector('body').insertAdjacentHTML('beforeend', '<p class="notice">👍 tes changements ont été enregistrés !</p>')
-          window.location.href = this.formTarget.action
         } else {
           Object.entries(data['errors']).forEach(pair => {
             this.formTarget.querySelector(`.candidate_${pair[0]}`).insertAdjacentHTML('beforeend', `<p class="sm-red-msg">${pair[1]}</p>`)
@@ -44,14 +32,10 @@ export default class extends Controller {
       })
   }
 
-  // scroll(event) {
-  //   console.log(event.currentTarget.dataset.name)
-  //   const target = document.querySelector(`.${event.currentTarget.dataset.name}`)
-  //   const position = target.getBoundingClientRect()
-  //   console.log(position)
-  //   window.scrollTo({
-  //     top: position.y + position.height,
-  //     behavior: 'smooth'
-  //   });
-  // }
+  hide() {
+    this.companyTarget.classList.remove('d-none')
+    if (event.currentTarget.value === 'freelance' || event.currentTarget.value === 'inactive') {
+      this.companyTarget.classList.add('d-none')
+    }
+  }
 }

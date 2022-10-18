@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_14_182924) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_134901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_14_182924) do
     t.bigint "candidate_id", null: false
     t.bigint "offer_id", null: false
     t.boolean "consent", default: false
-    t.string "employer_name"
     t.boolean "employer_aware"
     t.integer "employer_ok_chance"
     t.integer "half_days_wish"

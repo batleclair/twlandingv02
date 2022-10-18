@@ -4,10 +4,10 @@
 @import "config/bootstrap_variables";
 
 // External libraries
+@import "flatpickr/dist/flatpickr";
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 @import "trix";
-@import "flatpickr/dist/flatpickr";
 @import "tom-select/dist/css/tom-select.min.css";
 
 // Your CSS partials

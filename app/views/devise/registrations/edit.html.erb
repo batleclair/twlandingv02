@@ -1,35 +1,105 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+<div class="profile-form-wrapper" data-controller="account">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <ul class="pill-tag-list step-pills m-0">
+      <li class="me-1 mt-1 mb-1" data-action="click->account#step1" data-account-target="button" data-active>Connexion</li>
+      <li class="me-1 mt-1 mb-1" data-action="click->account#step2" data-account-target="button">Perso</li>
+    </ul>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+  <h4 class="mt-4 mb-4 primary-text-color">Modifie les informations relatives à ton compte</h4>
+
+  <div class="step-ctn">
+    <div data-account-target="creds">
+      <h5 class="bold-6 mb-4">mes identifiants</h5>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      label: "E-mail",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <p>En attente de confirmation pour : <%= resource.unconfirmed_email %></p>
+          <% end %>
+
+          <%= f.input :password,
+                      required: false,
+                      input_html: { autocomplete: "new-password" },
+                      label: "Nouveau mot de passe",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+
+          <%= f.input :password_confirmation,
+                      required: false,
+                      input_html: { autocomplete: "new-password" },
+                      label: "Confirmation",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+
+          <%= f.input :current_password,
+                      required: true,
+                      input_html: { autocomplete: "current-password" },
+                      label: "Mot de passe actuel",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+        </div>
+
+        <div class="form-actions flex-resp justify-content-end">
+          <%= link_to "Retour", :back, class: "button btn-light-flag me-2" %>
+          <button class="button btn-flag-color" data-action="click->account#save">Modifier</button>
+        </div>
+    </div>
+
+    <div data-account-target="extras" data-position="right">
+      <h5 class="bold-6 mb-4">mes infos perso</h5>
+
+        <div class="form-inputs">
+          <%= f.input :first_name,
+                      required: true,
+                      label: "Prénom",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+
+          <%= f.input :last_name,
+                      required: true,
+                      label: "Nom",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+        </div>
+
+        <%= f.simple_fields_for :candidate, resource.candidate do |p| %>
+        <div class="flex-resp align-items-center custom-label mb-3">
+          <label for="user_candidate_attributes_birth_date" class="me-3 flex-width-150">Anniversaire :</label>
+          <%= p.input :birth_date,
+                      as: :date,
+                      start_year: Date.today.year - 70,
+                      end_year: Date.today.year - 18,
+                      use_month_numbers: true,
+                      order: [:day, :month, :year],
+                      include_blank: true,
+                      label: false,
+                      wrapper_html: {class: 'full-width'} %>
+        </div>
+          <%= p.input :location,
+                      label: "Ville de résidence",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+          <%= p.input :phone_num,
+                      label: "Numéro de téléphone",
+                      label_html: {class: "me-3 flex-width-150"},
+                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
+        <% end %>
+
+        <div class="form-actions flex-resp justify-content-end">
+          <%= link_to "Retour", :back, class: "button btn-light-flag me-2" %>
+          <%= f.button :submit, "Enregistrer", class:"button btn-flag-color", data: {'account-target': 'savebtn'} %>
+        </div>
+
+      <% end %>
+    </div>
   </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>

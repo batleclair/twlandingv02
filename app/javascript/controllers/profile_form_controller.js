@@ -72,10 +72,10 @@ export default class extends Controller {
       })
   }
 
-  change() {
-    console.log('changeform')
-    this.saveTarget.classList.remove("d-none")
-  }
+  // change() {
+  //   console.log('changeform')
+  //   this.saveTarget.classList.remove("d-none")
+  // }
 
   preview() {
     if (this.picinputTarget.files && this.picinputTarget.files[0]) {

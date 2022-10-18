@@ -25,8 +25,11 @@ application.register("menu", MenuController)
 import ModalController from "./modal_controller.js"
 application.register("modal", ModalController)
 
-import NavpanController from "./navpan_controller.js"
-application.register("navpan", NavpanController)
+import AccountController from "./account_controller.js"
+application.register("account", AccountController)
+
+import NewProfileController from "./new_profile_controller.js"
+application.register("new-profile", NewProfileController)
 
 import ProfileFormController from "./profile_form_controller.js"
 application.register("profile-form", ProfileFormController)

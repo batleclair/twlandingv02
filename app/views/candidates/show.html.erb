@@ -1,10 +1,10 @@
-<% c_pic = @candidate.photo.attached? ? cl_image_tag(@candidate.photo.key, class: "big-rounded-avatar twist subtle-shadow", angle: 5, width: 180, height: 180, gravity: "faces", crop: "fill") : cl_image_tag('../no_avatar.png', class: "twisted-avatar subtle-shadow", transformation: [{angle: 5}]) %>
+<% c_pic = @candidate.photo.attached? ? cl_image_tag(@candidate.photo.key, class: "big-rounded-avatar twist subtle-shadow", angle: 5, width: 180, height: 180, gravity: "faces", crop: "fill") : cl_image_tag('../no_avatar.png', class: "big-rounded-avatar twist subtle-shadow", angle: 5, width: 180, height: 180, gravity: "faces", crop: "fill") %>
 
 <div class="shaded-wrapper-sm flex-resp align-items-center">
   <%= c_pic %>
   <div class="p-4 flex-grow-1">
-    <h5 class="primary-text-color bold-6"><%= @candidate.user.first_name %></h5>
-    <h6 class="mb-3"><%= "#{@candidate.title}, #{@candidate.location}" %></h5>
+    <h5 class="primary-text-color bold-6"><%= "#{@candidate.user.first_name} (#{@candidate.age})" %></h5>
+    <h6 class="mb-3"><%= "#{@candidate.title} à #{@candidate.location}" %></h5>
     <% case @candidate.status %>
     <% when 'ft_employee' %>
       <p>💼 Salarié·e souhaitant s’engager sur son temps de travail</p>
@@ -16,6 +16,7 @@
         <% end %>
     <% when 'pt_employee' %>
       <p>💼 Salarié·e à temps partiel</p>
+      <p>Employeur : <strong><%= @candidate.employer_name.upcase %></strong></p>
     <% when 'freelance' %>
       <p>💼 Indépéendant·e</p>
     <% else %>
@@ -35,6 +36,7 @@
         <i class="fa-regular fa-file round-button btn-round-cta me-2"><span class="cta-top-legend sm-thin-text primary-text-color">cv</span></i>
       <% end %>
     <% else %>
+      <i class="fa-regular fa-file round-button btn-round-cta inactive me-2"><span class="cta-top-legend sm-thin-text primary-text-color">cv</span></i>
     <% end %>
     <% if current_user.candidate == @candidate || current_user.admin? %>
       <%= link_to edit_candidate_path(@candidate) do %>
@@ -47,54 +49,48 @@
 
 <div class="flex-resp">
     <div class="main-2flex-wrapper">
-      <h5 class="primary-text-color bold-6 mb-3">moi</h5>
+      <h5 class="primary-text-color bold-6 mb-3">en 2 mots</h5>
       <p><%= @candidate.description %></p>
-      <h5 class="primary-text-color bold-6 mt-5 mb-3">j'ai travaillé pour</h5>
+      <h5 class="primary-text-color bold-6 mt-5 mb-3">expériences professionnelles</h5>
 
-      <div class="full-width mb-2">
+      <% if @candidate.experiences.nil? %>
+
+      <% end %>
+      <div class="full-width mb-2 xps-ctn">
         <% @candidate.experiences.order(start_date: :desc).each do |xp| %>
-
-            <div class="d-flex align-items-top justify-content-between full-width">
-
-              <div class="set-width-150 me-3">
-                <div class="d-flex align-items-center">
-
-                  <% if xp.end_date.present? %>
-                    <p class="me-2 sm-thin-text">(<%= xp.start_date_output %></p>
-                    <i class="fa-solid fa-arrow-right-long me-2 primary-text-color"></i>
-                    <p class="sm-thin-text"><%= xp.end_date_output %>)</p>
-                  <% else %>
-                    <p class="me-2 sm-thin-text">depuis <%= xp.start_date_output %></p>
-                  <% end %>
-
-                </div>
-                <p><%= "#{xp.duration[:years]} ans" unless xp.duration[:years] == 0 %> <%= "#{xp.duration[:months]} mois" unless xp.duration[:months] == 0 %></p>
+          <div class="flex-resp align-items-center flex-grow-1 mb-2">
+            <h6 class="me-4 set-width-150"><%= xp.employer %>: </h6>
+            <div>
+              <p><%= xp.title %></p>
+              <div class="d-flex align-items-center">
+                <% if xp.end_date.present? %>
+                  <p class="me-2 sm-thin-text">(<%= xp.start_date_output %></p>
+                  <i class="fa-solid fa-arrow-right-long me-2 primary-text-color"></i>
+                  <p class="sm-thin-text"><%= xp.end_date_output %>)</p>
+                <% else %>
+                  <p class="me-2 sm-thin-text">(depuis <%= xp.start_date_output %>)</p>
+                <% end %>
               </div>
-
-              <div class="flex-resp align-items-center flex-grow-1">
-                <h6 class="me-4 set-width-150"><%= xp.employer %>: </h6>
-                <p><%= xp.title %></p>
-              </div>
-
             </div>
-
+          </div>
         <% end %>
       </div>
 
 
 
-      <h5 class="primary-text-color bold-6 mt-5 mb-3">mes compétences</h5>
-      <div class="d-flex mb-2">
+      <h5 class="primary-text-color bold-6 mt-5 mb-3">expertise & compétences</h5>
+      <div class="d-flex mb-3">
         <h6 class="me-2">domaine :</h6>
         <h6 class="stress"><%= @candidate.function %></h6>
       </div>
-      <ul class="pill-tag-list">
+      <h6 class="mb-2">compétences :</h6>
+      <ul class="pill-tag-list m-0">
         <% @candidate.skill_list.each do |skill| %>
           <li class="me-1 mt-1"><%= skill %></li>
         <% end %>
       </ul>
       <h5 class="primary-text-color bold-6 mt-5 mb-3">je veux / peux aider</h5>
-      <h5 class="primary-text-color bold-6 mt-5 mb-3">je suis sensible à</h5>
+      <h5 class="primary-text-color bold-6 mt-5 mb-3">engagements personnels</h5>
       <ul class="badge-list-ctn">
         <% @candidate.cause_list.each do |cause| %>
           <li class="mt-1"><%= cause %></li>

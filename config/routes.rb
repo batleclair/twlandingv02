@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   resources :beneficiaries, only: %i[create update destroy]
   resources :offers, only: %i[create update destroy]
   resources :candidacies, only: %i[destroy]
+
   get "offers/:id/select", to: "offers#select", as: :offer_select
+
   post "candidates/synch", to: "candidates#synch_create"
   patch "candidates/:id/synch", to: "candidates#synch_update"
+  patch "candidates/:id/synch_min", to: "candidates#synch_update_min"
 
   resources :offers, only: %i[index show edit update destroy] do
     resources :candidacies, only: %i[new create]

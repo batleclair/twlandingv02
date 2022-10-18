@@ -1,5 +1,4 @@
-<% c_pic = candidate.photo.attached? ? cl_image_tag(candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.png', class: "big-rounded-avatar", data: {'profile-form-target': 'picactual'}) %>
-<% init_display = candidate.employed? ? 'flex-resp align-items-center mb-0' : 'd-none'  %>
+<% c_pic = candidate.photo.attached? ? cl_image_tag(candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.png', class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) %>
 
 <div data-profile-form-target="basics" data-position="active">
 
@@ -61,10 +60,16 @@
                 disabled: candidate.employer_approved %>
   </div>
 
-  <%= f.input :employer_name,
-              label: "Employeur :",
-              label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
-              input_html: {data: {action: 'keydown->profile-form#step2'}},
-              wrapper_html: {data: {'profile-form-target': 'company'}, class: init_display},
-              disabled: candidate.employer_approved %>
+  <% if candidate.employed? %>
+    <div class="flex-resp align-items-center mb-0", data-profile-form-target="company">
+  <% else %>
+    <div class="flex-resp align-items-center mb-0 d-none", data-profile-form-target="company">
+  <% end %>
+    <label for="candidate_employer_name" class="flex-width-150 me-3">Employeur :</label>
+    <%= f.input :employer_name,
+                label: false,
+                wrapper: false,
+                input_html: {data: {action: 'keydown->profile-form#step2'}},
+                disabled: candidate.employer_approved %>
+  </div>
 </div>
