@@ -54,12 +54,12 @@
 
 .ts-wrapper.multi{
   .ts-control {
-    div {
+    .item {
       font-family: $body-font;
       font-size: 12px;
       display: inline;
       padding: 5px 15px;
-      background-color: $first-main-color;
+      // background-color: $first-main-color !important;
       color: white;
       border-radius: 50em;
       font-weight: 200;

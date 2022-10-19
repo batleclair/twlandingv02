@@ -2,13 +2,14 @@
 @import "config/fonts";
 @import "config/colors";
 @import "config/bootstrap_variables";
+@import "config/tom-select";
 
 // External libraries
 @import "flatpickr/dist/flatpickr";
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 @import "trix";
-@import "tom-select/dist/css/tom-select.default.css";
+// @import "tom-select/dist/css/tom-select.default.css";
 
 // Your CSS partials
 @import "components/index";
