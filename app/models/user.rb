@@ -9,4 +9,8 @@ class User < ApplicationRecord
   def admin?
     user_type == 'admin'
   end
+
+  def applied?(offer)
+    offer.candidates.where(user_id: id).none?
+  end
 end

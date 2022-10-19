@@ -1,36 +1,38 @@
 <div class="profile-form-wrapper" data-controller="profile-form">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-      <ul class="pill-tag-list step-pills m-0">
-        <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step1" data-profile-form-target="button" data-active>Infos</li>
-        <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step2" data-profile-form-target="button">Expérience</li>
-        <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step3" data-profile-form-target="button">Engagement</li>
-      </ul>
-    <div>
-      <div class="d-flex align-items-center">
-        <p class="sm-thin-text primary-text-color">sauvegarder <i class="fa-solid fa-arrow-right-long me-2"></i></p>
-        <i class="fa-solid fa-floppy-disk round-button btn-round-cta" data-profile-form-target="save" data-action="click->profile-form#save"></i>
-        <div class="round-button btn-round-cta d-none" data-profile-form-target="loader">
-          <span class="round-button loader"></span>
+  <div class="ctn m-0">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <ul class="pill-tag-list step-pills m-0">
+          <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step1" data-profile-form-target="button" data-active>Infos</li>
+          <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step2" data-profile-form-target="button">Expérience</li>
+          <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step3" data-profile-form-target="button">Engagement</li>
+        </ul>
+      <div>
+        <div class="d-flex align-items-center save-ctn-resp">
+          <p class="sm-thin-text primary-text-color">sauvegarder <i class="fa-solid fa-arrow-right-long me-2"></i></p>
+          <i class="fa-solid fa-floppy-disk round-button btn-round-cta" data-profile-form-target="save" data-action="click->profile-form#save"></i>
+          <div class="round-button btn-round-cta d-none" data-profile-form-target="loader">
+            <span class="round-button loader"></span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div data-controller="experience">
-    <%= simple_form_for(@candidate, html: {'data-profile-form-target': "form"}) do |f| %>
-      <div class="step-ctn" >
-        <%= render partial: "step1", locals: {candidate: @candidate, f: f} %>
-        <%= render partial: "step2", locals: {candidate: @candidate, f: f} %>
-        <%= render partial: "step3", locals: {candidate: @candidate, f: f} %>
-      </div>
-      <div class="d-flex justify-content-end">
-        <%= link_to "Retour", candidate_path(@candidate), class: "button btn-light-flag me-2" %>
-        <%= f.submit "Terminer", "data-profile-form-target": 'submit', class: "button btn-flag-color" %>
-      </div>
-    <% end %>
-    <div class="modal-bg" data-modal-target="window" data-experience-target="window" data-action="click->modal#close">>
-      <div class="modal-inner" data-action="click->modal#keep" data-experience-target="content">
-        <%= render partial: "experiences/new_xp", locals: {experience: @experience, candidate: @candidate} %>
+    <div data-controller="experience">
+      <%= simple_form_for(@candidate, html: {'data-profile-form-target': "form"}) do |f| %>
+        <div class="step-ctn" >
+          <%= render partial: "step1", locals: {candidate: @candidate, f: f} %>
+          <%= render partial: "step2", locals: {candidate: @candidate, f: f} %>
+          <%= render partial: "step3", locals: {candidate: @candidate, f: f} %>
+        </div>
+        <div class="d-flex justify-content-end">
+          <%= link_to "Retour", candidate_path(@candidate), class: "button btn-light-flag me-2" %>
+          <%= f.submit "Terminer", data: {"profile-form-target": 'submit', action: 'click->profile-form#save'}, class: "button btn-flag-color" %>
+        </div>
+      <% end %>
+      <div class="modal-bg" data-modal-target="window" data-experience-target="window" data-action="click->modal#close">>
+        <div class="modal-inner" data-action="click->modal#keep" data-experience-target="content">
+          <%= render partial: "experiences/new_xp", locals: {experience: @experience, candidate: @candidate} %>
+        </div>
       </div>
     </div>
   </div>

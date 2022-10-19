@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ['icon', 'nav', 'window', 'close', 'form']
 
   connect() {
-    console.log(this.formTarget.action)
   }
 
   toggle(event) {

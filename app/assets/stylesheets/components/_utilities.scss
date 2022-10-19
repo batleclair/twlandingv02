@@ -26,6 +26,7 @@
   background: linear-gradient(180deg,rgba(255,255,255,0) 65%, rgba(83, 28, 179, 0.2) 65%);
   font-weight: bolder;
   padding-bottom: 0.05em;
+  width: min-content;
 }
 
 .center-text {
@@ -88,12 +89,19 @@
   padding: 80px 20px 20px 20px;
 }
 
+.mb-2-resp{
+  margin-bottom: 0;
+}
+
 @media(max-width: 720px) {
   .flex-resp {
     display: block;
   }
   .light-bg{
     padding-top: 40px;
+  }
+  .mb-2-resp{
+    margin-bottom: 0.5rem;
   }
 }
 

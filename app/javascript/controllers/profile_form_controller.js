@@ -9,9 +9,10 @@ function switchTab(targets, n) {
 
 // Connects to data-controller="profile-form"
 export default class extends Controller {
-  static targets = ['basics', 'skills', 'wishes', 'button', 'form', 'picinput', 'picactual', 'picpreview', 'company', 'loader', 'save', 'cv', 'cvmsg']
+  static targets = ['basics', 'skills', 'wishes', 'button', 'form', 'picinput', 'picactual', 'picpreview', 'company', 'loader', 'save', 'cv', 'cvmsg', 'submit']
 
   connect() {
+    console.log(this.formTarget.querySelector(`.candidate_employer_name`))
   }
 
   step1() {
@@ -45,29 +46,36 @@ export default class extends Controller {
   }
 
   save() {
+    event.preventDefault()
     this.saveTarget.classList.add('d-none')
     this.loaderTarget.classList.remove('d-none')
     const token = document.querySelector("[name='csrf-token']").content
     const form = new FormData(this.formTarget)
     this.formTarget.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
     this.formTarget.querySelectorAll(".notice").forEach((p) => { p.outerHTML = ''; });
-    fetch(`${this.formTarget.action}/synch`, {
+    const source = event.currentTarget
+    fetch(`${this.formTarget.action}/synch_min`, {
       method: 'PATCH',
       headers: {"X-CSRF-Token": token },
       body: form
     })
       .then(response => response.json())
       .then((data) => {
+        console.log(data)
         this.saveTarget.classList.remove('d-none')
         this.loaderTarget.classList.add('d-none')
         if (data['valid']) {
           this.formTarget.insertAdjacentHTML('beforeend', '<p class="notice">👍 tes changements ont été enregistrés !</p>')
+          if  (source === this.submitTarget) {
+            window.location.href = this.formTarget.action
+          }
         } else {
           Object.keys(data['errors']).forEach(key => {
             Object.values(data['errors'][key]).forEach(value => {
               this.formTarget.querySelector(`.candidate_${key}`).insertAdjacentHTML('beforeend', `<p class="sm-red-msg">${value}</p>`)
             });
           });
+          this.formTarget.insertAdjacentHTML('beforeend', '<p class="notice">⚠️ il ya un pépin avec les infos indiquées !</p>')
         }
       })
   }

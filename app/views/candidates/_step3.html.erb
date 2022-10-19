@@ -15,5 +15,9 @@
               as: :check_boxes,
               wrapper_html: {class: 'custom-checkbox-ctn'} %>
   </div>
+  <%= f.input :volunteering,
+            label: ('Engagements :<p class="sm-thin-text mt-2">Décris tes expériences associatives actuelles ou passées !</p>').html_safe,
+            label_html: {class: 'custom-label-lg mb-0 flex-width-150 me-3'},
+            wrapper_html: {class: 'flex-resp align-items-center full-width'}  %>
 
 </div>

@@ -8,6 +8,9 @@
 
 .twist{
   rotate: -5deg;
+  @media(max-width: 720px) {
+    left: calc(50% - 75px);
+  }
 }
 
 .shaded-wrapper-sm{
@@ -288,6 +291,29 @@
       border-radius: 50%;
       background-color: white;
       left: -31px;
+    }
+  }
+}
+
+.resp-basic-info-ctn{
+  @media(max-width: 720px) {
+    >div:first-child{
+      left: calc(50% - 75px);
+    }
+    >div:last-child{
+      padding-left: 0 !important;
+    }
+  }
+}
+
+.resp-basic-info-profile-ctn{
+  @media(max-width: 720px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+    >img{
+      position: relative;
+      left: calc(50% - 75px);
     }
   }
 }

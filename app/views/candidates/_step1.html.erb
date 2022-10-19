@@ -1,4 +1,4 @@
-<% c_pic = candidate.photo.attached? ? cl_image_tag(candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.png', class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) %>
+<% c_pic = candidate.photo.attached? ? cl_image_tag(candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.svg', class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) %>
 
 <div data-profile-form-target="basics" data-position="active">
 
@@ -8,9 +8,9 @@
     <span class="chevron-ctrl bold-6" data-action="click->profile-form#step2">►</span></span>
   </div>
 
-  <div class="flex-resp mb-3">
+  <div class="flex-resp mb-3 resp-basic-info-ctn">
 
-    <div class="position-relative">
+    <div class="position-relative mb-2-resp">
       <%= c_pic %>
       <%= image_tag "", class: "d-none big-rounded-avatar pic-resized", data: {'profile-form-target': 'picpreview'} %>
       <%= f.input :photo,
@@ -31,9 +31,9 @@
     </div>
   </div>
 
-  <div class="flex-resp align-items-center custom-label mb-3">
+  <div class="flex-resp custom-label mb-3">
     <label for="candidate_linkedin_url" class="me-3 flex-width-150">Page LinkedIn :</label>
-    <%= f.input :linkedin_url, label: false, wrapper_html: {class: 'flex-resp align-items-center full-width'} %>
+    <%= f.input :linkedin_url, label: false, wrapper_html: {class: 'full-width'} %>
   </div>
 
   <div class="flex-resp align-items-center custom-label mb-3">
@@ -65,11 +65,13 @@
   <% else %>
     <div class="flex-resp align-items-center mb-0 d-none", data-profile-form-target="company">
   <% end %>
-    <label for="candidate_employer_name" class="flex-width-150 me-3">Employeur :</label>
-    <%= f.input :employer_name,
-                label: false,
-                wrapper: false,
-                input_html: {data: {action: 'keydown->profile-form#step2'}},
-                disabled: candidate.employer_approved %>
+    <div class="flex-resp custom-label mb-3 full-width" data-new-profile-target="company">
+      <label for="candidate_employer_name" class="me-3 flex-width-150">Employeur :</label>
+      <%= f.input :employer_name,
+                  label: false,
+                  wrapper_html: {class: 'full-width'},
+                  input_html: {data: {action: 'keydown->profile-form#step2'}},
+                  disabled: candidate.employer_approved %>
+    </div>
   </div>
 </div>

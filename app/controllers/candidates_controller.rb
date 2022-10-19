@@ -4,7 +4,8 @@ class CandidatesController < ApplicationController
 
   def show
     authorize @candidate
-    @offers = Offer.where(function: @candidate.function).limit(3)
+    @select_offers = Offer.where(function: @candidate.function).limit(3)
+    @applied_offers = Offer.joins(:candidacies).where(candidacies: {candidate_id: @candidate.id})
   end
 
   def new
@@ -100,6 +101,7 @@ class CandidatesController < ApplicationController
       :function,
       :birth_date,
       :past_employer_list,
+      :volunteering,
       cause_list: []
     )
   end

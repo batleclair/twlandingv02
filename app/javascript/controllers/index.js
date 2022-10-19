@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AccountController from "./account_controller.js"
+application.register("account", AccountController)
+
 import CandidacyController from "./candidacy_controller.js"
 application.register("candidacy", CandidacyController)
 
@@ -22,11 +25,11 @@ application.register("lock", LockController)
 import MenuController from "./menu_controller.js"
 application.register("menu", MenuController)
 
+import MininfoController from "./mininfo_controller.js"
+application.register("mininfo", MininfoController)
+
 import ModalController from "./modal_controller.js"
 application.register("modal", ModalController)
-
-import AccountController from "./account_controller.js"
-application.register("account", AccountController)
 
 import NewProfileController from "./new_profile_controller.js"
 application.register("new-profile", NewProfileController)

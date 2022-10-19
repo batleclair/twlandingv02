@@ -113,11 +113,21 @@
     right: 0;
     z-index: 2;
   }
+  .btn-replacement-msg{
+    opacity: 0;
+    position: absolute;
+    top: 80px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+    cursor: default;
+  }
   &:hover{
-    >button{
-      opacity: 1;
-    }
-    .centered-overlay{
+    .centered-overlay, .btn-replacement-msg, >button{
       opacity: 1;
     }
     >span{
@@ -130,6 +140,7 @@
     }
   }
 }
+
 
 .job-card-dark{
   background-color: $first-main-color;
@@ -171,4 +182,20 @@
   background-color: $first-light-color;
   border-radius: 10px;
   padding: 20px;
+}
+
+.job-card-sm.upcoming{
+  background-color: $light-gray;
+  position: relative;
+  overflow: hidden;
+  >span{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $first-main-color;
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: default;
+  }
 }

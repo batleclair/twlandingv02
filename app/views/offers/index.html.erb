@@ -70,7 +70,13 @@
             <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
               <h6>à venir</h6>
               <span></span>
-              <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+              <% if user_signed_in? %>
+                <% if current_user.applied?(offer) %>
+                  <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+                <% else %>
+                  <h5 class="white-text primary-text-color mb-4 mt-2 btn-replacement-msg">Votre candidature a bien été prise en compte 🙌</h5>
+                <% end %>
+              <% end %>
               <div class="d-none centered-overlay" data-lock-target="login">
                 <div class="d-flex">
                   <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>

@@ -9,7 +9,7 @@ function switchTab(targets, n) {
 
 // Connects to data-controller="account"
 export default class extends Controller {
-  static targets = ['button', 'creds', 'extras', 'savebtn']
+  static targets = ['button', 'creds', 'extras', 'form']
 
   connect() {
   }
@@ -31,6 +31,6 @@ export default class extends Controller {
 
   save() {
     event.preventDefault()
-    this.savebtnTarget.click()
+    this.formTarget.submit()
   }
 }
