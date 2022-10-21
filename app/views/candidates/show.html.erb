@@ -25,9 +25,10 @@
   </div>
   <div class="d-flex justify-content-evenly">
     <% if @candidate.linkedin_url.present? %>
-      <a href="https://www.linkedin.com/in/baptisteclair/" target="blank">
+      <% li_url = @candidate.clean_linkedin_url %>
+      <%= link_to li_url do %>
         <i class="fa-brands fa-linkedin-in round-button btn-round-cta me-2"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
-      </a>
+      <% end %>
     <% else %>
       <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive me-2"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
     <% end %>
