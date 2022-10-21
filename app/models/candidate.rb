@@ -35,7 +35,7 @@ class Candidate < ApplicationRecord
   end
 
   def clean_linkedin_url
-    "https://#{linkedin_url}" unless linkedin_url.start_with?('http://') || linkedin_url.start_with?('https://')
+    linkedin_url.start_with?('http://') || linkedin_url.start_with?('https://') ? linkedin_url : "https://#{linkedin_url}"
   end
 
   private
