@@ -1,9 +1,15 @@
 
-<div style="background-image: linear-gradient(45deg, rgba(83, 28, 179, 1), rgba(0, 157, 220, 0.6)), url('<%= image_path "bannerbg.jpg" %>');" class="banner" data-controller="contact">
-  <%= image_tag "logowhite.svg" %>
-  <h3>Talents engagés au service <span data-controller="typed-js"></span></h3>
-  <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
-  <%= render partial: "contact" %>
+<div style="background-image: linear-gradient(45deg, rgba(83, 28, 179, 1), hsl(355, 53%, 48%)), url('<%= image_path "banner.png" %>');" class="banner" data-controller="contact">
+  <%= image_tag "banner.png" %>
+  <%= image_tag "handsup.svg" %>
+  <div>
+    <span>
+      <%= image_tag "logowhite.svg" %>
+      <h3>Talents engagés au service <span data-controller="typed-js"></span></h3>
+      <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+    </span>
+    <%= render partial: "contact" %>
+  </div>
 </div>
 
 <div class="pb-5">
