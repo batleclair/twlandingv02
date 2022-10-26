@@ -1,0 +1,23 @@
+.post-ctn{
+  padding: 40px 10vw;
+>img {
+  width: 100%;
+}
+>h6{
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.8;
+}
+}
+
+@media(max-width: 1200px) {
+  .post-ctn{
+    padding: 40px 5vw;
+  }
+}
+
+@media(max-width: 720px) {
+  .post-ctn{
+    padding: 40px 0vw;
+  }
+}

@@ -23,7 +23,7 @@
         <% else %>
         ???
         <% end %>
-      <p>Employeur : <%= @candidacy.employer_name %></p>
+      <p>Employeur : <%= @candidacy.candidate.employer_name %></p>
       <p>L'employeur est-il au courant ?
         <% if @candidacy.employer_aware %>
           <i class="fa-solid fa-circle-check green-color"></i>

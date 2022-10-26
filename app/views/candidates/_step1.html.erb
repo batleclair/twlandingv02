@@ -27,7 +27,11 @@
       <p>🏠 <%= candidate.location.present? ? candidate.location : "non renseigné"  %></p>
       <p>📧 <%= candidate.user.email %> <i class="fa-solid fa-eye-slash sm-thin-text grey-color ms-2 me-1"></i> <span class="grey-color"> (non-visible)</span></p>
       <p>🤙 <%= candidate.phone_num.present? ? candidate.phone_num : "non renseigné"  %> <i class="fa-solid fa-eye-slash sm-thin-text grey-color ms-2 me-1"></i> <span class="grey-color"> (non-visible)</span></p>
-      <p>des infos perso à modifier ? rdv dans ton <i class="fa-solid fa-gear primary-text-color me-1"></i><span class="stress primary-text-color">compte</span></p>
+      <p>des infos perso à modifier ? rdv dans ton
+        <%= link_to edit_user_registration_path  do %>
+          <i class="fa-solid fa-gear primary-text-color me-1"></i><span class="stress primary-text-color">compte</span>
+        <% end %>
+      </p>
     </div>
   </div>
 

@@ -29,7 +29,7 @@
               <td><%= c.offer.title %></td>
               <td><%= "#{c.candidate.user.first_name} #{c.candidate.user.last_name.upcase}" %></td>
               <td><%= c.candidate.status %></td>
-              <td><%= c.employer_name %></td>
+              <td><%= c.candidate.employer_name %></td>
               <td>
                 <div class="d-flex justify-content-center">
                   <% if c.candidate.cv.attached? %>

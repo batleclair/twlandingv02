@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_one :candidate
+  has_one :candidate, autosave: true
   accepts_nested_attributes_for :candidate
 
   def admin?

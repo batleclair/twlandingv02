@@ -199,3 +199,49 @@
     cursor: default;
   }
 }
+
+.upper-post-card{
+  height: 180px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  background-position: center;
+  >h6{
+    position: absolute;
+    margin: 10px;
+    left: 0;
+    top: 0;
+    padding: 5px 10px;
+    border-radius: 50em;
+    background-color: $first-main-color;
+    color: white;
+    font-size: 13px;
+  }
+  >span{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px 10px;
+    font-style: italic;
+    color: white;
+    font-size: 13px;
+  }
+  border: solid 1px $first-main-color;
+}
+
+.post-card {
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0);
+  transition: 0.3s ease-in-out;
+  &:hover{
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.6);
+    transition: 0.3s ease-in-out;
+  }
+}
+
+.lower-post-card{
+  padding: 20px 10px;
+  min-height: 150px;
+  border-bottom: solid 1px $first-light-color;
+}

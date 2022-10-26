@@ -93,6 +93,13 @@
   margin-bottom: 0;
 }
 
+.white-wrapper-narrow-content{
+  background-color: white;
+  margin: 0 15vw;
+  min-height: 100vh;
+  padding: 80px 40px 100px 40px;
+}
+
 @media(max-width: 720px) {
   .flex-resp {
     display: block;
@@ -103,6 +110,12 @@
   .mb-2-resp{
     margin-bottom: 0.5rem;
   }
+  .white-wrapper-narrow-content{
+    background-color: white;
+    margin: 0 5vw;
+    padding: 80px 20px 100px 20px;
+  }
+
 }
 
 .full-width{

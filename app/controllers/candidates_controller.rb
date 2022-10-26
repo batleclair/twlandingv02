@@ -4,7 +4,7 @@ class CandidatesController < ApplicationController
 
   def show
     authorize @candidate
-    @select_offers = Offer.where(function: @candidate.function).limit(3)
+    @select_offers = Offer.where(function: @candidate.function).and(Offer.where(publish: true)).limit(3)
     @applied_offers = Offer.joins(:candidacies).where(candidacies: {candidate_id: @candidate.id})
   end
 

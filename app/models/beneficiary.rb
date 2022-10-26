@@ -7,7 +7,7 @@ class Beneficiary < ApplicationRecord
   validate :logo_file_type
 
   GOALS = [
-    'Environement',
+    'Environnement',
     'Social'
   ]
 

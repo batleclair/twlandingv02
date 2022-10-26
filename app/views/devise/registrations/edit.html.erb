@@ -2,14 +2,15 @@
 <div class="profile-form-wrapper" data-controller="account">
   <div class="ctn m-0">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-3 primary-text-color">Modifie les informations relatives à ton compte</h4>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
       <ul class="pill-tag-list step-pills m-0">
         <li class="me-1 mt-1 mb-1" data-action="click->account#step1" data-account-target="button" data-active>Connexion</li>
         <li class="me-1 mt-1 mb-1" data-action="click->account#step2" data-account-target="button">Perso</li>
       </ul>
     </div>
 
-    <h4 class="mt-4 mb-4 primary-text-color">Modifie les informations relatives à ton compte</h4>
 
     <div class="step-ctn">
       <div data-account-target="creds">
@@ -50,10 +51,7 @@
                         wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
           </div>
 
-          <div class="form-actions flex-resp justify-content-end">
-            <%= link_to "Retour", :back, class: "button btn-light-flag me-2 mb-2-resp" %>
-            <button class="button btn-flag-color" data-action="click->account#save">Enregistrer</button>
-          </div>
+
       </div>
 
       <div data-account-target="extras" data-position="right">
@@ -96,9 +94,11 @@
                         wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
           <% end %>
 
+
+
           <div class="form-actions flex-resp justify-content-end">
             <%= link_to "Retour", :back, class: "button btn-light-flag me-2 mb-2-resp" %>
-            <%= f.button :submit, "Enregistrer", class:"button btn-flag-color" %>
+            <%= f.submit "Enregistrer", class: "button btn-flag-color" %>
           </div>
 
         <% end %>

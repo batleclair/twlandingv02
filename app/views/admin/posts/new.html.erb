@@ -1,0 +1,24 @@
+<%= render partial: "shared/navpan", locals: {active: 5} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <h3>Créer un nouvel article</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+    <div class="d-flex">
+      <%= link_to "Retour", admin_posts_path, class:"button btn-light-main mb-2 me-2" %>
+    </div>
+    <%= simple_form_for(@post) do |f| %>
+      <%= f.input :title %>
+      <%= f.input :photo, as: :file %>
+      <%= f.input :content, as: :rich_text_area %>
+      <%= f.input :category_list,
+                  input_html: {value: @post.category_list.join(","), data: {controller: "tom-select"}} %>
+      <%= f.input :publish, as: :boolean %>
+
+      <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
+    <% end %>
+
+  </div>
+</div>
