@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   has_rich_text :content
   has_one_attached :photo
   validates :title, presence: true
+  validates :clean_url, presence: true, uniqueness: true
   acts_as_taggable_on :categories
 
   def published_ago

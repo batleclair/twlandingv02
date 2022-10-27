@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   # blog post routes
   get "/blog", to: "posts#index"
-  get "/blog/:title", to: "posts#show", as: :article
+  get "/blog/:clean_url", to: "posts#show", as: :article
   resources :posts, only: %i[create update destroy]
   # namespace :blog do
   #   resources :posts, only: %i[show]

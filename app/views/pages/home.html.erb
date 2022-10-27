@@ -12,65 +12,59 @@
   </div>
 </div>
 
-<div class="white-wrapper-sm pt-5">
+<div class="ctn-home">
+  <div class="row">
 
-  <div class="pb-5">
-    <div class="ctn">
-      <div class="row">
-
-        <div class="col-sm-12 col-lg-4">
-          <%= link_to nonprofits_path do %>
-            <div class="home-card">
-              <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="home-card-img"></div>
-                <div class="home-card-content">
-                  <div>
-                    <h2>Acteurs de l’intérêt général</h2>
-                    <p>Associations, fondations, organismes de l’ESS… : intégrez durablement des compétences pour tous vos besoins support moyen ou long-terme, quel que soit votre budget</p>
-                  </div>
-                  <%= link_to nonprofits_path do %>
-                    &#10230; en savoir plus
-                  <% end %>
-                </div>
+    <div class="col-sm-12 col-lg-4 home-card-ctn">
+      <%= link_to nonprofits_path do %>
+        <div class="home-card">
+          <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="home-card-img"></div>
+            <div class="home-card-content">
+              <div>
+                <h2>Acteurs de l’intérêt général</h2>
+                <p>Associations, fondations, organismes de l’ESS… : intégrez durablement des compétences pour tous vos besoins support moyen ou long-terme, quel que soit votre budget</p>
+              </div>
+              <%= link_to nonprofits_path do %>
+                &#10230; en savoir plus
+              <% end %>
             </div>
-          <% end %>
         </div>
-
-        <div class="col-sm-12 col-lg-4">
-          <%= link_to candidates_path do %>
-            <div class="home-card">
-              <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="home-card-img"></div>
-                <div class="home-card-content">
-                  <div>
-                    <h2>Entreprises</h2>
-                    <p>Une démarche RH et RSE différenciante pour permettre à vos candidats et collaborateurs en quête d'engagement de travailler à temps partagé pour un organisme d’intérêt général</p>
-                  </div>
-                  <%= link_to companies_path do %>
-                    &#10230; en savoir plus
-                  <% end %>
-                </div>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="col-sm-12 col-lg-4">
-          <%= link_to companies_path do %>
-            <div class="home-card">
-              <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="home-card-img"></div>
-                <div class="home-card-content">
-                  <div>
-                    <h2>Candidat·e·s</h2>
-                    <p>Mettez vos compétences au service d'une cause qui vous tient à coeur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
-                  </div>
-                  <%= link_to candidates_path do %>
-                    &#10230; en savoir plus
-                  <% end %>
-                </div>
-            </div>
-          <% end %>
-        </div>
-
-      </div>
+      <% end %>
     </div>
-  </div>
 
+    <div class="col-sm-12 col-lg-4 home-card-ctn">
+      <%= link_to candidates_path do %>
+        <div class="home-card">
+          <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="home-card-img"></div>
+            <div class="home-card-content">
+              <div>
+                <h2>Entreprises</h2>
+                <p>Une démarche RH et RSE différenciante pour permettre à vos candidats et collaborateurs en quête d'engagement de travailler à temps partagé pour un organisme d’intérêt général</p>
+              </div>
+              <%= link_to companies_path do %>
+                &#10230; en savoir plus
+              <% end %>
+            </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-sm-12 col-lg-4 home-card-ctn">
+      <%= link_to companies_path do %>
+        <div class="home-card">
+          <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="home-card-img"></div>
+            <div class="home-card-content">
+              <div>
+                <h2>Candidat·e·s</h2>
+                <p>Mettez vos compétences au service d'une cause qui vous tient à coeur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
+              </div>
+              <%= link_to candidates_path do %>
+                &#10230; en savoir plus
+              <% end %>
+            </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
 </div>

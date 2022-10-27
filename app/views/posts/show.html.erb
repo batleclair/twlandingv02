@@ -1,8 +1,6 @@
 <div class="white-wrapper-narrow-content">
   <h1 class="center-text big-header-with-bg mt-5">Le blog de <span class="stress">Demain</span> 🙌</h1>
 
-  <h5 class="center-text mb-3">Retrouvez toutes nos publications</h5>
-  <h6 class="center-text">On y parle sans langue de bois du turfu du monde du travail, de gentilles entreprises et de l'urgence de de bosser pour l'intérêt général avant que tout nous explose à la gueule 🤯</h6>
   <div class="full-width post-ctn">
     <%= @post.photo.attached? ? cl_image_tag(@post.photo.key) : image_tag('bannerbg.jpg')  %>
     <h2 class="primary-text-color bold-7 mt-3 mb-2"> <%= @post.title %></h2>
