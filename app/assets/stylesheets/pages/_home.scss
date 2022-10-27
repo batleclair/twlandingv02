@@ -54,6 +54,14 @@
  }
 }
 
+.partner-logo-ctn{
+  display: flex;
+  >img{
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 @media(max-width: 720px) {
   .home-card {
     flex-direction: column;

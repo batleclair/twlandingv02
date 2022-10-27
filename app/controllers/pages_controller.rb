@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!
 
   def home
-    @beneficiaries = Beneficiary.joins(:offers).where(offers: { status: 'active' }).uniq
+    @beneficiaries = Beneficiary.joins(:offers).where(offers: { status: 'active', publish: true }).uniq
   end
 
   def candidates
