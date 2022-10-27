@@ -10,6 +10,11 @@
 }
 }
 
+.post-body{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 @media(max-width: 1200px) {
   .post-ctn{
     padding: 40px 5vw;
