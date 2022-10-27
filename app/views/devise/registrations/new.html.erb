@@ -11,22 +11,29 @@
 
       <div class="form-inputs">
         <%= f.input :first_name,
-                    label: "Prénom" %>
+                    label: "Prénom",
+                    error: 'Woops, on en a besoin !',
+                    required: true %>
         <%= f.input :last_name,
-                    label: "Nom" %>
+                    label: "Nom",
+                    error: 'Woops, on en a besoin !',
+                    required: true %>
         <%= f.input :email,
                     required: true,
                     label: "Adresse mail",
+                    error: 'Woops ! il y a un problème',
                     autofocus: true,
-                    input_html: { autocomplete: "email" }%>
+                    input_html: { autocomplete: "email" } %>
         <%= f.input :password,
                     required: true,
                     label: "Choississez votre mot de passe",
+                    error: 'Woops ! il y a un problème',
                     hint: ("doit contenir au moins #{@minimum_password_length} caractères" if @minimum_password_length),
                     input_html: { autocomplete: "new-password" } %>
         <%= f.input :password_confirmation,
                     required: true,
                     label: "Confirmez votre mot de passe",
+                    error: 'Woops ! il y a un problème',
                     input_html: { autocomplete: "new-password" } %>
 
       </div>
