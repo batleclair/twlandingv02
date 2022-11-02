@@ -1,13 +1,13 @@
 <div class="light-bg pt-5 pb-5">
   <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
-    <div class="big-title-resp max-width-500" data-controller="contact">
+    <div class="big-title-resp full-width max-width-500" data-controller="contact">
       <h1 class="primary-text-color mb-3">entreprises</h1>
       <h4 class="mb-3">la réponse individualisée aux demandes d’engagement solidaire moyenne et longue durée de vos talents</h4>
       <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
       <%= render partial: "contact" %>
     </div>
-    <div class="lg-white-card">
-      <%= image_tag("homepage.png") %>
+    <div class="rounded-20 pt-2 pb-2 max-width-500">
+      <%= image_tag("homepage.png", class: "full-width") %>
     </div>
   </div>
 </div>
@@ -65,6 +65,53 @@
     <p class="mb-3">pour tous les budgets, selon celui de l’organisme d’accueil</p>
     <div class="full-width d-flex justify-content-center">
       <%= image_tag("budget_illustration.svg", class: "full-width max-width-300") %>
+    </div>
+  </div>
+</div>
+
+<div class="dark-bg pt-5 pb-5 ctn-resp">
+  <h4 class="white-text center-text mb-4">parce que chaque engagement est unique</h4>
+
+  <div class="flex-resp justify-content-between align-items-center">
+    <div class="d-flex align-items-center max-width-300 mg-resp-r pt-4 pb-4">
+      <h1 style="background-image: url('<%= image_path "sq_dark_bg.svg" %>'); background-size: contain; min-width: 50px; width: 50px; height: 50px;" class="center-text white-text">1.</h1>
+      <h5 class="white-text ms-4">accompagnement individualisé</h5>
+    </div>
+    <p class="white-text full-width max-width-750 pt-4 pb-4 bottom-border-white">lorem ipsum dolor sit amet, consectetur adipiscing elit. fusce posuere tempor dapibus</p>
+  </div>
+
+  <div class="flex-resp justify-content-between align-items-center">
+    <div class="d-flex align-items-center max-width-300 mg-resp-r pt-4 pb-4">
+      <h1 style="background-image: url('<%= image_path "sq_dark_bg.svg" %>'); background-size: contain; min-width: 50px; width: 50px; height: 50px;" class="center-text white-text">2.</h1>
+      <h5 class="white-text ms-4">accompagnement individualisé</h5>
+    </div>
+    <p class="white-text full-width max-width-750 pt-4 pb-4 bottom-border-white">lorem ipsum dolor sit amet, consectetur adipiscing elit. fusce posuere tempor dapibus</p>
+  </div>
+
+  <div class="flex-resp justify-content-between align-items-center">
+    <div class="d-flex align-items-center max-width-300 mg-resp-r pt-4 pb-4">
+      <h1 style="background-image: url('<%= image_path "sq_dark_bg.svg" %>'); background-size: contain; min-width: 50px; width: 50px; height: 50px;" class="center-text white-text">3.</h1>
+      <h5 class="white-text ms-4">accompagnement individualisé</h5>
+    </div>
+    <p class="white-text full-width max-width-750 pt-4 pb-4">lorem ipsum dolor sit amet, consectetur adipiscing elit. fusce posuere tempor dapibus</p>
+  </div>
+
+</div>
+
+<div class="shaded-bg pt-5 pb-5 ctn-resp">
+  <h4 class="primary-text-color center-text mb-5">attirez, retenez et motivez les talents engagés</h4>
+  <div class="flex-resp justify-content-around">
+    <div class="max-width-300 mb-4 mg-resp-r">
+      <h5 class="full-width bottom-border-black pb-4 mb-3">soutenez les <span class="stress">initiatives solidaires individuelles</span></h5>
+      <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. fusce posuere tempor dapibus</p>
+    </div>
+    <div class="max-width-300 mb-4 mg-resp-l mg-resp-r">
+      <h5 class="full-width bottom-border-black pb-4 mb-3">boostez votre <span class="stress">dispositif sociétal existant</span></h5>
+      <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. fusce posuere tempor dapibus</p>
+    </div>
+    <div class="max-width-300 mb-4 mg-resp-l">
+      <h5 class="full-width bottom-border-black pb-4 mb-3">recrutez de <span class="stress">nouveaux talents</span> solidaires</h5>
+      <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. fusce posuere tempor dapibus</p>
     </div>
   </div>
 </div>

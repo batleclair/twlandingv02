@@ -17,6 +17,9 @@
 
 .menu-light{
   background-color: $first-light-color;
+  .white-text{
+    color: $first-main-color;
+  }
   .white-link{
    color: $first-main-color;
    font-weight: 300;

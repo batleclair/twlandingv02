@@ -41,7 +41,7 @@
       <% if user_signed_in? %>
         <div class="d-flex align-items-center">
           <div class="user-nav-box">
-            <p style="color: white">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
+            <p class="white-text">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
             <div>
               <% if current_user.candidate.blank? %>
                 <%= link_to new_candidate_path, class: "white-link sm-thin-text", id: "profile-link" do %>

@@ -246,16 +246,6 @@
   border-bottom: solid 1px $first-light-color;
 }
 
-.lg-white-card{
-  padding: 20px 60px;
-  border-radius: 20px;
-  // background-color: white;
-  >img{
-    width: 100%;
-    max-height: 400px;
-  }
-}
-
 .big-title-resp{
   margin: 0 100px 0 0;
   >h1{
@@ -326,6 +316,10 @@
     }
     p{
       font-size: 13px;
+    }
+    &:hover{
+      background-color: $first-light-color;
+      transition: 0.2s ease-in-out;
     }
   }
 }
