@@ -1,9 +1,32 @@
-<div class="footer">
-  <%= link_to "A propos de Demain", about_path, class:"white-link mb-2" %>
-  <h6 class="mb-2">tomorrow works SAS - 2022</h6>
-  <ul class="list-inline">
-    <li>nous suivre : <a href="https://www.linkedin.com/company/demain-works/" class="white-link"><i class="fa-brands fa-linkedin-in ps-1"></i></a></li>
-    <li class="p-1"> | </li>
-    <li>nous écrire : <a href="mailto:contact@demain.works" class="white-link"><i class="fa-solid fa-at ps-1"></i></a></li>
-  </ul>
+<div class="ctn-resp pt-5 pb-5 dark-bg">
+  <div class="flex-resp full-width max-width-750 justify-content-between">
+
+    <%= image_tag("logowhite.svg", class: "sm-logo mg-resp-r mb-5") %>
+
+    <div class="mg-resp-l mg-resp-r mb-3">
+      <h6 class="white-text mb-3">Notre service</h6>
+      <div class="d-flex flex-column">
+        <%= link_to "Associations", nonprofits_path, class: "white-link mb-1" %>
+        <%= link_to "Entreprises", companies_path, class: "white-link mb-1" %>
+        <%= link_to "Candidat·e·s", candidates_path, class: "white-link mb-1" %>
+      </div>
+    </div>
+
+    <div class="mg-resp-l mg-resp-r mb-3">
+      <h6 class="white-text mb-3">Demain</h6>
+      <div class="d-flex flex-column">
+        <%= link_to "A propos de nous", about_path, class: "white-link mb-1" %>
+        <%= link_to "Nous contacter", "mailto:contact@demain.works", class: "white-link mb-1" %>
+        <%= link_to "CGU", "", class: "white-link mb-1" %>
+      </div>
+    </div>
+
+    <div class="mg-resp-l mb-3">
+      <h6 class="white-text mb-3">Nous suivre</h6>
+      <div class="d-flex flex-column">
+        <%= link_to "Nos actualités", blog_path, class: "white-link mb-1" %>
+        <a href="https://www.linkedin.com/company/demain-works/" class="white-link"><i class="fa-brands fa-linkedin-in ps-1"></i> LinkedIn</a>
+      </div>
+    </div>
+  </div>
 </div>

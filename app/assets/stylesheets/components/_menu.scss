@@ -4,13 +4,59 @@
   background-color: $first-main-color;
   padding: 0px 5vw;
   z-index: 3;
+  height: 50px;
   >div{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 40px;
+    height: 100%;
+    // margin-left: 40px;
   }
   transition: ease-in-out 0.2s;
+}
+
+.menu-light{
+  background-color: $first-light-color;
+  .white-link{
+   color: $first-main-color;
+   font-weight: 300;
+   &:hover{
+    color: $first-main-color;
+    font-weight: 500;
+   }
+  }
+  .btn-white-on-main{
+    background-color: $first-light-color;
+    border: solid 2px $first-main-color;
+    color: $first-main-color;
+    font-weight: 400;
+    &:hover {
+      color: $first-main-color;
+      background-color: $first-light-darker;
+      font-weight: 400;
+    }
+  }
+  .tabs-ctn{
+    .tab{
+      >div{
+        background-color: $first-light-color;
+      }
+    }
+    .dropdown-tab{
+      >div{
+        background-color: $first-light-color;
+      }
+      .dropdown-arrow{
+        >i{
+          color: $first-main-color;
+          font-weight: bolder;
+        }
+      }
+      .dropdown-options{
+        background-color: $first-light-color;
+      }
+    }
+  }
 }
 
 .menu-expand{
@@ -31,6 +77,7 @@
   width: 36px;
   text-align: center;
   cursor: pointer;
+  display: none;
 }
 
 .sm-logo{
@@ -41,101 +88,116 @@
   text-align: end;
 }
 
-.tabs{
-  height: 65px;
+.tabs-ctn{
+  display: flex;
+  height: 100%;
   position: relative;
-  cursor: pointer;
-  // margin-left: 20px;
-  .dropdown-tabs{
-    transition: ease-in-out 0.2s;
-    background-color: $first-main-color;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: -200px;
-    z-index: -1;
-    padding-left: 35px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-  }
-  .dropdown{
-    height: 55px;
-    background-color: $first-main-color;
-    padding: 24px 10px 0 10px;
-    display: flex;
-    >h6{
-      font-weight: 200;
+  .tab{
+    height: 100%;
+    >div{
+      display: flex;
+      align-items: flex-end;
+      height: 70%;
+      background-color: $first-main-color;
     }
-    .carret{
+  }
+  .dropdown-tab{
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    >div{
+      display: flex;
+      align-items: flex-end;
+      height: 70%;
+      background-color: $first-main-color;
+      >div:first-child{
+        display: flex;
+      }
+    }
+    .dropdown-arrow{
       height: 20px;
       width: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: ease-in-out 0.2s;
+      align-self: center;
       >i{
         color: white;
         font-weight: bolder;
       }
     }
-  }
-  &:hover{
-    .dropdown-tabs{
+    .dropdown-options{
+      display: flex;
+      flex-direction: column;
+      background-color: $first-main-color;
+      position: absolute;
+      top: -150px;
+      z-index: -1;
       transition: ease-in-out 0.2s;
-      top: 60px;
+      padding: 10px 20px;
     }
-    .dropdown{
-      >h6{
-        font-weight: 400;
+    &:hover{
+      .dropdown-options{
+      top: 50px;
+      transition: ease-in-out 0.2s;
       }
-      .carret{
-        transform: rotate(90deg);
-        transition: ease-in-out 0.2s;
+      .dropdown-arrow{
+      transform: rotate(90deg);
+      transition: ease-in-out 0.2s;
       }
     }
   }
 }
 
-.tabs-ctn{
-  display: flex;
-  align-items: center;
-}
 
 @media(max-width: 720px) {
+  .burger-icon{
+    display: block;
+  }
   .menu{
+    padding-top: 20vw;
     height: 100vh;
     translate: -100vw;
     >div{
       flex-direction: column;
-      height: 70%;
-      min-height: 500px;
       justify-content: space-around;
       margin-left: 0px;
     }
   }
-  .tabs-ctn{
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
   .menu-expand{
     translate: 0vw;
   }
-  .tabs{
-    margin-left: 0;
-    .dropdown{
-      opacity: 0;
-      margin: 0;
-      padding: 0;
+
+  .tabs-ctn{
+    display: block;
+    height: auto;
+    .tab{
+      height: auto;
+      >div{
+        justify-content: center;
+        height: auto;
+      }
     }
-    .dropdown-tabs{
+    .dropdown-tab{
+      height: auto;
       position: unset;
-      padding: 0;
-      margin: 0;
-      align-items: center;
+      >div{
+        display: block;
+        height: auto;
+        >div:first-child{
+          display: none;
+        }
+      }
+      .dropdown-options{
+        position: unset;
+        >a{
+          text-align: center;
+        }
+       }
     }
   }
+
   .sm-logo{
     height: auto;
     width: 50vw;

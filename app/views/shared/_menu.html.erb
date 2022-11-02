@@ -1,31 +1,41 @@
 <div data-controller="menu">
   <i class="fa-solid fa-bars burger-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
-  <nav class="menu" data-menu-target="nav" >
+
+  <nav class= "menu ctn-resp <%= "menu-light" if controller.controller_name == 'pages' %>" data-menu-target="nav" >
     <div>
       <%= link_to root_path do %>
-        <%= image_tag("logowhite.svg", class: "sm-logo") %>
+        <%= controller.controller_name == 'pages' ? image_tag("logodark.svg", class: "sm-logo") : image_tag("logowhite.svg", class: "sm-logo") %>
       <% end %>
 
+
       <div class="tabs-ctn">
-        <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
-
-        <%= link_to "Blog", blog_path, class: "white-link ms-3" %>
-
-        <div class="tabs">
-          <div class="dropdown">
-            <div class="carret">
-              <i class="fa-solid fa-angle-right"></i>
-            </div>
-            <h6 class="white-text ms-1">En savoir plus</h6>
-          </div>
-          <div class="dropdown-tabs">
-            <%= link_to "Associations", nonprofits_path, class:"white-link" %>
-            <%= link_to "Candidat·e·s", candidates_path, class:"white-link" %>
-            <%= link_to "Entreprises", companies_path, class:"white-link" %>
-            <%= link_to "A propos", about_path, class:"white-link" %>
+        <div class="tab">
+          <div>
+            <%= link_to "Missions", offers_path, class: "white-link ms-4 me-4" %>
           </div>
         </div>
 
+        <div class="dropdown-tab">
+          <div>
+            <div>
+              <div class="dropdown-arrow">
+                <i class="fa-solid fa-angle-right"></i>
+              </div>
+              <a class="white-link">Solution</a>
+            </div>
+            <div class="dropdown-options">
+              <%= link_to "Associations", nonprofits_path, class:"white-link" %>
+              <%= link_to "Candidat·e·s", candidates_path, class:"white-link" %>
+              <%= link_to "Entreprises", companies_path, class:"white-link" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab">
+          <div>
+            <%= link_to "A propos", about_path, class:"white-link ms-4 me-4" %>
+          </div>
+        </div>
       </div>
 
       <% if user_signed_in? %>
@@ -71,7 +81,7 @@
           <% end %>
         </div>
       <% else %>
-        <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color"%>
+        <%= link_to "Connexion", new_user_session_path, class: "button-round btn-white-on-main"%>
       <% end %>
     </div>
   </nav>

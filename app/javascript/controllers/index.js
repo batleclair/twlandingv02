@@ -25,8 +25,8 @@ application.register("lock", LockController)
 import MenuController from "./menu_controller.js"
 application.register("menu", MenuController)
 
-import MininfoController from "./mininfo_controller.js"
-application.register("mininfo", MininfoController)
+import CarouselController from "./carousel_controller.js"
+application.register("carousel", CarouselController)
 
 import ModalController from "./modal_controller.js"
 application.register("modal", ModalController)

@@ -1,68 +1,70 @@
-<div class="pb-5">
-  <div class="light-bg">
-    <div class="ctn">
-      <h1 class="center-text big-header-with-bg">Entreprises</h1>
-
-      <div class="flex-resp mb-5">
-        <div style="background-image: url('<%= image_path "illustration2.png" %>')" class="lg-illustration"></div>
-        <div class="text-card-xl">
-          <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Vos <span class="stress">enjeux</span></h4>
-          <p class="mb-1">Vous recherchez un moyen de <strong>mobiliser vos collaborateurs en quête de sens et d'engagement </strong>dans leur travail</p>
-          <p class="mb-1">Vous faites face à une <strong>concurrence forte sur le marché du recrutement</strong>, et peinez à vous différencier</p>
-          <p class="mb-1">Vous souhaitez que votre <strong>entreprise s'inscrive dans une démarche solidaire</strong> à fort impact</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ctn">
-
-    <div class="flex-resp mb-5">
-      <div class="text-card-xl">
-        <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Notre <span class="stress">solution</span></h4>
-        <p class="mb-1">Bénéficiez d’une <strong>plateforme et un service d’accompagnement individualisé</strong> pour l’engagement moyen à long-terme de vos talents, quels que soient <strong>leurs contraintes, votre budget</strong> et celui des bénéficiaires</p>
-        <p class="mb-1">Boostez vos actions de <strong>mécénat de compétences</strong> et votre <strong>image employeur</strong> en proposant du <strong>co-recrutement solidaire</strong> et de véritables <strong>temps partagés associatifs</strong></p>
-        <p class="mb-1">Valorisez cette <strong>double démarche RH/RSE différenciante</strong> auprès de vos parties prenantes : candidat·e·s, salarié·e·s, clientèle, partenaires…</p>
-      </div>
-      <div class="mid-page-ctn">
-        <div>
-          <div>
-          <h5 class="center-text mt-5">Flexible et déclinable sur de nombreux formats:</h5>
-          <div class="mono-carousel-ctn">
-            <div class="mono-card-carousel" style="height: 200px;">
-              <div class="mono-card mono-card-lg">
-                <p><span>Graduate solidaire</span></p>
-                <p>pour attirer les jeunes talents</p>
-              </div>
-              <div class="mono-card mono-card-lg">
-                <p><span>Co-recrutement</span></p>
-                <p>pour vous démarquer et gagner en attractivité</p>
-              </div>
-              <div class="mono-card mono-card-lg">
-                <p><span>Break d'intérêt général</span></p>
-                <p>pour re-mobiliser vos collaborateurs en quête d'engagement</p>
-              </div>
-              <div class="mono-card mono-card-lg">
-                <p><span>Inter-missions probono</span></p>
-                <p>pour gérer votre capacité en motivant vos consultants</p>
-              </div>
-              <div class="mono-card mono-card-lg">
-                <p><span>Pré-retraite active</span></p>
-                <p>pour valoriser l'engagement de vos cadres seniors</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        </div>
-      </div>
-    </div>
-    <div class="flex-resp justify-content-center align-items-center" data-controller="contact">
-      <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
+<div class="light-bg pt-5 pb-5">
+  <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
+    <div class="big-title-resp max-width-500" data-controller="contact">
+      <h1 class="primary-text-color mb-3">entreprises</h1>
+      <h4 class="mb-3">la réponse individualisée aux demandes d’engagement solidaire moyenne et longue durée de vos talents</h4>
       <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
       <%= render partial: "contact" %>
     </div>
+    <div class="lg-white-card">
+      <%= image_tag("homepage.png") %>
+    </div>
+  </div>
+</div>
 
+<div class="ctn-resp white-bg pt-5 pb-5 flex-resp early-resp-900 justify-content-between">
+  <div class="full-width max-width-500 mg-resp-r mb-3">
+    <h2 class="primary-text-color bold-6 mb-3">Demain s'adapte à chaque situation</h2>
+    <p>Nous nous adaptons pour accompagner vos candidats & collaborateurs engagés quels que soient leurs contraintes, votre budget et celui des organismes nécessitant leurs compétences</p>
+  </div>
+  <div>
+    <%= image_tag("work_formats.svg", class:"full-width img-contain") %>
+  </div>
+</div>
 
+<div class="ctn-resp white-bg pb-5 flex-resp early-resp-900 justify-content-between">
+  <div class="full-width max-width-500 light-bg p-4 mg-resp-r rounded-20 mb-3">
+    <h4 class="primary-text-color bold-6 mb-3">métiers</h4>
+    <p class="mb-3">pour toutes les compétences (hard & soft) utiles aux associations</p>
+
+          <div class="triple-carousel-ctn">
+            <div class="triple-icon-carousel">
+              <div class="triple-icon">
+                <p>📈</p>
+                <p>Finance / Compta</p>
+              </div>
+              <div class="triple-icon">
+                <p>🤝🏽</p>
+                <p>RH / Legal</p>
+              </div>
+              <div class="triple-icon">
+                <p>🖥️</p>
+                <p>IT / Web / Data</p>
+              </div>
+              <div class="triple-icon">
+                <p>📢</p>
+                <p>Marketing / Com'</p>
+              </div>
+              <div class="triple-icon">
+                <p>📦</p>
+                <p>Achats / Logistique</p>
+              </div>
+            </div>
+          </div>
+
+  </div>
+  <div class="full-width max-width-500 light-bg p-4 mg-resp-l mg-resp-r rounded-20 mb-3">
+    <h4 class="primary-text-color bold-6 mb-3">fréquence & durée</h4>
+    <p class="mb-3">pour tous formats de disponibilités moyen et long terme</p>
+    <div class="full-width d-flex justify-content-center">
+      <%= image_tag("frequency_illustration.svg", class: "full-width max-width-300") %>
+    </div>
+  </div>
+  <div class="full-width max-width-500 light-bg p-4 mg-resp-l rounded-20 mb-3">
+    <h4 class="primary-text-color bold-6 mb-3">budget</h4>
+    <p class="mb-3">pour tous les budgets, selon celui de l’organisme d’accueil</p>
+    <div class="full-width d-flex justify-content-center">
+      <%= image_tag("budget_illustration.svg", class: "full-width max-width-300") %>
+    </div>
   </div>
 </div>

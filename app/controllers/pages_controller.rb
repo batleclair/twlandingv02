@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def home
     @beneficiaries = Beneficiary.joins(:offers).where(offers: { status: 'active', publish: true }).uniq
+    @offers = Offer.where(publish: true, status: 'active').order(created_at: :desc).limit(6)
   end
 
   def candidates

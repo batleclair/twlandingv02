@@ -95,6 +95,9 @@
 .btn-admin-cta{
   background-color: green;
   color: white;
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
   &:hover {
     color: white;
     background-color: greenyellow;

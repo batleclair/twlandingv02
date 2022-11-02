@@ -3,7 +3,7 @@
   <% if offer.candidates.where(user_id: current_user.id).none? %>
     <button class="button full-width btn-flag-color mb-3" data-action=<%= action %> data-lock-target="apply">Candidater !</button>
   <% else %>
-    <h5 class="text-center main-color pt-3 pb-3 mb-4">Votre candidature a bien été prise en compte 🙌</h5>
+    <h5 class="text-center main-color pt-3 pb-3 mb-4 white-bg">Votre candidature a bien été prise en compte 🙌</h5>
   <% end %>
 <% else %>
   <button class="button full-width btn-flag-color mb-3" data-action=<%= action %> data-lock-target="apply">Candidater !</button>
