@@ -6,7 +6,7 @@
     </div>
 
     <div class="modal-body">
-    <h5 class="primary-text-color bolder mb-3">Il nous manque quelques infos 🤓</h5>
+    <h5 class="primary-text-color bolder mb-3">Il nous manque quelques infos pour générer ton profil 🤓</h5>
     <%= simple_form_for(current_user.candidate, action: :synch_update_min, data:{turbo: false, 'menu-target': 'form', action: 'submit->menu#save'}) do |f| %>
       <div>
 

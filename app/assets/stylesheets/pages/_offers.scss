@@ -14,6 +14,37 @@
   transition: 0.3s ease-in-out;
 }
 
+.indication{
+  position: absolute;
+  top: -50px;
+  >p{
+    position: relative;
+    >i{
+      position: absolute;
+
+      bottom: -10px;
+    }
+  }
+}
+.indication-right{
+  right: calc(50% - 150px);
+  >p{
+    >i{
+      left: -10px;
+      transform: rotate(45deg);
+    }
+  }
+}
+.indication-left{
+  left: calc(50% - 140px);
+  >p{
+    >i{
+      right: -10px;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
 .filter-icon{
   position: absolute;
   top: -18px;

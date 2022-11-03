@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get "candidates", to: "pages#candidates"
   get "companies", to: "pages#companies"
   get "about", to: "pages#about"
+  get "terms", to: "pages#terms"
+  get "legal", to: "pages#legal"
 
   # profile routes
   post "candidates/synch", to: "candidates#synch_create"

@@ -2,7 +2,7 @@
   <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
     <div class="big-title-resp max-width-500 full-width" data-controller="contact">
       <h1 class="primary-text-color mb-3">talents engagés & solidaires</h1>
-      <h4 class="mb-3">Demain permet aux salarié·e·s de s'engager sur leur temps de travail pour aider dans la durée des organismes d'intérêt général</h4>
+      <h4 class="mb-3">Demain permet aux personnes salariées de s'engager sur leur temps de travail auprès organismes d'intérêt général</h4>
       <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
       <%= render partial: "contact" %>
     </div>
@@ -13,7 +13,8 @@
 </div>
 
 <div class="dark-bg pt-5 pb-5 ctn-resp">
-  <h4 class="white-text center-text mb-4">les missions de Demain</h4>
+  <h4 class="white-text center-text mb-2">les missions de Demain</h4>
+  <p class="mb-4 white-text center-text">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de <span class="stress-dark">combiner son job actuel avec un second d'intérêt général</span></p>
   <div class="job-card-container" data-controller="carousel" data-carousel-target="container">
     <% @offers.each do |offer| %>
       <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : image_tag('heart_globe.png') %>
@@ -43,12 +44,12 @@
     <div class="full-width max-width-500 mg-resp-r">
       <div class="full-width mb-5">
         <h1 class="mb-3">vous êtes...</h1>
-        <p class="mb-2">Notre mission : mettre le talent et les compétences professionnels au service de l'intérêt général, en conciliant les intérêts de toutes les parties prenantes</p>
-        <p>Que vous soyez un organisme d'intérêt général (association, fondation, ...), une entreprise (responsable RSE, DRH, manager...) ou un·e salarié·e  souhaitant s'engager <span class="stress">Demain est là pour vous accopagner</span></p>
+        <p class="mb-2">Que vous soyez un organisme d'intérêt général (association, fondation, ...), une entreprise (responsable RSE, DRH, manager...) ou un·e salarié·e  souhaitant s'engager <span class="stress">Demain est là pour vous accompagner</span></p>
+        <p>Notre mission : mettre le talent et les compétences professionnels au service de l'intérêt général, en conciliant les intérêts de toutes les parties prenantes</p>
       </div>
       <div class="home-info-card full-width">
-        <div class="d-flex justify-content-between mb-3">
-          <h4 class="primary-text-color">une association</h4>
+        <div class="d-flex justify-content-between mb-3 align-items-center ">
+          <h4 class="primary-text-color">acteur de l'intérêt général</h4>
           <h4 class="primary-text-color"><i class="fa-solid fa-hand-holding-heart"></i></h4>
         </div>
         <p>Associations, fondations et autres acteurs de l’intérêt général : intégrez durablement des compétences pour tous vos besoins support moyen ou long-terme, quel que soit votre budget</p>
@@ -58,16 +59,16 @@
 
     <div class="full-width mt-5 pt-5 d-flex flex-column align-items-center max-width-500 mg-resp-l">
       <div class="home-info-card full-width mb-5">
-        <div class="d-flex justify-content-between mb-3">
-          <h4 class="primary-text-color">un·e candidat·e</h4>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="primary-text-color">salarié·e d'entreprise</h4>
           <h4 class="primary-text-color"><i class="fa-solid fa-user"></i></h4>
         </div>
         <p>Mettez vos compétences au service d'une cause qui vous tient à coeur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
         <%= link_to "plus d'infos", candidates_path, class: "button-round" %>
       </div>
       <div class="home-info-card full-width">
-        <div class="d-flex justify-content-between mb-3">
-          <h4 class="primary-text-color">une entreprise</h4>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="primary-text-color">manager, professionnel RH ou RSE</h4>
           <h4 class="primary-text-color"><i class="fa-solid fa-building"></i></i></h4>
         </div>
         <p>Une démarche RH et RSE différenciante et véritablement impactante : permettez aux talents engagés de partager durablement leur temps de travail et leurs compétences avec des associations qui leur correspondent</p>

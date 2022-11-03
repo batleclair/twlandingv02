@@ -14,10 +14,6 @@
   align-self: flex-start
 }
 
-.resp-flex-ctn{
-  display: flex;
-}
-
 .toggle-sm{
   display: none;
 }
@@ -25,9 +21,6 @@
 @media(max-width: 720px) {
   .fixed-size-box{
     width: 100%;
-  }
-  .resp-flex-ctn{
-    flex-direction: column;
   }
   .fixed-size-box{
     margin: 0;

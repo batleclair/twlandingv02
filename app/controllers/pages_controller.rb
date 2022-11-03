@@ -16,6 +16,12 @@ class PagesController < ApplicationController
   def companies
   end
 
+  def terms
+  end
+
+  def legal
+  end
+
   private
 
   def new

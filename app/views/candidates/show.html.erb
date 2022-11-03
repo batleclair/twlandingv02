@@ -1,6 +1,6 @@
 <% c_pic = @candidate.photo.attached? ? cl_image_tag(@candidate.photo.key, class: "big-rounded-avatar twist subtle-shadow", angle: 5, width: 180, height: 180, gravity: "faces", crop: "fill") : cl_image_tag('../no_avatar.svg', class: "big-rounded-avatar twist subtle-shadow", angle: 5, width: 180, height: 180, gravity: "faces", crop: "fill") %>
 
-<div class="shaded-wrapper-sm flex-resp align-items-center resp-basic-info-profile-ctn">
+<div class="ctn-resp shaded-bg flex-resp align-items-center resp-basic-info-profile-ctn pb-5">
   <%= c_pic %>
   <div class="p-4 flex-grow-1">
     <h5 class="primary-text-color bold-6"><%= "#{@candidate.user.first_name} (#{@candidate.age})" %></h5>
@@ -47,130 +47,127 @@
   </div>
 </div>
 
-<div class="flex-resp">
-    <div class="main-2flex-wrapper">
+<div class="ctn-resp flex-resp early-resp-900">
+  <div class="flex2-wrapper flex-grow-1 white-bg sheet-pad mg-resp-r">
 
-      <h5 class="primary-text-color bold-6 mb-3">en 2 mots</h5>
-      <% if @candidate.description.blank? && policy(@candidate).edit? %>
-        <p>tu n'as pas encore rédigé de description, tu peux le faire
-        <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
-        !</p>
-      <% end %>
-      <p><%= @candidate.description %></p>
+    <h5 class="primary-text-color bold-6 mb-3">en 2 mots</h5>
+    <% if @candidate.description.blank? && policy(@candidate).edit? %>
+      <p>tu n'as pas encore rédigé de description, tu peux le faire
+      <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
+      !</p>
+    <% end %>
+    <p><%= @candidate.description %></p>
 
-      <h5 class="primary-text-color bold-6 mt-5 mb-3">expériences professionnelles</h5>
-      <% if @candidate.experiences.empty? && policy(@candidate).edit? %>
-        <p>tu n'as pas encore renseigné tes expériences, tu peux le faire
-        <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
-        !</p>
-      <% end %>
-      <div class="full-width mb-2 xps-ctn">
-        <% @candidate.experiences.order(start_date: :desc).each do |xp| %>
-          <div class="flex-resp align-items-center flex-grow-1 mb-2">
-            <h6 class="me-4 set-width-150"><%= xp.employer %>: </h6>
-            <div>
-              <p><%= xp.title %></p>
-              <div class="d-flex align-items-center">
-                <% if xp.end_date.present? %>
-                  <p class="me-2 sm-thin-text">(<%= xp.start_date_output %></p>
-                  <i class="fa-solid fa-arrow-right-long me-2 primary-text-color"></i>
-                  <p class="sm-thin-text"><%= xp.end_date_output %>)</p>
-                <% else %>
-                  <p class="me-2 sm-thin-text">(depuis <%= xp.start_date_output %>)</p>
-                <% end %>
-              </div>
+    <h5 class="primary-text-color bold-6 mt-5 mb-3">expériences professionnelles</h5>
+    <% if @candidate.experiences.empty? && policy(@candidate).edit? %>
+      <p>tu n'as pas encore renseigné tes expériences, tu peux le faire
+      <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
+      !</p>
+    <% end %>
+    <div class="full-width mb-2 xps-ctn">
+      <% @candidate.experiences.order(start_date: :desc).each do |xp| %>
+        <div class="flex-resp align-items-center flex-grow-1 mb-2">
+          <h6 class="me-4 set-width-150"><%= xp.employer %>: </h6>
+          <div>
+            <p><%= xp.title %></p>
+            <div class="d-flex align-items-center">
+              <% if xp.end_date.present? %>
+                <p class="me-2 sm-thin-text">(<%= xp.start_date_output %></p>
+                <i class="fa-solid fa-arrow-right-long me-2 primary-text-color"></i>
+                <p class="sm-thin-text"><%= xp.end_date_output %>)</p>
+              <% else %>
+                <p class="me-2 sm-thin-text">(depuis <%= xp.start_date_output %>)</p>
+              <% end %>
             </div>
           </div>
-        <% end %>
-      </div>
-
-
-
-      <h5 class="primary-text-color bold-6 mt-5 mb-3">expertise & compétences</h5>
-      <div class="flex-resp mb-3">
-        <h6 class="me-2 mb-2-resp">domaine :</h6>
-        <h6 class="stress"><%= @candidate.function %></h6>
-      </div>
-      <h6 class="mb-2">compétences :</h6>
-      <% if @candidate.skill_list.empty? && policy(@candidate).edit? %>
-        <p>tu n'as pas encore précisé tes compétences, tu peux le faire
-        <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
-        !</p>
+        </div>
       <% end %>
-
-      <ul class="pill-tag-list m-0">
-        <% @candidate.skill_list.each do |skill| %>
-          <li class="me-1 mt-1"><%= skill %></li>
-        <% end %>
-      </ul>
-      <h5 class="primary-text-color bold-6 mt-5 mb-3">engagements personnels</h5>
-      <% if @candidate.cause_list.empty? && policy(@candidate).edit? %>
-        <p>tu n'as pas encore indiqué les causes qui te tiennent à coeur, tu peux le faire
-        <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
-        !</p>
-      <% end %>
-
-      <ul class="badge-list-ctn">
-        <% @candidate.cause_list.each do |cause| %>
-          <li class="mt-1"><%= cause %></li>
-        <% end %>
-      </ul>
-
-      <h6 class="me-2">engagements associatifs :</h6>
-      <% if @candidate.volunteering.blank? && policy(@candidate).edit? %>
-        <p>tu n'as pas encore renseigné tes expériences associatives, tu peux le faire
-        <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
-        !</p>
-      <% end %>
-      <p><%= @candidate.volunteering %></p>
     </div>
 
-    <div class="side-2flex-wrapper">
+    <h5 class="primary-text-color bold-6 mt-5 mb-3">expertise & compétences</h5>
+    <div class="flex-resp mb-3">
+      <h6 class="me-2 mb-2-resp">domaine :</h6>
+      <h6 class="stress text-nowrap"><%= @candidate.function %></h6>
+    </div>
+    <h6 class="mb-2">compétences :</h6>
+    <% if @candidate.skill_list.empty? && policy(@candidate).edit? %>
+      <p>tu n'as pas encore précisé tes compétences, tu peux le faire
+      <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
+      !</p>
+    <% end %>
 
-      <h5 class="primary-text-color bold-6 mb-3">tes candidatures 🥳</h5>
-      <div class="mb-5">
-        <% if @applied_offers.blank? %>
-          <p>tu n'as pas encore candidaté</p>
-        <% else %>
-          <% @applied_offers.each do |offer| %>
+    <ul class="pill-tag-list m-0">
+      <% @candidate.skill_list.each do |skill| %>
+        <li class="me-1 mt-1"><%= skill %></li>
+      <% end %>
+    </ul>
+    <h5 class="primary-text-color bold-6 mt-5 mb-3">engagements personnels</h5>
+    <% if @candidate.cause_list.empty? && policy(@candidate).edit? %>
+      <p>tu n'as pas encore indiqué les causes qui te tiennent à coeur, tu peux le faire
+      <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
+      !</p>
+    <% end %>
+
+    <ul class="badge-list-ctn">
+      <% @candidate.cause_list.each do |cause| %>
+        <li class="mt-1"><%= cause %></li>
+      <% end %>
+    </ul>
+
+    <h6 class="me-2">engagements associatifs :</h6>
+    <% if @candidate.volunteering.blank? && policy(@candidate).edit? %>
+      <p>tu n'as pas encore renseigné tes expériences associatives, tu peux le faire
+      <%= link_to 'ici', edit_candidate_path(@candidate), class: "stress" %>
+      !</p>
+    <% end %>
+    <p><%= @candidate.volunteering %></p>
+  </div>
+
+  <div class="flex2-wrapper flex2-side white-bg mg-resp-l sheet-pad">
+
+    <h5 class="primary-text-color bold-6 mb-3">tes candidatures 🥳</h5>
+    <div class="mb-5">
+      <% if @applied_offers.blank? %>
+        <p>tu n'as pas encore candidaté</p>
+      <% else %>
+        <% @applied_offers.each do |offer| %>
+          <%= link_to offer_path(offer) do %>
+            <div class="job-card-sm subtle-shadow mb-3">
+              <h6 class="primary-text-color mb-2"><%= offer.title %></h6>
+              <p><%= offer.beneficiary.name %></p>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <h5 class="primary-text-color bold-6 mb-3">ça peut t'intéresser</h5>
+    <h6 class="mb-2">dans ton domaine</h6>
+    <div>
+      <% if @select_offers.blank? %>
+        <p>😥 nous n'avons pas encore d'offre en ligne, patience !</p>
+      <% else %>
+        <% @select_offers.each do |offer| %>
+          <% if offer.active? %>
             <%= link_to offer_path(offer) do %>
               <div class="job-card-sm subtle-shadow mb-3">
                 <h6 class="primary-text-color mb-2"><%= offer.title %></h6>
                 <p><%= offer.beneficiary.name %></p>
               </div>
             <% end %>
+          <% else %>
+            <div class="job-card-sm upcoming subtle-shadow mb-3">
+              <h6 class="primary-text-color mb-2"><%= offer.title %></h6>
+              <p><%= offer.beneficiary.name %></p>
+              <span>à venir</span>
+            </div>
           <% end %>
         <% end %>
-      </div>
-
-      <h5 class="primary-text-color bold-6 mb-3">ça peut t'intéresser</h5>
-      <h6 class="mb-2">dans ton domaine</h6>
-      <div>
-        <% if @select_offers.blank? %>
-          <p>😥 nous n'avons pas encore d'offre en ligne, patience !</p>
-        <% else %>
-          <% @select_offers.each do |offer| %>
-            <% if offer.active? %>
-              <%= link_to offer_path(offer) do %>
-                <div class="job-card-sm subtle-shadow mb-3">
-                  <h6 class="primary-text-color mb-2"><%= offer.title %></h6>
-                  <p><%= offer.beneficiary.name %></p>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="job-card-sm upcoming subtle-shadow mb-3">
-                <h6 class="primary-text-color mb-2"><%= offer.title %></h6>
-                <p><%= offer.beneficiary.name %></p>
-                <span>à venir</span>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
-        <div class="d-flex justify-content-end">
-          <%= link_to 'voir plus', offers_path, class: 'color-link' %>
-        </div>
+      <% end %>
+      <div class="d-flex justify-content-end">
+        <%= link_to 'voir plus', offers_path, class: 'color-link' %>
       </div>
     </div>
-
+  </div>
 
 </div>

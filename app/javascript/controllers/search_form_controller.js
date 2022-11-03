@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="search-form"
 export default class extends Controller {
-  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select']
+  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication']
   connect() {
   }
 
@@ -27,5 +27,8 @@ export default class extends Controller {
   toggle() {
     this.filtersTarget.classList.toggle('filters-expand')
     this.btnTarget.classList.toggle('filter-icon-active')
+    this.indicationTargets.forEach(indication => {
+      indication.classList.toggle('d-none')
+    });
   }
 }
