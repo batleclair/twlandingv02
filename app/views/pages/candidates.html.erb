@@ -1,44 +1,181 @@
-<div class="pb-5">
-  <div class="light-bg pt-5">
-    <div class="ctn">
-      <h1 class="center-text primary-text-color mb-5">Candidat·e·s</h1>
+<div class="light-bg pt-5 pb-5">
+  <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
+    <div class="big-title-resp max-width-500 full-width position-relative">
+      <%= image_tag("sq_dark_bg.svg", class: "flat-shape-bg") %>
+      <h1 class="primary-text-color mb-3">s'engager sans se sacrifier !</h1>
+      <h4 class="mb-2">grâce à Demain, travaille à temps partiel pour une association, <span class="primary-text-color bold-7">sans perdre ton salaire</span>.</h4>
+    </div>
+    <div class="rounded-20 pt-2 pb-2 max-width-500 flex-grow-1">
+      <h5 class="mb-3">rejoins la communauté des talents engagés</h5>
 
-      <div class="flex-resp mb-5">
-        <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="lg-illustration"></div>
-        <div class="text-card-xl">
-          <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Vous avez le <span class="stress">pouvoir</span></h4>
-          <p class="mb-1">Salarié·e, freelance ou postulant·e : vous souhaitez donner du sens à votre travail au quotidien ?</p>
-          <p class="mb-1">Vous voulez vous engager concrètement et durablement en faveur de la transition sociale et environementale ?</p>
-          <p class="mb-1">Grâce à <span class="stress">Demain</span> : <strong>changez le monde sans compromettre votre carrière ou vos finances</strong> !</p>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :first_name,
+                      placeholder: "Prénom",
+                      label: false,
+                      error: 'Woops, on en a besoin !',
+                      required: true %>
+          <%= f.input :last_name,
+                      label: false,
+                      placeholder: "Nom",
+                      error: 'Woops, on en a besoin !',
+                      required: true %>
+          <%= f.input :email,
+                      required: true,
+                      label: false,
+                      placeholder: "Adresse mail",
+                      error: 'Woops ! il y a un problème',
+                      input_html: { autocomplete: "email" } %>
+          <%= f.input :password,
+                      required: true,
+                      label: false,
+                      placeholder: "Mot de passe",
+                      error: 'Woops ! il y a un problème',
+                      hint: ("doit contenir au moins #{@minimum_password_length} caractères" if @minimum_password_length),
+                      input_html: { autocomplete: "new-password" } %>
+          <%= f.input :password_confirmation,
+                      required: true,
+                      label: false,
+                      placeholder: "Mot de passe (confirmation)",
+                      error: 'Woops ! il y a un problème',
+                      input_html: { autocomplete: "new-password" } %>
+
         </div>
+
+        <div class="form-actions d-flex justify-content-end align-items-center">
+          <%= link_to "déjà inscrit·e ?", new_user_session_path, class: "me-2 text-nowrap color-link" %>
+          <%= f.button :submit, "Inscription", class:"button btn-flag-color" %>
+        </div>
+      <% end %>
+
+
+
+    </div>
+  </div>
+</div>
+
+<div class="dark-bg pt-5 pb-5 ctn-resp">
+  <h4 class="white-text center-text mb-2">les missions de Demain</h4>
+  <p class="mb-4 white-text center-text">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de <span class="stress-dark">combiner son job actuel avec un second d'intérêt général</span></p>
+  <div class="job-card-container" data-controller="carousel" data-carousel-target="container">
+    <% @offers.each do |offer| %>
+      <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : image_tag('heart_globe.png') %>
+      <%= link_to offer_path(offer), class:"job-card-home-page" do %>
+        <div data-carousel-target="card">
+          <%= b_logo %>
+          <div>
+            <h6 class="primary-text-color mb-2"><%= offer.title %></h6>
+            <p>👊 <%= offer.beneficiary.cause %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <%= link_to offers_path, class:"job-card-home-page dark-bg-card" do %>
+      <div class="justify-content-center " data-carousel-target="card">
+        <h6>voir toutes les missions</h6>
+      </div>
+    <% end %>
+
+    <button data-carousel-target="prev" data-action="click->carousel#slide"><i class="fa-solid fa-angle-left"></i></button>
+    <button data-carousel-target="next" data-action="click->carousel#slide"><i class="fa-solid fa-angle-right"></i></button>
+  </div>
+</div>
+
+<div class="white-bg pt-5 pb-5 ctn-resp justify-content-between">
+
+  <div class="flex-resp full-width">
+    <div class="full-width max-width-500 mg-resp-r">
+      <div class="full-width mb-5">
+        <h1 class="mb-3">comment ça marche ?</h1>
+        <p class="mb-2">Tu es salarié·e à temps plein en entreprise ?</p>
+        <p class="mb-2">Tu aimerais travailler 1 ou 2 jours par semaine pour une cause qui te tient à coeur ?</p>
+        <p>Tu n’es pas seul·e ! Demain t’aide à le faire, sans sacrifier ton salaire !</p>
+      </div>
+    </div>
+    <div class="flex-resp align-items-start h-auto max-width-500 mt-5 pt-5 mg-resp-l">
+      <%= image_tag('profile_illustration.svg', width: "150px", class: "d-block mx-auto mg-resp-r mb-2-resp") %>
+      <div class="mg-resp-l">
+        <h4 class="primary-text-color mb-3">crée ton profil</h4>
+        <p>Mets en valeur tes compétences, tes engagements et ce que tu souhaites apporter à l'association qui pourrait t'accueillir !</p>
       </div>
     </div>
   </div>
 
-  <div class="ctn">
-    <div class="flex-resp mb-5">
-      <div class="text-card-xl">
-        <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Rejoignez le <span class="stress">mouvement</span> !</h4>
-        <p class="mb-1">Concrétisez vos projets d'engagement et enrichissez vos compétences, quelle que soit votre situation :</p>
-        <ul class="light-list">
-          <li><strong>Salarié·e :</strong> candidatez à des offres adaptées à votre situation. <span class="stress">Demain</span> vous accompagne pour <strong>faire valoir vos aspirations auprès de votre employeur</strong></li>
-          <li><strong>Freelance :</strong> mettez vos <strong>compétences au service de l'intérêt général</strong>, en choisissant les modalités d'intervention adaptées à vos contraintes</li>
-          <li><strong>Postulant·e :</strong> optez pour le temps partagé solidaire afin de <strong>combiner salariat en entreprise et engagement associatif</strong></li>
-        </ul>
-        <div class="d-flex justify-content-end">
-          <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
-        </div>
+  <div class="d-flex home-card full-width">
+    <div class="illustration-card-resp align-items-start h-auto max-width-500 mg-resp-r">
+      <div class="mg-resp-r">
+        <h4 class="primary-text-color mb-3">trouve ta mission</h4>
+        <p>Choisis parmi les missions déjà en ligne ou bien laisse nous trouver la mission qui correspond à ton profil et tes valeurs !</p>
       </div>
-      <div class="mid-page-ctn">
-        <div>
-          <h5 class="center-text mt-5"></h5>
-        </div>
+      <%= image_tag('search_illustration.svg', width: "150px", class: "d-block mx-auto mg-resp-l mb-2-resp") %>
+    </div>
+    <div class="flex-resp align-items-start h-auto max-width-500 mt-5 pt-5 mg-resp-l">
+      <%= image_tag('match_illustration.svg', width: "150px", class: "d-block mx-auto mg-resp-r mb-2-resp") %>
+      <div class="mg-resp-l">
+        <h4 class="primary-text-color mb-3">valide ton projet</h4>
+        <p>Demain t'accompagne dans les démarches auprès de ton employeur afin qu'il soutienne et participe à ton projet d'engagement !</p>
       </div>
     </div>
-    <div class="flex-resp justify-content-center align-items-center" data-controller="contact">
-      <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
-      <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
-      <%= render partial: "contact" %>
+  </div>
+</div>
+
+
+<div class="shaded-bg pt-5 pb-5 ctn-resp" data-controller="faq">
+  <h4 class="primary-text-color center-text mb-5">questions très (très) fréquentes</h4>
+  <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
+    <div class="faq-arrow me-4">
+      <i class="fa-solid fa-angle-right primary-text-color"></i>
+    </div>
+    <div>
+      <h5>Comment ça se passe avec les associations ?</h5>
+      <p class="pt-3">Après un premier call avec Demain pour mieux te connaître, on organise un échange avec l’association pour vérifier l’adéquation entre tes compétences et leurs besoins. Un call suffit en général pour donner une réponse de principe !</p>
+    </div>
+  </div>
+  <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
+    <div class="faq-arrow me-4">
+      <i class="fa-solid fa-angle-right primary-text-color"></i>
+    </div>
+    <div>
+      <h5>Comment ça se passe avec mon employeur ?</h5>
+      <p class="pt-3">Les missions proposées par Demain nécessitent un engagement sur ton temps de travail : de quelques jours par mois à plusieurs par semaine. Ton employeur doit donc donner son accord ! Mais pas de panique, on est là pour t’aider à lui présenter le projet, et on met tout en œuvre ensuite pour le convaincre.</p>
+    </div>
+  </div>
+  <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
+    <div class="faq-arrow me-4">
+      <i class="fa-solid fa-angle-right primary-text-color"></i>
+    </div>
+    <div>
+      <h5>Je reste vraiment payé pareil ?</h5>
+      <p class="pt-3">Demain propose plusieurs dispositifs pour permettre de t’engager sereinement en maintenant ta rémunération, l’entreprise restant par ailleurs ton unique employeur.</p>
+    </div>
+  </div>
+  <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
+    <div class="faq-arrow me-4">
+      <i class="fa-solid fa-angle-right primary-text-color"></i>
+    </div>
+    <div>
+      <h5>Pourquoi mon employeur accepterait ?</h5>
+      <p class="pt-3">Donner une partie de ton temps de travail suppose un coût pour ton entreprise, mais elle peut en récupérer une partie sous forme d’avantage fiscal. Par ailleurs, en associant ton employeur à ton projet d’engagement solidaire, tu lui permets de renforcer ses actions en matière de RSE et d’améliorer son image en interne comme en externe !</p>
+    </div>
+  </div>
+  <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
+    <div class="faq-arrow me-4">
+      <i class="fa-solid fa-angle-right primary-text-color"></i>
+    </div>
+    <div>
+      <h5>Demain me garantit que mon employeur va accepter ?</h5>
+      <p class="pt-3">Les chances que ton entreprise accepte dépendent de plusieurs paramètres : la charge de travail de ton équipe, ta relation avec tes managers, la sensibilité de ton organisation à ton projet d’engagement… On ne peut donc rien promettre, à part de faire tout ce qu’on peut pour convaincre ta boîte !</p>
+    </div>
+  </div>
+  <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
+    <div class="faq-arrow me-4">
+      <i class="fa-solid fa-angle-right primary-text-color"></i>
+    </div>
+    <div>
+      <h5>Je ne suis pas salarié, est-ce que je peux quand-même candidater aux missions proposées par Demain ?</h5>
+      <p class="pt-3">Oui oui oui ! Que tu sois freelance ou entre deux boulots, tu peux consacrer du temps à l’une de nos associations partenaires dans le cadre d’un bénévolat de compétences. Certaines missions sont même rémunérées... 😉</p>
     </div>
   </div>
 </div>

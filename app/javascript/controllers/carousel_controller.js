@@ -11,15 +11,15 @@ export default class extends Controller {
 
   slide() {
     const cards = this.cardTargets.length
-    const maxclicks = cards - Math.floor(this.containerTarget.offsetWidth / 270)
+    const maxclicks = cards - Math.floor(this.containerTarget.offsetWidth / 300)
     if (event.currentTarget === this.nextTarget && counter < maxclicks) {
       this.cardTargets.forEach(card => {
-        card.style.transform = `translateX(${-270 * (counter + 1)}px)`;
+        card.style.transform = `translateX(${-300 * (counter + 1)}px)`;
       });
       counter += 1
     } else if (event.currentTarget === this.prevTarget && counter > 0) {
       this.cardTargets.forEach(card => {
-        card.style.transform = `translateX(${-270 * (counter -1)}px)`;
+        card.style.transform = `translateX(${-300 * (counter -1)}px)`;
       });
       counter -= 1
 

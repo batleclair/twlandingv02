@@ -10,11 +10,17 @@ application.register("account", AccountController)
 import CandidacyController from "./candidacy_controller.js"
 application.register("candidacy", CandidacyController)
 
+import CarouselController from "./carousel_controller.js"
+application.register("carousel", CarouselController)
+
 import ContactController from "./contact_controller.js"
 application.register("contact", ContactController)
 
 import ExperienceController from "./experience_controller.js"
 application.register("experience", ExperienceController)
+
+import FaqController from "./faq_controller.js"
+application.register("faq", FaqController)
 
 import HelloController from "./hello_controller.js"
 application.register("hello", HelloController)
@@ -24,9 +30,6 @@ application.register("lock", LockController)
 
 import MenuController from "./menu_controller.js"
 application.register("menu", MenuController)
-
-import CarouselController from "./carousel_controller.js"
-application.register("carousel", CarouselController)
 
 import ModalController from "./modal_controller.js"
 application.register("modal", ModalController)

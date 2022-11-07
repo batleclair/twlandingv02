@@ -54,19 +54,19 @@
 
 .white-link{
   color: white;
-  font-weight: 200;
+  font-weight: 300;
   &:hover{
     color: white;
-    font-weight: 400;
+    font-weight: 500;
   }
 }
 
 .color-link{
   color: $first-main-color;
-  font-weight: 200;
+  font-weight: 300;
   &:hover{
-    color: $first-main-darker;
-    font-weight: 400;
+    color: $first-main-color;
+    font-weight: 500;
   }
 }
 

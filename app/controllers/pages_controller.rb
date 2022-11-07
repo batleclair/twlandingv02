@@ -8,6 +8,7 @@ class PagesController < ApplicationController
   end
 
   def candidates
+    @offers = Offer.where(publish: true, status: 'active').order(created_at: :desc).limit(6)
   end
 
   def nonprofits

@@ -1,0 +1,80 @@
+.flat-shape-bg{
+  position: absolute;
+  left: -50px;
+  top: -50px;
+  height: 130%;
+  opacity: 10%;
+  @media(max-width: 720px) {
+    left: 0px;
+    top: 0px;
+    height: 100%;
+  }
+}
+
+.faq-ctn{
+  cursor: pointer;
+  &:hover{
+    .faq-arrow{
+      background-color: $first-light-darker;
+    }
+    h5{
+      color: $first-main-color;
+    }
+  }
+  p{
+    display: none;
+  }
+}
+
+.faq-arrow{
+  min-width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50em;
+  border: solid $first-main-color 3px;
+  i{
+    color: $first-main-color;
+  }
+  transition: 0.2s ease-in-out;
+  background-color: $first-light-lighter;
+
+}
+
+.faq-active{
+  p{
+    display: block;
+  }
+  .faq-arrow{
+    background-color: $first-main-color;
+    i{
+      color: white;
+    }
+    transform: rotate(90deg);
+  }
+  &:hover{
+    .faq-arrow{
+    background-color: $first-main-darker;
+    }
+  }
+}
+
+.illustration-card-resp{
+  display: flex;
+  >div{
+    text-align: end;
+  }
+  @media(max-width: 720px) {
+    flex-direction: column;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    >div{
+      order: 2;
+      text-align: start;
+    }
+    >img{
+      order: 1;
+    }
+  }
+}

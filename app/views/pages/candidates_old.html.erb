@@ -1,0 +1,44 @@
+<div class="pb-5">
+  <div class="light-bg pt-5">
+    <div class="ctn">
+      <h1 class="center-text primary-text-color mb-5">Candidat·e·s</h1>
+
+      <div class="flex-resp mb-5">
+        <div style="background-image: url('<%= image_path "illustration3.png" %>')" class="lg-illustration"></div>
+        <div class="text-card-xl">
+          <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Vous avez le <span class="stress">pouvoir</span></h4>
+          <p class="mb-1">Salarié·e, freelance ou postulant·e : vous souhaitez donner du sens à votre travail au quotidien ?</p>
+          <p class="mb-1">Vous voulez vous engager concrètement et durablement en faveur de la transition sociale et environementale ?</p>
+          <p class="mb-1">Grâce à <span class="stress">Demain</span> : <strong>changez le monde sans compromettre votre carrière ou vos finances</strong> !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctn">
+    <div class="flex-resp mb-5">
+      <div class="text-card-xl">
+        <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Rejoignez le <span class="stress">mouvement</span> !</h4>
+        <p class="mb-1">Concrétisez vos projets d'engagement et enrichissez vos compétences, quelle que soit votre situation :</p>
+        <ul class="light-list">
+          <li><strong>Salarié·e :</strong> candidatez à des offres adaptées à votre situation. <span class="stress">Demain</span> vous accompagne pour <strong>faire valoir vos aspirations auprès de votre employeur</strong></li>
+          <li><strong>Freelance :</strong> mettez vos <strong>compétences au service de l'intérêt général</strong>, en choisissant les modalités d'intervention adaptées à vos contraintes</li>
+          <li><strong>Postulant·e :</strong> optez pour le temps partagé solidaire afin de <strong>combiner salariat en entreprise et engagement associatif</strong></li>
+        </ul>
+        <div class="d-flex justify-content-end">
+          <%= link_to "Voir les offres", offers_path, class: "button-round btn-white-on-main" %>
+        </div>
+      </div>
+      <div class="mid-page-ctn">
+        <div>
+          <h5 class="center-text mt-5"></h5>
+        </div>
+      </div>
+    </div>
+    <div class="flex-resp justify-content-center align-items-center" data-controller="contact">
+      <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
+      <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+      <%= render partial: "contact" %>
+    </div>
+  </div>
+</div>
