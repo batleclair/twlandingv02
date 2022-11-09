@@ -11,12 +11,14 @@
       <table class="tw-table">
         <thead>
           <tr>
+            <th>Date</th>
             <th>Nom</th>
-            <th>Status</th>
-            <th>Email</th>
             <th>Tel</th>
+            <th>Email</th>
+            <th>Status</th>
             <th>Employeur</th>
-            <th class="center-text">CV transmis</th>
+            <th>Candidatures</th>
+            <th class="center-text">CV</th>
             <th class="center-text">Actions</th>
           </tr>
         </thead>
@@ -25,6 +27,8 @@
             <tr>
               <td class="no-wrap"><%= c.created_at.strftime("%d-%m-%Y") %></td>
               <td><%= "#{c.user.first_name} #{c.user.last_name.upcase}" %></td>
+              <td><%= c.phone_num %></td>
+              <td><%= c.user.email %></td>
               <td><%= c.status %></td>
               <td><%= c.employer_name %></td>
               <td>
