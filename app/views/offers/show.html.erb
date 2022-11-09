@@ -7,36 +7,22 @@
     <%= b_logo %>
   </div>
   <h2><%= @offer.title %></h2>
-  <div class="offer-specs">
-    <ul class="list-inline">
-      <li>📍 Lieu : <%= @offer.location %></li>
-
-      <% case
-      when @offer.half_days_min.nil? && @offer.half_days_max.nil?
-        f = "à définir"
-      when  ( @offer.half_days_min.nil? && !@offer.half_days_max.nil? ) || @offer.half_days_min == @offer.half_days_max
-        f = "#{@offer.half_days_max.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
-      when  ( !@offer.half_days_min.nil? && @offer.half_days_max.nil? )
-        f = "#{@offer.half_days_min.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
-      else
-        f = "#{@offer.half_days_min.fdiv(2).round(1).to_s.chomp('.0')} à #{@offer.half_days_max.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
-      end %>
-
-      <li class="ps-3 pe-3">🕐 Fréquence : <%= f %></li>
-
-      <% case
-      when @offer.months_min.nil? && @offer.months_max.nil?
-        d = "à définir"
-      when  ( @offer.months_min.nil? && !@offer.months_max.nil? ) || @offer.months_min == @offer.months_max
-        d = "#{@offer.months_max} mois"
-      when  ( !@offer.months_min.nil? && @offer.months_max.nil? )
-        d = "#{@offer.months_min} mois"
-      else
-        d = "#{@offer.months_min} à #{@offer.months_max} mois"
-      end %>
-
-      <li>📅 Durée : <%= d %></li>
-    </ul>
+  <div class="offer-specs flex-resp early-resp-900">
+    <p class="white-text ms-2 me-2">📍 <%= @offer.location %></p>
+    <p class="white-text ms-2 me-2">💜 <%= @offer.beneficiary.cause %></p>
+    <p class="white-text ms-2 me-2 d-flex align-items-center info-bubble"><%= @offer.commitment_output %>
+      <strong>?</strong>
+      <% if @offer.commitment.present? %>
+        <% case %>
+        <% when @offer.commitment.start_with?('👍') %>
+          <span>nécessite une implication limitée à quelques jours</span>
+        <% when @offer.commitment.start_with?('👏') %>
+          <span>nécessite une implication soutenue, par exemple 1j/sem pendant plusieurs mois</span>
+        <% when @offer.commitment.start_with?('🙌') %>
+          <span>nécessite une implication durable, par exemple 1 à 2 j/sem pendant 1 an ou +</span>
+        <% end %>
+      <% end %>
+    </p>
   </div>
 </div>
 

@@ -46,6 +46,11 @@
   li{
     display: inline;
   }
+  .early-resp-900{
+    li{
+      display: list-item;
+    }
+  }
 }
 
 .white-text{
@@ -145,6 +150,14 @@
 
 .bold-6{
   font-weight: 600;
+}
+
+.bold-5{
+  font-weight: 500;
+}
+
+.bold-4{
+  font-weight: 400;
 }
 
 .downsize90{

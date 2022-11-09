@@ -30,11 +30,51 @@ class Offer < ApplicationRecord
     'draft'
   ]
 
+  COMMITMENTS = [
+    '👍 light',
+    '👏 moyen',
+    '🙌 costaud',
+  ]
+
   def active?
     status == 'active'
   end
 
   def new?
     status == 'new'
+  end
+
+  def frequency_output
+    case
+    when half_days_min.nil? && half_days_max.nil?
+      return "à définir"
+    when  (half_days_min.nil? && !half_days_max.nil?) || half_days_min == half_days_max
+      return "#{half_days_max.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
+    when  (!half_days_min.nil? && half_days_max.nil?)
+      return "#{half_days_min.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
+    else
+      return "#{half_days_min.fdiv(2).round(1).to_s.chomp('.0')} à #{half_days_max.fdiv(2).round(1).to_s.chomp('.0')} j / sem"
+    end
+  end
+
+  def duration_output
+    case
+    when months_min.nil? && months_max.nil?
+      return "à définir"
+    when  (months_min.nil? && !months_max.nil?) || months_min == months_max
+      return "#{months_max} mois"
+    when  (!months_min.nil? && months_max.nil?)
+      return "#{months_min} mois"
+    else
+      return "#{months_min} à #{months_max} mois"
+    end
+  end
+
+  def commitment_output
+    if commitment.present?
+      return commitment.insert(2, "Engagement ")
+    else
+      return "Engagement à définir"
+    end
   end
 end

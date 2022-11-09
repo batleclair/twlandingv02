@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_27_080103) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_09_123716) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -134,6 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_080103) do
     t.boolean "publish", default: false
     t.string "offer_type"
     t.string "function"
+    t.string "commitment"
     t.index ["beneficiary_id"], name: "index_offers_on_beneficiary_id"
   end
 

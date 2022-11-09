@@ -1,0 +1,32 @@
+.info-bubble{
+  position: relative;
+  cursor: help;
+  strong{
+    height: 15px;
+    width: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50em;
+    background-color: white;
+    color: $first-main-color;
+    margin-left: 10px;
+  }
+  span{
+    display: none;
+    position: absolute;
+    padding: 5px 15px;
+    width: 200px;
+    background-color: $first-main-color;
+    color: white;
+    font-size: 12px;
+    top: 30px;
+    }
+  &:hover{
+    span{
+    display: initial;
+    }
+  }
+}

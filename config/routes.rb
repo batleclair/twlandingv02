@@ -41,12 +41,14 @@ Rails.application.routes.draw do
   resources :beneficiaries, only: %i[create update destroy]
   resources :offers, only: %i[create update destroy]
   resources :candidacies, only: %i[destroy]
+  resources :candidates, only: %i[destroy]
   namespace :admin do
     resources :beneficiaries, only: %i[index new edit]
     resources :offers, only: %i[index new edit]
     resources :contacts, only: %i[index]
     resources :candidacies, only: %i[index show]
     resources :posts, only: %i[index new edit]
+    resources :candidates, only: %i[index]
   end
 
 end

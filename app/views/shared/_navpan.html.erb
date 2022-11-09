@@ -1,10 +1,13 @@
 <div class="navpan">
   <%= link_to 'Dashboard', admin_path , class:"white-link", data: {"active": active == 0} %>
   <p class="white-line mt-2 mb-2"></p>
+
   <%= link_to 'Bénéficiaires', admin_beneficiaries_path, class:"white-link", data: {"active": active == 1} %>
   <%= link_to 'Offres', admin_offers_path, class:"white-link", data: {"active": active == 2} %>
+  <%= link_to 'Candidats', admin_candidates_path, class:"white-link", data: {"active": active == 6} %>
   <%= link_to 'Candidatures', admin_candidacies_path, class:"white-link", data: {"active": active == 3} %>
   <p class="white-line mt-2 mb-2"></p>
+
   <%= link_to 'Contacts', admin_contacts_path, class:"white-link", data: {"active": active == 4} %>
   <p class="white-line mt-2 mb-2"></p>
   <%= link_to 'Articles', admin_posts_path, class:"white-link", data: {"active": active == 5} %>

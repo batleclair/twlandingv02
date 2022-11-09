@@ -1,0 +1,65 @@
+<%= render partial: "shared/navpan", locals: {active: 6} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Candidats</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Status</th>
+            <th>Email</th>
+            <th>Tel</th>
+            <th>Employeur</th>
+            <th class="center-text">CV transmis</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @candidates.each do |c| %>
+            <tr>
+              <td class="no-wrap"><%= c.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= "#{c.user.first_name} #{c.user.last_name.upcase}" %></td>
+              <td><%= c.status %></td>
+              <td><%= c.employer_name %></td>
+              <td>
+                <ul>
+                  <% c.candidacies.each do |candidacy| %>
+                    <li><%= "#{candidacy.offer.beneficiary.name} | #{candidacy.offer.title}" %></li>
+                  <% end %>
+                </ul>
+              </td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <% if c.cv.attached? %>
+                    <%= link_to cl_image_path(c.cv.key), target: "_blank" do %>
+                      <i class="fa-solid fa-file-arrow-down green-color"></i>
+                    <% end %>
+                  <% else %>
+                    <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                  <% end %>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to(candidate_path(c)) do %>
+                    <i class="fa-solid fa-eye primary-text-color"></i>
+                  <% end %>
+                  <%= link_to candidate_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash primary-text-color"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -1,5 +1,9 @@
 class CandidatePolicy < ApplicationPolicy
 
+  def index?
+    user.user_type == 'admin'
+  end
+
   def show?
     record.user == user || user.user_type == 'admin'
   end
@@ -30,6 +34,10 @@ class CandidatePolicy < ApplicationPolicy
 
   def update?
     record.user == user || user.user_type == 'admin'
+  end
+
+  def destroy?
+    user.user_type == 'admin'
   end
 
   class Scope < Scope

@@ -112,7 +112,8 @@ class OffersController < ApplicationController
       :publish,
       :beneficiary_id,
       :offer_type,
-      :function
+      :function,
+      :commitment
     )
   end
 end

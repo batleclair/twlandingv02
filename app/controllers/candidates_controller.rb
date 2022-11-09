@@ -64,6 +64,13 @@ class CandidatesController < ApplicationController
     end
   end
 
+  def destroy
+    @candidate = Candidate.find(params[:id])
+    @candidate.destroy
+    authorize @candidate
+    redirect_to admin_candidates_path, status: :see_other
+  end
+
   private
 
   def json_response(candidate)
