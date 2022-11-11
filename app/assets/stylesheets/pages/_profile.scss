@@ -52,7 +52,6 @@
 }
 
 .profile-form-wrapper{
-  min-height: 100vh;
   padding-top: 80px;
   padding-bottom: 100px;
 }
@@ -82,7 +81,7 @@
 .step-ctn{
   overflow-x: hidden;
   position: relative;
-  min-height: 75vh;
+  min-height: 65vh;
   >div{
     position: absolute;
     top: 0;

@@ -36,9 +36,7 @@
 
   <body style="background-image: url('<%= image_path "bg2.png" %>')" data-controller="modal" data-action="keyup->modal#close">
     <%= render partial: "shared/menu" %>
-    <div class="min-height-wrap">
-      <%= yield %>
-    </div>
+    <%= yield %>
 
     <% if flash.any? %>
       <% flash.each do |notice, msg| %>
