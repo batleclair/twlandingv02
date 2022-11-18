@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://www.demain.works/</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.demain.works/candidates</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.demain.works/nonprofits</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.demain.works/companies</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.demain.works/about</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.demain.works/offers</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.demain.works/blog</loc>
+    <lastmod>2022-11-11</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <% @offers.each do |offer| %>
+    <url>
+      <loc>https://www.demain.works/offers/<%= offer.id %></loc>
+      <lastmod><%= offer.updated_at.strftime("%Y-%m-%d") %></lastmod>
+      <changefreq>daily</changefreq>
+    </url>
+  <% end %>
+
+  <% @posts.each do |post| %>
+    <url>
+      <loc>https://www.demain.works/blog/<%= post.clean_url %></loc>
+      <lastmod><%= post.updated_at.strftime("%Y-%m-%d") %></lastmod>
+      <changefreq>daily</changefreq>
+    </url>
+  <% end %>
+
+</urlset>

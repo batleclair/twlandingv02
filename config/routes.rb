@@ -51,4 +51,6 @@ Rails.application.routes.draw do
     resources :candidates, only: %i[index]
   end
 
+  # sitemap
+  get 'sitemap', to: 'pages#sitemap', defaults: { format: 'xml' }
 end

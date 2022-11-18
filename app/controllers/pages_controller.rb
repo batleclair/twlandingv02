@@ -23,6 +23,11 @@ class PagesController < ApplicationController
   def legal
   end
 
+  def sitemap
+    @offers = Offer.where(publish: true, status: 'active')
+    @posts = Post.where(publish: true)
+  end
+
   private
 
   def new
