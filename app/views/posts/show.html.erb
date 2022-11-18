@@ -2,7 +2,7 @@
   <h1 class="center-text primary-text-color mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h1>
 
   <div class="full-width post-ctn">
-    <%= @post.photo.attached? ? cl_image_tag(@post.photo.key) : image_tag('bannerbg.jpg')  %>
+    <%= @post.photo.attached? ? cl_image_tag(@post.photo.key) : image_tag('bannerbg.jpg') %>
     <h2 class="primary-text-color bold-7 mt-3 mb-2"> <%= @post.title %></h2>
     <h6 class="mb-5"><%= @post.published_ago %></h6>
     <div class="post-body">
