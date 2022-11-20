@@ -13,6 +13,14 @@
 .post-body{
   text-align: justify;
   text-justify: inter-word;
+  h1{
+    color: $first-main-color;
+    font-size: 22px;
+  }
+  a{
+    text-decoration: underline;
+    font-style: italic;
+  }
 }
 
 @media(max-width: 1200px) {
