@@ -41,7 +41,7 @@ class Candidate < ApplicationRecord
   private
 
   def basics
-    pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/\w+\/?$/
+    pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
     if linkedin_url.blank? && !cv.attached?
       errors.add(:cv, "Veuillez fournir a minima votre LinkedIn OU votre CV")
     elsif linkedin_url.present? && !linkedin_url.match?(pattern)
