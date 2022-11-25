@@ -113,6 +113,7 @@ class OffersController < ApplicationController
       :beneficiary_id,
       :offer_type,
       :function,
+      :slug,
       :commitment
     )
   end

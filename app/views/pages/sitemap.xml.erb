@@ -54,7 +54,7 @@
 
   <% @posts.each do |post| %>
     <url>
-      <loc>https://www.demain.works/blog/<%= post.clean_url %></loc>
+      <loc>https://www.demain.works/blog/<%= post.slug %></loc>
       <lastmod><%= post.updated_at.strftime("%Y-%m-%d") %></lastmod>
       <changefreq>daily</changefreq>
     </url>

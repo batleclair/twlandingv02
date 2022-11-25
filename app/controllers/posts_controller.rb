@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find_by(clean_url: params[:clean_url])
+    @post = Post.find_by(slug: params[:slug])
     authorize @post
     @contact = Contact.new
   end
@@ -42,6 +42,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :publish, :photo, :category_list, :clean_url)
+    params.require(:post).permit(:title, :content, :publish, :photo, :category_list, :slug)
   end
 end

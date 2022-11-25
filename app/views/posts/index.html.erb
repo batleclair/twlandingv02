@@ -11,7 +11,7 @@
     <% @posts.each do |post| %>
       <div class="col-xxl-4 col-lg-6 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
         <% bg_img = post.photo.attached? ? cl_image_path(post.photo.key) : image_path('bannerbg.jpg') %>
-        <%= link_to(article_path(clean_url: post.clean_url)) do %>
+        <%= link_to(article_path(slug: post.slug)) do %>
           <div class="post-card">
             <div class="upper-post-card" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >
               <% unless post.category_list.blank? %>

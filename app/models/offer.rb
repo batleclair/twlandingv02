@@ -3,6 +3,7 @@ class Offer < ApplicationRecord
   has_rich_text :description
   has_many :candidacies
   has_many :candidates, through: :candidacies
+  validates :slug, presence: true, uniqueness: true
 
   FUNCTIONS = [
     'IT/Data/Produit',
