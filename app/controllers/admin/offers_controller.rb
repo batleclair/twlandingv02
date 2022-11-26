@@ -10,7 +10,7 @@ class Admin::OffersController < AdminController
   end
 
   def edit
-    @offer = Offer.find(params[:id])
+    @offer = Offer.find_by(slug: params[:slug])
     authorize @offer
   end
 end

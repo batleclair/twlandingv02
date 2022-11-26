@@ -52,7 +52,6 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(data)
         if (data['valid']) {
           this.nextTarget.setAttribute("data-candidate", data["id"])
           this.step1Target.classList.add("d-none")
@@ -84,6 +83,7 @@ export default class extends Controller {
     const form2 = new FormData(this.form2Target)
     form2.append('consent', document.getElementById('candidacy_consent').checked)
     const urlCandidacy = this.form2Target.action
+    console.log(urlCandidacy)
     document.getElementById('consent-error').innerHTML = ''
     fetch(urlCandidacy, {
       method: "POST",

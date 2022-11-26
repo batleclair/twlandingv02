@@ -12,6 +12,7 @@
       <table class="tw-table">
         <thead>
           <tr>
+            <th>id</th>
             <th>Association</th>
             <th>Titre</th>
             <th>Fonction</th>
@@ -26,6 +27,7 @@
         <tbody>
           <% @offers.each do |o| %>
             <tr>
+              <td><%= o.id %></td>
               <td><%= o.beneficiary.name %></td>
               <td><%= o.title %></td>
               <td><%= o.function %></td>

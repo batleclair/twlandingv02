@@ -52,7 +52,7 @@ class OffersController < ApplicationController
   end
 
   def select
-    params[:id] == "nil" ? @offer = Offer.new : @offer = Offer.find(params[:id])
+    params[:slug] == "nil" ? @offer = Offer.new : @offer = Offer.find(params[:slug])
     authorize @offer
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?
@@ -68,6 +68,7 @@ class OffersController < ApplicationController
   def create
     @offer = Offer.new(offer_params)
     authorize @offer
+    @offer.save
     # @offer.beneficiary_id = params[:beneficiary_id]
     if @offer.save
       redirect_to offer_path(@offer)
@@ -95,7 +96,7 @@ class OffersController < ApplicationController
   private
 
   def set_offer
-    @offer = Offer.find(params[:id])
+    @offer = Offer.find_by(slug: params[:slug])
   end
 
   def offer_params

@@ -3,7 +3,7 @@ class Offer < ApplicationRecord
   has_rich_text :description
   has_many :candidacies
   has_many :candidates, through: :candidacies
-  validates :slug, presence: true, uniqueness: true
+  after_save :set_slug
 
   FUNCTIONS = [
     'IT/Data/Produit',
@@ -77,5 +77,13 @@ class Offer < ApplicationRecord
     else
       return "Engagement à définir"
     end
+  end
+
+  def set_slug
+    self.slug = "#{beneficiary.name.parameterize}-#{title.parameterize}-#{id}"
+  end
+
+  def to_param
+    slug
   end
 end

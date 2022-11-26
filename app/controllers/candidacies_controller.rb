@@ -10,7 +10,7 @@ class CandidaciesController < ApplicationController
     @candidacy = Candidacy.new(candidacy_params)
     authorize @candidacy
     @candidacy.consent = true
-    @candidacy.offer_id = params[:offer_id]
+    @candidacy.offer_id = params[:id]
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
     render json: json_response(@candidacy)
@@ -20,7 +20,7 @@ class CandidaciesController < ApplicationController
     @candidacy = Candidacy.new(candidacy_params)
     @candidacy.consent = params['consent'] == 'true'
     authorize @candidacy
-    @candidacy.offer_id = params[:offer_id]
+    @candidacy.offer = Offer.find_by(slug: params[:offer_slug])
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
     @candidacy.save

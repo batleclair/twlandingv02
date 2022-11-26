@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  include Pundit
+  include Pundit::Authorization
   after_action :verify_authorized
 
   def dashboard
