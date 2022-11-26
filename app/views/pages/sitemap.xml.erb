@@ -46,7 +46,7 @@
 
   <% @offers.each do |offer| %>
     <url>
-      <loc>https://www.demain.works/offers/<%= offer.id %></loc>
+      <loc>https://www.demain.works/offers/<%= offer.slug %></loc>
       <lastmod><%= offer.updated_at.strftime("%Y-%m-%d") %></lastmod>
       <changefreq>daily</changefreq>
     </url>
