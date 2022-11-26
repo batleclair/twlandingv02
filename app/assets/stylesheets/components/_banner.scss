@@ -46,6 +46,32 @@
   }
 }
 
+.offer-banner{
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  padding: 100px 5vw 50px 5vw;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+  color: white;
+  position: relative;
+  background-position: center;
+  >h2{
+    text-align: center;
+  }
+}
+
+.offer-specs{
+  background-color: $first-main-color;
+  padding: 15px 40px;
+  position: absolute;
+  bottom: -25px;
+}
+
+
 @media(max-width: 720px) {
   .banner {
     align-items: center;
@@ -74,34 +100,15 @@
     }
   }
   .offer-banner{
-    padding: 100px 5vw 50px 5vw;
+    padding: 50px 5vw 50px 5vw;
     >h2{
       margin-bottom: 30px;
     }
   }
-}
-
-.offer-banner{
-  width: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
-  padding: 100px 5vw 50px 5vw;
-  box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
-  color: white;
-  position: relative;
-  background-position: center;
-  >h2{
-    text-align: center;
+  .offer-specs{
+    display: block;
+    width: 100%;
+    position: unset;
+    bottom: -25px;
   }
-}
-
-.offer-specs{
-  background-color: $first-main-color;
-  padding: 15px 40px;
-  position: absolute;
-  bottom: -25px;
 }
