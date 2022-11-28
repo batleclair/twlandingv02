@@ -13,6 +13,8 @@ class Post < ApplicationRecord
       "publié hier"
     elsif e > 1 && e < 7
       "il y a #{e} jours"
+    elsif e >= 7 && e < 14
+      "il y a #{e.fdiv(7).floor} semaine"
     elsif e >= 7 && e < 30
       "il y a #{e.fdiv(7).floor} semaines"
     elsif e >= 30 && e <= 365

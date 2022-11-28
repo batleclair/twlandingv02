@@ -8,6 +8,11 @@
     object-fit: contain;
   }
 }
+
+.card-offset-resp{
+  padding-top: 3rem;
+}
+
 @media(max-width: 720px) {
   .home-card {
     flex-direction: column;
@@ -16,6 +21,9 @@
   .home-card-img {
     max-width: 100%;
     height: 60vw;
+  }
+  .card-offset-resp{
+    padding-top: 0;
   }
 }
 
