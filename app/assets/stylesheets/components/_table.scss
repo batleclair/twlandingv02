@@ -1,5 +1,6 @@
 .tw-table{
-  width:100%;
+  display: block;
+  overflow-x: auto;
   th{
     background-color: $first-flag-color;
     color: white;
@@ -7,7 +8,7 @@
     padding: 10px;
   }
   td{
-    border-bottom: solid 1px $light-gray;
+    border-bottom: solid 1px grey;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 10px;

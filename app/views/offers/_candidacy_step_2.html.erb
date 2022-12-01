@@ -35,8 +35,8 @@
       <%= f.input_field :half_days_wish,
                         as: :range,
                         class: "slider",
-                        min: offer.active? ? offer.half_days_min : 1,
-                        max: offer.active? ? offer.half_days_max : 10,
+                        min: offer.active? && offer.half_days_min.present? ? offer.half_days_min : 1,
+                        max: offer.active? && offer.half_days_max.present?  ? offer.half_days_max : 10,
                         'data-slider-target': "input",
                         'data-action': "input->slider#update" %>
       <p class="text-end" ><span data-slider-target="output">-</span> demi-j / sem</p>

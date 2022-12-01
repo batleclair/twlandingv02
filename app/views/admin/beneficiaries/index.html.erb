@@ -8,28 +8,26 @@
   <div class="navpan-white-ctn">
 
     <div>
-      <%= link_to "+ Ajouter", new_admin_beneficiary_path, class:"button btn-main-color mb-3" %>
+      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
+        <%= link_to "+ Ajouter", new_admin_beneficiary_path, class:"button btn-main-color" %>
+      </div>
       <table class="tw-table">
         <thead>
           <tr>
+            <th>id</th>
+            <th class="center-text">Actions</th>
             <th>Association</th>
             <th>Objectif</th>
             <th>Cause</th>
-            <th>Ville</th>
+            <th>Photo</th>
+            <th>Description</th>
             <th class="center-text">Offres</th>
-            <th class="center-text">Candidatures</th>
-            <th class="center-text">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @beneficiaries.each do |b| %>
             <tr>
-              <td><%= b.name %></td>
-              <td><%= b.goal %></td>
-              <td><%= b.cause %></td>
-              <td><%= b.city %></td>
-              <td class="center-text"><%= b.offers.count %></td>
-              <td class="center-text"><%= b.candidacies.count %></td>
+              <td><%= b.id %></td>
               <td>
                 <div class="d-flex justify-content-evenly">
                 <%= link_to edit_admin_beneficiary_path(b) do %>
@@ -40,6 +38,24 @@
                 <% end %>
                 </div>
               </td>
+              <td><%= b.name %></td>
+              <td><%= b.goal %></td>
+              <td><%= b.cause %></td>
+              <td class="center-text">
+                <% if b.photo.attached? %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
+              <td class="center-text">
+                <% if b.description.present? %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
+              <td class="center-text"><%= b.offers.count %></td>
             </tr>
           <%end%>
         </tbody>

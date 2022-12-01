@@ -97,6 +97,7 @@ export default class extends Controller {
           this.headerTarget.classList.add("d-none")
           this.confirmationTarget.classList.remove("d-none")
           this.confirmationTarget.insertAdjacentHTML('beforeend', '<p class="notice">🤩 ta candidature a été enregistrée !</p>')
+          fbq('track', 'Contact', {test: "TEST"});
         } else {
           document.getElementById('consent-error').innerHTML = data['errors']['consent'][0]
         }

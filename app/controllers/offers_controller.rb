@@ -109,6 +109,7 @@ class OffersController < ApplicationController
       :months_max,
       :monthly_gross_salary,
       :description,
+      :summary,
       :status,
       :publish,
       :beneficiary_id,

@@ -8,40 +8,27 @@
   <div class="navpan-white-ctn">
 
     <div>
-      <%= link_to "+ Créer", new_admin_offer_path, class:"button btn-main-color mb-3" %>
+      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3 justify-content-between">
+        <%= link_to "+ Créer", new_admin_offer_path, class:"button btn-main-color" %>
+      </div>
       <table class="tw-table">
         <thead>
           <tr>
             <th>id</th>
+            <th class="center-text">Actions</th>
             <th>Association</th>
             <th>Titre</th>
-            <th>Fonction</th>
-            <th>Short URL</th>
+            <th>Accroche</th>
             <th>Engagement</th>
             <th>Status</th>
             <th class="center-text">En ligne</th>
             <th class="center-text">Candidatures</th>
-            <th class="center-text">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @offers.each do |o| %>
             <tr>
               <td><%= o.id %></td>
-              <td><%= o.beneficiary.name %></td>
-              <td><%= o.title %></td>
-              <td><%= o.function %></td>
-              <td><%= o.slug %></td>
-              <td><%= o.commitment %></td>
-              <td><%= o.status %></td>
-              <td class="center-text">
-                <% if o.publish %>
-                  <i class="fa-solid fa-circle-check green-color"></i>
-                <% else %>
-                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
-                <% end %>
-              </td>
-              <td class="center-text"><%= o.candidacies.count %></td>
               <td>
                 <div class="d-flex justify-content-evenly">
                   <%= link_to(offer_path(o), target: "_blank") do %>
@@ -55,6 +42,26 @@
                   <% end %>
                 </div>
               </td>
+
+              <td><%= o.beneficiary.name %></td>
+              <td><%= o.title %></td>
+              <td class="center-text">
+                <% if o.summary.present? %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
+              <td><%= o.commitment %></td>
+              <td><%= o.status %></td>
+              <td class="center-text">
+                <% if o.publish %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
+              <td class="center-text"><%= o.candidacies.count %></td>
             </tr>
           <%end%>
         </tbody>

@@ -6,16 +6,19 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
   <div class="navpan-white-ctn">
-    <%= link_to "Retour", admin_beneficiaries_path, class:"button btn-light-main mb-2" %>
     <%= simple_form_for(@beneficiary) do |f| %>
+      <div class="sticky-admin-nav d-flex justify-content-between white-bg pt-3 pb-3">
+        <%= link_to "Retour", admin_beneficiaries_path, class:"button btn-light-main me-3" %>
+        <button type="submit" class="button btn-main-color">Enregistrer</button>
+      </div>
+
+      <h6 class="primary-text-color">Informations principales</h6>
       <%= f.input :name %>
       <%= f.input :goal, collection: Beneficiary::GOALS %>
       <%= f.input :cause %>
-      <%= f.input :siren %>
-      <%= f.input :rna %>
-      <%= f.input :address %>
-      <%= f.input :city %>
+      <%= f.input :description, as: :rich_text_area %>
 
+      <h6 class="primary-text-color">Elements visuels</h6>
       <%= f.input :logo, as: :file %>
       <% if @beneficiary.logo.attached? %>
         <%= cl_image_tag @beneficiary.logo.key, height: 100, width: 100, crop: :fill %>
@@ -30,7 +33,12 @@
         <p>pas de photo associée</p>
       <% end %>
 
-      <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
+      <h6 class="primary-text-color mt-5">Informations secondaires</h6>
+      <%= f.input :siren %>
+      <%= f.input :rna %>
+      <%= f.input :address %>
+      <%= f.input :city %>
+
     <% end %>
 
   </div>

@@ -5,6 +5,7 @@ class Beneficiary < ApplicationRecord
   has_one_attached :logo
   validate :basics
   validate :logo_file_type
+  has_rich_text :description
 
   GOALS = [
     'Environnement',
