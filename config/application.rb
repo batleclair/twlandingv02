@@ -15,12 +15,6 @@ module Twlandingv02
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
-    # Rack-Tracker configuration
-    config.middleware.use(Rack::Tracker) do
-      handler :facebook_pixel, { id: '672271067870866' }
-    end
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
