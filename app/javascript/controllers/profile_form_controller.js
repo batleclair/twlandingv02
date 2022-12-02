@@ -12,7 +12,6 @@ export default class extends Controller {
   static targets = ['basics', 'skills', 'wishes', 'button', 'form', 'picinput', 'picactual', 'picpreview', 'company', 'loader', 'save', 'cv', 'cvmsg', 'submit']
 
   connect() {
-    console.log(this.formTarget.querySelector(`.candidate_employer_name`))
   }
 
   step1() {

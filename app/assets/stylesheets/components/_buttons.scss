@@ -145,3 +145,18 @@
     z-index: 2;
   }
 }
+
+
+.round-button-sm{
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50em;
+  transition: ease-in-out 0.2s;
+  &:hover {
+    transition: ease-in-out 0.2s;
+  }
+}

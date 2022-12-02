@@ -66,6 +66,12 @@
   }
 }
 
+.white-link.bold-6{
+  &:hover{
+    font-weight: 600;
+  }
+}
+
 .color-link{
   color: $first-main-color;
   font-weight: 300;

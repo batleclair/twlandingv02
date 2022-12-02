@@ -25,17 +25,15 @@ class OffersController < ApplicationController
       end
     end
 
-    unless params[:employee].blank? && params[:freelance].blank? && params[:candidate].blank? && params[:volunteer].blank?
-      unless params[:volunteer].present?
-        if params[:employee].blank?
-          @offers = @offers.where.not(offer_type: 'Mécénat/Temps partagé')
-        end
-        if params[:freelance].blank?
-          @offers = @offers.where.not(offer_type: 'Freelance')
-        end
+    unless params[:low].blank? && params[:mid].blank? && params[:high].blank?
+      if params[:low].blank?
+        @offers = @offers.where.not(commitment: Offer::COMMITMENTS[0])
       end
-      if params[:candidate].blank?
-        @offers = @offers.where.not(offer_type: 'Co-recrutement')
+      if params[:mid].blank?
+        @offers = @offers.where.not(commitment: Offer::COMMITMENTS[1])
+      end
+      if params[:high].blank?
+        @offers = @offers.where.not(commitment: Offer::COMMITMENTS[2])
       end
     end
 

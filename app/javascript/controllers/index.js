@@ -25,6 +25,9 @@ application.register("faq", FaqController)
 import HelloController from "./hello_controller.js"
 application.register("hello", HelloController)
 
+import LegendController from "./legend_controller.js"
+application.register("legend", LegendController)
+
 import LockController from "./lock_controller.js"
 application.register("lock", LockController)
 
