@@ -290,3 +290,9 @@
 .full-height-ctn{
   min-height: calc(100vh - 231px);
 }
+
+@media(max-width: 720px) {
+  .resp-overflow-hidden{
+    overflow: hidden;
+  }
+}

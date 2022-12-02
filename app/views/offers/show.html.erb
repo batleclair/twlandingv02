@@ -106,8 +106,8 @@
         <%= render partial: "apply", locals: {offer: @offer} %>
         <div class="mt-3">
           <h6 class="primary-text-color mb-2">Engagement minimal :</h6>
-          <h6 class="mb-1">⏲️ <%= @offer.frequency_output %></h6>
-          <h6>📅 <%= @offer.duration_output %></h6>
+          <h6 class="mb-1">⏲️ Fréquence : <%= @offer.frequency_output %></h6>
+          <h6>📅 Durée : <%= @offer.duration_output %></h6>
           <p class="mt-3 mb-3">Demain t'accompagne auprès de ton entreprise pour pouvoir t'engager sur ton temps de travail</p>
           <div class="d-flex full-width justify-content-end">
             <%= link_to "en savoir +", candidates_path, class: "button-round btn-light-main" %>

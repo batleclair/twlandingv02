@@ -1,4 +1,4 @@
-<div class="mb-3 dynamic-apply-ctn">
+<div class="mb-3 dynamic-apply-ctn" data-controller="lock">
   <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
   <% if user_signed_in? %>
     <% if offer.candidates.where(user_id: current_user.id).none? %>
