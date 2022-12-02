@@ -14,8 +14,12 @@
 
       <h6 class="primary-text-color">Informations principales</h6>
       <%= f.input :name %>
+      <%= f.input :city, label: 'Ville (siège)' %>
       <%= f.input :goal, collection: Beneficiary::GOALS %>
       <%= f.input :cause %>
+      <%= f.input :web_url, label: 'Lien site web' %>
+      <%= f.input :li_url, label: 'Lien LinkedIn' %>
+
       <%= f.input :description, as: :rich_text_area %>
 
       <h6 class="primary-text-color">Elements visuels</h6>
@@ -37,7 +41,6 @@
       <%= f.input :siren %>
       <%= f.input :rna %>
       <%= f.input :address %>
-      <%= f.input :city %>
 
     <% end %>
 

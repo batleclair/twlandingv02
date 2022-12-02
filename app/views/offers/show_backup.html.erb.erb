@@ -1,0 +1,58 @@
+<% content_for :title, "#{@offer.title} pour l'association #{@offer.beneficiary.name}" %>
+<% content_for :description, "Grâce à Demain, partagez vos compétences avec l'association #{@offer.beneficiary.name}. La mission : #{@offer.title}. L'objectif de l'association : #{@offer.beneficiary.cause}" %>
+
+<% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : image_path('bannerbg.jpg') %>
+<% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key, alt:"logo de l'association #{@offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+
+
+<div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="offer-banner">
+  <div class="logo-box mb-3">
+    <%= b_logo %>
+  </div>
+  <h2><%= @offer.title %></h2>
+  <div class="offer-specs flex-resp">
+    <p class="white-text ms-2 me-2">📍 <%= @offer.location %></p>
+    <p class="white-text ms-2 me-2">💜 <%= @offer.beneficiary.cause %></p>
+    <p class="white-text ms-2 me-2 d-flex align-items-center info-bubble"><%= @offer.commitment_output %>
+      <strong>?</strong>
+      <% if @offer.commitment.present? %>
+        <% case %>
+        <% when @offer.commitment.start_with?('👍') %>
+          <span>nécessite une implication limitée à quelques jours</span>
+        <% when @offer.commitment.start_with?('👏') %>
+          <span>nécessite une implication soutenue, par exemple 1j/sem pendant plusieurs mois</span>
+        <% when @offer.commitment.start_with?('🙌') %>
+          <span>nécessite une implication durable, par exemple 1 à 2 j/sem pendant 1 an ou +</span>
+        <% end %>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+
+<div class="ctn-resp white-wrapper">
+  <div class="flex-resp early-resp-900" data-controller="candidacy">
+    <div class="toggle-sm sticky-btn" data-controller="lock">
+      <%= render partial: "apply", locals: {offer: @offer} %>
+    </div>
+    <div>
+      <h4 class="mb-4"><span class="stress"><%= @offer.title %></span></h4>
+      <%= @offer.description %>
+    </div>
+    <div class="fixed-size-box sticky-box toggle-lg" data-controller="lock">
+      <%= render partial: "apply", locals: {offer: @offer} %>
+      <h5 class="text-center primary-text-color">Demain vous accompagne...</h5>
+      <h6 class="mt-3 mb-1">L'engagement qui vous correspond</h6>
+      <p>Demain  permet de s'engager dans la durée pour l'association <strong><%= @offer.beneficiary.name %></strong> tout en gardant son activité professionnelle !</p>
+      <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
+    </div>
+    <%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %>
+  </div>
+  <div class="toggle-sm">
+    <h5 class="text-center primary-text-color mt-5
+    ">S'engager sans se sacrifier !</h5>
+    <h6 class="mt-3">Comment ça marche :</h6>
+    <p>Demain propose différents dispositifs pour que l'engagement associatif bénéficie aussi à son employeur. Grâce à Demain, il est possible d'avoir 2 activités professionnelles : l'une en entreprise, l'autre au sein de l'association <strong><%= @offer.beneficiary.name %></strong>, sans perte de salaire !</p>
+    <%= link_to "En savoir +", candidates_path, class: "button full-width btn-main-color mt-3" %>
+  </div>
+</div>

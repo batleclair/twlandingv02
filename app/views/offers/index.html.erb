@@ -86,14 +86,16 @@
                 <% else %>
                   <h5 class="white-text primary-text-color mb-4 mt-2 btn-replacement-msg">Votre candidature a bien été prise en compte 🙌</h5>
                 <% end %>
+              <% else %>
+                  <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+                  <div class="d-none centered-overlay" data-lock-target="login">
+                    <div class="d-flex">
+                      <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>
+                      <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-1 ms-2", data: { turbo: false }%>
+                    </div>
+                    <p class="center-text">connectez-vous pour candidater dès maintenant !</p>
+                  </div>
               <% end %>
-              <div class="d-none centered-overlay" data-lock-target="login">
-                <div class="d-flex">
-                  <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>
-                  <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-1 ms-2", data: { turbo: false }%>
-                </div>
-                <p class="center-text">connectez-vous pour candidater dès maintenant !</p>
-              </div>
               <div class="job-card-text">
                 <h4><%= offer.title %></h4>
                 <h6><%= offer.location %></h6>
@@ -114,24 +116,8 @@
           <h1 class="center-text">+</h1>
           <h5 class="center-text">Le job fait pour toi</h5>
           <span class="d-flex flex-column justify-content-center align-items-center p-2">
-            <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
             <h6 class="white-text center-text mb-2">Tu ne trouves pas le job qui te correspond ? Laisse-nous trouver pour toi !</h6>
-
-            <% if user_signed_in? %>
-              <% if @no_offer.candidates.where(user_id: current_user.id).none? %>
-                <button data-lock-target="apply" class="button btn-flag-color" data-action=<%=action%> data-id=<%=@no_offer.id%>>Candidater !</button>
-              <% else %>
-                <h5 class="white-text center-text primary-text-color mb-4 mt-2">Votre candidature a bien été prise en compte 🙌</h5>
-              <% end %>
-            <% else %>
-              <button data-lock-target="apply" class="button btn-flag-color" data-action=<%=action%> data-id=<%=@no_offer.id%>>Candidater !</button>
-              <div class="d-none centered-overlay" data-lock-target="login">
-                <div class="d-flex justify-content-center">
-                  <%= link_to "Connexion", new_user_session_path, class: "button btn-main-color mb-1 me-2", data: { turbo: false }%>
-                  <%= link_to "Inscription",  new_user_registration_path, class: "button btn-light-main mb-1 ms-2", data: { turbo: false }%>
-                </div>
-              </div>
-            <% end %>
+            <%= render partial: "apply", locals: {offer: @no_offer} %>
           </span>
         </div>
       </div>

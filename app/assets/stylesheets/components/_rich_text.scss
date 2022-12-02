@@ -1,0 +1,42 @@
+.rt-bullet-list-heart{
+  .trix-content{
+    ul{
+      list-style: none;
+    }
+    li{
+      position: relative;
+      padding-left: 35px;
+      margin: 0;
+      &::before{
+        position: absolute;
+        left: 0px;
+        content: '💜';
+      }
+    }
+  }
+}
+
+.rt-bullet-list-arrow{
+  .trix-content{
+    ul{
+      list-style: none;
+    }
+    li{
+      position: relative;
+      padding-left: 25px;
+      margin: 0;
+      &::before{
+        position: absolute;
+        left: 0px;
+        content: '►';
+        color: $first-main-color;
+      }
+    }
+  }
+}
+
+.rt-color-text-style{
+  em, strong{
+    color: $first-main-color;
+  }
+}
