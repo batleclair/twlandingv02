@@ -296,3 +296,11 @@
     overflow: hidden;
   }
 }
+
+.grey-border{
+  border: solid 1px rgb(200, 200, 200);
+}
+
+.first-main-border{
+  border: solid 1px $first-main-color;
+}

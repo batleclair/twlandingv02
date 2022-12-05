@@ -5,23 +5,5 @@
     <h3>Editer l'offre</h3>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
-  <div class="navpan-white-ctn">
-    <%= simple_form_for(@offer) do |f| %>
-      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3 justify-content-between">
-        <%= link_to "Retour", admin_offers_path, class:"button btn-light-main" %>
-        <button type="submit" class="button btn-main-color">Enregistrer</button>
-      </div>
-      <%= f.association :beneficiary %>
-      <%= f.input :title %>
-      <%= f.input :function, collection: Offer::FUNCTIONS %>
-      <%= f.input :location %>
-      <%= f.input :commitment, collection: Offer::COMMITMENTS %>
-      <%= f.input :offer_type, collection: Offer::OFFER_TYPES %>
-      <%= f.input :status, collection: Offer::STATUSES %>
-      <%= f.input :publish, as: :boolean %>
-      <%= f.input :summary, as: :rich_text_area %>
-      <%= f.input :description, as: :rich_text_area %>
-
-    <% end %>
-  </div>
+  <%= render partial: "offer_form", locals: {offer: @offer} %>
 </div>
