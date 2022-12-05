@@ -18,10 +18,10 @@ class OffersController < ApplicationController
 
     unless params[:social].blank? && params[:environment].blank?
       if params[:social].blank?
-        @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: Beneficiary::GOALS[0] })
+        @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: Beneficiary::GOALS[1] })
       end
       if params[:environment].blank?
-        @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: Beneficiary::GOALS[1] })
+        @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: Beneficiary::GOALS[0] })
       end
     end
 
