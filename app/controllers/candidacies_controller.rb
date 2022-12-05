@@ -23,7 +23,9 @@ class CandidaciesController < ApplicationController
     @candidacy.offer = Offer.find_by(slug: params[:offer_slug])
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
-    @candidacy.save
+    if @candidacy.save
+      pixel_event
+    end
     render json: json_response(@candidacy)
   end
 
@@ -46,5 +48,24 @@ class CandidaciesController < ApplicationController
 
   def candidacy_params
     params.require(:candidacy).permit(:consent, :employer_name, :employer_aware, :employer_ok_chance, :half_days_wish, :start_date_wish, :motivation_msg)
+  end
+
+  def event_params
+    {
+      data: [
+        {
+          event_name: "SubmitApplication",
+          event_time: Time.now.to_i,
+          event_source_url: request.original_url,
+          user_data: {
+            client_ip_address: request.remote_ip,
+            client_user_agent: request.user_agent
+          },
+          custom_data: {
+            candidate_status: @candidacy.candidate.status
+          }
+        }
+      ],
+    }
   end
 end

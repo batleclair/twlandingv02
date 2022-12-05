@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class ContactsController < ApplicationController
   skip_before_action :authenticate_user!
 
@@ -6,7 +9,8 @@ class ContactsController < ApplicationController
     authorize @contact
     if @contact.valid? && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
       @contact.save
-      ContactMailer.with(contact: @contact).new_contact_email.deliver_later
+      pixel_event
+      # ContactMailer.with(contact: @contact).new_contact_email.deliver_later
       redirect_to root_path
       flash[:notice] = "Bien reçu ! Nous vous recontacterons rapidement 😀"
     else
@@ -42,5 +46,24 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:first_name, :last_name, :email, :contact_type, :organization, :message)
+  end
+
+  def event_params
+    {
+      data: [
+        {
+          event_name: "Contact",
+          event_time: Time.now.to_i,
+          event_source_url: request.original_url,
+          user_data: {
+            client_ip_address: request.remote_ip,
+            client_user_agent: request.user_agent
+          },
+          custom_data: {
+            contact_type: @contact.contact_type
+          }
+        }
+      ],
+    }
   end
 end

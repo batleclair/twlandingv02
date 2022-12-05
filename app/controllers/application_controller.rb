@@ -57,4 +57,16 @@ class ApplicationController < ActionController::Base
       session["user_return_to"] = request.fullpath
     end
   end
+
+  def pixel_event
+    url = "https://graph.facebook.com/v15.0/#{ENV['PIXEL_ID']}/events?access_token=#{ENV['TOKEN']}"
+    uri = URI.parse(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Post.new(uri.request_uri, 'Content-Type' => 'application/json')
+    request.body = event_params.to_json
+    http.use_ssl = true
+    resp = http.request(request)
+    puts(resp.body)
+  end
+
 end
