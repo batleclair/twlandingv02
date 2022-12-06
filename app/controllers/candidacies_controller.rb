@@ -23,9 +23,7 @@ class CandidaciesController < ApplicationController
     @candidacy.offer = Offer.find_by(slug: params[:offer_slug])
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
-    if @candidacy.save
-      pixel_event
-    end
+    log_event if @candidacy.save
     render json: json_response(@candidacy)
   end
 
@@ -65,7 +63,7 @@ class CandidaciesController < ApplicationController
             candidate_status: @candidacy.candidate.status
           }
         }
-      ],
+      ]
     }
   end
 end

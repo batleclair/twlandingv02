@@ -1,15 +1,12 @@
-require 'net/http'
-require 'uri'
-
 class ContactsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def create
     @contact = Contact.new(contact_params)
     authorize @contact
-    if @contact.valid? && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
-      @contact.save
-      pixel_event
+    if @contact.valid?
+      # && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
+      log_event if @contact.save
       # ContactMailer.with(contact: @contact).new_contact_email.deliver_later
       redirect_to root_path
       flash[:notice] = "Bien reçu ! Nous vous recontacterons rapidement 😀"
@@ -63,7 +60,7 @@ class ContactsController < ApplicationController
             contact_type: @contact.contact_type
           }
         }
-      ],
+      ]
     }
   end
 end

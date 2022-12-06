@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def pixel_event
+  def log_event
     url = "https://graph.facebook.com/v15.0/#{ENV['PIXEL_ID']}/events?access_token=#{ENV['TOKEN']}"
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -68,5 +68,4 @@ class ApplicationController < ActionController::Base
     resp = http.request(request)
     puts(resp.body)
   end
-
 end

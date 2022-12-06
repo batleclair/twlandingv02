@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :check_captcha, only: [:create]
+  # prepend_before_action :check_captcha, only: :create
+  after_action :log_event, only: :create
 
   private
 
@@ -14,5 +15,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
       flash.discard(:recaptcha_error)
       render :new
     end
+  end
+
+  def event_params
+    {
+      data: [
+        {
+          event_name: "CompleteRegistration",
+          event_time: Time.now.to_i,
+          event_source_url: request.original_url,
+          user_data: {
+            client_ip_address: request.remote_ip,
+            client_user_agent: request.user_agent
+          }
+        }
+      ]
+    }
   end
 end
