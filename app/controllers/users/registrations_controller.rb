@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  # prepend_before_action :check_captcha, only: :create
+  prepend_before_action :check_captcha, only: :create
   after_action :log_event, only: :create
 
   private
@@ -26,7 +26,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
           event_source_url: request.original_url,
           user_data: {
             client_ip_address: request.remote_ip,
-            client_user_agent: request.user_agent
+            client_user_agent: request.user_agent,
+            em: Digest::SHA256.hexdigest(@user.email),
+            fn: Digest::SHA256.hexdigest(@user.first_name),
+            ln: Digest::SHA256.hexdigest(@user.last_name)
           }
         }
       ]

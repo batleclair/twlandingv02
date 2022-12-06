@@ -57,7 +57,10 @@ class CandidaciesController < ApplicationController
           event_source_url: request.original_url,
           user_data: {
             client_ip_address: request.remote_ip,
-            client_user_agent: request.user_agent
+            client_user_agent: request.user_agent,
+            em: Digest::SHA256.hexdigest(@candidacy.candidate.user.email),
+            fn: Digest::SHA256.hexdigest(@candidacy.candidate.user.first_name),
+            ln: Digest::SHA256.hexdigest(@candidacy.candidate.user.last_name)
           },
           custom_data: {
             candidate_status: @candidacy.candidate.status

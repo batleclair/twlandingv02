@@ -4,8 +4,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     authorize @contact
-    if @contact.valid?
-      # && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
+    if @contact.valid? && verify_recaptcha(model: @contact, message: "Sûr que vous êtes pas un robot ? 🤖")
       log_event if @contact.save
       # ContactMailer.with(contact: @contact).new_contact_email.deliver_later
       redirect_to root_path
@@ -54,7 +53,10 @@ class ContactsController < ApplicationController
           event_source_url: request.original_url,
           user_data: {
             client_ip_address: request.remote_ip,
-            client_user_agent: request.user_agent
+            client_user_agent: request.user_agent,
+            em: Digest::SHA256.hexdigest(@contact.email),
+            fn: Digest::SHA256.hexdigest(@contact.first_name),
+            ln: Digest::SHA256.hexdigest(@contact.last_name)
           },
           custom_data: {
             contact_type: @contact.contact_type
