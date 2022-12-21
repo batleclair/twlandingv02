@@ -1,5 +1,5 @@
 class BeneficiariesController < ApplicationController
-  before_action :set_beneficiary, only: %i[show edit update destroy]
+  before_action :set_beneficiary, only: %i[show edit update destroy destroy_logo]
 
   def index
     # @beneficiaries = Beneficiary.all
@@ -38,6 +38,13 @@ class BeneficiariesController < ApplicationController
     else
 
     end
+  end
+
+  def destroy_logo
+    authorize @beneficiary
+    @beneficiary.logo.purge
+    @beneficiary.save
+    redirect_to edit_admin_beneficiary_path(@beneficiary), status: :see_other
   end
 
   def destroy

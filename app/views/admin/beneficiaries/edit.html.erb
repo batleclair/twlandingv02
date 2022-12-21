@@ -26,6 +26,9 @@
       <%= f.input :logo, as: :file %>
       <% if @beneficiary.logo.attached? %>
         <%= cl_image_tag @beneficiary.logo.key, height: 100, width: 100, crop: :fill %>
+        <%= link_to destroy_logo_path(@beneficiary), data: {turbo_method: :patch, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+          <i class="fa-solid fa-trash primary-text-color"></i>
+        <% end %>
       <% else %>
         <p>pas de logo associé</p>
       <% end %>

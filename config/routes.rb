@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get "/admin", to: "admin#dashboard"
   resources :contacts, only: %i[create update destroy]
   resources :beneficiaries, only: %i[create update destroy]
+  patch "beneficiaries/:id/destroy_logo", to: "beneficiaries#destroy_logo", as: :destroy_logo
   resources :offers, param: :slug, only: %i[create update destroy]
   resources :candidacies, only: %i[destroy]
   resources :candidates, only: %i[destroy]
