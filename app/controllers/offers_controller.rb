@@ -3,6 +3,15 @@ class OffersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def show
+    if @offer.nil?
+      @offer = Offer.find_by(id: params[:slug])
+      if @offer.nil?
+        @offer = Offer.new
+        redirect_to offers_path, status: 301, alert: "👀 woops ! cette page n'existe pas"
+      else
+        redirect_to offer_path(@offer), status: 301
+      end
+    end
     authorize @offer
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?

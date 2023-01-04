@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
   after_action :store_location
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def default_url_options
     { host: ENV["DOMAIN"] || "localhost:3000" }
   end
@@ -67,5 +69,10 @@ class ApplicationController < ActionController::Base
     http.use_ssl = true
     resp = http.request(request)
     puts(resp.body)
+  end
+
+  def user_not_authorized
+    redirect_back(fallback_location: root_path)
+    flash[:notice] = "✋ cette page n'est pas autorisée"
   end
 end

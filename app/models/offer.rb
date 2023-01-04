@@ -42,9 +42,13 @@ class Offer < ApplicationRecord
     status == 'active'
   end
 
-  def new?
-    status == 'new'
+  def public?
+    publish && (status == 'active' || status == 'draft')
   end
+
+  # def new?
+  #   status == 'new'
+  # end
 
   def frequency_output
     case

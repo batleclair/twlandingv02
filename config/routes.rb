@@ -49,6 +49,11 @@ Rails.application.routes.draw do
     resources :candidates, only: %i[index]
   end
 
+  # error routes
+  get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unacceptable"
+  get "/500", to: "errors#internal_error"
+
   # sitemap
   get 'sitemap', to: 'pages#sitemap', defaults: { format: 'xml' }
 end
