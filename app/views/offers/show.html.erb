@@ -3,10 +3,14 @@
 
 
 <% content_for :title, "#{@offer.title} pour l'association #{@offer.beneficiary.name}" %>
-<% content_for :description, "Grâce à Demain, partagez vos compétences avec l'association #{@offer.beneficiary.name}. La mission : #{@offer.title}. L'objectif de l'association : #{@offer.beneficiary.cause}" %>
+<% content_for :description, "Grâce à Demain, engagez-vous auprès de l'association #{@offer.beneficiary.name} dans le cadre d'un mécénat de compétences. La mission : #{@offer.title}. L'objectif de l'association : #{@offer.beneficiary.cause}" %>
+<% if @offer.beneficiary.photo.attached? %>
+  <% content_for :image, cl_image_path(@offer.beneficiary.photo.key, transformation: {background: "#531cb3", width: 1200, height: 630, crop: :fill, effect: "gradient_fade:symmetric:5"}, overlay: "logo_white.png", width: 500, crop: :scale) %>
+<% end %>
 
 <% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : image_path('bannerbg.jpg') %>
 <% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key, alt:"logo de l'association #{@offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+
 
 <div class="position-relative">
   <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="offer-banner">
