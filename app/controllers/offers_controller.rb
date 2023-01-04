@@ -4,7 +4,7 @@ class OffersController < ApplicationController
 
   def show
     if @offer.nil?
-      @offer = Offer.find_by(id: params[:slug])
+      @offer = Offer.find_by(id: params[:slug].split('-').last.to_i)
       if @offer.nil?
         @offer = Offer.new
         redirect_to offers_path, status: 301, alert: "👀 woops ! cette page n'existe pas"
