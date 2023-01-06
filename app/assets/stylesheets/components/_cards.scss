@@ -252,6 +252,12 @@
   padding: 20px 10px;
   min-height: 150px;
   border-bottom: solid 1px $first-light-color;
+  p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 }
 
 .big-title-resp{
