@@ -1,7 +1,6 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
-  add_breadcrumb "Missions", :offers_path
 
   def show
     if @offer.nil?
@@ -20,6 +19,7 @@ class OffersController < ApplicationController
     else
       @candidate = Candidate.find_by(user_id: current_user.id)
     end
+    add_breadcrumb "Missions", offers_path
     add_breadcrumb "#{@offer.beneficiary.name} : #{@offer.title}", offer_path(@offer)
   end
 
@@ -58,6 +58,7 @@ class OffersController < ApplicationController
     end
     @no_offer = Offer.find_by(title: "no_offer")
     authorize @no_offer
+    add_breadcrumb "Missions", offers_path
   end
 
   def select

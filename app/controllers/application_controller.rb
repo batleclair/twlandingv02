@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  add_breadcrumb "Accueil", :root_path
+  add_breadcrumb "Accueil", "/"
 
   def default_url_options
     { host: ENV["DOMAIN"] || "localhost:3000" }

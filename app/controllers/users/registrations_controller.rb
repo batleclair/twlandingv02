@@ -3,12 +3,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   after_action :log_event, only: :create
 
   def new
-    add_breadcrumb "Inscription"
+    add_breadcrumb "Inscription", new_user_registration_path
     super
   end
 
   def edit
-    add_breadcrumb "Mon compte"
+    add_breadcrumb "Mon compte", edit_user_registration_path
     super
   end
 

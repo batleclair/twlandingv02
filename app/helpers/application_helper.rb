@@ -27,10 +27,14 @@ module ApplicationHelper
         '@type': "ListItem",
         position: index + 1,
         name: crumb.name,
-        item: crumb.path
+        item: "https://demain.works#{crumb.path}"
       }
     end
 
     return output.to_json.html_safe
+  end
+
+  def path_to_url
+
   end
 end
