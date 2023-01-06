@@ -101,10 +101,18 @@ class Offer < ApplicationRecord
       datePosted: created_at,
       employmentType: "Mecenat de competences",
       hiringOrganization: {
-        '@type': "Association",
+        '@type': "Organization",
         name: beneficiary.name,
         sameAs: beneficiary.web_url,
         logo: img_url
+      },
+      jobLocation: {
+        '@type': "Place",
+        address: {
+          '@type': "Text",
+          addressLocality: location,
+          addressCountry: "France"
+        }
       }
     }
   end

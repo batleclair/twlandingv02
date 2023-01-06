@@ -24,7 +24,7 @@ class Post < ApplicationRecord
     end
   end
 
-  def structured_data
+  def structured_data(url)
     {
       '@context': "https://schema.org",
       '@type': "BlogPosting",
@@ -35,7 +35,8 @@ class Post < ApplicationRecord
         {
           '@type': "Organization",
           name: "Demain Works",
-          url: "https://demain.works/"
+          url: "https://demain.works/",
+          image: url
         }
       ]
     }.to_json.html_safe
