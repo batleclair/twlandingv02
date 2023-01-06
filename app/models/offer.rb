@@ -91,4 +91,21 @@ class Offer < ApplicationRecord
   def to_param
     slug
   end
+
+  def structured_data(img_url)
+    {
+      '@context': "https://schema.org/",
+      '@type': "JobPosting",
+      title: title,
+      description: description.to_plain_text.truncate(200),
+      datePosted: created_at,
+      employmentType: "Mecenat de competences",
+      hiringOrganization: {
+        '@type': "Association",
+        name: beneficiary.name,
+        sameAs: beneficiary.web_url,
+        logo: img_url
+      }
+    }
+  end
 end

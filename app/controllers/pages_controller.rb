@@ -9,18 +9,27 @@ class PagesController < ApplicationController
 
   def candidates
     @offers = Offer.where(publish: true, status: 'active').sample(6)
+    add_breadcrumb "Candidats", candidates_path
   end
 
   def nonprofits
+    add_breadcrumb "Associations", nonprofits_path
   end
 
   def companies
+    add_breadcrumb "Entreprises", companies_path
   end
 
   def terms
+    add_breadcrumb "CGU", terms_path
   end
 
   def legal
+    add_breadcrumb "Légal", legal_path
+  end
+
+  def about
+    add_breadcrumb "A propos", about_path
   end
 
   def sitemap

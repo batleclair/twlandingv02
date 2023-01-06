@@ -5,6 +5,12 @@
     <meta name="description" content="<%= yield(:description).present? ? yield(:description) : meta_description %>">
     <%= favicon_link_tag %>
 
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      <%= to_json_ld(breadcrumbs) %>
+      <%= yield(:structured_data) %>
+    </script>
+
     <!-- Facebook Open Graph data -->
     <meta property="og:title" content="<%= yield(:title).present? ? yield(:title) : meta_title %>" />
     <meta property="og:type" content="website" />
@@ -66,6 +72,5 @@
     <% end %>
 
     <%= render partial: "shared/footer" %>
-
   </body>
 </html>

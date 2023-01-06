@@ -2,6 +2,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: :create
   after_action :log_event, only: :create
 
+  def new
+    add_breadcrumb "Inscription"
+    super
+  end
+
+  def edit
+    add_breadcrumb "Mon compte"
+    super
+  end
+
   private
 
   def check_captcha

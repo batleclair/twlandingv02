@@ -23,4 +23,21 @@ class Post < ApplicationRecord
       "il y a + d'1 an"
     end
   end
+
+  def structured_data
+    {
+      '@context': "https://schema.org",
+      '@type': "BlogPosting",
+      headline: title,
+      datePublished: created_at,
+      dateModified: updated_at,
+      author: [
+        {
+          '@type': "Organization",
+          name: "Demain Works",
+          url: "https://demain.works/"
+        }
+      ]
+    }.to_json.html_safe
+  end
 end

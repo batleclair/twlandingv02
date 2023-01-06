@@ -6,6 +6,7 @@ class CandidatesController < ApplicationController
     authorize @candidate
     @select_offers = Offer.where(function: @candidate.function).and(Offer.where(publish: true)).limit(3)
     @applied_offers = Offer.joins(:candidacies).where(candidacies: {candidate_id: @candidate.id})
+    add_breadcrumb "Mon profil", candidate_path(@candidate)
   end
 
   def new
@@ -16,6 +17,8 @@ class CandidatesController < ApplicationController
   def edit
     authorize @candidate
     @experience = Experience.new
+    add_breadcrumb "Mon profil", candidate_path(@candidate)
+    add_breadcrumb "Modification du profil", edit_candidate_path(@candidate)
   end
 
   def create

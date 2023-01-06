@@ -1,5 +1,6 @@
 <% content_for :title, "Demain | #{@post.title}" %>
-<% content_for :description, "#{@post.content.to_plain_text.truncate(150)}..." %>
+<% content_for :description, @post.content.to_plain_text.truncate(300) %>
+<% content_for :structured_data, @post.structured_data %>
 
 <div class="white-wrapper-narrow-content">
   <h1 class="center-text primary-text-color mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h1>

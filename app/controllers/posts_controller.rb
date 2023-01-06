@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  add_breadcrumb "Blog", :blog_path
+
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
     @contact = Contact.new
@@ -9,6 +11,7 @@ class PostsController < ApplicationController
     @post = Post.find_by(slug: params[:slug])
     authorize @post
     @contact = Contact.new
+    add_breadcrumb @post.title, article_path(slug: @post.slug)
   end
 
   def create
