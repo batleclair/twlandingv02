@@ -8,6 +8,8 @@
     <!-- Structured data -->
     <script type="application/ld+json">
       <%= to_json_ld(breadcrumbs) %>
+    </script>
+    <script type="application/ld+json">
       <%= yield(:structured_data) %>
     </script>
 
