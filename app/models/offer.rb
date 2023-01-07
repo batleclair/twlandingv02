@@ -109,8 +109,8 @@ class Offer < ApplicationRecord
       jobLocation: {
         '@type': "Place",
         address: {
-          '@type': "Text",
-          addressLocality: location,
+          '@type': "PostalAddress",
+          addressLocality: beneficiary.city,
           addressCountry: "France"
         }
       }
