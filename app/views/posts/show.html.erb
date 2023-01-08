@@ -3,7 +3,8 @@
 <% content_for :structured_data, @post.structured_data(cl_image_path @post.photo.key) %>
 
 <div class="white-wrapper-narrow-content">
-  <h1 class="center-text primary-text-color mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h1>
+  <h1 class="d-none"><%= @post.title %></h1>
+  <h2 class="center-text primary-text-color mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h2>
 
   <div class="full-width post-ctn">
     <%= @post.photo.attached? ? cl_image_tag(@post.photo.key, alt: "illustration de #{@post.title}") : image_tag('bannerbg.jpg', alt: "illustration de #{@post.title}") %>

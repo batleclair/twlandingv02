@@ -11,7 +11,7 @@
 <% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : image_path('bannerbg.jpg') %>
 <% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key, alt:"logo de l'association #{@offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
 
-
+<h1 class="d-none">Mécénat de compétences : travailler pour l'association <%= @offer.beneficiary.name %> (<%= @offer.title %>)</h1>
 <div class="position-relative">
   <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="offer-banner">
     <div class="logo-box mb-3">
