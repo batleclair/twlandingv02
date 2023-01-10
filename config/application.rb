@@ -16,6 +16,7 @@ module Twlandingv02
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.exceptions_app = self.routes
+    config.middleware.use Rack::Deflater
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
