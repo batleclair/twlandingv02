@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "experiences/:id/select", to: "experiences#select", as: :experience_select
 
   # offer and candidacy routes
+  get "offers/mission_indisponible", to: "offers#dead", as: :dead_offer
   get "offers/:slug/select", to: "offers#select", as: :offer_select
   resources :offers, param: :slug, only: %i[index show] do
     resources :candidacies, only: :create

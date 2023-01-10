@@ -1,26 +1,29 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[show edit update destroy]
-  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_before_action :authenticate_user!, only: %i[index show dead]
 
   def show
     if @offer.nil?
       @offer = Offer.find_by(id: params[:slug].split('-').last.to_i)
       if @offer.nil?
-        @offer = Offer.new
         redirect_to offers_path, status: 301, alert: "👀 woops ! cette page n'existe pas"
+        @offer = Offer.new
+        authorize @offer
       else
         redirect_to offer_path(@offer), status: 301
+        show_existent
       end
-    end
-    authorize @offer
-    @candidacy = Candidacy.new
-    if !user_signed_in? || current_user.candidate.nil?
-      @candidate = Candidate.new
+    elsif (user_signed_in? && current_user&.admin?) || @offer.public?
+      show_existent
     else
-      @candidate = Candidate.find_by(user_id: current_user.id)
+      redirect_to dead_offer_path, status: 301
+      authorize @offer
     end
-    add_breadcrumb "Missions", offers_path
-    add_breadcrumb "#{@offer.beneficiary.name} : #{@offer.title}", offer_path(@offer)
+  end
+
+  def dead
+    @offer = Offer.new
+    authorize @offer
   end
 
   def index
@@ -107,6 +110,18 @@ class OffersController < ApplicationController
 
   def set_offer
     @offer = Offer.find_by(slug: params[:slug])
+  end
+
+  def show_existent
+    authorize @offer
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+    add_breadcrumb "Missions", offers_path
+    add_breadcrumb "#{@offer.beneficiary.name} : #{@offer.title}", offer_path(@offer)
   end
 
   def offer_params

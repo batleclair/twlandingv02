@@ -4,6 +4,7 @@
     <title><%= yield(:title).present? ? yield(:title) : meta_title %></title>
     <meta name="description" content="<%= yield(:description).present? ? yield(:description) : meta_description %>">
     <%= favicon_link_tag %>
+    <%= yield :canonical %>
 
     <!-- Structured data -->
     <script type="application/ld+json">

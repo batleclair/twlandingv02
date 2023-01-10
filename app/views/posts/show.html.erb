@@ -1,6 +1,7 @@
 <% content_for :title, "Demain | #{@post.title}" %>
 <% content_for :description, @post.content.to_plain_text.truncate(300) %>
 <% content_for :structured_data, @post.structured_data(cl_image_path @post.photo.key) %>
+<% canonical(post_url(@post)) %>
 
 <div class="white-wrapper-narrow-content">
   <h1 class="d-none"><%= @post.title %></h1>

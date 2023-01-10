@@ -4,6 +4,10 @@ class OfferPolicy < ApplicationPolicy
     true
   end
 
+  def dead?
+    true
+  end
+
   def index?
     true
   end

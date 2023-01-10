@@ -30,11 +30,10 @@ module ApplicationHelper
         item: "https://demain.works#{crumb.path}"
       }
     end
-
     return output.to_json.html_safe
   end
 
-  def path_to_url
-
+  def canonical(url)
+    content_for(:canonical, tag(:link, rel: :canonical, href: url)) if url
   end
 end
