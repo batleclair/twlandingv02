@@ -10,9 +10,11 @@
     <script type="application/ld+json">
       <%= to_json_ld(breadcrumbs) %>
     </script>
-    <script type="application/ld+json">
-      <%= yield(:structured_data) %>
-    </script>
+    <% if yield(:structured_data).present? %>
+      <script type="application/ld+json">
+        <%= yield(:structured_data) %>
+      </script>
+    <% end %>
 
     <!-- Facebook Open Graph data -->
     <meta property="og:title" content="<%= yield(:title).present? ? yield(:title) : meta_title %>" />
