@@ -4,7 +4,7 @@
       <%= link_to 'Accueil', :root, class: "button btn-light-flag" %>
     </div>
 
-    <h4 class="mt-4 mb-4 primary-text-color">Réinitialisation du mot de passe</h4>
+    <h1 class="mt-4 mb-4 primary-text-color fs-4">Réinitialisation du mot de passe</h1>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
       <%= f.error_notification %>
