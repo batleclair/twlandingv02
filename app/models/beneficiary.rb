@@ -2,10 +2,16 @@ class Beneficiary < ApplicationRecord
   has_many :offers, dependent: :destroy
   has_many :candidacies, through: :offers
   has_one_attached :photo
+  has_one_attached :profile_pic_one
+  has_one_attached :profile_pic_two
+  has_one_attached :profile_pic_three
   has_one_attached :logo
   validate :basics
+  validates :name, uniqueness: true
   validate :logo_file_type
   has_rich_text :description
+  has_rich_text :long_desc
+  after_save :set_slug
 
   GOALS = [
     'Environnement',
@@ -27,6 +33,14 @@ class Beneficiary < ApplicationRecord
     "Egalité & citoyenneté"
   ]
 
+  def set_slug
+    self.slug = name.parameterize
+  end
+
+  def to_param
+    slug
+  end
+
   private
 
   def basics
@@ -40,5 +54,4 @@ class Beneficiary < ApplicationRecord
       errors.add(:logo, 'formats : jpeg, png ou gif') unless logo.content_type.in?(%w[image/jpeg image/png image/gif])
     end
   end
-
 end

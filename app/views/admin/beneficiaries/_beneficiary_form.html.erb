@@ -1,0 +1,61 @@
+<%= simple_form_for(beneficiary) do |f| %>
+
+  <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
+    <%= link_to "Retour", admin_beneficiaries_path, class:"button btn-light-main me-3" %>
+    <button type="submit" class="button btn-main-color">Enregistrer</button>
+  </div>
+
+  <h6 class="primary-text-color mb-3">Informations principales</h6>
+
+  <div class="d-flex">
+    <%= f.input :name, label: "Nom de l'association", wrapper_html: {class: "me-3 full-width"} %>
+    <%= f.input :start_year, label: "Année de création", wrapper_html: {class: "full-width"} %>
+  </div>
+
+  <div class="d-flex">
+    <%= f.input :city, label: 'Ville (siège)', wrapper_html: {class: "me-3 full-width"} %>
+    <%= f.input :address, label: 'Adresse complète (N°, Voie, Ville, CP)', wrapper_html: {class: "full-width"} %>
+  </div>
+
+  <div class="d-flex">
+    <%= f.input :goal, collection: Beneficiary::GOALS, label: "Thèmatique", wrapper_html: {class: "me-3 full-width"} %>
+    <%= f.input :cause, label:'Cause (max 40 caractères)', wrapper_html: {class: "full-width"} %>
+  </div>
+
+  <div class="d-flex">
+    <%= f.input :web_url, label: 'Lien site web (https://www.(...)/)', wrapper_html: {class: "full-width me-3"} %>
+    <%= f.input :li_url, label: 'Lien LinkedIn (https://www.(...)/)', wrapper_html: {class: "full-width"} %>
+  </div>
+
+  <%= f.input :description, as: :rich_text_area, label: 'Description courte (page mission)' %>
+  <%= f.input :long_desc, as: :rich_text_area, label: 'Description longue (page asso - la courte est utilisée si la longue reste vide)' %>
+
+  <h6 class="primary-text-color mb-3">Elements visuels</h6>
+  <div class="pic-upload-ctn mb-3">
+    <%= render partial: "photo_upload", locals: {f: f, arg: 'logo', title: 'Logo'} %>
+    <%= render partial: "photo_upload", locals: {f: f, arg: 'photo', title: 'Bannière'} %>
+    <%= render partial: "photo_upload", locals: {f: f, arg: 'profile_pic_one', title: 'Photo de profil 1'} %>
+    <%= render partial: "photo_upload", locals: {f: f, arg: 'profile_pic_two', title: 'Photo de profil 2'} %>
+    <%= render partial: "photo_upload", locals: {f: f, arg: 'profile_pic_three', title: 'Photo de profil 3'} %>
+  </div>
+
+  <h6 class="primary-text-color mb-3">Chiffres clé</h6>
+  <div class="d-flex mb-3">
+    <div class="grey-border full-width me-3 p-3">
+      <h6 class="mb-2">Chiffre clé 1 :</h6>
+      <%= f.input :kpi_one, label: false, placeholder: "chiffre, pourcentage, ratio..." %>
+      <%= f.input :kpt_one, label: false, placeholder: "texte descriptif" %>
+    </div>
+    <div class="grey-border full-width me-3 p-3">
+      <h6 class="mb-2">Chiffre clé 2 :</h6>
+      <%= f.input :kpi_two, label: false, placeholder: "chiffre, pourcentage, ratio..." %>
+      <%= f.input :kpt_two, label: false, placeholder: "texte descriptif" %>
+    </div>
+    <div class="grey-border full-width p-3">
+      <h6 class="mb-2">Chiffre clé 3 :</h6>
+      <%= f.input :kpi_three, label: false, placeholder: "chiffre, pourcentage, ratio..." %>
+      <%= f.input :kpt_three, label: false, placeholder: "texte descriptif" %>
+    </div>
+  </div>
+
+<% end %>

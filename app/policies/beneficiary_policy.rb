@@ -5,7 +5,7 @@ class BeneficiaryPolicy < ApplicationPolicy
   end
 
   def show?
-    index?
+    true
   end
 
   def create?

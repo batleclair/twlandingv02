@@ -1,0 +1,12 @@
+<div class="d-flex flex-column justify-content-between">
+  <h6 class="mb-2"><%= title %> : </h6>
+  <%= @beneficiary.send(arg).attached? ? cl_image_tag(@beneficiary.send(arg).key) : image_tag('') %>
+  <div class="d-flex align-items-center">
+    <%= f.input arg.to_s, as: :file, label: false, wrapper: false %>
+    <% if @beneficiary.send(arg).attached? %>
+      <%= link_to send("destroy_#{arg}_path", @beneficiary), data: {turbo_method: :patch, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+        <i class="fa-solid fa-trash primary-text-color ms-3 me-1"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

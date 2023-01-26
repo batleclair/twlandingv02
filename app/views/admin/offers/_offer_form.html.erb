@@ -1,5 +1,6 @@
   <div class="navpan-white-ctn">
     <%= simple_form_for(offer) do |f| %>
+
       <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3 justify-content-between">
         <div class="d-flex">
           <%= link_to "Retour", admin_offers_path, class:"button btn-light-main mb-2 me-2" %>
@@ -7,6 +8,7 @@
         </div>
         <button type="submit" class="button btn-main-color">Enregistrer</button>
       </div>
+
       <div class="d-flex">
         <%= f.association :beneficiary, wrapper_html: {class: "me-3 full-width"} %>
         <%= f.input :function, collection: Offer::FUNCTIONS, wrapper_html: {class: "full-width"} %>

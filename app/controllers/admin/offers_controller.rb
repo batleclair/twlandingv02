@@ -1,6 +1,6 @@
 class Admin::OffersController < AdminController
   def index
-    @offers = Offer.all
+    @offers = Offer.includes(:beneficiary).order("beneficiaries.name asc")
     authorize @offers if current_user.user_type == 'admin'
   end
 

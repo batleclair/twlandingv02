@@ -1,0 +1,114 @@
+<% content_for :title, "En savoir plus sur l'association #{@beneficiary.name}" %>
+<% content_for :description, "Grâce à Demain, engagez-vous auprès de l'association #{@beneficiary.name} en réalisant une mission de mécénat de compétences." %>
+<% canonical(beneficiary_url(@beneficiary)) %>
+
+<% if @beneficiary.photo.attached? %>
+  <% content_for :image, cl_image_path(@beneficiary.photo.key, transformation: {background: "#531cb3", width: 1200, height: 630, crop: :fill, effect: "gradient_fade:symmetric:5"}, overlay: "logo_white.png", width: 500, crop: :scale) %>
+<% end %>
+<% b_logo_path = @beneficiary.logo.attached? ? cl_image_path(@beneficiary.logo.key) : image_path('heart_globe.png') %>
+
+<% bg_img = @beneficiary.photo.attached? ? cl_image_path(@beneficiary.photo.key) : image_path('bannerbg.jpg') %>
+<% b_logo = @beneficiary.logo.attached? ? cl_image_tag(@beneficiary.logo.key, alt:"logo de l'association #{@beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+
+<h1 class="d-none">Travailler pour l'association <%= @beneficiary.name %></h1>
+
+<div class="position-relative">
+  <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="offer-banner">
+    <div class="logo-box mb-3">
+      <%= b_logo %>
+    </div>
+    <h2><%= @beneficiary.cause %></h2>
+  </div>
+</div>
+
+<div class="ctn-resp-sheet white-bg sheet-pad full-height-ctn">
+  <div class="flex-resp justify-content-between mb-3">
+
+    <div class="asso-img-ctn full-width mg-resp-r">
+      <%= @beneficiary.profile_pic_one.attached? ? cl_image_tag(@beneficiary.profile_pic_one.key, class: "full-width mb-3") : image_tag('bannerbg.jpg', class: "full-width mb-3") %>
+      <div class="grey-info-box mb-3">
+        <h6 class="bold-7 center-text mb-3">Infos pratiques</h6>
+        <ul class="mb-4">
+          <li>Cause : <%= @beneficiary.cause %></li>
+          <li>Adresse : <%= @beneficiary.address %></li>
+          <li>Création : <%= @beneficiary.start_year %></li>
+        </ul>
+        <div class="d-flex justify-content-center full-width">
+          <% if @beneficiary.web_url.present? %>
+            <%= link_to @beneficiary.web_url, target: "_blank" do %>
+              <i class="fa-solid fa-globe round-button btn-round-cta me-3"><span class="cta-top-legend sm-thin-text primary-text-color no-wrap">web</span></i>
+            <% end %>
+          <% else %>
+            <i class="fa-solid fa-globe round-button btn-round-cta inactive me-3"><span class="cta-top-legend sm-thin-text primary-text-color no-wrap">web</span></i>
+          <% end %>
+
+          <% if @beneficiary.li_url.present? %>
+            <%= link_to @beneficiary.li_url, target: "_blank" do %>
+              <i class="fa-brands fa-linkedin-in round-button btn-round-cta"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+            <% end %>
+          <% else %>
+            <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+          <% end %>
+        </div>
+      </div>
+      <%= @beneficiary.profile_pic_one.attached? ? cl_image_tag(@beneficiary.profile_pic_two.key, class: "full-width") : image_tag('bannerbg.jpg', class: "full-width") %>
+    </div>
+
+    <div class="max-width-750 full-width mg-resp-l d-flex flex-column justify-content-between">
+      <div>
+        <h5 class="primary-text-color mb-2">L'asso en 2-3 mots</h5>
+        <%= @beneficiary.long_desc.present? ? @beneficiary.long_desc : @beneficiary.description %>
+      </div>
+      <div class="light-bg p-3 h-50 overflow-auto">
+        <h4 class="mb-4">
+          <% if @offers.count == 0 %>
+            aucune mission
+          <% elsif @offers.count == 1 %>
+            1 mission
+          <% else %>
+            <%= @offers.count %> missions actuellement en ligne
+          <% end %>
+        </h4>
+        <% @offers.each do |o| %>
+          <%= link_to offer_path(o) do %>
+            <div class="asso-mission-card mb-2">
+              <h5 class="primary-text-color mb-2"><%= o.title %></h5>
+              <p>⏲️ <%= o.frequency_output %> | 📅  <%= o.duration_output %> | 📍 <%= o.location %></p>
+            </div>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flex-resp justify-content-between">
+    <div class="max-width-750 d-flex flex-column justify-content-between full-width mg-resp-r">
+      <h5 class="primary-text-color mb-2">L'asso en 2-3 chiffres</h5>
+      <div class="three-box-grid">
+        <% if @beneficiary.kpi_one.present? %>
+          <div>
+            <h5 class="primary-text-color bold-7 mb-3"><%= @beneficiary.kpi_one %></h5>
+            <p><%= @beneficiary.kpt_one %></h5></p>
+          </div>
+        <% end %>
+        <% if @beneficiary.kpi_two.present? %>
+          <div>
+            <h5 class="primary-text-color bold-7 mb-3"><%= @beneficiary.kpi_two %></h5>
+            <p><%= @beneficiary.kpt_two %></h5></p>
+          </div>
+        <% end %>
+        <% if @beneficiary.kpi_three.present? %>
+          <div>
+            <h5 class="primary-text-color bold-7 mb-3"><%= @beneficiary.kpi_three %></h5>
+            <p><%= @beneficiary.kpt_three %></h5></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="asso-img-ctn full-width mg-resp-l">
+      <%= @beneficiary.profile_pic_three.attached? ? cl_image_tag(@beneficiary.profile_pic_three.key, class: "full-width") : image_tag('bannerbg.jpg', class: "full-width") %>
+    </div>
+  </div>
+</div>

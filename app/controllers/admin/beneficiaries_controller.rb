@@ -10,7 +10,7 @@ class Admin::BeneficiariesController < AdminController
   end
 
   def edit
-    @beneficiary = Beneficiary.find(params[:id])
+    @beneficiary = Beneficiary.find_by(slug: params[:slug])
     authorize @beneficiary
   end
 end

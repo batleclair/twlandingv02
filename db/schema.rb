@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_105954) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_26_195412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_105954) do
     t.string "goal"
     t.string "web_url"
     t.string "li_url"
+    t.string "slug"
+    t.integer "start_year"
+    t.string "kpi_one"
+    t.string "kpt_one"
+    t.string "kpi_two"
+    t.string "kpt_two"
+    t.string "kpi_three"
+    t.string "kpt_three"
   end
 
   create_table "candidacies", force: :cascade do |t|

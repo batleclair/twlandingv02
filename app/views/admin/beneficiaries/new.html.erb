@@ -6,26 +6,6 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
   <div class="navpan-white-ctn">
-    <%= simple_form_for(@beneficiary) do |f| %>
-      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
-        <%= link_to "Retour", admin_beneficiaries_path, class:"button btn-light-main me-3" %>
-        <button type="submit" class="button btn-main-color">Enregistrer</button>
-      </div>
-
-      <h6 class="primary-text-color">Informations principales</h6>
-      <%= f.input :name %>
-      <%= f.input :city, label: 'Ville (siège)' %>
-      <%= f.input :goal, collection: Beneficiary::GOALS %>
-      <%= f.input :cause %>
-      <%= f.input :web_url, label: 'Lien site web' %>
-      <%= f.input :li_url, label: 'Lien LinkedIn' %>
-      <%= f.input :description, as: :rich_text_area %>
-
-      <h6 class="primary-text-color">Elements visuels</h6>
-      <%= f.input :logo, as: :file %>
-      <%= f.input :photo, as: :file %>
-
-    <% end %>
-
+    <%= render partial: "beneficiary_form", locals: {beneficiary: @beneficiary} %>
   </div>
 </div>

@@ -28,21 +28,32 @@ Rails.application.routes.draw do
   end
   post "offers/:id/check", to: "candidacies#check", as: :candidacy_check
 
+  # beneficiaries routes
+  get "associations/:slug", to: "beneficiaries#show", as: :beneficiary
+  post "/associations", to: "beneficiaries#create", as: :beneficiaries
+  patch "/associations/:slug", to: "beneficiaries#update"
+  delete "/associations/:slug", to: "beneficiaries#destroy"
+
   # blog post routes
   get "/blog", to: "posts#index"
   get "/blog/:slug", to: "posts#show", as: :article
   resources :posts, only: %i[create update destroy]
 
+  # img delete routes
+  patch "beneficiaries/:slug/destroy_logo", to: "beneficiaries#destroy_logo", as: :destroy_logo
+  patch "beneficiaries/:slug/destroy_photo", to: "beneficiaries#destroy_photo", as: :destroy_photo
+  patch "beneficiaries/:slug/destroy_profile_pic_one", to: "beneficiaries#destroy_photo", as: :destroy_profile_pic_one
+  patch "beneficiaries/:slug/destroy_profile_pic_two", to: "beneficiaries#destroy_photo", as: :destroy_profile_pic_two
+  patch "beneficiaries/:slug/destroy_profile_pic_three", to: "beneficiaries#destroy_photo", as: :destroy_profile_pic_three
+
   # admin routes
   get "/admin", to: "admin#dashboard"
   resources :contacts, only: %i[create update destroy]
-  resources :beneficiaries, only: %i[create update destroy]
-  patch "beneficiaries/:id/destroy_logo", to: "beneficiaries#destroy_logo", as: :destroy_logo
   resources :offers, param: :slug, only: %i[create update destroy]
   resources :candidacies, only: %i[destroy]
   resources :candidates, only: %i[destroy]
   namespace :admin do
-    resources :beneficiaries, only: %i[index new edit]
+    resources :beneficiaries, param: :slug, only: %i[index new edit]
     resources :offers, param: :slug, only: %i[index new edit]
     resources :contacts, only: %i[index]
     resources :candidacies, only: %i[index show]

@@ -1,0 +1,17 @@
+.pic-upload-ctn{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  >div{
+    height: 250px;
+    background-color: $light-grey;
+    border: solid 1px $first-main-color;
+    padding: 10px;
+    >img{
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+    }
+  }
+}

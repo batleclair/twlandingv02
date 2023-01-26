@@ -21,6 +21,7 @@
             <th>Cause</th>
             <th>Photo</th>
             <th>Description</th>
+            <th>Slug</th>
             <th class="center-text">Offres</th>
           </tr>
         </thead>
@@ -30,6 +31,9 @@
               <td><%= b.id %></td>
               <td>
                 <div class="d-flex justify-content-evenly">
+                <%= link_to(beneficiary_path(b), target: "_blank") do %>
+                  <i class="fa-solid fa-eye primary-text-color"></i>
+                <% end %>
                 <%= link_to edit_admin_beneficiary_path(b) do %>
                   <i class="fa-solid fa-pen-to-square primary-text-color"></i>
                 <% end %>
@@ -55,6 +59,7 @@
                   <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
                 <% end %>
               </td>
+              <td><%= b.slug %></td>
               <td class="center-text"><%= b.offers.count %></td>
             </tr>
           <%end%>

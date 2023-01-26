@@ -1,0 +1,47 @@
+.asso-img-ctn{
+  max-width: 400px;
+  >img{
+    height: 250px;
+    object-fit: cover;
+  }
+}
+
+.three-box-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+
+  >div{
+    padding: 20px;
+    height: 200px;
+    border: solid 1px $first-main-color;
+    cursor: default;
+    overflow: hidden;
+    >h5{
+      font-size: 2em;
+      white-space: nowrap;
+    }
+  }
+}
+
+.asso-mission-card{
+  padding: 20px;
+  border: solid 1px $first-main-color;
+  background-color: $first-light-color;
+  height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.2s ease-in-out;
+  border-radius: 5px;
+  &:hover{
+    background-color: $first-light-lighter;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+@media(max-width: 720px) {
+  .three-box-grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
