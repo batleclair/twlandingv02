@@ -62,7 +62,7 @@
     <% @beneficiaries.each do |b| %>
       <% if b.logo.attached? %>
         <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
-          <%= link_to beneficiary_path(b) do %>
+          <%= link_to beneficiary_path(b), class: "d-flex align-items-center full-width" do %>
             <%= cl_image_tag(b.logo.key, class: "full-width p-3") %>
           <% end %>
         </div>
