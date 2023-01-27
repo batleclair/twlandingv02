@@ -39,6 +39,10 @@
   background-color: $first-light-color;
 }
 
+.lighter-bg{
+  background-color: $first-light-lighter;
+}
+
 .list-inline{
   list-style: none;
   padding: 0;
@@ -287,6 +291,11 @@
   padding: 70px 30px 70px 30px;
 }
 
+.sheet-pad-y{
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
 .full-height-ctn{
   min-height: calc(100vh - 231px);
 }
@@ -309,4 +318,10 @@
   padding: 20px;
   background-color: $light-grey;
   box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+}
+
+.text-ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

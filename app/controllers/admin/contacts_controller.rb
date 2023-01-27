@@ -1,6 +1,6 @@
 class Admin::ContactsController < AdminController
   def index
-    @contacts = Contact.all
+    @contacts = Contact.all.order(created_at: :desc)
     authorize @contacts
   end
 

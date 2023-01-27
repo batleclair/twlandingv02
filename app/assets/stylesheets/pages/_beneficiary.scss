@@ -1,6 +1,6 @@
 .asso-img-ctn{
   max-width: 400px;
-  >img{
+  >div>img{
     height: 250px;
     object-fit: cover;
   }
@@ -25,13 +25,21 @@
   }
 }
 
+.card-list-height {
+  max-height: 55%;
+  min-height: 30%;
+}
+
 .asso-mission-card{
   padding: 20px;
   border: solid 1px $first-main-color;
   background-color: $first-light-color;
   height: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;
+  h5, p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   transition: 0.2s ease-in-out;
   border-radius: 5px;
   &:hover{
@@ -40,8 +48,32 @@
   }
 }
 
+.resp-height-asso{
+  height: 795px;
+}
+
+.resp-rhs-pad{
+  padding-right: 0
+}
+
+.custom-resp-rhs-pad{
+  padding-right: 20vw;
+  @media(max-width: 1600px) {
+    padding-right: 10vw;
+    }
+  @media(max-width: 720px) {
+    padding-right: 5vw;
+    }
+}
+
 @media(max-width: 720px) {
   .three-box-grid{
     grid-template-columns: repeat(1, 1fr);
+  }
+  .resp-height-asso{
+    height: auto;
+  }
+  .resp-rhs-pad{
+    padding-right: 5vw
   }
 }

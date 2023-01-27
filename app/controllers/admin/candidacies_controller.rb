@@ -1,6 +1,6 @@
 class Admin::CandidaciesController < AdminController
   def index
-    @candidacies = Candidacy.all
+    @candidacies = Candidacy.all.order(created_at: :desc)
     authorize @candidacies
   end
 

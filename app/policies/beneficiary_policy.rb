@@ -1,5 +1,4 @@
 class BeneficiaryPolicy < ApplicationPolicy
-
   def index?
     user.user_type == 'admin'
   end
