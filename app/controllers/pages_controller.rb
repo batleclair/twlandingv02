@@ -34,6 +34,7 @@ class PagesController < ApplicationController
 
   def sitemap
     @offers = Offer.where(publish: true, status: 'active')
+    @beneficiaries = (Beneficiary.joins(:offers).where(offers: { status: 'active', publish: true }).or(Beneficiary.joins(:offers).where(offers: { status: 'old' }))).uniq
     @posts = Post.where(publish: true)
   end
 

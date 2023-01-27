@@ -2,6 +2,10 @@
 <% content_for :description, "Grâce à Demain, engagez-vous auprès de l'association #{@beneficiary.name} en réalisant une mission de mécénat de compétences." %>
 <% canonical(beneficiary_url(@beneficiary)) %>
 
+<% if @beneficiary.profile_pic_one.attached? %>
+  <% content_for :image, cl_image_path(@beneficiary.profile_pic_one.key, transformation: {background: "#531cb3", width: 1200, height: 630, crop: :fill, effect: "gradient_fade:symmetric:5"}, overlay: "logo_white.png", width: 400, crop: :scale) %>
+<% end %>
+
 <% if @beneficiary.photo.attached? %>
   <% content_for :image, cl_image_path(@beneficiary.photo.key, transformation: {background: "#531cb3", width: 1200, height: 630, crop: :fill, effect: "gradient_fade:symmetric:5"}, overlay: "logo_white.png", width: 500, crop: :scale) %>
 <% end %>
