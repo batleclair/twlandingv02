@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /legal/
 Disallow: /terms/
 Disallow: /admin/
+Disallow: /associations/candidatures-spontaneees/
+Disallow: /associations/confidentiel/
