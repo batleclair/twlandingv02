@@ -11,7 +11,7 @@ class Beneficiary < ApplicationRecord
   validate :logo_file_type
   has_rich_text :description
   has_rich_text :long_desc
-  after_save :set_slug
+  before_save :set_slug
 
   GOALS = [
     'Environnement',

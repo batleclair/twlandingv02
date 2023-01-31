@@ -26,8 +26,9 @@ class BeneficiariesController < ApplicationController
   def create
     @beneficiary = Beneficiary.new(beneficiary_params)
     authorize @beneficiary
-    @beneficiary.valid?
+    @beneficiary.save
     if @beneficiary.save
+      @beneficiary.set_slug
       redirect_to admin_beneficiaries_path
     else
 
