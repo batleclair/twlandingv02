@@ -41,6 +41,16 @@ class Beneficiary < ApplicationRecord
     slug
   end
 
+  def home_url(beneficiary_path)
+    if publish
+      beneficiary_path
+    elsif web_url.present?
+      web_url
+    else
+      ""
+    end
+  end
+
   private
 
   def basics
