@@ -34,18 +34,12 @@ Rails.application.routes.draw do
   post "/associations", to: "beneficiaries#create", as: :beneficiaries
   patch "/associations/:slug", to: "beneficiaries#update"
   delete "/associations/:slug", to: "beneficiaries#destroy"
+  patch "beneficiaries/:slug/destroy_img", to: "beneficiaries#destroy_img", as: :destroy_img
 
   # blog post routes
   get "/blog", to: "posts#index"
   get "/blog/:slug", to: "posts#show", as: :article
   resources :posts, only: %i[create update destroy]
-
-  # img delete routes
-  patch "beneficiaries/:slug/destroy_logo", to: "beneficiaries#destroy_logo", as: :destroy_logo
-  patch "beneficiaries/:slug/destroy_photo", to: "beneficiaries#destroy_photo", as: :destroy_photo
-  patch "beneficiaries/:slug/destroy_profile_pic_one", to: "beneficiaries#destroy_photo", as: :destroy_profile_pic_one
-  patch "beneficiaries/:slug/destroy_profile_pic_two", to: "beneficiaries#destroy_photo", as: :destroy_profile_pic_two
-  patch "beneficiaries/:slug/destroy_profile_pic_three", to: "beneficiaries#destroy_photo", as: :destroy_profile_pic_three
 
   # admin routes
   get "/admin", to: "admin#dashboard"

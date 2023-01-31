@@ -1,7 +1,6 @@
 class BeneficiariesController < ApplicationController
-  before_action :set_beneficiary, only: %i[show edit update destroy destroy_logo]
+  before_action :set_beneficiary, only: %i[show edit update destroy destroy_img]
   skip_before_action :authenticate_user!, only: %i[show unpublished]
-  after_action :save_and_redirect, only: %i[destroy_logo destroy_photo destroy_profile_pic_one destroy_profile_pic_two destroy_profile_pic_three]
 
   def index
     @beneficiaries = policy_scope(Beneficiary)
@@ -49,29 +48,11 @@ class BeneficiariesController < ApplicationController
     end
   end
 
-  def destroy_logo
+  def destroy_img
     authorize @beneficiary
-    @beneficiary.logo.purge
-  end
-
-  def destroy_photo
-    authorize @beneficiary
-    @beneficiary.photo.purge
-  end
-
-  def destroy_profile_pic_one
-    authorize @beneficiary
-    @beneficiary.profile_pic_one.purge
-  end
-
-  def destroy_profile_pic_two
-    authorize @beneficiary
-    @beneficiary.profile_pic_two.purge
-  end
-
-  def destroy_profile_pic_three
-    authorize @beneficiary
-    @beneficiary.profile_pic_three.purge
+    @beneficiary.send(params[:img]).purge
+    @beneficiary.save
+    redirect_to edit_admin_beneficiary_path(@beneficiary), status: :see_other
   end
 
   def destroy
@@ -84,11 +65,6 @@ class BeneficiariesController < ApplicationController
 
   def set_beneficiary
     @beneficiary = Beneficiary.find_by(slug: params[:slug])
-  end
-
-  def save_and_redirect
-    @beneficiary.save
-    redirect_to edit_admin_beneficiary_path(@beneficiary), status: :see_other
   end
 
   def beneficiary_params

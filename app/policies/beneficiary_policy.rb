@@ -19,7 +19,7 @@ class BeneficiaryPolicy < ApplicationPolicy
     index?
   end
 
-  def destroy_logo?
+  def destroy_img?
     index?
   end
 
