@@ -43,7 +43,7 @@
       <div class="d-flex">
         <%= f.input :status, collection: Offer::STATUSES, wrapper_html: {class: "me-3 full-width"}  %>
         <div class="full-width align-self-center pt-3 shaded-bg">
-          <%= f.input :publish, as: :boolean, input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
+          <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
         </div>
       </div>
 

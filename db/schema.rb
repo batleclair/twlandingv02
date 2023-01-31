@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_26_195412) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_085415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_195412) do
     t.string "kpt_two"
     t.string "kpi_three"
     t.string "kpt_three"
+    t.boolean "publish", default: false
+    t.boolean "publish_logo", default: false
   end
 
   create_table "candidacies", force: :cascade do |t|

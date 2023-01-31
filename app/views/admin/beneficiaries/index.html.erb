@@ -19,9 +19,10 @@
             <th>Association</th>
             <th>Objectif</th>
             <th>Cause</th>
-            <th>Photo</th>
-            <th>Description</th>
-            <th>Slug</th>
+            <th>Photos</th>
+            <th>Long desc</th>
+            <th>Profil open</th>
+            <th>Logo partner</th>
             <th class="center-text">Offres</th>
           </tr>
         </thead>
@@ -46,20 +47,30 @@
               <td><%= b.goal %></td>
               <td><%= b.cause %></td>
               <td class="center-text">
-                <% if b.photo.attached? %>
+                <% photo_count = [b.photo.attached?, b.profile_pic_one.attached?, b.profile_pic_two.attached?, b.profile_pic_three.attached?] %>
+                <%= "#{photo_count.count(true)}/4" %>
+              </td>
+              <td class="center-text">
+                <% if b.long_desc.present? %>
                   <i class="fa-solid fa-circle-check green-color"></i>
                 <% else %>
                   <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
                 <% end %>
               </td>
               <td class="center-text">
-                <% if b.description.present? %>
+                <% if b.publish %>
                   <i class="fa-solid fa-circle-check green-color"></i>
                 <% else %>
                   <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
                 <% end %>
               </td>
-              <td><%= b.slug %></td>
+              <td class="center-text">
+                <% if b.publish_logo %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
               <td class="center-text"><%= b.offers.count %></td>
             </tr>
           <%end%>

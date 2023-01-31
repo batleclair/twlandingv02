@@ -7,6 +7,10 @@ class BeneficiaryPolicy < ApplicationPolicy
     true
   end
 
+  def unpublished?
+    true
+  end
+
   def create?
     index?
   end

@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!
 
   def home
-    @beneficiaries = (Beneficiary.joins(:offers).where(offers: { status: 'active', publish: true }).or(Beneficiary.joins(:offers).where(offers: { status: 'old' }))).uniq
+    @beneficiaries = Beneficiary.where(publish_logo: true)
     @offers = Offer.where(publish: true, status: 'active').sample(6)
   end
 
@@ -34,7 +34,7 @@ class PagesController < ApplicationController
 
   def sitemap
     @offers = Offer.where(publish: true, status: 'active')
-    @beneficiaries = (Beneficiary.joins(:offers).where(offers: { status: 'active', publish: true }).or(Beneficiary.joins(:offers).where(offers: { status: 'old' }))).uniq
+    @beneficiaries = Beneficiary.where(publish_logo: true)
     @posts = Post.where(publish: true)
   end
 

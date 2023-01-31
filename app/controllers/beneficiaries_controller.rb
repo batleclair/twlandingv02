@@ -1,6 +1,6 @@
 class BeneficiariesController < ApplicationController
   before_action :set_beneficiary, only: %i[show edit update destroy destroy_logo]
-  skip_before_action :authenticate_user!, only: %i[show]
+  skip_before_action :authenticate_user!, only: %i[show unpublished]
   after_action :save_and_redirect, only: %i[destroy_logo destroy_photo destroy_profile_pic_one destroy_profile_pic_two destroy_profile_pic_three]
 
   def index
@@ -11,7 +11,17 @@ class BeneficiariesController < ApplicationController
 
   def show
     authorize @beneficiary
-    @offers = @beneficiary.offers.select { |o| o.public? }
+    @offers = @beneficiary.offers.select(`&:public?`)
+    add_breadcrumb "Associations"
+    add_breadcrumb @beneficiary.name, beneficiary_path(@beneficiary)
+    return if (user_signed_in? && current_user&.admin?) || @beneficiary.publish
+
+    redirect_to unpublished_beneficiary_path, status: 301
+  end
+
+  def unpublished
+    @beneficiary = Beneficiary.new
+    authorize @beneficiary
   end
 
   def create
@@ -105,7 +115,9 @@ class BeneficiariesController < ApplicationController
       :kpi_three,
       :kpt_one,
       :kpt_two,
-      :kpt_three
+      :kpt_three,
+      :publish,
+      :publish_logo
     )
   end
 end

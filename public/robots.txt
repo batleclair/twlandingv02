@@ -4,3 +4,5 @@ Disallow: /terms/
 Disallow: /admin/
 Disallow: /associations/candidatures-spontaneees/
 Disallow: /associations/confidentiel/
+Disallow: /offers/mission_indisponible/
+Disallow: /associations/asso_indisponible/

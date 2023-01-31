@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post "offers/:id/check", to: "candidacies#check", as: :candidacy_check
 
   # beneficiaries routes
+  get "associations/asso_indisponible", to: "beneficiaries#unpublished", as: :unpublished_beneficiary
   get "associations/:slug", to: "beneficiaries#show", as: :beneficiary
   post "/associations", to: "beneficiaries#create", as: :beneficiaries
   patch "/associations/:slug", to: "beneficiaries#update"

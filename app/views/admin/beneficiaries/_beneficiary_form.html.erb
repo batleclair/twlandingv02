@@ -27,6 +27,15 @@
     <%= f.input :li_url, label: 'Lien LinkedIn (https://www.(...)/)', wrapper_html: {class: "full-width"} %>
   </div>
 
+  <div class="d-flex">
+    <div class="full-width align-self-center pt-3 me-3 grey-border">
+      <%= f.input :publish_logo, as: :boolean, label: "Logo partenaire", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
+    </div>
+    <div class="full-width align-self-center pt-3 shaded-bg">
+      <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
+    </div>
+  </div>
+
   <%= f.input :description, as: :rich_text_area, label: 'Description courte (page mission)' %>
   <%= f.input :long_desc, as: :rich_text_area, label: 'Description longue (page asso - la courte est utilisée si la longue reste vide)' %>
 

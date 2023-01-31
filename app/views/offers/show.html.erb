@@ -98,9 +98,11 @@
               <h5 class="primary-text-color mb-2">Un mot de l'asso :</h5>
               <%= @offer.beneficiary.description %>
             </div>
-            <div class="d-flex full-width justify-content-end">
-              <%= link_to "en savoir +", beneficiary_path(@offer.beneficiary), class: "button-round btn-light-main" %>
-            </div>
+            <% if @offer.beneficiary.publish %>
+              <div class="d-flex full-width justify-content-end">
+                <%= link_to "en savoir +", beneficiary_path(@offer.beneficiary), class: "button-round btn-light-main" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
