@@ -64,7 +64,7 @@
           </div>
         </div>
         <div class="position-relative">
-          <%= @beneficiary.profile_pic_one.attached? ? cl_image_tag(@beneficiary.profile_pic_two.key, class: "full-width") : cl_image_tag('../placeholder_2.jpg', class: "full-width") %>
+          <%= @beneficiary.profile_pic_two.attached? ? cl_image_tag(@beneficiary.profile_pic_two.key, class: "full-width") : cl_image_tag('../placeholder_2.jpg', class: "full-width") %>
           <span><%= image_tag('purple_shape_2.svg', class: "bottom-right-shape") %></span>
         </div>
       </div>
