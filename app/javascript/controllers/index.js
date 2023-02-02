@@ -22,6 +22,9 @@ application.register("experience", ExperienceController)
 import FaqController from "./faq_controller.js"
 application.register("faq", FaqController)
 
+import FormSubmitterController from "./form_submitter_controller.js"
+application.register("form-submitter", FormSubmitterController)
+
 import HelloController from "./hello_controller.js"
 application.register("hello", HelloController)
 

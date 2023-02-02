@@ -41,6 +41,13 @@ Rails.application.routes.draw do
   get "/blog/:slug", to: "posts#show", as: :article
   resources :posts, only: %i[create update destroy]
 
+  # list routes
+  resources :offer_lists, param: :slug, only: %i[show]
+  resources :offer_lists, only: %i[create update destroy] do
+    resources :offer_bookmarks, only: %i[create]
+  end
+  resources :offer_bookmarks, only: %i[destroy]
+
   # admin routes
   get "/admin", to: "admin#dashboard"
   resources :contacts, only: %i[create update destroy]
@@ -54,6 +61,7 @@ Rails.application.routes.draw do
     resources :candidacies, only: %i[index show]
     resources :posts, only: %i[index new edit]
     resources :candidates, only: %i[index]
+    resources :offer_lists, only: %i[index new edit]
   end
 
   # error routes

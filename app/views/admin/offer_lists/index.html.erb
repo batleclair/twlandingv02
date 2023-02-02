@@ -1,0 +1,47 @@
+<%= render partial: "shared/navpan", locals: {active: 7} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Gestion des listes de missions</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
+        <%= link_to "+ Ajouter", new_admin_offer_list_path, class:"button btn-main-color" %>
+      </div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Création</th>
+            <th>Titre</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @offer_lists.each do |list| %>
+            <tr>
+              <td><%= list.created_at %></td>
+              <td><%= list.title %></td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to(offer_list_path(slug: list.slug), target: "_blank") do %>
+                    <i class="fa-solid fa-eye primary-text-color"></i>
+                  <% end %>
+                  <%= link_to edit_admin_offer_list_path(list, list.offer_bookmarks) do %>
+                    <i class="fa-solid fa-pen-to-square primary-text-color"></i>
+                  <% end %>
+                  <%= link_to offer_list_path(list), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash primary-text-color"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

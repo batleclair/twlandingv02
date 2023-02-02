@@ -1,0 +1,58 @@
+<%= render partial: "shared/navpan", locals: {active: 7} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <h3>Modifier une liste de missions</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+    <div class="d-flex">
+      <%= link_to "Retour", admin_offer_lists_path, class:"button btn-light-main mb-2 me-2" %>
+    </div>
+    <%= simple_form_for(@offer_list) do |f| %>
+      <div class="d-flex align-items-end">
+        <div class="string optional offer_list_title me-5 full-width">
+          <label class="form-label string optional" for="offer_list_title">Titre</label>
+          <%= f.input_field :title, class: "form-control" %>
+        </div>
+        <button type="submit" class="button btn-main-color button-form">Modifier</button>
+      </div>
+    <% end %>
+
+    <table class="light-table full-width" data-controller="form-submitter">
+      <thead>
+        <tr>
+          <th class="no-wrap">Association</th>
+          <th>Titre de l'offre</th>
+          <th class="fit-content center-text">Actions</th>
+        </tr>
+      </thead>
+      <tbody data-form-submitter-target="list">
+        <% @offer_bookmarks.each do |bookmark| %>
+          <tr>
+            <td><%= bookmark.offer.beneficiary.name %></td>
+            <td class="col-stretch"><%= bookmark.offer.title %></td>
+            <td class="p-0">
+              <div class="d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-eye primary-text-color"></i>
+                <%= link_to offer_bookmark_path(bookmark), data: { method: :delete, turbo: false, action: 'click->form-submitter#destroy'} do %>
+                  <i class="fa-solid fa-trash primary-text-color"></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      <%= simple_form_for([@offer_list, @offer_bookmark], data: {"form-submitter-target": "form"}) do |f| %>
+        <td></td>
+        <td class="col-stretch pe-5">
+            <%= f.association :offer, wrapper: false, label: false %>
+        </td>
+        <td class="vertical-align-middle p-0">
+          <%= f.submit "Ajouter", class: "button btn-main-color button-form", data: {turbo: false, "action": "click->form-submitter#submit"} %>
+        </td>
+      <% end %>
+    </table>
+
+  </div>
+</div>

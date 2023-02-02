@@ -5,6 +5,7 @@ class Offer < ApplicationRecord
   has_many :candidacies
   has_many :candidates, through: :candidacies
   after_save :set_slug
+  has_many :offer_bookmarks
 
   FUNCTIONS = [
     'IT/Data/Produit',

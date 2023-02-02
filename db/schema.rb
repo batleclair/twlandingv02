@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_085415) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_112123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,6 +131,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_085415) do
     t.index ["candidate_id"], name: "index_experiences_on_candidate_id"
   end
 
+  create_table "offer_bookmarks", force: :cascade do |t|
+    t.bigint "offer_id", null: false
+    t.bigint "offer_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_offer_bookmarks_on_offer_id"
+    t.index ["offer_list_id"], name: "index_offer_bookmarks_on_offer_list_id"
+  end
+
+  create_table "offer_lists", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "offers", force: :cascade do |t|
     t.bigint "beneficiary_id", null: false
     t.string "title"
@@ -211,6 +227,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_085415) do
   add_foreign_key "candidacies", "offers"
   add_foreign_key "candidates", "users"
   add_foreign_key "experiences", "candidates"
+  add_foreign_key "offer_bookmarks", "offer_lists"
+  add_foreign_key "offer_bookmarks", "offers"
   add_foreign_key "offers", "beneficiaries"
   add_foreign_key "taggings", "tags"
 end

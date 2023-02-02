@@ -1,0 +1,14 @@
+<% @offer_bookmarks.each do |bookmark| %>
+  <tr>
+    <td><%= bookmark.offer.beneficiary.name %></td>
+    <td><%= bookmark.offer.title %></td>
+    <td>
+      <div class="d-flex justify-content-center align-items-center">
+        <i class="fa-solid fa-eye primary-text-color"></i>
+        <%= link_to offer_bookmark_path(bookmark), data: { method: :delete, turbo: false, action: 'click->form-submitter#destroy'} do %>
+          <i class="fa-solid fa-trash primary-text-color"></i>
+        <% end %>
+      </div>
+    </td>
+  </tr>
+<% end %>

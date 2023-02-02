@@ -19,3 +19,39 @@
 .no-wrap{
   white-space: nowrap;
 }
+
+.light-table{
+  display: block;
+  overflow-x: auto;
+  table-layout: auto;
+  width: 100%;
+  th{
+    color: $first-main-color;
+    font-weight: 600;
+    padding: 10px;
+  }
+  tr {
+    border-bottom: solid 1px lightgrey;
+  }
+  tr:last-child {
+    border-bottom: none;
+  }
+
+  td{
+    padding: 5px 10px;
+  }
+  td:first-child {
+    min-width: 300px;
+    white-space: nowrap;
+  }
+  .col-stretch {
+    width: 100%;
+    white-space: nowrap;
+  }
+  .vertical-align-bottom{
+    vertical-align: middle;
+  }
+  .fit-content{
+    width: fit-content;
+  }
+}
