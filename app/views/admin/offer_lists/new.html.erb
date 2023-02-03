@@ -10,7 +10,10 @@
       <%= link_to "Retour", admin_offer_lists_path, class:"button btn-light-main mb-2 me-2" %>
     </div>
     <%= simple_form_for(@offer_list) do |f| %>
-      <%= f.input :title %>
+      <div class="grey-border p-3">
+        <%= f.input :title %>
+        <%= f.input :description %>
+      </div>
       <button type="submit" class="button btn-main-color mt-3">Créer</button>
     <% end %>
   </div>

@@ -27,10 +27,10 @@
         </div>
       </div>
 
-      <div data-progress-target="step1"><%= render partial: "candidacy_step_1", locals: {offer: offer, candidacy: candidacy} %></div>
-      <div class="d-none" data-progress-target="step2"><%= render partial: "candidacy_step_2", locals: {offer: offer, candidacy: candidacy} %></div>
-      <div class="d-none" data-progress-target="step3"><%= render partial: "candidacy_step_3", locals: {offer: offer, candidacy: candidacy} %></div>
-      <div class="d-none" data-progress-target="confirmation"><%= render partial: "confirmation", locals: {offer: offer, candidacy: candidacy}  %></div>
+      <div data-progress-target="step1"><%= render partial: "offers/candidacy_step_1", locals: {offer: offer, candidacy: candidacy} %></div>
+      <div class="d-none" data-progress-target="step2"><%= render partial: "offers/candidacy_step_2", locals: {offer: offer, candidacy: candidacy} %></div>
+      <div class="d-none" data-progress-target="step3"><%= render partial: "offers/candidacy_step_3", locals: {offer: offer, candidacy: candidacy} %></div>
+      <div class="d-none" data-progress-target="confirmation"><%= render partial: "offers/confirmation", locals: {offer: offer, candidacy: candidacy}  %></div>
 
     </div>
   </div>

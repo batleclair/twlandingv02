@@ -26,7 +26,7 @@
               <td><%= list.title %></td>
               <td>
                 <div class="d-flex justify-content-evenly">
-                  <%= link_to(offer_list_path(slug: list.slug), target: "_blank") do %>
+                  <%= link_to(offer_selection_path(slug: list.slug), target: "_blank") do %>
                     <i class="fa-solid fa-eye primary-text-color"></i>
                   <% end %>
                   <%= link_to edit_admin_offer_list_path(list, list.offer_bookmarks) do %>

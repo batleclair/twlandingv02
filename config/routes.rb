@@ -42,7 +42,8 @@ Rails.application.routes.draw do
   resources :posts, only: %i[create update destroy]
 
   # list routes
-  resources :offer_lists, param: :slug, only: %i[show]
+  # resources :offer_lists, param: :slug, only: %i[show]
+  get "/selection/:slug", to: "offer_lists#show", as: :offer_selection
   resources :offer_lists, only: %i[create update destroy] do
     resources :offer_bookmarks, only: %i[create]
   end

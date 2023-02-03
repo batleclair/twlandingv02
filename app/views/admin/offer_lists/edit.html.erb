@@ -8,14 +8,17 @@
   <div class="navpan-white-ctn">
     <div class="d-flex">
       <%= link_to "Retour", admin_offer_lists_path, class:"button btn-light-main mb-2 me-2" %>
+      <%= link_to "Voir la liste", offer_selection_path(slug: @offer_list.slug), class:"button btn-flag-color ms-2", target: "_blank" %>
     </div>
     <%= simple_form_for(@offer_list) do |f| %>
-      <div class="d-flex align-items-end">
-        <div class="string optional offer_list_title me-5 full-width">
-          <label class="form-label string optional" for="offer_list_title">Titre</label>
-          <%= f.input_field :title, class: "form-control" %>
+      <div class="d-flex align-items-center">
+        <div class="full-width pe-5">
+          <%= f.input :title %>
+          <%= f.input :description %>
         </div>
-        <button type="submit" class="button btn-main-color button-form">Modifier</button>
+        <div class="d-flex align-items-center">
+          <button type="submit" class="button btn-main-color button-form" style="width: 100px">Modifier</button>
+        </div>
       </div>
     <% end %>
 
@@ -49,7 +52,7 @@
             <%= f.association :offer, wrapper: false, label: false %>
         </td>
         <td class="vertical-align-middle p-0">
-          <%= f.submit "Ajouter", class: "button btn-main-color button-form", data: {turbo: false, "action": "click->form-submitter#submit"} %>
+          <%= f.submit "Ajouter", class: "button btn-main-color button-form", style: "width: 100px", data: {turbo: false, "action": "click->form-submitter#submit"} %>
         </td>
       <% end %>
     </table>

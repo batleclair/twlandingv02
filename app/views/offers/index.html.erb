@@ -27,7 +27,7 @@
           <div class="d-flex full-width justify-content-between align-items-center mb-2" data-controller="legend">
             <h5 class="primary-text-color">Engagement requis</h5>
             <button class="round-button-sm btn-main-color" data-action="click->legend#popup">?</button>
-            <%= render partial: "legend" %>
+            <%= render partial: "offers/legend" %>
           </div>
           <%= check_box_tag :low, 1, false, hidden: true %>
           <%= label_tag :low, '👍 light', class: "mb-1" %>
@@ -58,75 +58,7 @@
 
 <div class="ctn-resp white-bg pt-5 pb-5">
   <%= turbo_frame_tag :results do %>
-  <div class="row" data-controller="candidacy">
-
-      <% @offers.each do |offer| %>
-        <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : image_tag('heart_globe.png') %>
-        <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
-          <% if offer.active? %>
-            <%= link_to offer_path(offer), class: "job-card", data: { turbo: false } do %>
-              <div class="job-card-tag">
-                <h6>voir l'offre <%= offer.commitment.first %></h6>
-                <div class="job-card-text">
-                  <h4><%= offer.title %></h4>
-                  <h6><%= offer.location %></h6>
-                </div>
-                <div class="job-card-footer">
-                  <h6><%= offer.beneficiary.cause %></h6>
-                  <div class="logo-box downsize90 card-logo-offset">
-                    <%= b_logo %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% else %>
-            <div class='upcoming-badge' data-controller="lock">
-            <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
-              <h6>à venir</h6>
-              <span></span>
-              <% if user_signed_in? %>
-                <% if current_user.applied?(offer) %>
-                  <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
-                <% else %>
-                  <h5 class="white-text primary-text-color mb-4 mt-2 btn-replacement-msg">Votre candidature a bien été prise en compte 🙌</h5>
-                <% end %>
-              <% else %>
-                  <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
-                  <div class="d-none centered-overlay" data-lock-target="login">
-                    <div class="d-flex">
-                      <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>
-                      <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-1 ms-2", data: { turbo: false }%>
-                    </div>
-                    <p class="center-text">connectez-vous pour candidater dès maintenant !</p>
-                  </div>
-              <% end %>
-              <div class="job-card-text">
-                <h4><%= offer.title %></h4>
-                <h6><%= offer.location %></h6>
-              </div>
-              <div class="job-card-footer">
-                <h6><%= offer.beneficiary.cause %></h6>
-                <div class="logo-box downsize90 card-logo-offset">
-                  <%= image_tag('heart_globe.png') %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-
-      <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
-        <div class="job-card-dark">
-          <h3 class="center-text">+</h3>
-          <h5 class="center-text">Le job fait pour toi</h5>
-          <span class="d-flex flex-column justify-content-center align-items-center p-2">
-            <h6 class="white-text center-text mb-2">Tu ne trouves pas le job qui te correspond ? Laisse-nous trouver pour toi !</h6>
-            <%= render partial: "apply", locals: {offer: @no_offer} %>
-          </span>
-        </div>
-      </div>
-      <span data-candidacy-target="content"><%= render partial: "candidacy", locals: {offer: @no_offer, candidacy: @candidacy} %></span>
-    </div>
+    <%= render partial: "offers/list", locals: {offers: @offers, no_offer: @no_offer, candidacy: @candidacy} %>
   <% end %>
 
   <div class="flex-resp justify-content-center align-items-center mt-5" data-controller="contact">

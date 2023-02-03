@@ -11,7 +11,8 @@ export default class extends Controller {
     if (event.target.dataset.id === undefined) {
       this.windowTarget.style.display = "block"
     } else {
-      const urlSelect = `offers/${event.target.dataset.id}/select`
+      const urlSelect = `../offers/${event.target.dataset.id}/select`
+      console.log(urlSelect)
       fetch(urlSelect, {
 
       })
