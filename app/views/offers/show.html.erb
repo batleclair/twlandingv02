@@ -11,7 +11,6 @@
       { overlay: {font_family: "Verdana", font_size: "30px", text: "#{@offer.title} pour aider l'association #{@offer.beneficiary.name}" }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
       ])
   %>
-  <% content_for :image, cl_image_path(@offer.beneficiary.photo.key, transformation: {width: 1200, height: 630, crop: :fill, color: "black", effect: "colorize:50"}, overlay: "logo_white.png", width: 500, crop: :scale) %>
 <% end %>
 
 <% b_logo_path = @offer.beneficiary.logo.attached? ? cl_image_path(@offer.beneficiary.logo.key) : image_path('heart_globe.png') %>

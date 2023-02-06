@@ -13,9 +13,6 @@
   %>
 <% end %>
 
-<% if @beneficiary.photo.attached? %>
-  <% content_for :image, cl_image_path(@beneficiary.photo.key, transformation: {background: "#531cb3", width: 1200, height: 630, crop: :fill, effect: "gradient_fade:symmetric:5"}, overlay: "logo_white.png", width: 500, crop: :scale) %>
-<% end %>
 <% b_logo_path = @beneficiary.logo.attached? ? cl_image_path(@beneficiary.logo.key) : image_path('heart_globe.png') %>
 
 <% bg_img = @beneficiary.photo.attached? ? cl_image_path(@beneficiary.photo.key) : image_path('bannerbg.jpg') %>
