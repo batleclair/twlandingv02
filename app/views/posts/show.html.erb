@@ -2,6 +2,14 @@
 <% content_for :description, @post.content.to_plain_text.truncate(300) %>
 <% content_for :structured_data, @post.structured_data(cl_image_path @post.photo.key) %>
 <% canonical(post_url(@post)) %>
+<% content_for :image,
+  cl_image_path(@post.photo.key, transformation: [
+    { width: 1200, height: 630, crop: :fill, color: "black", effect: "colorize:50" },
+    { overlay: "logo_white.png" },
+    { flags: "layer_apply", width: 300, gravity: "west", y: -50, x:100 , crop: :scale },
+    { overlay: {font_family: "Verdana", font_size: "30px", text: @post.title }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
+    ])
+%>
 
 <div class="white-wrapper-narrow-content">
   <h1 class="d-none"><%= @post.title %></h1>

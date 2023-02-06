@@ -209,7 +209,6 @@
 }
 
 .upper-post-card{
-  height: 180px;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
@@ -237,8 +236,20 @@
   border: solid 1px $first-main-color;
 }
 
+.upper-post-card-sm{
+  height: 180px;
+}
+
+.upper-post-card-xl{
+  height: 450px;
+  h4{
+    border-top: white 1px solid;
+    border-bottom: white 1px solid;
+  }
+}
+
 .post-card {
-  border-radius: 5px;
+  // border-radius: 5px;
   overflow: hidden;
   box-shadow: 3px 3px 10px rgba(0,0,0,0);
   transition: 0.3s ease-in-out;
@@ -255,8 +266,30 @@
   p {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+  }
+}
+
+.lower-post-card-sm{
+  p {
+    -webkit-line-clamp: 3;
+  }
+}
+
+.lower-post-card-xl{
+  >div{
+    position: relative;
+    div {
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient(rgba(255,255,255,0), white 50%, white);
+      width: 100%;
+      height: 150px;
+    }
+  }
+  p {
+    height: 450px;
+    overflow: hidden;
   }
 }
 

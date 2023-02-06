@@ -3,6 +3,8 @@ class PostsController < ApplicationController
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
+    @last_post = @posts.first
+    @posts = @posts.where.not(id: @last_post.id)
     @contact = Contact.new
     add_breadcrumb "Blog", blog_path
   end
