@@ -7,6 +7,8 @@
     { width: 1200, height: 630, crop: :fill, color: "black", effect: "colorize:50" },
     { overlay: "logo_white.png" },
     { flags: "layer_apply", width: 300, gravity: "west", y: -50, x:100 , crop: :scale },
+    { overlay: "og_overlay_2.png" },
+    { flags: "layer_apply", width: 300, gravity: "south_east", crop: :scale },
     { overlay: {font_family: "Verdana", font_size: "30px", text: @post.title }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
     ])
 %>
