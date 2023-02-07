@@ -47,10 +47,6 @@ class Offer < ApplicationRecord
     publish && (status == 'active' || status == 'draft')
   end
 
-  # def new?
-  #   status == 'new'
-  # end
-
   def frequency_output
     case
     when half_days_min.nil? && half_days_max.nil?

@@ -10,7 +10,7 @@ class BeneficiariesController < ApplicationController
 
   def show
     authorize @beneficiary
-    @offers = @beneficiary.offers.select(`&:public?`)
+    @offers = Offer.where(beneficiary_id: @beneficiary.id, status: "active", publish: true)
     add_breadcrumb "Associations"
     add_breadcrumb @beneficiary.name, beneficiary_path(@beneficiary)
     return if (user_signed_in? && current_user&.admin?) || @beneficiary.publish

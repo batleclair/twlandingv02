@@ -13,6 +13,8 @@ class OfferListsController < ApplicationController
       @candidate = Candidate.find_by(user_id: current_user.id)
     end
     @offers = @offer_list.offers
+    add_breadcrumb "Missions", offers_path
+    add_breadcrumb "Sélection : #{@offer_list.title}"
   end
 
   def create

@@ -13,13 +13,15 @@
   <div class="row desktop-only early-resp-900">
     <div class="d-flex p-4">
       <% bg_img = @last_post.photo.attached? ? cl_image_path(@last_post.photo.key) : image_path('bannerbg.jpg') %>
-      <div class="full-width upper-post-card upper-post-card-xl me-5 d-flex align-items-center" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >
-        <h4 class="white-text full-width pt-3 pb-3 me-5 ms-5 center-text"><%= @last_post.title %></h4>
-        <% unless @last_post.category_list.blank? %>
-          <h6><%= @last_post.category_list[0] %></h6>
-        <% end %>
-        <span><%= @last_post.published_ago %></span>
-      </div>
+      <%= link_to(article_path(slug: @last_post.slug), class: "me-5") do %>
+        <div class="full-width upper-post-card upper-post-card-xl d-flex align-items-center" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >
+          <h4 class="white-text full-width pt-3 pb-3 me-5 ms-5 center-text"><%= @last_post.title %></h4>
+          <% unless @last_post.category_list.blank? %>
+            <h6><%= @last_post.category_list[0] %></h6>
+          <% end %>
+          <span><%= @last_post.published_ago %></span>
+        </div>
+      <% end %>
       <div class="full-width lower-post-card-xl">
         <div>
           <p><%= @last_post.content.to_plain_text.truncate(1250, omission: '') %></p>
