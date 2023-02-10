@@ -1,4 +1,4 @@
-class Admin::PostsController < ApplicationController
+class Admin::PostsController < AdminController
   def index
     @posts = Post.all
     authorize @posts if current_user.user_type == 'admin'

@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     resources :contacts, only: %i[index]
     resources :candidacies, only: %i[index show]
     resources :posts, only: %i[index new edit]
-    resources :candidates, only: %i[index]
+    resources :candidates, only: %i[index show]
     resources :offer_lists, only: %i[index new edit]
   end
 

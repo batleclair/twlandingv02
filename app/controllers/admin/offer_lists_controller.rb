@@ -1,4 +1,4 @@
-class Admin::OfferListsController < ApplicationController
+class Admin::OfferListsController < AdminController
   def new
     @offer_list = OfferList.new
   end

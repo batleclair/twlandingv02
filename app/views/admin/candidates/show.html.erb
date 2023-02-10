@@ -1,0 +1,114 @@
+<%= render partial: "shared/navpan", locals: {active: 6} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Profil candidat</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <%= link_to "Retour", admin_candidacies_path, class:"button btn-light-main mb-3" %>
+      <table class="mb-5">
+        <tbody>
+          <tr>
+            <td class="pe-5">Nom complet : </td>
+            <td id="candidate_name"><%= @candidate.user.first_name %> <%= @candidate.user.last_name %></td>
+          </tr>
+          <tr>
+            <td class="pe-5">Inscription : </td>
+            <td id="user_created_at"><%= @candidate.user.created_at.strftime("%Y-%m-%d") %></td>
+          </tr>
+          <tr>
+            <td class="pe-5">Email : </td>
+            <td id="user_email"><%= @candidate.user.email %></td>
+          </tr>
+          <tr>
+            <td class="pe-5">Téléphone : </td>
+            <td id="candidate_phone_num"><%= @candidate.phone_num %></td>
+          </tr>
+          <tr>
+            <td class="pe-5">Status : </td>
+            <td id="candidate_status">
+              <% case @candidate.status%>
+              <% when "ft_employee" %>
+              En poste
+              <% when "pt_employee" %>
+              En temps partiel
+              <% when "freelance" %>
+              Freelance
+              <% when "inactive" %>
+              En recherche
+              <% else %>
+              Non renseigné
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="pe-5">Employeur : </td>
+            <td id="candidate_employer_name"><%= @candidate.employer_name %></td>
+          </tr>
+          <tr>
+            <td class="pe-5">LinkedIn : </td>
+            <td>
+              <a target="blank" href="<%= @candidate.linkedin_url %>" id="candidate_linkedin_url"><%= @candidate.linkedin_url %></a>
+            </td>
+          </tr>
+          <tr>
+            <td class="pe-5">CV : </td>
+            <td>
+              <% if @candidate.cv.attached? %>
+                <%= link_to cl_image_path(@candidate.cv.key), target: "_blank", id: "candidate_cv" do %>
+                  <i class="fa-solid fa-file-arrow-down green-color"></i><span class="sm-thin-text ps-2">disponible</span>
+                <% end %>
+              <% else %>
+                <%= link_to "", id: "user_cv" do %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i><span class="sm-thin-text ps-2">pas transmis</span>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+
+      <h5 class="mb-3 primary-text-color"><%= @candidate.candidacies.size %> candidatures :</h5>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Association</th>
+            <th>Titre de l'offre</th>
+            <th>Situation employeur</th>
+            <th>Disponibilités hebdo</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @candidate.candidacies.each do |c| %>
+            <tr>
+              <td class="no-wrap"><%= c.created_at.strftime("%Y-%m-%d") %></td>
+              <td><%= c.beneficiary.name %></td>
+              <td><%= c.offer.title %></td>
+              <% if c.candidate.employed? %>
+                <td>
+                  <p>Prévenu : <%= c.employer_aware ? "oui" : "non" %></p>
+                  <p>Proba : <%= "#{c.employer_ok_chance}/5" %></p>
+                </td>
+              <% else %>
+                <td class="light-bg sm-thin-text center-text">pas employé·e</td>
+              <% end %>
+              <td><%= "#{c.half_days_wish} demi/j" %></td>
+              <td><%= c.motivation_msg %></td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+
+
+    </div>
+
+  </div>
+</div>
