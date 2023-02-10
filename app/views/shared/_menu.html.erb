@@ -4,7 +4,7 @@
   <nav class= "menu ctn-resp <%= "menu-light" if controller.controller_name == 'pages' %>" data-menu-target="nav" >
     <div>
       <%= link_to root_path do %>
-        <%= controller.controller_name == 'pages' ? image_tag("logodark.svg", class: "sm-logo") : image_tag("logowhite.svg", class: "sm-logo") %>
+        <%= controller.controller_name == 'pages' ? image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain sombre") : image_tag("logo_white.svg", class: "sm-logo", alt: "Logo Demain clair") %>
       <% end %>
 
 

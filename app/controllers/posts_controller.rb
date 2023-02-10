@@ -6,15 +6,15 @@ class PostsController < ApplicationController
     @last_post = @posts.first
     @posts = @posts.where.not(id: @last_post.id)
     @contact = Contact.new
-    add_breadcrumb "Blog", blog_path
+    add_breadcrumb "Blog", posts_path
   end
 
   def show
     @post = Post.find_by(slug: params[:slug])
     authorize @post
     @contact = Contact.new
-    add_breadcrumb "Blog", blog_path
-    add_breadcrumb @post.title, article_path(slug: @post.slug)
+    add_breadcrumb "Blog", posts_path
+    add_breadcrumb @post.title, post_path(slug: @post.slug)
   end
 
   def create

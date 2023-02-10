@@ -15,9 +15,9 @@
   %>
 <% end %>
 
-<% b_logo_path = @beneficiary.logo.attached? ? cl_image_path(@beneficiary.logo.key) : image_path('heart_globe.png') %>
+<% b_logo_path = @beneficiary.logo.attached? ? cl_image_path(@beneficiary.logo.key) : cl_image_path('../default_logo.png') %>
 
-<% bg_img = @beneficiary.photo.attached? ? cl_image_path(@beneficiary.photo.key) : image_path('bannerbg.jpg') %>
+<% bg_img = @beneficiary.photo.attached? ? cl_image_path(@beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
 <% b_logo = @beneficiary.logo.attached? ? cl_image_tag(@beneficiary.logo.key, alt:"logo de l'association #{@beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
 
 <h1 class="d-none">Travailler pour l'association <%= @beneficiary.name %></h1>
@@ -39,8 +39,8 @@
 
       <div class="asso-img-ctn d-flex flex-column justify-content-between full-width mg-resp-r mb-2-resp">
         <div class="position-relative">
-          <%= @beneficiary.profile_pic_one.attached? ? cl_image_tag(@beneficiary.profile_pic_one.key, class: "full-width mb-3") : cl_image_tag('../placeholder_1.jpg', class: "full-width mb-3") %>
-          <span><%= image_tag('purple_shape_1.svg', class: "top-left-shape") %></span>
+          <%= cl_image_tag((@beneficiary.profile_pic_one.attached? ? @beneficiary.profile_pic_one.key : '../placeholder_1.jpg'), class: "full-width mb-3", alt: "première photo de l'association") %>
+          <span><%= image_tag('purple_shape_1.svg', class: "top-left-shape", alt: "aplat de couleur violet foncé") %></span>
         </div>
         <div class="grey-info-box mb-3 d-flex flex-column justify-content-between" style="height: 260px">
           <div>
@@ -70,8 +70,8 @@
           </div>
         </div>
         <div class="position-relative">
-          <%= @beneficiary.profile_pic_two.attached? ? cl_image_tag(@beneficiary.profile_pic_two.key, class: "full-width") : cl_image_tag('../placeholder_2.jpg', class: "full-width") %>
-          <span><%= image_tag('purple_shape_2.svg', class: "bottom-right-shape") %></span>
+          <%= cl_image_tag((@beneficiary.profile_pic_two.attached? ? @beneficiary.profile_pic_two.key : '../placeholder_2.jpg'), class: "full-width", alt: "deuxième photo de l'association") %>
+          <span><%= image_tag('purple_shape_2.svg', class: "bottom-right-shape", alt: "aplat de couleur violet foncé") %></span>
         </div>
       </div>
 
@@ -132,8 +132,8 @@
     </div>
     <div class="asso-img-ctn full-width mg-resp-l">
       <div class="position-relative">
-        <%= @beneficiary.profile_pic_three.attached? ? cl_image_tag(@beneficiary.profile_pic_three.key, class: "full-width") : image_tag('bannerbg.jpg', class: "full-width") %>
-        <span><%= image_tag('purple_shape_3.svg', class: "bottom-right-shape") %></span>
+        <%= cl_image_tag((@beneficiary.profile_pic_three.attached? ? @beneficiary.profile_pic_three.key : '../default_banner_bg.jpg'), class: "full-width", alt: "troisième photo de l'association") %>
+        <span><%= image_tag('purple_shape_3.svg', class: "bottom-right-shape", alt: "aplat de couleur violet foncé") %></span>
       </div>
     </div>
   </div>

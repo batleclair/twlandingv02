@@ -32,7 +32,7 @@
               </td>
               <td>
                 <div class="d-flex justify-content-evenly">
-                  <%= link_to(article_path(slug: p.slug), target: "_blank") do %>
+                  <%= link_to(post_path(slug: p.slug), target: "_blank") do %>
                     <i class="fa-solid fa-eye primary-text-color"></i>
                   <% end %>
                   <%= link_to edit_admin_post_path(p) do %>

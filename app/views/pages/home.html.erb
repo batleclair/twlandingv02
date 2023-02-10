@@ -10,7 +10,7 @@
       <%= render partial: "contact" %>
     </div>
     <div class="rounded-20 pt-2 pb-2 max-width-500">
-      <%= image_tag("homepage.png", class: "full-width") %>
+      <%= image_tag("homepage.svg", class: "full-width", alt: "employée alliant un job rémunéré avec un engagement associatif") %>
     </div>
   </div>
 </div>
@@ -63,7 +63,7 @@
       <% if b.logo.attached? %>
         <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
           <%= link_to b.home_url(beneficiary_path(b)), target: (b.home_url(beneficiary_path(b)) == b.web_url && b.web_url.present? ? "_blank" : "_self"), class: "d-flex align-items-center full-width" do %>
-            <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Plus d'informations sur l'association #{b.name}") %>
+            <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Logo de l'association #{b.name}") %>
           <% end %>
         </div>
       <% end %>

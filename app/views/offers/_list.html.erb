@@ -1,7 +1,7 @@
 <div class="row" data-controller="candidacy">
 
     <% offers.each do |offer| %>
-      <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : image_tag('heart_globe.png') %>
+      <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key, alt: "logo de l'association #{offer.beneficiary.name}") : cl_image_tag('../default_logo.png', alt: "logo par défaut représentant un coeur sur une planète") %>
       <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
         <% if offer.active? %>
           <%= link_to offer_path(offer), class: "job-card", data: { turbo: false } do %>
@@ -47,7 +47,7 @@
             <div class="job-card-footer">
               <h6><%= offer.beneficiary.cause %></h6>
               <div class="logo-box downsize90 card-logo-offset">
-                <%= image_tag('heart_globe.png') %>
+                <%= cl_image_tag('../default_logo.png') %>
               </div>
             </div>
           </div>

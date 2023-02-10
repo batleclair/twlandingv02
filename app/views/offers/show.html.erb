@@ -15,10 +15,10 @@
   %>
 <% end %>
 
-<% b_logo_path = @offer.beneficiary.logo.attached? ? cl_image_path(@offer.beneficiary.logo.key) : image_path('heart_globe.png') %>
+<% b_logo_path = @offer.beneficiary.logo.attached? ? cl_image_path(@offer.beneficiary.logo.key) : cl_image_path('../default_logo.png') %>
 <% content_for :structured_data, @offer.structured_data(b_logo_path).to_json.html_safe %>
 
-<% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : image_path('bannerbg.jpg') %>
+<% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
 <% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key, alt:"logo de l'association #{@offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
 
 <h1 class="d-none">Mécénat de compétences : travailler pour l'association <%= @offer.beneficiary.name %> (<%= @offer.title %>)</h1>
