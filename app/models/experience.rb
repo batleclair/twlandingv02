@@ -4,6 +4,7 @@ class Experience < ApplicationRecord
   validates :title, presence: { message: 'Précise un intitulé de poste ou de mission' }
   validates :start_date, presence: { message: "Veuillez indiquer une date de début" }
   validates :start_date, format: {with: /\A[1-2](0|9)\d{2}[\/]((0[1-9])|(1[0-2]))\z/, message: "Format mm/aaaa" }
+  validates :end_date, format: {with: /\A[1-2](0|9)\d{2}[\/]((0[1-9])|(1[0-2]))\z/, message: "Format mm/aaaa" }, if: :end_date_present?
 
   def duration
     s = DateTime.new(start_date[0..3].to_i, start_date[5..].to_i)
@@ -19,6 +20,10 @@ class Experience < ApplicationRecord
       years: years,
       months: months
     }
+  end
+
+  def end_date_present?
+    end_date.present?
   end
 
   def end_date_output

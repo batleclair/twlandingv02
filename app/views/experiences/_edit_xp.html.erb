@@ -15,9 +15,11 @@
           <div class="d-flex">
             <%= f.input :start_date,
                         label: "Début",
+                        input_html: {value: @experience.start_date_output, data: {"experience-target": "date"}},
                         wrapper_html: { class: "flex-grow-1 me-1" } %>
             <%= f.input :end_date,
                         label: "Fin",
+                        input_html: {value: @experience.end_date_output, data: {"experience-target": "date"}},
                         wrapper_html: { class: "flex-grow-1 ms-1" } %>
           </div>
           <div class="flex-resp justify-content-end">

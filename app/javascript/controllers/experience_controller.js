@@ -5,13 +5,11 @@ export default class extends Controller {
   static targets = ["window", "form", "close", "list", "content"]
 
   connect() {
-
   }
 
   popup(event) {
     event.preventDefault()
     const url = event.currentTarget.href === undefined ? '/experiences/nil/select' : event.currentTarget.href
-    console.log(url)
     fetch(url, {
     })
     .then(response => response.json())
@@ -25,13 +23,6 @@ export default class extends Controller {
     event.preventDefault()
     const token = document.querySelector("[name='csrf-token']").content
     const form = new FormData(this.formTarget)
-
-    // const [month, year] = this.formTarget.querySelector('#experience_start_date').value.split('/')
-    // const date = new Date(+year, +month - 1);
-    // form.set('experience[start_date]', date)
-    // console.log(date);
-    // console.log(form.get('experience[start_date]'));
-    // console.log(Date.parse(start))
 
     this.formTarget.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
     this.formTarget.querySelectorAll(".notice").forEach((p) => { p.outerHTML = ''; });
