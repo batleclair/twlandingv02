@@ -3,7 +3,7 @@ class Experience < ApplicationRecord
   validates :employer, presence: { message: 'Renseigne le nom de ton employeur, client ou projet' }
   validates :title, presence: { message: 'Précise un intitulé de poste ou de mission' }
   validates :start_date, presence: { message: "Veuillez indiquer une date de début" }
-  validates :start_date, format: {with: /[1-2](0|9)\d{2}[\/]((0[1-9])|(1[0-2]))/, message: "Format mm/aaaa" }
+  validates :start_date, format: {with: /\A[1-2](0|9)\d{2}[\/]((0[1-9])|(1[0-2]))\z/, message: "Format mm/aaaa" }
 
   def duration
     s = DateTime.new(start_date[0..3].to_i, start_date[5..].to_i)

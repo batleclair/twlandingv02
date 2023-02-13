@@ -1,10 +1,10 @@
 <div class="modal-bg" data-contact-target="window" data-modal-target="window" data-action="click->modal#close">
-  <div class="modal-inner" data-action="click->modal#keep">
-    <div class="d-flex justify-content-between form-header">
-      <h5>Indiquez-nous vos coordonnées</h5>
+  <div class="d-flex justify-content-between form-header" data-action="click->modal#keep">
+    <h5>Indiquez-nous vos coordonnées</h5>
 
-      <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
-    </div>
+    <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
+  </div>
+  <div class="modal-inner" data-action="click->modal#keep">
     <div class="modal-body">
       <div>
         <%= simple_form_for(@contact) do |f| %>
@@ -16,6 +16,7 @@
                         class: "inline-field" %>
           </div>
           <p id="first_name_errors" class="sm-red-msg"></p>
+
           <div class="form-wrapper">
             <h6 class="inline-label">Nom</h6>
             <%= f.input :last_name,
@@ -24,6 +25,7 @@
                         class: "inline-field" %>
           </div>
           <p id="last_name_errors" class="sm-red-msg"></p>
+
           <div class="form-wrapper">
             <h6 class="inline-label">E-Mail</h6>
             <%= f.input :email,
@@ -32,33 +34,49 @@
                         class: "inline-field" %>
           </div>
           <p id="email_errors" class="sm-red-msg"></p>
+
           <div class="form-wrapper">
-            <h6 class="inline-label">Organisation</h6>
-            <%= f.input :organization,
+            <h6 class="inline-label">Téléphone</h6>
+            <%= f.input :phone_num,
                         label: false,
                         wrapper: false,
                         class: "inline-field" %>
           </div>
-          <p id="organization_errors" class="sm-red-msg"></p>
+          <p id="phone_num_errors" class="sm-red-msg"></p>
+
           <div class="form-wrapper radio-box align-items-start">
             <h6 class="inline-label">Vous êtes</h6>
               <%= f.input :contact_type,
                           label:'Vous êtes un/une :',
-                          collection: [['Association', "Acteur de l'ESS"], ['Candidat', 'Candidat·e, Salarié·e ou Freelance'], ['Entreprise', 'Une entreprise']],
+                          collection: [['Association', "Une association"], ['Candidat', 'Un ou une candidate'], ['Entreprise', 'Une entreprise']],
                           label_method: :last,
                           value_method: :first,
                           as: :radio_buttons,
+                          input_html: {data: {action: "change->contact#show"}},
                           item_wrapper_class: "radio-button-ctn" %>
           </div>
           <p id="contact_type_errors" class="sm-red-msg"></p>
+
+          <div data-contact-target="org" style="display: none;">
+            <div class="form-wrapper">
+              <h6 class="inline-label">Organisation</h6>
+              <%= f.input :organization,
+                          label: false,
+                          wrapper: false,
+                          class: "inline-field" %>
+            </div>
+            <p id="organization_errors" class="sm-red-msg"></p>
+          </div>
+
           <div class="form-wrapper mb-3  align-items-start">
-            <h6 class="inline-label">Votre message</h6>
+            <h6 class="inline-label pt-2">Votre message</h6>
             <%= f.input :message,
                         label: false,
                         wrapper: false,
                         placeholder: "N'hésitez pas a nous en dire un peu plus",
                         class: "inline-field" %>
           </div>
+
           <div class="submission">
               <%= recaptcha_tags %>
               <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>

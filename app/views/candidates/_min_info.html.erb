@@ -1,10 +1,10 @@
-<div class="modal-bg" data-modal-target="window" data-menu-target="window" data-action="click->modal#close">>
+<div class="modal-bg" data-modal-target="window" data-menu-target="window" data-action="click->modal#close">
+
   <div class="modal-inner" data-action="click->modal#keep">
     <div class="d-flex justify-content-between form-header">
       <h5>Avant d'accéder à ton profil...</h5>
       <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
     </div>
-
     <div class="modal-body">
     <h5 class="primary-text-color bolder mb-3">Il nous manque quelques infos pour générer ton profil 🤓</h5>
     <%= simple_form_for(current_user.candidate, action: :synch_update_min, data:{turbo: false, 'menu-target': 'form', action: 'submit->menu#save'}) do |f| %>

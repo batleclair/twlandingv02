@@ -33,6 +33,7 @@ class ContactsController < ApplicationController
       turbo_stream.update('organization_errors', @contact.errors[:organization].first),
       turbo_stream.update('contact_type_errors', @contact.errors[:contact_type].first),
       turbo_stream.update('email_errors', @contact.errors[:email].first),
+      turbo_stream.update('phone_num_errors', @contact.errors[:phone_num].first),
       turbo_stream.update('errors', if @contact.errors.any?
                                       "Votre saisie comporte des erreurs"
                                     end),
@@ -41,7 +42,7 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:first_name, :last_name, :email, :contact_type, :organization, :message)
+    params.require(:contact).permit(:first_name, :last_name, :email, :contact_type, :organization, :message, :phone_num)
   end
 
   def event_params
