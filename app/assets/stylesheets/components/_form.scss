@@ -15,6 +15,8 @@
   color: white;
   padding: 20px;
   border-radius: 5px 5px 0 0;
+  margin: auto;
+  width: 50%;
   p,i {
     color: white;
   }
@@ -43,5 +45,11 @@
 @media(max-width: 980px) {
   .submission{
     display: block;
+  }
+}
+
+@media(max-width: 740px) {
+  .form-header{
+    width: 90%;
   }
 }

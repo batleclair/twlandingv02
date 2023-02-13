@@ -1,9 +1,10 @@
 <div class="modal-bg" data-contact-target="window" data-modal-target="window" data-action="click->modal#close">
+<div>
+  <div class="d-flex justify-content-between form-header" data-action="click->modal#keep">
+    <h5>Vos coordonnées</h5>
+    <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
+  </div>
   <div class="modal-inner" data-action="click->modal#keep">
-    <div class="d-flex justify-content-between form-header">
-      <h5>Vos coordonnées</h5>
-      <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
-    </div>
     <div class="modal-body">
       <div>
         <%= simple_form_for(@contact) do |f| %>
@@ -87,4 +88,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

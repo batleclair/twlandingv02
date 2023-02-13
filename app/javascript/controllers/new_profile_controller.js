@@ -14,7 +14,7 @@ export default class extends Controller {
     this.formTarget.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
     this.formTarget.querySelectorAll(".notice").forEach((p) => { p.outerHTML = ''; });
 
-    fetch(`${this.formTarget.action}/synch`, {
+    fetch(this.formTarget.action, {
       method: this.formTarget.method,
       headers: {"X-CSRF-Token": token },
       body: form

@@ -2,7 +2,7 @@
 
   <h4 class="primary-text-color mb-5">Il nous manque quelques infos pour finaliser ton compte</h4>
 
-  <%= simple_form_for(@candidate, data: {"new-profile-target": "form", action: "submit->new-profile#save"}) do |f| %>
+  <%= simple_form_for(@candidate, url: candidates_synch_path, data: {"new-profile-target": "form", action: "submit->new-profile#save"}) do |f| %>
     <div>
 
       <div class="flex-resp custom-label mb-3">

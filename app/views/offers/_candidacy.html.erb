@@ -1,5 +1,5 @@
 <div class="modal-bg" data-modal-target="window" data-candidacy-target="window" data-action="click->modal#close">>
-  <div class="modal-inner" data-action="click->modal#keep">
+  <div>
     <div class="d-flex justify-content-between form-header" data-action="click->modal#keep">
       <div>
         <h5>
@@ -16,22 +16,24 @@
 
       <h5 class="close-btn"><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
     </div>
-    <div class="modal-body" data-controller="progress">
+    <div class="modal-inner" data-action="click->modal#keep">
+      <div class="modal-body" data-controller="progress">
 
-      <div data-progress-target="header">
-        <h5 class="primary-text-color bolder mb-3">étape <span data-progress-target="num">1</span>/3</h5>
-        <div class="full-width d-flex justify-content-between mb-4">
-          <div class="step-bar"><div data-progress-target="bar1" class="sb-active"></div></div>
-          <div class="step-bar ms-2 me-2"><div data-progress-target="bar2"></div></div>
-          <div class="step-bar"><div data-progress-target="bar3"></div></div>
+        <div data-progress-target="header">
+          <h5 class="primary-text-color bolder mb-3">étape <span data-progress-target="num">1</span>/3</h5>
+          <div class="full-width d-flex justify-content-between mb-4">
+            <div class="step-bar"><div data-progress-target="bar1" class="sb-active"></div></div>
+            <div class="step-bar ms-2 me-2"><div data-progress-target="bar2"></div></div>
+            <div class="step-bar"><div data-progress-target="bar3"></div></div>
+          </div>
         </div>
+
+        <div data-progress-target="step1"><%= render partial: "offers/candidacy_step_1", locals: {offer: offer, candidacy: candidacy} %></div>
+        <div class="d-none" data-progress-target="step2"><%= render partial: "offers/candidacy_step_2", locals: {offer: offer, candidacy: candidacy} %></div>
+        <div class="d-none" data-progress-target="step3"><%= render partial: "offers/candidacy_step_3", locals: {offer: offer, candidacy: candidacy} %></div>
+        <div class="d-none" data-progress-target="confirmation"><%= render partial: "offers/confirmation", locals: {offer: offer, candidacy: candidacy}  %></div>
+
       </div>
-
-      <div data-progress-target="step1"><%= render partial: "offers/candidacy_step_1", locals: {offer: offer, candidacy: candidacy} %></div>
-      <div class="d-none" data-progress-target="step2"><%= render partial: "offers/candidacy_step_2", locals: {offer: offer, candidacy: candidacy} %></div>
-      <div class="d-none" data-progress-target="step3"><%= render partial: "offers/candidacy_step_3", locals: {offer: offer, candidacy: candidacy} %></div>
-      <div class="d-none" data-progress-target="confirmation"><%= render partial: "offers/confirmation", locals: {offer: offer, candidacy: candidacy}  %></div>
-
     </div>
   </div>
 </div>
