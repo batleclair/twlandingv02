@@ -1,8 +1,8 @@
-<div class="d-flex justify-content-between form-header">
-  <h5>Modifier une expérience</h5>
-  <h5 class="close-btn"><a href="" data-modal-target="close" data-experience-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
-</div>
 <div class="modal-inner" data-action="click->modal#keep">
+  <div class="d-flex justify-content-between form-header">
+    <h5>Modifier une expérience</h5>
+    <h5 class="close-btn"><a href="" data-modal-target="close" data-experience-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
+  </div>
   <div class="modal-body">
     <%= simple_form_for([@candidate, @experience], data:{turbo: false, 'experience-target': 'form', action: 'submit->experience#update', action: 'submit->experience#save'}) do |f| %>
       <div>
