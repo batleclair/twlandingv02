@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   # offer and candidacy routes
   get "missions/mission_indisponible", to: "offers#dead", as: :dead_offer
   get "offers/:slug/select", to: "offers#select", as: :offer_select
+  get "offers/:id/preview", to: "offers#preview", as: :offer_preview
   resources :missions, controller: 'offers', as: :offers, param: :slug, only: %i[index show] do
     resources :candidacies, only: :create
   end

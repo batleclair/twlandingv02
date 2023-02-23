@@ -1,0 +1,69 @@
+<% content_for :title, "Trouvez la mission de mécénat de compétences qui vous correspond" %>
+<% content_for :description, "Grâce à Demain, trouvez l'association qui a besoin de vos compétences et qui vous correspond ! Demain propose des missions de mécénat de compétences et vous permet de vous engager sur votre temps de travail en vous aidant à obtenir le soutien de votre entreprise." %>
+<% canonical(offers_url) %>
+
+<div class="ctn-resp white-bg p-5">
+  <h1 class="d-none">Trouvez la mission de mécénat de compétences qui vous correspond</h1>
+  <h2 class="center-text primary-text-color mb-2 mt-5">Les missions de <span class="stress">Demain</strong></h2>
+  <p class="mb-4 primary-text-color center-text">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de combiner son job actuel avec un second d'intérêt général</p>
+</div>
+
+<div class="filter-ctn" data-controller="search-form">
+
+  <div class="indication indication-right" data-search-form-target="indication">
+    <p class="primary-text-color sm-thin-text"><i class="fa-solid fa-arrow-down-long"></i>masquer les filtres</p>
+  </div>
+  <div class="indication indication-left d-none" data-search-form-target="indication">
+    <p class="primary-text-color sm-thin-text"><i class="fa-solid fa-arrow-down-long"></i>voir les filtres 😋</p>
+  </div>
+  <i class="fa-solid fa-magnifying-glass filter-icon filter-icon-active" data-search-form-target="btn" data-action="click->search-form#toggle">
+    <div data-search-form-target="counter" class="d-none"></div>
+  </i>
+
+  <div data-search-form-target="filters" class="filters filters-expand">
+    <%= form_tag offers_path, method: :get, data: { search_form_target: 'form', action: 'change->search-form#result' } do %>
+      <div class="flex-resp justify-content-center mt-4">
+        <div class="pill-ctn round-shadow-box p-4 m-3">
+          <div class="d-flex full-width justify-content-between align-items-center mb-2" data-controller="legend">
+            <h5 class="primary-text-color">Engagement requis</h5>
+            <button class="round-button-sm btn-main-color" data-action="click->legend#popup">?</button>
+            <%= render partial: "offers/legend" %>
+          </div>
+          <%= check_box_tag :low, 1, false, hidden: true %>
+          <%= label_tag :low, '👍 light', class: "mb-1" %>
+          <%= check_box_tag :mid, 1, false, hidden: true %>
+          <%= label_tag :mid, '👏 moyen', class: "mb-1" %>
+          <%= check_box_tag :high, 1, false, hidden: true %>
+          <%= label_tag :high, '🙌 costaud', class: "mb-1" %>
+        </div>
+
+        <div class="pill-ctn round-shadow-box p-4 m-3">
+          <h5 class="mb-2 primary-text-color">Mission de l'association</h5>
+          <%= check_box_tag :social, 1, false, hidden: true %>
+          <%= label_tag :social, '🤝🏻 Sociale', class: "mb-1" %>
+          <%= check_box_tag :environment, 1, false, hidden: true %>
+          <%= label_tag :environment, '🌍 Environnementale', class: "mb-1" %>
+        </div>
+
+        <div class="round-shadow-box p-4 m-3">
+          <h5 class="mb-2 primary-text-color">Métiers</h5>
+          <%= select_tag :function, options_for_select(Offer::FUNCTIONS), include_blank: "Tous", class: 'pill-dropdown', data: { search_form_target: 'select'} %>
+        </div>
+        <%= submit_tag "Filtrer", hidden: "true", data: { turbo_frame: :results, search_form_target: 'submitbtn' } %>
+      </div>
+      <% end %>
+  </div>
+
+</div>
+
+<div class="ctn-resp white-bg pt-5 pb-5">
+  <%= turbo_frame_tag :results do %>
+    <%= render partial: "offers/list", locals: {offers: @offers, no_offer: @no_offer, candidacy: @candidacy} %>
+  <% end %>
+
+  <div class="flex-resp justify-content-center align-items-center mt-5" data-controller="contact">
+    <h6 class="primary-text-color m-2 center-text">Des questions ?</h6>
+    <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+    <%= render partial: "pages/contact" %>
+  </div>
+</div>

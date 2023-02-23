@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[show edit update destroy]
-  skip_before_action :authenticate_user!, only: %i[index show dead]
+  skip_before_action :authenticate_user!, only: %i[index show dead preview]
 
   def show
     if @offer.nil?
@@ -29,6 +29,11 @@ class OffersController < ApplicationController
   def index
     @contact = Contact.new
     @offers = policy_scope(Offer).order(:status)
+    @params = request.query_parameters
+    @no_offer = Offer.find_by(title: "no_offer")
+    authorize @no_offer
+    @offer = @params[:id].present? ? Offer.find(@params[:id]) : Offer.where(publish: true, status: 'active').last
+    authorize @offer
 
     unless params[:social].blank? && params[:environment].blank?
       if params[:social].blank?
@@ -59,13 +64,27 @@ class OffersController < ApplicationController
     else
       @candidate = Candidate.find_by(user_id: current_user.id)
     end
-    @no_offer = Offer.find_by(title: "no_offer")
-    authorize @no_offer
     add_breadcrumb "Missions", offers_path
   end
 
   def select
     params[:slug] == "nil" ? @offer = Offer.new : @offer = Offer.find(params[:slug])
+    authorize @offer
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  def preview
+    @no_offer = Offer.find_by(title: "no_offer")
+    authorize @no_offer
+    @offer = params[:id].present? ? Offer.find(params[:id]) : Offer.last
     authorize @offer
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?

@@ -52,7 +52,9 @@ class ApplicationController < ActionController::Base
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
-    if (request.fullpath != "/users/sign_in" &&
+    if params[:action] == "preview" # store search params for offer preview and filters.
+      session["user_return_to"] = "/missions#{params[:search]}"
+    elsif (request.fullpath != "/users/sign_in" &&
         request.fullpath != "/users/sign_up" &&
         request.fullpath != "/users/password" &&
         request.fullpath != "/users/sign_out" &&

@@ -10,5 +10,6 @@ export default class extends Controller {
   unhide(event) {
     this.applyTarget.classList.add('d-none')
     this.loginTarget.classList.remove('d-none')
+    document.querySelector('body').insertAdjacentHTML('beforeend', '<p class="notice">💜 Inscrivez-vous pour pouvoir candidater dès maintenant aux missions !</p>')
   }
 }

@@ -1,0 +1,98 @@
+<div class="position-relative h-100">
+  <div class="loader-frame" style="display: none;" data-search-form-target="loader">
+    <div class="round-button btn-round-cta">
+      <span class="round-button loader"></span>
+    </div>
+  </div>
+
+  <% if offer == @no_offer %>
+    <h5 class="d-flex full-width justify-content-end">
+      <a class="close-btn btn-round-cta mobile-only" href="" data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
+    </h5>
+    <div class=" mt-5 p-5 d-flex justify-content-center align-items-center flex-column center-text">
+      <h6 class="mb-3">Aucune mission ne vous correspond ?</h6>
+      <h5 class="mb-5 primary-text-color">Laissez-nous trouver pour vous !</h5>
+      <p class="mb-3">Nos associations partenaires ont régulièrement de nouveaux besoins.</p>
+      <p>Faites nous part de vos compétences et de vos aspirations en matière d'engagement. Nous pourrons ainsi vous proposer des missions adaptées dès qu'elles sont disponibles !</p>
+
+      <div data-controller="lock" class="mt-5 offer-preview-cta full-width">
+        <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
+        <% if user_signed_in? %>
+          <% if current_user.applied?(offer) %>
+            <button data-lock-target="apply" class="button full-width btn-flag-color no-wrap" data-action=<%=action%> data-id=<%=offer.id%>>Candidater</button>
+          <% else %>
+            <p class="primary-text-color sm-text">Merci pour votre candidature 🙌</p>
+          <% end %>
+        <% else %>
+            <button data-lock-target="apply" class="button full-width h-100 btn-flag-color no-wrap" data-action=<%=action%> data-id=<%=offer.id%>>Candidater</button>
+            <%= link_to "Connexion requise",  new_user_registration_path, class: "d-none button full-width btn-main-color sm-text height-46 pt-0 pb-0 d-flex justify-content-center align-items-center", data: { turbo: false, lock_target: "login" }%>
+        <% end %>
+      </div>
+
+    </div>
+  <% else %>
+    <h5 class="d-flex full-width justify-content-between">
+      <%= offer.title %>
+      <a class="close-btn btn-round-cta mobile-only" href="" data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
+    </h5>
+    <p class="mb-2">📍 <%= offer.location %></p>
+
+    <div class="flex-resp early-resp-1250 mb-3">
+      <div class="d-flex justify-content-between full-width first-main-border align-items-center pe-2 ps-2 mg-resp-r height-46 round-3">
+        <h6 class="primary-text-color me-1">Engagement</h6>
+        <p>⏲️ <%= @offer.frequency_output %>  📅 <%= offer.duration_output %></p>
+      </div>
+
+      <div data-controller="lock" class="mg-resp-l offer-preview-cta">
+        <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
+        <% if user_signed_in? %>
+          <% if current_user.applied?(offer) %>
+            <button data-lock-target="apply" class="button full-width btn-flag-color no-wrap" data-action=<%=action%> data-id=<%=offer.id%>>Candidater</button>
+          <% else %>
+            <p class="primary-text-color sm-text">Merci pour votre candidature 🙌</p>
+          <% end %>
+        <% else %>
+            <button data-lock-target="apply" class="button full-width h-100 btn-flag-color no-wrap" data-action=<%=action%> data-id=<%=offer.id%>>Candidater</button>
+            <%= link_to "Connexion requise",  new_user_registration_path, class: "d-none button full-width btn-main-color sm-text height-46 pt-0 pb-0 d-flex align-items-center", data: { turbo: false, lock_target: "login" }%>
+        <% end %>
+      </div>
+    </div>
+
+    <% if offer.active? %>
+      <div class="grey-bg pt-3 ps-3 pe-3 d-flex grey-id-card mb-3">
+        <div class="d-flex flex-column align-items-center">
+          <div class="logo-box flex-shrink-0 mg-resp-r mb-2 downsize90">
+            <%= offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
+          </div>
+          <%= link_to "en savoir +", offer.beneficiary.publish ? beneficiary_path(offer.beneficiary) : offer_path(offer), class: "button-round btn-light-main no-wrap" %>
+        </div>
+        <div class="mg-resp-l position-relative">
+          <h6><%= offer.beneficiary.name %></h6>
+          <p class="primary-text-color mb-2">👊 <%= offer.beneficiary.cause %></p>
+          <%= offer.beneficiary.description %>
+          <div class="bottom-fader grey-fade"></div>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="primary-text-color mb-2">Pourquoi s'engager</h5>
+        <div class="cropped-content-card">
+          <%= offer.summary %>
+        </div>
+      </div>
+
+      <div class="sticky-bottom-cta">
+        <%= link_to "toutes les informations sur la mission", offer_path(offer), class:"button btn-light-main full-width"%>
+        <div class="ontop-fader white-fade"></div>
+      </div>
+    <% else %>
+    <div class="center-text p-5 mt-5">
+      <h6 class="mb-3">Cette mission n'est pas encore visible</h6>
+      <p class="mb-5">Il se peut qu'elle soit encore en cours de définition ou bien que l'association concernée n'ait pas encore confirmé sa diffusion</p>
+      <h6 class="mb-3">...mais bonne nouvelle :</h6>
+      <h5 class="primary-text-color">Vous pouvez nous indiquer votre intérêt dès à présent !</h5>
+    </div>
+    <% end %>
+  <% end %>
+
+</div>

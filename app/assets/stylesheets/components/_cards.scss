@@ -394,3 +394,37 @@
     }
   }
 }
+
+.flat-card-bg{
+  >div{
+    background-color: $first-light-lighter;
+    transition: 0.2s ease-in-out;
+  }
+  &:hover {
+    >div{
+      background-color: $first-light-color;
+      transition: 0.2s ease-in-out;
+    }
+  }
+}
+
+.flat-card-bg[data-active="true"]{
+  >div {
+    background-color: $first-light-darker;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+.square-sm{
+  height: 80px;
+  width: 80px;
+}
+
+.flat-card-text{
+  overflow: hidden;
+  h5, p, span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

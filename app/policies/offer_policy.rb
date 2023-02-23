@@ -16,6 +16,10 @@ class OfferPolicy < ApplicationPolicy
     true
   end
 
+  def preview?
+    true
+  end
+
   def create?
     user.user_type == 'admin'
   end
