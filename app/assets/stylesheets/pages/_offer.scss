@@ -190,12 +190,20 @@
     position: fixed;
     top: 0;
     left: 0;
-    max-height: 100svh;
-    height: calc(var(--vh, 1vh) * 100);
+    max-height: calc(100% - 0.5rem);
     width: 100vw;
     z-index: 1;
     background-color: white;
     padding: 55px 5vw 5vw 5vw;
+    >span{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: white;
+      z-index: 0;
+    }
   }
   [data-search-form-target="card"] {
     >div{

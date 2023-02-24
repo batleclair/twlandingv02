@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication', 'card', 'preview', 'id', 'loader', 'close']
 
   connect() {
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     addEventListener('popstate', (event) => { });
     onpopstate = (event) => {location.reload()};
     let counter = -1
@@ -36,7 +35,6 @@ export default class extends Controller {
 
   preview() {
     event.preventDefault()
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     this.loaderTargets.forEach(loader => {
       loader.style = ""
     })
