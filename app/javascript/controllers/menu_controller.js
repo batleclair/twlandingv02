@@ -9,7 +9,8 @@ export default class extends Controller {
 
   toggle(event) {
     this.navTarget.classList.toggle("menu-expand");
-    this.iconTarget.classList.toggle("primary-text-color white-bg");
+    this.iconTarget.classList.toggle("primary-text-color");
+    this.iconTarget.classList.toggle("white-bg");
   }
 
   popup(event) {

@@ -7,7 +7,7 @@
 
   <% if offer == @no_offer %>
     <h5 class="d-flex full-width justify-content-end">
-      <a class="close-btn btn-round-cta mobile-only" href="" data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
+      <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
     </h5>
     <div class=" mt-5 p-5 d-flex justify-content-center align-items-center flex-column center-text">
       <h6 class="mb-3">Aucune mission ne vous correspond ?</h6>
@@ -33,7 +33,7 @@
   <% else %>
     <h5 class="d-flex full-width justify-content-between">
       <%= offer.title %>
-      <a class="close-btn btn-round-cta mobile-only" href="" data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
+      <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
     </h5>
     <p class="mb-2">📍 <%= offer.location %></p>
 
@@ -53,7 +53,7 @@
           <% end %>
         <% else %>
             <button data-lock-target="apply" class="button full-width h-100 btn-flag-color no-wrap" data-action=<%=action%> data-id=<%=offer.id%>>Candidater</button>
-            <%= link_to "Connexion requise",  new_user_registration_path, class: "d-none button full-width btn-main-color sm-text height-46 pt-0 pb-0 d-flex align-items-center", data: { turbo: false, lock_target: "login" }%>
+            <%= link_to "Connexion requise",  new_user_registration_path, class: "d-none button full-width btn-main-color sm-text height-46 pt-0 pb-0 d-flex justify-content-center align-items-center", data: { turbo: false, lock_target: "login" }%>
         <% end %>
       </div>
     </div>

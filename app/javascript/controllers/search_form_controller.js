@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="search-form"
 export default class extends Controller {
-  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication', 'card', 'preview', 'id', 'loader']
+  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication', 'card', 'preview', 'id', 'loader', 'close']
 
   connect() {
     addEventListener('popstate', (event) => { });
@@ -60,6 +60,13 @@ export default class extends Controller {
 
   close() {
     event.preventDefault()
+    const url = this.closeTarget.href
+    console.log(url)
+    window.history.pushState('', '', url)
     this.previewTarget.dataset.active = "false"
+    this.cardTargets.forEach(card => {
+      card.dataset.active = false
+    });
+    this.idTarget.value = ''
   }
 }
