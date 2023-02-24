@@ -31,20 +31,6 @@
   padding: 20px;
 }
 
-.close-btn{
-  min-width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ease-in-out 0.2s;
-  font-size: small;
-  @media(min-width: 1000px) {
-    display: none;
-  }
-}
-
 @media(max-width: 740px) {
   .modal-inner{
     background-color: white;

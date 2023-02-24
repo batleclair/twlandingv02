@@ -8,9 +8,7 @@
   </div>
 
   <% if offer == @no_offer %>
-    <h5 class="d-flex full-width justify-content-end">
-      <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
-    </h5>
+    <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
     <div class=" mt-5 p-5 d-flex justify-content-center align-items-center flex-column center-text">
       <h6 class="mb-3">Aucune mission ne vous correspond ?</h6>
       <h5 class="mb-5 primary-text-color">Laissez-nous trouver pour vous !</h5>
@@ -33,10 +31,8 @@
 
     </div>
   <% else %>
-    <h5 class="d-flex full-width justify-content-between">
-      <%= offer.title %>
-      <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
-    </h5>
+    <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
+    <h5><%= offer.title %></h5>
     <p class="mb-2">📍 <%= offer.location %></p>
 
     <div class="flex-resp early-resp-1250 mb-3">

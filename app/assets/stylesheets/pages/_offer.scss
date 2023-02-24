@@ -207,3 +207,19 @@
     }
     }
 }
+
+.close-btn{
+  position: fixed;
+  top: 17px;
+  right: 5vw;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease-in-out 0.2s;
+  @media(min-width: 1000px) {
+    display: none;
+  }
+}
