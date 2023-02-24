@@ -157,6 +157,14 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  @media(max-width: 1000px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5vw;
+    background-color: white;
+  }
 }
 
 [data-search-form-target="card"] {
@@ -173,11 +181,13 @@
     display: none;
     top: 0;
     left: 0;
-    height: calc(100% - 0.5rem);
-    // width: 100vw;
     z-index: 1;
     background-color: white;
     padding: 55px 5vw 5vw 5vw;
+    >div{
+      max-height: 100%;
+      // padding-bottom: calc(5vh + 46px);
+    }
     >span{
       position: fixed;
       top: 0;
