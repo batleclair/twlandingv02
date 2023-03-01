@@ -46,4 +46,10 @@
   opacity: 0;
   z-index: 3;
   margin-right: 20px;
+  pointer-events: none;
+  @media(max-width: 720px) {
+    bottom: 5vw;
+    left: 5vw;
+    margin-right: 5vw;
+  }
 }
