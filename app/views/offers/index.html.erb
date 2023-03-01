@@ -62,8 +62,8 @@
   <div class="ctn-resp white-bg pt-5 pb-5">
 
     <div class="flex-resp early-resp-1000" data-controller="candidacy">
-      <div class="full-width mg-resp-r">
-      <p><span class="single-pill me-2 bold-6"><%= @offers.count %></span>missions disponibles</p>
+      <div class="half-width-resp early-resp-1000 mg-resp-r">
+        <p><span class="single-pill me-2 bold-6"><%= @offers.count %></span>missions disponibles</p>
         <% @offers.each do |offer| %>
           <%= link_to offers_path(@params.merge!(id: offer.id)), data: {"search-form-target": "card", active: params[:id].to_s == offer.id.to_s, id: offer.id, action: "click->search-form#preview"}, class:"flat-card-bg" do %>
             <div class="p-3 d-flex mt-2 mb-2 pe-none">
@@ -83,7 +83,7 @@
         <% end %>
 
         <%= link_to offers_path(@params.merge!(id: @no_offer.id)), data: {"search-form-target": "card", active: params[:id].to_s == @no_offer.id.to_s, id: @no_offer.id, action: "click->search-form#preview"} do %>
-          <div class="job-card-dark mb-2 pe-none">
+          <div class="job-card-dark mt-2 mb-2 pe-none">
             <h3 class="center-text">+</h3>
             <h5 class="center-text no-wrap">La mission pour vous</h5>
           </div>
@@ -96,7 +96,7 @@
         </div>
       </div>
 
-      <div class="full-width mg-resp-l offer-preview-ctn mb-2" data-search-form-target="preview" data-active=<%= params[:id].present? ? "true" : "false" %>>
+      <div class="half-width-resp early-resp-1000 mg-resp-l offer-preview-ctn mb-2" data-search-form-target="preview" data-active=<%= params[:id].present? ? "true" : "false" %>>
         <%= render partial: "offers/preview", locals: {offer: @offer} %>
       </div>
 

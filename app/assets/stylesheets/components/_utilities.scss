@@ -390,3 +390,26 @@
   transform:scale(0.85);
   transform-origin:0 0;
 }
+
+.half-width-resp{
+  width: 50%;
+  min-width: 0;
+  @media(max-width: 720px) {
+    width: 100%;
+  }
+}
+
+.early-resp-1000 {
+  @media(max-width: 1000px) {
+    .half-width-resp{
+      width: 100%;
+    }
+  }
+}
+
+.line-clamp-2{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
