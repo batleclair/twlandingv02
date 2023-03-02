@@ -17,7 +17,7 @@
     <% end %>
   </div>
   <div class="position-relative">
-    <%= link_to offers_path, class: "fat-btn" do %>
+    <%= link_to offers_path, class: "fat-btn d-flex justify-content-between align-items-center homepage-main-cta-position" do %>
       <span></span>
       <strong>Trouver une mission</strong>
       <i class="fa-solid fa-magnifying-glass round-button white-bg"></i>
@@ -71,6 +71,18 @@
     </div>
 </div>
 
+<div class="pb-5 white-bg" data-controller="contact">
+  <div class="white-bg d-flex justify-content-center">
+    <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
+      <span></span>
+      <strong>Discutons-en !</strong>
+      <i class="fa-solid fa-phone round-button white-bg"></i>
+    <% end %>
+  </div>
+  <%= render partial: "contact" %>
+</div>
+<%= image_tag('purple_triangle_light.svg', class: "tilted-ctn white-bg") %>
+
 <div class="ctn-resp shaded-bg pt-5 pb-5">
   <h4 class="primary-text-color center-text mb-5">nous les accompagnons</h4>
   <div class="row align-items-center justify-content-center">
@@ -84,9 +96,4 @@
       <% end %>
     <% end %>
   </div>
-</div>
-
-<div class="d-none">
-  <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
-  <%= render partial: "contact" %>
 </div>

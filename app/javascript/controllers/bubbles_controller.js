@@ -20,7 +20,6 @@ function move(bubbles) {
     const rand_opacity = Math.random() * 0.3
     const rand_x = randomInteger(-200, 200)
     const rand_y = randomInteger(-200, 200)
-    console.log(rand_x)
     bubble.style = `left: ${bubble.style.left}; bottom: ${bubble.style.bottom}; transform: translate(${rand_x}%, ${rand_y}%) scale(${rand_size}); opacity: ${rand_opacity};`
   });
 }
