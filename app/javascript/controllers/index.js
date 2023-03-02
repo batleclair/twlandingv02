@@ -7,6 +7,9 @@ import { application } from "./application"
 import AccountController from "./account_controller.js"
 application.register("account", AccountController)
 
+import BubblesController from "./bubbles_controller.js"
+application.register("bubbles", BubblesController)
+
 import CandidacyController from "./candidacy_controller.js"
 application.register("candidacy", CandidacyController)
 

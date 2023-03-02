@@ -1,21 +1,36 @@
 <% canonical(root_url) %>
 
-<div class="light-bg pt-5 pb-5">
-  <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
+<div class="light-bg pt-5 overflow-hidden position-relative" data-controller="bubbles" data-action="scroll->bubbles#connect">
+  <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2 bring-forward">
     <div class="big-title-resp max-width-500 full-width" data-controller="contact">
       <h1 class="d-none">Demain Works : le mécénat de compétences à l'intiative des employés</h1>
       <h2 class="primary-text-color mb-3">talents engagés & solidaires</h2>
       <h4 class="mb-3">Demain permet aux personnes salariées de s'engager sur leur temps de travail auprès d'organismes d'intérêt général</h4>
-      <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
-      <%= render partial: "contact" %>
     </div>
     <div class="rounded-20 pt-2 pb-2 max-width-500">
       <%= image_tag("homepage.svg", class: "full-width", alt: "employée alliant un job rémunéré avec un engagement associatif") %>
     </div>
   </div>
+  <div class="bubble-ctn">
+    <% 6.times do %>
+      <span class="bubble" data-bubbles-target="bubble"></span>
+    <% end %>
+  </div>
+  <div class="position-relative">
+    <%= link_to offers_path, class: "fat-btn" do %>
+      <span></span>
+      <strong>Trouver une mission</strong>
+      <i class="fa-solid fa-magnifying-glass round-button white-bg"></i>
+    <% end %>
+    <%= image_tag('purple_triangle.svg', class: "tilted-ctn") %>
+  </div>
+  <div class="full-width pb-5 dark-bg"></div>
 </div>
 
+
 <%= render partial: "offer_carousel", locals: {offers: @offers} %>
+
+<%= image_tag('purple_triangle.svg', class: "tilted-ctn flip-hz") %>
 
 <div class="white-bg pt-5 pb-5 flex-resp ctn-resp justify-content-between">
 
@@ -69,4 +84,9 @@
       <% end %>
     <% end %>
   </div>
+</div>
+
+<div class="d-none">
+  <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
+  <%= render partial: "contact" %>
 </div>

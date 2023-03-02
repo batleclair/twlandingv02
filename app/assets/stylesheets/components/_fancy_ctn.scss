@@ -1,0 +1,11 @@
+.tilted-ctn {
+  height: 5vw;
+  min-height: 30px;
+  max-height: 60px;
+  width: 100%;
+}
+
+.flip-hz {
+  transform: rotate(180deg);
+  background-color: white;
+}
