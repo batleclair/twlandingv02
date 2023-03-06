@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NRZZ5SG');</script>
+    <!-- End Google Tag Manager -->
+
     <title><%= yield(:title).present? ? yield(:title) : meta_title %></title>
     <meta name="description" content="<%= yield(:description).present? ? yield(:description) : meta_description %>">
     <%= favicon_link_tag %>
@@ -65,6 +73,12 @@
   </head>
 
   <body style="background-image: url('<%= image_path "bg2.png" %>')" data-controller="modal" data-action="keyup->modal#close">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRZZ5SG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <%= render partial: "shared/menu" %>
     <%= yield %>
 
@@ -78,23 +92,5 @@
 
     <%= render partial: "shared/footer" %>
   </body>
-
-  <script type="text/javascript">
-    _linkedin_partner_id = "4769106";
-    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-    </script><script type="text/javascript">
-    (function(l) {
-    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-    window.lintrk.q=[]}
-    var s = document.getElementsByTagName("script")[0];
-    var b = document.createElement("script");
-    b.type = "text/javascript";b.async = true;
-    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-    s.parentNode.insertBefore(b, s);})(window.lintrk);
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=4769106&fmt=gif" />
-  </noscript>
 
 </html>
