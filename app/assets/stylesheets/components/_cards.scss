@@ -151,7 +151,7 @@
   transition: ease-in-out 0.2s;
   position: relative;
   overflow: hidden;
-  >span{
+  span, a{
     position: absolute;
     left: 0;
     height: 260px;
@@ -170,10 +170,15 @@
     color: white;
   }
   &:hover{
-    >span{
+    span, a{
       bottom: 0px;
       transition: ease-in-out 0.2s;
     }
+  }
+  a[data-active="true"]{
+    bottom: 0px;
+    transition: ease-in-out 0.2s;
+    cursor: default;
   }
   .dynamic-apply-ctn{
     h5{
@@ -402,6 +407,9 @@
       transition: 0.2s ease-in-out;
     }
   }
+  .when-active{
+    display: none;
+  }
 }
 
 .flat-card-bg[data-active="true"]{
@@ -409,6 +417,13 @@
     background-color: $first-light-darker;
     transition: 0.2s ease-in-out;
   }
+  .when-active{
+    display: block;
+  }
+}
+
+.flat-card-bg[data-active="true"][data-destination=""]{
+  cursor: default;
 }
 
 .square-sm{

@@ -35,27 +35,35 @@ export default class extends Controller {
 
   preview() {
     event.preventDefault()
-    this.loaderTargets.forEach(loader => {
-      loader.style = ""
-    })
-    this.cardTargets.forEach(card => {
-      card.dataset.active = false
-    });
-    event.target.dataset.active = true
-    const url = event.target.href
-    window.history.pushState('', '', url)
-    this.idTarget.value = event.target.dataset.id
-    const urlPreview = `../offers/${event.target.dataset.id}/preview/?search=${window.location.search}`
-    fetch(urlPreview, {
-    })
-      .then(response => response.json())
-      .then((data) => {
-        this.previewTarget.innerHTML = data.content
-        this.previewTarget.dataset.active = "true"
-        this.loaderTargets.forEach(loader => {
-          loader.style = "display: none;"
-        })
+    if (event.target.dataset.active === "true") {
+      if (event.target.dataset.destination !== '') {
+        window.location = event.target.dataset.destination
+      }
+    } else {
+      this.loaderTargets.forEach(loader => {
+        loader.style = ""
       })
+      this.cardTargets.forEach(card => {
+        card.dataset.active = false
+      });
+      event.target.dataset.active = true
+      const url = event.target.href
+      window.history.pushState('', '', url)
+      this.idTarget.value = event.target.dataset.id
+      const urlPreview = `../offers/${event.target.dataset.id}/preview/?search=${window.location.search}`
+      console.log(event.target)
+      console.log(event.target.dataset.id)
+      fetch(urlPreview, {
+      })
+        .then(response => response.json())
+        .then((data) => {
+          this.previewTarget.innerHTML = data.content
+          this.previewTarget.dataset.active = "true"
+          this.loaderTargets.forEach(loader => {
+            loader.style = "display: none;"
+          })
+        })
+    }
   }
 
   close() {

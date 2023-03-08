@@ -8,8 +8,16 @@
       <h1 class="d-none">Entreprises : le mécénat de compétences à la main des collaborateurs</h1>
       <h2 class="primary-text-color mb-3">entreprises</h2>
       <h4 class="mb-3">la réponse individualisée aux demandes d’engagement solidaire moyenne et longue durée de vos talents</h4>
-      <a class="button btn-flag-color" href="" data-action="click->contact#popup">Contactez-nous !</a>
-      <%= render partial: "contact" %>
+      <div class="mt-4" data-controller="contact">
+        <div class="d-flex">
+          <%= link_to '', class: "fat-btn fat-btn-flag-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
+            <span></span>
+            <strong>Nous contacter</strong>
+            <i class="fa-solid fa-phone round-button white-bg"></i>
+          <% end %>
+        </div>
+        <%= render partial: "pages/contact" %>
+      </div>
     </div>
     <div class="rounded-20 pt-2 pb-2 max-width-500">
       <%= image_tag("companies_illustration.svg", class: "full-width", alt: "entreprise permettant à une employée de s'engager associativement") %>

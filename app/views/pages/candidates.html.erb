@@ -162,9 +162,14 @@
       <p class="pt-3">Oui oui oui ! Que tu sois freelance ou entre deux boulots, tu peux consacrer du temps à l’une de nos associations partenaires dans le cadre d’un bénévolat de compétences. Certaines missions sont même rémunérées... 😉</p>
     </div>
   </div>
-  <div class="flex-resp align-items-center justify-content-center" data-controller="contact">
-    <p class="mg-resp-r">tu ne trouves pas les réponses à tes questions ?</p>
-    <a class="button btn-flag-color mg-resp-l" href="" data-action="click->contact#popup">Contacte-nous !</a>
-    <%= render partial: "contact" %>
+  <div class=" mt-5 pt-5 pb-5" data-controller="contact">
+    <div class="d-flex justify-content-center">
+      <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
+        <span></span>
+        <strong>D'autres questions ?</strong>
+        <i class="fa-solid fa-phone round-button white-bg"></i>
+      <% end %>
+    </div>
+    <%= render partial: "pages/contact" %>
   </div>
 </div>
