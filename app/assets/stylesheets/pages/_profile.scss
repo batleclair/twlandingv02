@@ -193,24 +193,18 @@
       &::after{
         content: '💛';
         position: absolute;
-        top: 5px;
-        right: auto;
-        left: auto;
+        top: -5px;
+        right: 5px;
       }
     }
   }
   .form-check-label{
-    // border: $first-main-color solid 1px;
-    border-radius: 10px;
+    border-radius: 50em;
     background-color: $first-light-color;
     font-size: 12px;
-    height: 100px;
-    width: 100px;
+    padding: 5px 10px;
     transition: 0.2s ease-in-out;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: 0.2s ease-in-out;
     cursor: pointer;
     position: relative;

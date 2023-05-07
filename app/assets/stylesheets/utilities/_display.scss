@@ -1,0 +1,19 @@
+@each $id, $bp in $breakpoints {
+  @media(max-width: #{$bp}px) {
+    .#{$id}-resp-present{
+      display: unset !important
+    }
+  }
+}
+
+@each $id, $bp in $breakpoints {
+  @media(max-width: #{$bp}px) {
+    .#{$id}-resp-hide{
+      display: none !important
+    }
+  }
+}
+
+.invisible{
+  opacity: 0;
+}

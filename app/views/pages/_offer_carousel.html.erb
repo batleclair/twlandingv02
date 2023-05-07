@@ -1,6 +1,6 @@
-<div class="dark-bg pt-5 pb-5 ctn-resp" data-controller="carousel">
-  <h4 class="white-text center-text mb-2">les missions de Demain</h4>
-  <p class="mb-4 white-text center-text">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de <span class="stress-dark">combiner son job actuel avec un second d'intérêt général</span></p>
+<div class="bg-main pt-5 pb-5 ctn-resp" data-controller="carousel">
+  <h4 class="text-white center-text mb-2">les missions de Demain</h4>
+  <p class="mb-4 text-white center-text">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de <span class="stress-dark">combiner son job actuel avec un second d'intérêt général</span></p>
   <div class="job-card-container" data-carousel-target="container">
     <% offers.each do |offer| %>
       <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
@@ -8,13 +8,13 @@
         <div data-carousel-target="card">
           <%= b_logo %>
           <div>
-            <h6 class="primary-text-color mb-2 line-clamp-2"><%= offer.title %></h6>
+            <h6 class="text-main mb-2 line-clamp-2"><%= offer.title %></h6>
             <p class="line-clamp-2">👊 <%= offer.beneficiary.cause %></p>
           </div>
         </div>
       <% end %>
     <% end %>
-    <%= link_to offers_path, class:"job-card-home-page dark-bg-card" do %>
+    <%= link_to offers_path, class:"job-card-home-page bg-main-card" do %>
       <div class="justify-content-center " data-carousel-target="card">
         <h6>voir toutes les missions</h6>
       </div>

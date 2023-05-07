@@ -1,0 +1,38 @@
+<div class="ctn-resp pt-50 bg-white">
+  <div class="full-height-ctn flex-stretch-center md-resp-flex-col pb-50">
+
+    <% active = 5 %>
+    <%= render partial: "devise/registrations/navpan", locals: {active: active} %>
+
+    <div class="w-100 p-40 md-resp-p-0 md-resp-pt-20">
+      <h5 class="mb-10">Mon profil</h5>
+      <h6 class="mb-20">Mes engagements perso</h6>
+
+      <%= simple_form_for(@candidate, html: { class: "max-w-400"}) do |f| %>
+
+        <div class="mb-10">
+          <label class="label-form">Les causes qui me tiennent à coeur</label>
+          <%= f.input :secondary_cause,
+                      label: false,
+                      collection: Beneficiary::CAUSES,
+                      as: :check_boxes,
+                      wrapper_html: {class: 'custom-checkbox-ctn'} %>
+        </div>
+
+        <div class="mb-20">
+          <%= f.input :volunteering,
+                      label: 'Mes expériences (mécénat, bénévolat...)',
+                      input_html: {class: "min-h-100"},
+                      wrapper: false %>
+        </div>
+
+        <%= hidden_field_tag 'source', "wishes" %>
+
+        <div class="flex-center-right">
+          <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

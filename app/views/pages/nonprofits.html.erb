@@ -2,10 +2,10 @@
 <% content_for :description, "Demain permet gratuitement aux associations d'intégrer durablement des compétences grâce au mécénat d'entreprise" %>
 <% canonical(nonprofits_url) %>
 
-<div class="pb-5">
-  <div class="light-bg pt-5">
+<div class="pb-5 bg-white">
+  <div class="pt-5">
     <div class="ctn">
-      <h1 class="center-text primary-text-color mb-5">Associations</h1>
+      <h1 class="center-text text-main mb-5">Associations</h1>
 
       <div class="flex-resp mb-5">
         <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="lg-illustration"></div>
@@ -83,10 +83,10 @@
 
     <div class=" mt-5 pt-5 pb-5" data-controller="contact">
       <div class="d-flex justify-content-center">
-        <%= link_to '', class: "fat-btn fat-btn-flag-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
+        <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
           <span></span>
           <strong>Discutons-en !</strong>
-          <i class="fa-solid fa-phone round-button white-bg"></i>
+          <i class="fa-solid fa-phone round-button bg-white"></i>
         <% end %>
       </div>
       <%= render partial: "pages/contact" %>

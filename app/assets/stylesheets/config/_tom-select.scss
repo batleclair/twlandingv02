@@ -213,14 +213,14 @@
 }
 
 .ts-control {
-  border: 1px solid #d0d0d0;
+  // border: 1px solid #d0d0d0;
   padding: 8px 8px;
   width: 100%;
   overflow: hidden;
   position: relative;
   z-index: 1;
   box-sizing: border-box;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   display: flex;
   flex-wrap: wrap;
@@ -492,3 +492,23 @@
   border-top: 0 none;
 }
 /*# sourceMappingURL=tom-select.default.css.map */
+
+
+
+.ts-wrapper.input-form{
+  padding: 0;
+  .ts-control{
+    padding: 10px !important;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+  }
+}
+.ts-wrapper.input-form.focus{
+  .ts-control{
+    outline: 2px $first-main-color solid;
+    background-color: $first-light-lighter;
+    transition: 0.2s ease-in-out;
+  }
+}

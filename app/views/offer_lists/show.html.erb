@@ -2,17 +2,17 @@
 <% content_for :description, "Grâce à Demain, trouvez l'association qui a besoin de vos compétences et qui vous correspond ! Demain propose des missions de mécénat de compétences et vous permet de vous engager sur votre temps de travail en vous aidant à obtenir le soutien de votre entreprise." %>
 <% canonical(offer_list_url(@offer_list)) %>
 
-<div class="ctn-resp white-bg p-5">
+<div class="ctn-resp bg-white p-5">
   <h1 class="d-none">Trouvez la mission de mécénat de compétences qui vous correspond</h1>
-  <h2 class="center-text primary-text-color mb-2 mt-5"> Notre sélection de missions : <span class="stress"><%= @offer_list.title %></strong></h2>
+  <h2 class="center-text text-main mb-2 mt-5"> Notre sélection de missions : <span class="stress"><%= @offer_list.title %></strong></h2>
 
   <% description = @offer_list.description.present? ? @offer_list.description : "plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de combiner son job actuel avec un second d'intérêt général" %>
-  <p class="mb-4 primary-text-color center-text"><%= description %></p>
+  <p class="mb-4 text-main center-text"><%= description %></p>
 </div>
 
-<div class="ctn-resp white-bg pt-5 pb-5">
+<div class="ctn-resp bg-white pt-5 pb-5">
   <%= render partial: "offers/list", locals: {offers: @offers, no_offer: @no_offer, candidacy: @candidacy} %>
   <div class="flex-resp justify-content-center align-items-center mt-5">
-    <%= link_to "Voir toutes les missions", offers_path, class: "button btn-flag-color" %>
+    <%= link_to "Voir toutes les missions", offers_path, class: "button btn-main-color" %>
   </div>
 </div>

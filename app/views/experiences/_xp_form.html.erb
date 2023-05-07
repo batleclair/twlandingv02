@@ -1,0 +1,46 @@
+<div class="max-w-400 bg-white round-10 shadow-xl p-20" data-action="click->modal#keep">
+  <div class="flex-center-between mb-20">
+    <h5 class="text-main fw-5">Ajouter une expérience</h5>
+    <i class="fa-solid fa-xmark text-main square-30 first-main-border round flex-shrink-0 flex-center" data-modal-target="close" data-action="click->modal#close"></i>
+  </div>
+
+
+
+  <%= simple_form_for([candidate, experience], action: action, method: method, data:{turbo: false, 'experience-target': 'form', action: 'submit->experience#save'}) do |f| %>
+
+    <div class="mb-10 position-relative" id="experience_employer_wrapper">
+      <%= f.input :employer,
+                  label: "Employeur, client ou projet",
+                  wrapper: false %>
+    </div>
+
+    <div class="mb-10 position-relative" id="experience_title_wrapper">
+      <%= f.input :title,
+                  label: "Intitulé du poste ou de la mission",
+                  wrapper: false %>
+    </div>
+
+    <h6>Dates (mm/aaaa)</h6>
+    <div class="d-flex mb-20">
+      <div class="position-relative mr-10" id="experience_start_date_wrapper">
+        <%= f.input :start_date,
+                    label: "Début",
+                    input_html: {value: @experience.start_date_output, data: {"experience-target": "date"}},
+                    wrapper: false %>
+      </div>
+      <div class="position-relative" id="experience_end_date_wrapper">
+        <%= f.input :end_date,
+                    label: "Fin",
+                    input_html: {value: @experience.end_date_output, data: {"experience-target": "date"}},
+                    wrapper: false %>
+      </div>
+    </div>
+
+
+
+    <div class="flex-center-right">
+      <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+    </div>
+
+  <% end %>
+</div>

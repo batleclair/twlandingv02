@@ -2,82 +2,110 @@
 <% content_for :description, "Grâce à Demain, trouvez l'association qui a besoin de vos compétences et qui vous correspond ! Demain propose des missions de mécénat de compétences et vous permet de vous engager sur votre temps de travail en vous aidant à obtenir le soutien de votre entreprise." %>
 <% canonical(offers_url) %>
 
-<div class="ctn-resp white-bg p-5">
+
+
+
+<div class="ctn-resp bg-white p-10 text-right">
   <h1 class="d-none">Trouvez la mission de mécénat de compétences qui vous correspond</h1>
-  <h2 class="center-text primary-text-color mb-2 mt-5">Les missions de <span class="stress">Demain</strong></h2>
-  <p class="mb-4 primary-text-color center-text">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de combiner son job actuel avec un second d'intérêt général</p>
+  <h2 class="mb-2 mt-5">Trouvez votre mission avec <span class="stress">Demain</strong></h2>
+  <p class="mb-4">plus besoin de choisir entre sa carrière et ses valeurs ! Demain permet de combiner son job actuel avec un second d'intérêt général</p>
 </div>
 
-<div data-controller="search-form">
-  <div class="filter-ctn">
 
-    <div class="indication indication-right" data-search-form-target="indication">
-      <p class="primary-text-color sm-thin-text"><i class="fa-solid fa-arrow-down-long"></i>masquer les filtres</p>
-    </div>
-    <div class="indication indication-left d-none" data-search-form-target="indication">
-      <p class="primary-text-color sm-thin-text"><i class="fa-solid fa-arrow-down-long"></i>voir les filtres 😋</p>
-    </div>
-    <i class="fa-solid fa-magnifying-glass filter-icon filter-icon-active" data-search-form-target="btn" data-action="click->search-form#toggle">
-      <div data-search-form-target="counter" class="d-none"></div>
-    </i>
+<div data-controller="search-form" class="position-relative bg-white w-100">
+  <i class="fa-solid fa-filter filter-icon filter-icon-active ctn-resp-sheet" data-search-form-target="btn" data-action="click->search-form#showup">
+    <div data-search-form-target="counter" class="invisible"></div>
+  </i>
 
-    <div data-search-form-target="filters" class="filters filters-expand">
+  <div data-search-form-target="filters" class="ctn-resp bg-white">
       <%= form_tag offers_path, method: :get, data: { search_form_target: 'form', action: 'change->search-form#result' } do %>
-        <div class="flex-resp justify-content-center mt-4">
-          <div class="pill-ctn round-shadow-box p-4 m-3">
-            <div class="d-flex full-width justify-content-between align-items-center mb-2" data-controller="legend">
-              <h5 class="primary-text-color">Engagement requis</h5>
-              <button class="round-button-sm btn-main-color" data-action="click->legend#popup">?</button>
-              <%= render partial: "offers/legend" %>
+        <div class="search-form-ctn flex-between md-resp-flex-col position-relative">
+
+
+            <div>
+              <h6 class="fw-5 fs-15 mb-10">Missions</h6>
+              <div class="input-with-2-icons mb-10 position-relative">
+                <%= select_tag :function, options_for_select(@active_functions, params[:function]), include_blank: "Toutes compétences", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:function] %>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-solid fa-angle-down pe-none"></i>
+              </div>
+              <div class="flex-center-left">
+                <i class="fa-regular fa-heart text-main resp-display"></i>
+                <p class="mr-10 resp-display">Asso</p>
+                  <div class="pill-ctn">
+                    <%= check_box_tag :social, 1, params[:social], hidden: true %>
+                    <%= label_tag :social, '🤝🏻 Société' %>
+                    <%= check_box_tag :environment, 1, params[:environment], hidden: true %>
+                    <%= label_tag :environment, '🌍 Environnement' %>
+                  </div>
+              </div>
             </div>
-            <%= check_box_tag :low, 1, params[:low], hidden: true %>
-            <%= label_tag :low, '👍 light', class: "mb-1" %>
-            <%= check_box_tag :mid, 1, params[:mid], hidden: true %>
-            <%= label_tag :mid, '👏 moyen', class: "mb-1" %>
-            <%= check_box_tag :high, 1, params[:high], hidden: true %>
-            <%= label_tag :high, '🙌 costaud', class: "mb-1" %>
-          </div>
 
-          <div class="pill-ctn round-shadow-box p-4 m-3">
-            <h5 class="mb-2 primary-text-color">Mission de l'association</h5>
-            <%= check_box_tag :social, 1, params[:social], hidden: true %>
-            <%= label_tag :social, '🤝🏻 Sociale', class: "mb-1" %>
-            <%= check_box_tag :environment, 1, params[:environment], hidden: true %>
-            <%= label_tag :environment, '🌍 Environnementale', class: "mb-1" %>
-          </div>
+            <div class="ml-20 mr-20 md-resp-mr-0 md-resp-ml-0 md-resp-mt-40 md-resp-mb-40">
+              <h6 class="fw-5 fs-15 mb-10">Localisation</h6>
+              <div class="input-with-2-icons mb-10 position-relative">
+                <%= select_tag :region, options_for_select(@active_regions, params[:region]), include_blank: "Toutes régions", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:region] %>
+                <i class="fa-solid fa-location-dot"></i>
+                <i class="fa-solid fa-angle-down pe-none"></i>
+              </div>
+              <div class="flex-center-left position-relative">
+                <i class="fa-solid fa-globe text-main"></i>
+                <%= check_box_tag :remote_work, 1, params[:remote_work], class: "toggle" %>
+                <%= label_tag :remote_work, '100% distanciel' %>
+              </div>
+            </div>
 
-          <div class="round-shadow-box p-4 m-3">
-            <h5 class="mb-2 primary-text-color">Métiers</h5>
-            <%= select_tag :function, options_for_select(Offer::FUNCTIONS, params[:function]), include_blank: "Tous", class: 'pill-dropdown', data: { search_form_target: 'select'}, selected: params[:function] %>
-          </div>
+            <div>
+              <h6 class="fw-5 fs-15 mb-10">Disponibilités</h6>
+
+              <div class="flex-center-left slider-ctn mb-10" data-controller="slider" data-slider-type="frequency">
+                <div class="flex-center-between">
+                  <i class="fa-regular fa-clock text-main"></i>
+                  <%= range_field_tag :frequency, nil, within: 1..3, class: 'slider', data:{'slider-target': "input", 'action': "input->slider#update", search_form_target: 'slider'}, value: params[:frequency].present? ? params[:frequency] : 3 %>
+                </div>
+                <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>
+              </div>
+
+              <div class="flex-center-left slider-ctn" data-controller="slider" data-slider-type="duration">
+                <div class="flex-center-between">
+                  <i class="fa-regular fa-calendar text-main"></i>
+                  <%= range_field_tag :duration, nil, within: 1..3, class: 'slider', data:{'slider-target': "input", 'action': "input->slider#update", search_form_target: 'slider'}, value: params[:duration].present? ? params[:duration] : 3 %>
+                </div>
+                <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>
+              </div>
+
+            </div>
+
 
           <%= number_field_tag 'id', @params[:id], hidden: true, data: { search_form_target: 'id' } %>
           <%= submit_tag "", hidden: "true", data: { search_form_target: 'submitbtn' } %>
         </div>
-        <% end %>
-    </div>
+    <% end %>
 
   </div>
 
-  <div class="ctn-resp white-bg pt-5 pb-5">
+  <div class="ctn-resp bg-white pt-5 pb-5">
 
     <div class="flex-resp early-resp-1000" data-controller="candidacy">
       <div class="half-width-resp early-resp-1000 mg-resp-r">
-        <p><span class="single-pill me-2 bold-6"><%= @offers.count %></span>missions disponibles</p>
+        <div class="flex-center-between w-100">
+          <p><span class="single-pill me-2 fw-6"><%= @offers.count %></span>missions disponibles</p>
+          <%= link_to "suppr. filtres", offers_path, class: "text-main fw-5 fs-15" %>
+        </div>
         <% @offers.each do |offer| %>
           <%= link_to offers_path(@params.merge!(id: offer.id)), data: {"search-form-target": "card", active: params[:id].to_s == offer.id.to_s, id: offer.id, action: "click->search-form#preview", destination: (offer.active? ? offer_path(offer) : '')}, class:"flat-card-bg" do %>
             <div class="p-3 d-flex mt-2 mb-2 pe-none">
-              <div class="logo-box square-sm flex-shrink-0">
+              <div class="logo-box square-80 flex-shrink-0">
                 <%= offer.beneficiary.logo.attached? && offer.active? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
               </div>
               <div class="ps-3 flat-card-text full-width">
                 <div class="d-flex justify-content-between full-width">
                   <h5><%= offer.title %></h5>
                   <% if offer.active? %>
-                    <h5 class="primary-text-color bold-7 when-active">+</h5>
+                    <h5 class="text-main fw-7 when-active">+</h5>
                   <% end %>
                 </div>
-                <p class="primary-text-color">💜 <%= offer.beneficiary.cause %></p>
+                <p class="text-main">💜 <%= offer.beneficiary.cause %></p>
                 <div class="flex-resp">
                   <p><%= offer.commitment_output %></p>
                   <p class="mg-resp-l">📍 <%= offer.location %></p>
@@ -90,9 +118,7 @@
         <div class="job-card-dark mt-2 mb-2">
           <h3 class="center-text">+</h3>
           <h5 class="center-text no-wrap">La mission pour vous</h5>
-          <%= link_to offers_path(@params.merge!(id: @no_offer.id)), data: {"search-form-target": "card", active: params[:id].to_s == @no_offer.id.to_s, id: @no_offer.id, action: "click->search-form#preview", destination: ''}, class: "d-flex flex-column justify-content-center align-items-center p-2" do %>
-            <h6 class="white-text center-text mb-2">Aucune mission ne vous correspond ? Laissez-nous trouver pour vous !</h6>
-          <% end %>
+          <%= link_to 'Aucune mission ne vous correspond ? Laissez-nous trouver pour vous !', offers_path(@params.merge!(id: @no_offer.id)), data: {"search-form-target": "card", active: params[:id].to_s == @no_offer.id.to_s, id: @no_offer.id, action: "click->search-form#preview", destination: ''}, class: "d-flex flex-column justify-content-center align-items-center p-2 text-white center-text fw-5 fs-15" %>
         </div>
       </div>
 
@@ -109,16 +135,17 @@
       <span data-candidacy-target="content"><%= render partial: "offers/candidacy", locals: {offer: @no_offer, candidacy: @candidacy} %></span>
 
     </div>
-
-    <div class=" mt-5 pt-5 pb-5 white-bg" data-controller="contact">
-      <div class="white-bg d-flex justify-content-center">
-        <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
-          <span></span>
-          <strong>Des questions ?</strong>
-          <i class="fa-solid fa-phone round-button white-bg"></i>
-        <% end %>
-      </div>
-      <%= render partial: "pages/contact" %>
-    </div>
   </div>
+</div>
+
+
+<div class="pt-50 pb-50 bg-white" data-controller="contact">
+  <div class="bg-white d-flex justify-content-center">
+    <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
+      <span></span>
+      <strong>Des questions ?</strong>
+      <i class="fa-solid fa-phone round-button bg-white"></i>
+    <% end %>
+  </div>
+  <%= render partial: "pages/contact" %>
 </div>

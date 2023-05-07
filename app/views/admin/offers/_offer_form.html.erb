@@ -1,7 +1,7 @@
   <div class="navpan-white-ctn">
     <%= simple_form_for(offer) do |f| %>
 
-      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3 justify-content-between">
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
         <div class="d-flex">
           <%= link_to "Retour", admin_offers_path, class:"button btn-light-main mb-2 me-2" %>
           <%= link_to "Ajouter un bénéficiaire", new_admin_beneficiary_path, class:"button btn-flag-color ms-2" %>
@@ -13,9 +13,17 @@
         <%= f.association :beneficiary, wrapper_html: {class: "me-3 full-width"} %>
         <%= f.input :function, collection: Offer::FUNCTIONS, wrapper_html: {class: "full-width"} %>
       </div>
+
       <div class="d-flex">
         <%= f.input :title, wrapper_html: {class: "me-3 full-width"} %>
         <%= f.input :location, wrapper_html: {class: "full-width"} %>
+      </div>
+
+      <div class="d-flex">
+        <%= f.input :region, collection: Offer::REGIONS, wrapper_html: {class: "me-3 full-width"}  %>
+        <div class="full-width align-self-center pt-3 bg-shade">
+          <%= f.input :remote_work, as: :boolean, label: "100% remote possible ?", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
+        </div>
       </div>
 
       <div class="d-flex mb-3">
@@ -42,8 +50,8 @@
 
       <div class="d-flex">
         <%= f.input :status, collection: Offer::STATUSES, wrapper_html: {class: "me-3 full-width"}  %>
-        <div class="full-width align-self-center pt-3 shaded-bg">
-          <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
+        <div class="full-width align-self-center pt-3 bg-shade">
+          <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
         </div>
       </div>
 

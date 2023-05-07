@@ -24,7 +24,8 @@ export default class extends Controller {
     const token = document.querySelector("[name='csrf-token']").content
     const form = new FormData(this.formTarget)
 
-    this.formTarget.querySelectorAll(".sm-red-msg").forEach((p) => { p.outerHTML = ''; });
+    this.formTarget.querySelectorAll(".invalid-msg").forEach((p) => { p.outerHTML = ''; });
+    this.formTarget.querySelectorAll(".invalid-input").forEach((p) => { p.classList.remove("invalid-input"); });
     this.formTarget.querySelectorAll(".notice").forEach((p) => { p.outerHTML = ''; });
 
     fetch(this.formTarget.action, {
@@ -34,6 +35,7 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
+        console.log(data['errors'])
         if (data.valid) {
           document.querySelector('body').insertAdjacentHTML('beforeend', '<p class="notice">👍 tes changements ont été enregistrés !</p>')
           this.listTarget.outerHTML = data['content']
@@ -41,7 +43,8 @@ export default class extends Controller {
           this.formTarget.reset()
         } else {
           Object.entries(data['errors']).forEach(pair => {
-            this.formTarget.querySelector(`.experience_${pair[0]}`).insertAdjacentHTML('beforeend', `<p class="sm-red-msg">${pair[1]}</p>`)
+            this.formTarget.querySelector(`#experience_${pair[0]}`).classList.add("invalid-input")
+            this.formTarget.querySelector(`#experience_${pair[0]}_wrapper`).insertAdjacentHTML('beforeend', `<div class="invalid-msg">${pair[1]}</p>`)
           });
         }
       })

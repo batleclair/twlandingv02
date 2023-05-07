@@ -1,0 +1,60 @@
+<div class="ctn-resp pt-50 bg-white">
+  <div class="full-height-ctn flex-stretch-center md-resp-flex-col pb-50">
+
+    <% active = 1 %>
+    <%= render partial: "navpan", locals: {active: active} %>
+
+    <div class="w-100 p-40 md-resp-p-0 md-resp-pt-20">
+      <h5 class="mb-10">Mon compte</h5>
+      <h6 class="mb-20">Informations personnelles</h6>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "max-w-400"}) do |f| %>
+
+        <div class="mb-10 position-relative">
+          <%= f.input :first_name,
+                      error: 'Woops, on en a besoin !',
+                      required: true,
+                      label: "Prénom",
+                      wrapper: false %>
+        </div>
+
+        <div class="mb-10 position-relative">
+          <%= f.input :last_name,
+                      error: 'Woops, on en a besoin !',
+                      required: true,
+                      label: "Nom",
+                      wrapper: false %>
+        </div>
+
+        <%= f.simple_fields_for :candidate, resource.candidate do |p| %>
+          <div class="mb-10 birth-date-ctn">
+            <%= p.input :birth_date,
+                        as: :date,
+                        label: "Date de naissance",
+                        start_year: Date.today.year - 70,
+                        end_year: Date.today.year - 18,
+                        use_month_numbers: true,
+                        order: [:day, :month, :year],
+                        # include_blank: true,
+                        wrapper: false %>
+          </div>
+          <div class="mb-10 position-relative">
+            <%= p.input :location,
+                        label: "Ville de résidence",
+                        wrapper: false %>
+          </div>
+          <div class="mb-20 position-relative">
+            <%= p.input :phone_num,
+                        error: 'Woops, on en a besoin !',
+                        label: "Numéro de téléphone",
+                        wrapper: false %>
+          </div>
+        <% end %>
+
+        <div class="flex-center-right">
+          <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

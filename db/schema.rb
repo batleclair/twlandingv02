@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_10_164335) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_211527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_164335) do
     t.string "function"
     t.date "birth_date"
     t.text "volunteering"
+    t.boolean "profile_completed", default: false
+    t.text "availability_details"
+    t.text "primary_cause", default: [], array: true
+    t.text "secondary_cause", default: [], array: true
+    t.boolean "remote_work", default: false
+    t.text "comment"
+    t.integer "availability"
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
@@ -166,6 +173,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_164335) do
     t.string "function"
     t.string "commitment"
     t.string "slug"
+    t.string "region"
+    t.boolean "remote_work", default: false
     t.index ["beneficiary_id"], name: "index_offers_on_beneficiary_id"
   end
 

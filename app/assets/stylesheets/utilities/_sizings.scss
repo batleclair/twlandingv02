@@ -1,0 +1,65 @@
+.min-w-20 {
+  min-width: 20px;
+}
+.min-w-30 {
+  min-width: 20px;
+}
+.min-w-40 {
+  min-width: 40px;
+}
+.min-w-300 {
+  min-width: 300px;
+}
+.square-30{
+  height: 30px;
+  width: 30px;
+}
+.square-40{
+  height: 40px;
+  width: 40px;
+}
+.square-80{
+  height: 80px;
+  width: 80px;
+}
+
+.max-w-200 {
+  max-width: 200px;
+}
+.max-w-300 {
+  max-width: 300px;
+}
+.max-w-400 {
+  max-width: 400px;
+}
+.max-w-500 {
+  max-width: 500px;
+}
+.max-w-750 {
+  max-width: 750px;
+}
+
+.min-h-100{
+  min-height: 100px;
+}
+
+@each $id, $bp in $breakpoints {
+  @media(max-width: #{$bp}px) {
+    .#{$id}-resp-resize-50{
+      transform: scale(50%) !important;
+    }
+    .#{$id}-resp-resize-60{
+      transform: scale(60%) !important;
+    }
+    .#{$id}-resp-resize-70{
+      transform: scale(70%) !important;
+    }
+    .#{$id}-resp-resize-80{
+      transform: scale(80%) !important;
+    }
+    .#{$id}-resp-resize-90{
+      transform: scale(90%) !important;
+    }
+
+  }
+}

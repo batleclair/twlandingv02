@@ -3,7 +3,7 @@
   text-align: center;
   width: fit-content;
   padding: 10px 20px;
-  border-radius: 3px;
+  border-radius: 10px;
   height: fit-content;
   transition: ease-in-out 0.2s;
   &:hover {
@@ -166,12 +166,6 @@
   border: solid 1px $first-main-color;
 }
 
-.homepage-main-cta-position{
-  position: absolute;
-  left: calc(50vw - 165px);
-  top: -10px;
-}
-
 .fat-btn {
   border-radius: 50em;
   background-color: $first-flag-color;
@@ -186,7 +180,7 @@
   >span{
     width: 100%;
     position: absolute;
-    left: -330px;
+    left: -100%;
     background-color: $first-flag-darker;
     height: 100%;
     min-height: 20px;
@@ -209,6 +203,17 @@
   }
 }
 
+.fat-btn-md {
+  padding: 10px 25px;
+  width: 220px;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  >span{
+    min-height: 18px;
+  }
+}
+
 .fat-btn-main-color {
   background-color: $first-main-color;
   >span{
@@ -217,4 +222,8 @@
   i {
     color: $first-main-color;
   }
+}
+
+button.fat-btn{
+  border: none;
 }

@@ -1,0 +1,75 @@
+<div class="ctn-resp pt-50 bg-white">
+  <div class="full-height-ctn flex-stretch-center md-resp-flex-col pb-50">
+
+    <% active = 4 %>
+    <%= render partial: "devise/registrations/navpan", locals: {active: active} %>
+
+    <div class="w-100 p-40 md-resp-p-0 md-resp-pt-20" data-controller="experience">
+      <h5 class="mb-10">Mon profil</h5>
+      <h6 class="mb-20">Compétences et parcours professionnel</h6>
+
+      <%= simple_form_for(@candidate, html: { class: "max-w-400"}) do |f| %>
+
+
+
+      <div data-profile-form-target="skills" data-position="right">
+
+        <div class="input-with-icon mb-10 position-relative">
+          <%= f.input :title,
+                      label: 'Mon métier',
+                      wrapper: false %>
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+
+        <div class="input-with-2-icons mb-10 position-relative">
+          <%= f.input :function,
+                      label: "Mon domaine d'expertise",
+                      collection: Candidate::FUNCTIONS,
+                      selected: @candidate.function,
+                      input_html: {class: "input-form"},
+                      wrapper: false %>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-angle-down pe-none"></i>
+        </div>
+
+        <div class="max-w-400 mb-10">
+          <div class="flex-center-between">
+            <label for="" class="custom-label-lg mb-0 flex-width-150 me-3">Expériences pro :</label>
+            <span class="upload" data-action="click->experience#popup"><i class="fa-solid fa-plus me-2"></i>Ajouter</span>
+          </div>
+          <div class="full-width">
+            <%= render partial: "experiences/xp_list", locals: {experiences: @candidate.experiences.order(start_date: :desc)} %>
+          </div>
+        </div>
+
+        <div class="mb-10">
+          <%= f.input :skill_list,
+                      input_html: {value: @candidate.skill_list.join(","), data: {controller: "tom-select"}},
+                      label: "Compétences :",
+                      wrapper: false %>
+        </div>
+
+        <div class="mb-20">
+          <%= f.input :description,
+                      input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                      label: "Mon profil en quelques mots",
+                      wrapper: false %>
+        </div>
+      </div>
+
+        <%= hidden_field_tag 'source', "skillset" %>
+
+        <div class="flex-center-right">
+          <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+        </div>
+      <% end %>
+
+      <div class="modal modal-right hidden" data-modal-target="window" data-experience-target="window" data-action="click->modal#close">
+        <div data-experience-target="content">
+            <%= render partial: "experiences/new_xp", locals: {experience: @experience, candidate: @candidate} %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

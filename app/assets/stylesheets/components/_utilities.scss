@@ -57,10 +57,6 @@
   }
 }
 
-.white-text{
-  color: white;
-}
-
 .white-link{
   color: white;
   font-weight: 300;
@@ -70,7 +66,7 @@
   }
 }
 
-.white-link.bold-6{
+.white-link.fw-6{
   &:hover{
     font-weight: 600;
   }
@@ -175,32 +171,15 @@
   width: 100%;
 }
 
-.primary-text-color{
-  color: $first-main-color;
-}
-
 .bolder{
   font-weight: bolder;
 }
 
-.bold-7{
-  font-weight: 700;
-}
-
-.bold-6{
-  font-weight: 600;
-}
-
-.bold-5{
-  font-weight: 500;
-}
-
-.bold-4{
-  font-weight: 400;
-}
-
 .downsize90{
   transform: scale(90%);
+}
+.downsize70{
+  transform: scale(70%);
 }
 
 .green-color{
@@ -231,32 +210,6 @@
   box-shadow: 4px 6px 8px rgba(0,0,0,0.5);
 }
 
-.ctn-resp{
-  padding-left: 20vw;
-  padding-right: 20vw;
-  @media(max-width: 1600px) {
-    padding-left: 10vw;
-    padding-right: 10vw;
-    }
-  @media(max-width: 720px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
-    }
-}
-
-.ctn-resp-sheet{
-  margin-left: 20vw;
-  margin-right: 20vw;
-  @media(max-width: 1600px) {
-    margin-left: 10vw;
-    margin-right: 10vw;
-    }
-  @media(max-width: 720px) {
-    margin-left: 5vw;
-    margin-right: 5vw;
-    }
-}
-
 .mg-resp-l{
   margin-left: 10px;
   @media(max-width: 720px) {
@@ -271,45 +224,8 @@
     }
 }
 
-.dark-bg{
-  background-color: $first-main-color;
-}
-
-.shaded-bg{
-  background-color: $first-light-lighter;
-}
-
-.white-bg{
-  background-color: white;
-}
-
-.grey-bg{
-  background-color: rgb(250, 250, 250);
-}
-
-.max-width-300 {
-  max-width: 300px;
-}
-
-.max-width-500
- {
-  max-width: 500px;
-}
-
-.max-width-750 {
-  max-width: 750px;
-}
-
 .img-contain{
   object-fit: contain;
-}
-
-.rounded-20{
-  border-radius: 20px;
-}
-
-.round-3{
-  border-radius: 3px;
 }
 
 .bottom-border-black{
@@ -329,22 +245,10 @@
   padding-bottom: 70px;
 }
 
-.full-height-ctn{
-  min-height: calc(100vh - 231px);
-}
-
 @media(max-width: 720px) {
   .resp-overflow-hidden{
     overflow: hidden;
   }
-}
-
-.grey-border{
-  border: solid 1px rgb(200, 200, 200);
-}
-
-.first-main-border{
-  border: solid 1px $first-main-color;
 }
 
 .grey-info-box{

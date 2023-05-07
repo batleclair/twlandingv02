@@ -1,4 +1,9 @@
 class CandidaciesController < ApplicationController
+  def show
+    @candidacy = Candidacy.find(params[:id])
+    authorize @candidacy
+  end
+
   def new
     @offer = Offer.find(params[:offer_id])
     authorize @offer
@@ -18,12 +23,13 @@ class CandidaciesController < ApplicationController
 
   def create
     @candidacy = Candidacy.new(candidacy_params)
-    @candidacy.consent = params['consent'] == 'true'
+    # @candidacy.consent = params['consent'] == 'true'
     authorize @candidacy
     @candidacy.offer = Offer.find_by(slug: params[:offer_slug])
     @candidacy.candidate_id = current_user.candidate.id
     @candidacy.valid?
-    log_event if @candidacy.save
+    @candidacy.save
+    # log_event if @candidacy.save
     render json: json_response(@candidacy)
   end
 

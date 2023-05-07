@@ -1,0 +1,25 @@
+<div class="user-navpan bg-shade">
+  <div class="mb-40">
+
+    <div class="text-main resp-navpan-title">
+      <h5 class="fw-6">Gérer mon compte</h5>
+      <i class="fa-solid fa-angle-down text-main square-30 flex-center"></i>
+    </div>
+    <div class="flex-center-left mb-20">
+      <i class="fa-solid fa-user min-w-30"></i>
+      <h5>Mon profil</h5>
+    </div>
+    <%= link_to 'Ma situation', @candidate.nil? ? new_candidate_path : users_situation_path , class: "pl-40", data: {"active": active == 3} %>
+    <%= link_to 'Mes compétences', @candidate.nil? ? new_candidate_path : users_skills_path , class: "pl-40", data: {"active": active == 4} %>
+    <%= link_to 'Mes engagements', @candidate.nil? ? new_candidate_path : users_wishes_path , class: "pl-40", data: {"active": active == 5} %>
+  </div>
+
+  <div>
+    <div class="flex-center-left mb-20">
+      <i class="fa-solid fa-lock min-w-30"></i>
+      <h5>Mon compte</h5>
+    </div>
+    <%= link_to 'Informations', users_info_path , class: "pl-40", data: {"active": active == 1} %>
+    <%= link_to 'Identifiants', edit_user_registration_path , class: "pl-40", data: {"active": active == 2} %>
+  </div>
+</div>

@@ -1,99 +1,195 @@
 <% canonical(root_url) %>
 
-<div class="light-bg pt-5 overflow-hidden position-relative" data-controller="bubbles" data-action="scroll->bubbles#connect">
-  <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2 bring-forward">
-    <div class="big-title-resp max-width-500 full-width" data-controller="contact">
-      <h1 class="d-none">Demain Works : le mécénat de compétences à l'intiative des employés</h1>
-      <h2 class="primary-text-color mb-3">talents engagés & solidaires</h2>
-      <h4 class="mb-3">Demain permet aux personnes salariées de s'engager sur leur temps de travail auprès d'organismes d'intérêt général</h4>
-    </div>
-    <div class="rounded-20 pt-2 pb-2 max-width-500">
-      <%= image_tag("homepage.svg", class: "full-width", alt: "employée alliant un job rémunéré avec un engagement associatif") %>
-    </div>
-  </div>
-  <div class="bubble-ctn">
-    <% 6.times do %>
-      <span class="bubble" data-bubbles-target="bubble"></span>
-    <% end %>
-  </div>
-  <div class="position-relative">
-    <%= link_to offers_path, class: "fat-btn d-flex justify-content-between align-items-center homepage-main-cta-position" do %>
-      <span></span>
-      <strong>Trouver une mission</strong>
-      <i class="fa-solid fa-magnifying-glass round-button white-bg"></i>
-    <% end %>
-    <%= image_tag('purple_triangle.svg', class: "tilted-ctn") %>
-  </div>
-  <div class="full-width pb-5 dark-bg"></div>
-</div>
+<div data-controller="swipe" data-action="click->swipe#refocus">
 
-
-<%= render partial: "offer_carousel", locals: {offers: @offers} %>
-
-<%= image_tag('purple_triangle.svg', class: "tilted-ctn flip-hz") %>
-
-<div class="white-bg pt-5 pb-5 flex-resp ctn-resp justify-content-between">
-
-    <div class="full-width max-width-500 mg-resp-r">
-      <div class="full-width mb-5">
-        <h2 class="mb-3 fs-1">vous êtes...</h2>
-        <p class="mb-2">Que vous soyez un organisme d'intérêt général (association, fondation, ...), une entreprise (responsable RSE, DRH, manager...) ou un·e salarié·e  souhaitant s'engager <span class="stress">Demain est là pour vous accompagner</span></p>
-        <p>Notre mission : mettre le talent et les compétences professionnelles au service de l'intérêt général, en conciliant les intérêts de toutes les parties prenantes</p>
+  <div class="bg-white md-resp-bg-main md-resp-text-white pt-50 md-resp-pt-0 overflow-hidden position-relative">
+    <div class="ctn-resp flex-center-evenly md-resp-flex-col pt-60 pb-100 bring-forward">
+      <div class="round-20 pt-2 pb-2 max-w-500 position-relative">
+        <%= image_tag("homepage.svg", class: "full-width", alt: "employée alliant un job rémunéré avec un engagement associatif") %>
+        <span class="bottom-fader d-none md-resp-present fade-dark h-50"></span>
       </div>
-      <div class="home-info-card full-width">
-        <div class="d-flex justify-content-between mb-3 align-items-center ">
-          <h4 class="primary-text-color">acteur de l'intérêt général</h4>
-          <h4 class="primary-text-color"><i class="fa-solid fa-hand-holding-heart"></i></h4>
-        </div>
-        <p>Associations, fondations et autres acteurs de l’intérêt général : intégrez durablement des compétences pour tous vos besoins support moyen ou long-terme, quel que soit votre budget</p>
-        <%= link_to "plus d'infos", nonprofits_path, class: "button-round" %>
+      <div class="max-w-500 full-width md-resp-ml-0 ml-100 md-resp-pb-80">
+        <h1 class="d-none">Demain Works : le mécénat de compétences à l'intiative des employés</h1>
+        <h2 class="fs-60 mb-3">talents engagés & solidaires</h2>
+        <h4 class="mb-3">Demain permet aux personnes salariées de s'engager sur leur temps de travail auprès d'organismes d'intérêt général</h4>
       </div>
     </div>
+    <%= image_tag('purple_triangle_light.svg', class: "tilted-ctn") %>
+    <div class="full-width pb-5 bg-shade"></div>
+  </div>
 
-    <div class="full-width mt-5 card-offset-resp d-flex flex-column align-items-center max-width-500 mg-resp-l">
-      <div class="home-info-card full-width mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="primary-text-color">salarié·e d'entreprise</h4>
-          <h4 class="primary-text-color"><i class="fa-solid fa-user"></i></h4>
+
+  <div class="bg-shade position-relative pt-50 pb-50" data-controller="contact">
+    <%= render partial: "pages/contact" %>
+    <div class="flex-center position-absolute home-cards-ctn" data-swipe-target="ctn" data-focus="1">
+
+        <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <h5 class="mb-10">candidat.es</h5>
+          <p class="overflow-hidden hover-2">Mettez vos compétences au service d'une cause qui vous tient à cœur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
+          <%= image_tag('home_illustration_1.svg', class: "hover-2 pe-none") %>
+          <div>
+          </div>
+          <em class="hover-2 flex-center-between bg-flag-1" data-action="click->swipe#keep">
+            <%= link_to offers_path, class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0" do %>
+              <span></span>
+              <strong>Je m'engage !</strong>
+              <i class="fa-solid fa-heart round-button bg-white"></i>
+            <% end %>
+          </em>
         </div>
-        <p>Mettez vos compétences au service d'une cause qui vous tient à coeur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
-        <%= link_to "plus d'infos", candidates_path, class: "button-round" %>
-      </div>
-      <div class="home-info-card full-width">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="primary-text-color">manager, professionnel RH ou RSE</h4>
-          <h4 class="primary-text-color"><i class="fa-solid fa-building"></i></i></h4>
+
+        <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <h5 class="mb-10">entreprises</h5>
+          <p class="overflow-hidden hover-2">Mobilisez votre entreprise autour d’initiatives à fort impact sociétal en y associant de manière ciblée des collaborateurs en quête de sens</p>
+          <%= image_tag('home_illustration_2.svg', class: "hover-2 pe-none") %>
+          <div>
+          </div>
+          <em class="hover-2 flex-center-between bg-flag-2">
+            <%= link_to '', class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup"} do %>
+              <span></span>
+              <strong>Discutons-en !</strong>
+              <i class="fa-solid fa-phone round-button bg-white"></i>
+            <% end %>
+          </em>
         </div>
-        <p>Une démarche RH et RSE différenciante et véritablement impactante : permettez aux talents engagés de partager durablement leur temps de travail et leurs compétences avec des associations qui leur correspondent</p>
-        <%= link_to "plus d'infos", companies_path, class: "button-round" %>
-      </div>
+
+        <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <h5 class="mb-10">associations</h5>
+          <p class="overflow-hidden hover-2">Attirez les compétences utiles à la professionnalisation, la structuration ou la digitalisation de votre organisation</p>
+          <%= image_tag('home_illustration_3.svg', class: "hover-2 pe-none") %>
+          <div>
+          </div>
+          <em class="hover-2 flex-center-between bg-flag-3">
+            <%= link_to '', class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup"} do %>
+              <span></span>
+              <strong>Discutons-en !</strong>
+              <i class="fa-solid fa-phone round-button bg-white"></i>
+            <% end %>
+          </em>
+        </div>
 
     </div>
-</div>
-
-<div class="pb-5 white-bg" data-controller="contact">
-  <div class="white-bg d-flex justify-content-center">
-    <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
-      <span></span>
-      <strong>Discutons-en !</strong>
-      <i class="fa-solid fa-phone round-button white-bg"></i>
-    <% end %>
   </div>
-  <%= render partial: "pages/contact" %>
-</div>
-<%= image_tag('purple_triangle_light.svg', class: "tilted-ctn white-bg") %>
 
-<div class="ctn-resp shaded-bg pt-5 pb-5">
-  <h4 class="primary-text-color center-text mb-5">nous les accompagnons</h4>
-  <div class="row align-items-center justify-content-center">
-    <% @beneficiaries.each do |b| %>
-      <% if b.logo.attached? %>
-        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
-          <%= link_to b.home_url(beneficiary_path(b)), target: (b.home_url(beneficiary_path(b)) == b.web_url && b.web_url.present? ? "_blank" : "_self"), class: "d-flex align-items-center full-width" do %>
-            <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Logo de l'association #{b.name}") %>
-          <% end %>
-        </div>
+  <%= image_tag('purple_triangle_light.svg', class: "tilted-ctn flip-hz") %>
+
+  <div class="ctn-resp bg-white pb-50 flex-center-between md-resp-flex-col">
+    <div class="embedded-cards xs-resp-resize-60 sm-resp-resize-70 md-resp-resize-80 lg-resp-resize-90 md-resp-order-2">
+      <%= link_to offers_path(function: "IT/Data/Produit"), class: "p-20 round-20 grey-border embedded-card" do %>
+          <h5 class="mb-10">Product management</h5>
+          <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>1 jour / semaine</h6></span>
+          <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>5 mois</h6></span>
       <% end %>
-    <% end %>
+      <%= link_to offers_path(function: "Ressources Humaines"), class: "p-20 round-20 grey-border embedded-card" do %>
+        <h5 class="mb-10">Gestion RH</h5>
+        <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>2 jours / semaine</h6></span>
+        <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>2 mois</h6></span>
+      <% end %>
+      <%= link_to offers_path(function: "Ventes/Business Development"), class: "p-20 round-20 grey-border embedded-card" do %>
+        <h5 class="mb-10">Business development</h5>
+        <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>2 jours / mois</h6></span>
+        <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>12 mois</h6></span>
+      <% end %>
+      <%= image_tag('yellow_shape_1.svg', class:"") %>
+      <%= image_tag('home_illustration_4.svg', class:"max-w-300") %>
+    </div>
+    <div class="md-resp-order-1 ml-40 lg-resp-ml-0">
+      <h3 class="mb-20 md-resp-pt-20">L’engagement en compétences qui fait la différence</h3>
+      <p class="mb-20">Demain propose des missions qui nécessitent un engagement de quelques jours par mois à plusieurs par semaine au sein d’associations ayant des besoins en compétences tech, RH, sales ou encore juridiques</p>
+      <%= link_to offers_path, class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
+        <span></span>
+        <strong>Voir les missions</strong>
+        <i class="fa-solid fa-magnifying-glass round-button bg-white"></i>
+      <% end %>
+    </div>
   </div>
+
+
+  <div class="ctn-resp bg-grey pt-80 position-relative">
+    <h3 class="round grey-border testimony-title">talents heureux</h3>
+    <div class="flex-between sm-resp-flex-col">
+
+      <blockquote class="testimony mb-40">
+        <div class="flex-center-left mb-20">
+          <%= image_tag("karim.jpg", class: "round square-40 mr-20") %>
+          <div>
+            <cite class="fw-6">Karim</cite>
+            <cite>Consultant IT</cite>
+          </div>
+        </div>
+        <div class="position-relative pl-10 pt-10 w-100">
+          <%= image_tag('quote_sign.svg') %>
+          <p>Grâce à Demain, mon entreprise m’a permis de réaliser une mission pro bono pour aider une association dans le cadre de sa transformation digitale</p>
+        </div>
+      </blockquote>
+
+      <blockquote class="testimony mb-40 ml-20 sm-resp-ml-0 mr-20 sm-resp-mr-0">
+        <div class="flex-center-left mb-20">
+          <%= image_tag("patricia.jpg", class: "round square-40 mr-20") %>
+          <div>
+            <cite class="fw-6">Patricia</cite>
+            <cite>Responsable RH</cite>
+          </div>
+        </div>
+        <div class="position-relative pl-10 pt-10 w-100">
+          <%= image_tag('quote_sign.svg') %>
+          <p>En me laissant consacrer 3 jours par mois à une association qui m’est chère, mon entreprise m’a permis de retrouver du sens dans mon métier et un meilleur équilibre personnel</p>
+        </div>
+      </blockquote>
+
+      <blockquote class="testimony mb-40">
+        <div class="flex-center-left mb-20">
+          <%= image_tag("julie.jpg", class: "round square-40 mr-20") %>
+          <div>
+            <cite class="fw-6">Julie</cite>
+            <cite>Chargée de Marketing Digital</cite>
+          </div>
+        </div>
+        <div class="position-relative pl-10 pt-10 w-100">
+          <%= image_tag('quote_sign.svg') %>
+          <p>Demain m’a permis de trouver une asso géniale dans laquelle exercer et développer de nouvelles compétences en lien avec mon projet de reconversion</p>
+        </div>
+        </blockquote>
+
+    </div>
+  </div>
+
+
+  <div class="ctn-resp bg-white pt-50 pb-50">
+    <div class="flex-center-between md-resp-flex-col">
+      <div>
+        <h3>Demain simplifie le partage des compétences</h3>
+        <p class="mb-20">Notre mission : mettre le talent et les compétences professionnelles au service de l'intérêt général, en conciliant les intérêts de toutes les parties prenantes</p>
+        <div class="d-flex">
+          <i class="fa-regular fa-circle-check min-w-40 text-flag-1 fs-25 va-top"></i>
+          <span>Talents salariés, en disponibilité ou indépendants</span>
+        </div>
+        <div class="d-flex mt-10 mb-10">
+          <i class="fa-regular fa-circle-check min-w-40 text-flag-2 fs-25 va-top"></i>
+          <span>Equipes RH et RSE au sein d’entreprises, petites ou grandes</span>
+        </div>
+        <div class="d-flex">
+          <i class="fa-regular fa-circle-check min-w-40 text-flag-3 fs-25 va-top"></i>
+          <span>Fondations, associations et autres organismes d’intérêt général</span>
+        </div>
+      </div>
+      <%= image_tag('home_illustration_5.svg', class: "w-100 max-w-500 pl-40 md-resp-pr-40 md-resp-pt-40") %>
+    </div>
+  </div>
+
+  <div class="ctn-resp bg-shade pt-5 pb-5">
+    <h4 class="text-main center-text mb-5">nous les accompagnons</h4>
+    <div class="row align-items-center justify-content-center">
+      <% @beneficiaries.each do |b| %>
+        <% if b.logo.attached? %>
+          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
+            <%= link_to b.home_url(beneficiary_path(b)), target: (b.home_url(beneficiary_path(b)) == b.web_url && b.web_url.present? ? "_blank" : "_self"), class: "d-flex align-items-center full-width" do %>
+              <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Logo de l'association #{b.name}") %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
 </div>

@@ -1,37 +1,83 @@
-<div class="profile-form-wrapper white-bg ctn-resp-sheet sheet-pad full-height-ctn" data-controller="profile-form">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-      <ul class="pill-tag-list step-pills m-0">
-        <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step1" data-profile-form-target="button" data-active>Infos</li>
-        <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step2" data-profile-form-target="button">Expérience</li>
-        <li class="me-1 mt-1 mb-1" data-action="click->profile-form#step3" data-profile-form-target="button">Engagement</li>
-      </ul>
-    <div>
-      <div class="d-flex align-items-center save-ctn-resp">
-        <p class="sm-thin-text primary-text-color">sauvegarder <i class="fa-solid fa-arrow-right-long me-2"></i></p>
-        <i class="fa-solid fa-floppy-disk round-button btn-round-cta" data-profile-form-target="save" data-action="click->profile-form#save"></i>
-        <div class="round-button btn-round-cta d-none" data-profile-form-target="loader">
-          <span class="round-button loader"></span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="ctn-resp pt-50 bg-white">
+  <div class="full-height-ctn flex-stretch-center md-resp-flex-col pb-50">
 
-  <div data-controller="experience">
-    <%= simple_form_for(@candidate, html: {'data-profile-form-target': "form"}) do |f| %>
-      <div class="step-ctn">
-        <%= render partial: "step1", locals: {candidate: @candidate, f: f} %>
-        <%= render partial: "step2", locals: {candidate: @candidate, f: f} %>
-        <%= render partial: "step3", locals: {candidate: @candidate, f: f} %>
-      </div>
-      <div class="d-flex justify-content-end">
-        <%= link_to "Retour", candidate_path(@candidate), class: "button btn-light-flag me-2" %>
-        <%= f.submit "Terminer", data: {"profile-form-target": 'submit', action: 'click->profile-form#save'}, class: "button btn-flag-color" %>
-      </div>
-    <% end %>
-    <div class="modal-bg" data-modal-target="window" data-experience-target="window" data-action="click->modal#close">
-      <div data-experience-target="content">
-        <%= render partial: "experiences/new_xp", locals: {experience: @experience, candidate: @candidate} %>
-      </div>
+    <% active = 3 %>
+    <%= render partial: "devise/registrations/navpan", locals: {active: active} %>
+
+    <div class="w-100 p-40 md-resp-p-0 md-resp-pt-20" data-controller="candidacy">
+      <h5 class="mb-10">Mon profil</h5>
+      <h6 class="mb-20">Informations principales</h6>
+
+      <% c_pic = @candidate.photo.attached? ? cl_image_tag(@candidate.photo.key, class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) : cl_image_tag('../no_avatar.svg', class: "big-rounded-avatar", width: 180, height: 180, gravity: "faces", crop: "fill", data: {'profile-form-target': 'picactual'}) %>
+
+      <%= simple_form_for(@candidate, html: { class: "max-w-400", data: {controller: "profile-form", "candidacy-target": "form"}}) do |f| %>
+
+        <div class="position-relative mb-10">
+          <%= c_pic %>
+          <%= image_tag "", class: "d-none big-rounded-avatar pic-resized", data: {'profile-form-target': 'picpreview'} %>
+          <%= f.input :photo,
+                      as: :file,
+                      input_html: { class: 'd-none',
+                      data: {'profile-form-target': 'picinput', 'action': 'change->profile-form#preview'} },
+                      label_html: { class: 'upload-photo'},
+                      label: ('<i class="fa-solid fa-camera me-2"></i>Modifier').html_safe %>
+        </div>
+
+        <div class="input-with-2-icons mb-10 position-relative">
+          <%= f.input :status,
+                      label: 'Ma situation professionnelle',
+                      collection: Candidate::STATUSES,
+                      selected: @candidate.status,
+                      input_html: {class: "input-form", data: {action: "change->candidacy#toggle"}},
+                      wrapper: false %>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-angle-down pe-none"></i>
+        </div>
+        <div class="input-with-icon mb-10 position-relative">
+          <%= f.input :employer_name,
+                      label: 'Mon employeur',
+                      input_html: {class: "input-form", data: {"candidacy-target": "employer"}},
+                      wrapper: false %>
+          <i class="fa-solid fa-building"></i>
+        </div>
+
+        <div class="input-with-icon mb-10">
+          <%= f.input :linkedin_url,
+                      label: "Ma page LinkedIn",
+                      wrapper: false %>
+          <i class="fa-brands fa-linkedin-in"></i>
+        </div>
+
+        <div class="flex-center-between mb-20" data-controller="progress">
+          <div class="overflow-hidden">
+            <label for="candidate_cv" class="label-form">Mon CV</label>
+            <% if @candidate.cv.present? %>
+                <p data-progress-target="cvmsg" class="fs-10 text-ellipsis">
+                  CV transmis.
+                  <%= link_to 'Télécharger', cl_image_path(@candidate.cv.key), target: "_blank", class: "fw-6 text-main" %></p>
+                </p>
+            <% end %>
+          </div>
+          <div class="flex-shrink-0">
+            <% if @candidate.cv.present? %>
+              <%= image_tag('valid.svg', class: "feedback-mark me-10") %>
+            <% end %>
+            <%= f.input :cv,
+                        as: :file,
+                        input_html: { class: 'd-none', data: {'progress-target': 'cv', action: 'change->progress#cv'}},
+                        label: ('<i class="fa-regular fa-file mb-0 me-2"></i>Choisir un fichier').html_safe,
+                        wrapper: false,
+                        label_html: { class: 'upload'} %>
+          </div>
+        </div>
+
+        <%= hidden_field_tag 'source', "edit" %>
+
+        <div class="flex-center-right">
+          <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>

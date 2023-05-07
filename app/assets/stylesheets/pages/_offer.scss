@@ -57,7 +57,7 @@
 }
 
 .resp-lhs-padding{
-  padding-right: 0;
+  padding-right: 0 !important;
   .title{
     padding-top: 3rem;
   }
@@ -131,14 +131,6 @@
   top: -5vh;
   right: 0;
   height: 5vh;
-}
-
-.grey-fade{
-  background: linear-gradient(rgba(250, 250, 250, 0), rgba(250, 250, 250, 0.7) 20%, #fafafa 80%, #fafafa);
-}
-
-.white-fade{
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7) 20%, white 80%, white);
 }
 
 .offer-preview-ctn{
@@ -221,5 +213,31 @@
   transition: ease-in-out 0.2s;
   @media(min-width: 1000px) {
     display: none;
+  }
+}
+
+.preview-box{
+  display: flex;
+  flex-direction: column;
+  >div:last-child{
+    margin-top: 10px;
+    margin-left: 0;
+  }
+  @media (min-width: $bp-xs) and (max-width: $bp-md) {
+    flex-direction: row;
+    >div:last-child{
+      margin-top: 0;
+      margin-left: 20px;
+    }
+  }
+  @media (min-width: $bp-md) and (max-width: $bp-lg) {
+    flex-direction: column;
+  }
+  @media (min-width: $bp-lg) {
+    flex-direction: row;
+    >div:last-child{
+      margin-top: 0;
+      margin-left: 10px;
+    }
   }
 }

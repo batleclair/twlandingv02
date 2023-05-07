@@ -27,10 +27,12 @@ class Experience < ApplicationRecord
   end
 
   def end_date_output
+    return if !end_date.present?
     "#{end_date[5..]}/#{end_date[0..3]}"
   end
 
   def start_date_output
+    return if !start_date.present?
     "#{start_date[5..]}/#{start_date[0..3]}"
   end
 end

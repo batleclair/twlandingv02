@@ -1,49 +1,169 @@
-<div class="profile-form-wrapper ctn-resp-sheet sheet-pad white-bg full-height-ctn" data-controller="new-profile">
+<div class="ctn-resp bg-white pt-50">
 
-  <h4 class="primary-text-color mb-5">Il nous manque quelques infos pour finaliser ton compte</h4>
+  <div class="d-flex full-height-ctn">
 
-  <%= simple_form_for(@candidate, url: candidates_synch_path, data: {"new-profile-target": "form", action: "submit->new-profile#save"}) do |f| %>
-    <div>
+    <div class="bg-shade round-top-right login-img-ctn mr-50 flex-center w-100 sm-resp-hide p-20">
+      <div>
+        <%= image_tag('profile_illustration.svg', class: "w-100 max-w-400") %>
+      </div>
+    </div>
 
-      <div class="flex-resp custom-label mb-3">
-        <label for="candidate_phone_num" class="me-3 flex-width-150">Téléphone :</label>
-        <%= f.input :phone_num, label: false, wrapper_html: {class: 'full-width'} %>
+    <div class="pt-50 pb-50 w-100">
+      <div class="mb-20 sticky-form-title-ctn">
+        <h2 class="mb-10">Complétez votre profil</h2>
+        <p>Nous aimerions mieux vous connaître pour vous proposer les missions et associations les plus adaptées !</p>
       </div>
 
-      <div class="flex-resp custom-label mb-3">
-        <label for="candidate_linkedin_url" class="me-3 flex-width-150">Page LinkedIn :</label>
-        <%= f.input :linkedin_url, label: false, wrapper_html: {class: 'full-width'} %>
-      </div>
+      <div data-controller="candidacy">
+        <%= simple_form_for(@candidate, html: { class: "max-w-400", data: {controller: "profile-form", "candidacy-target": "form"}}) do |f| %>
 
-      <div class="flex-resp custom-label mb-3">
-        <label for="candidate_cv" class="me-3 inline-label">CV :</label>
-        <%= f.input :cv,
-                    as: :file,
-                    input_html: { class: 'd-none', data: {'profile-form-target': 'cv', action: 'change->profile-form#cv'}},
-                    label: ('<i class="fa-regular fa-file mb-0 me-2"></i>Fichier').html_safe,
-                    label_html: { class: 'upload'} %>
-      </div>
+          <div class="mb-40">
+            <h5 class="text-main mb-10">😊 Mieux vous connaître, <%= current_user.first_name %></h5>
 
-      <div class="flex-resp custom-label">
-        <label for="" class="inline-label me-3">Situation :</label>
-        <%= f.input :status,
-                    collection: [['ft_employee', 'Salarié.e temps plein'], ['pt_employee', 'Salarié.e temps partiel'], ['freelance', 'Indépendant.e'], ['inactive', 'Sans activité']],
-                    label_method: :last,
-                    value_method: :first,
-                    as: :radio_buttons,
-                    item_wrapper_class: "radio-button-ctn",
-                    input_html: {data: {action: 'change->new-profile#hide'}} %>
-      </div>
+            <div class="mb-10 position-relative">
+              <%= f.input :description,
+                          input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                          label: false,
+                          placeholder: "Je me présente en quelques mots",
+                          wrapper: false %>
+            </div>
 
-      <div class="flex-resp custom-label mb-3" data-new-profile-target="company">
-        <label for="candidate_employer_name" class="me-3 flex-width-150">Employeur :</label>
-        <%= f.input :employer_name, label: false, wrapper_html: {class: 'full-width'} %>
+            <% if @candidate.birth_date.nil? %>
+              <div class="mb-10 birth-date-ctn">
+                <%= f.input :birth_date,
+                            as: :date,
+                            label: "Date de naissance",
+                            start_year: Date.today.year - 70,
+                            end_year: Date.today.year - 18,
+                            use_month_numbers: true,
+                            order: [:day, :month, :year],
+                            include_blank: true,
+                            wrapper: false %>
+              </div>
+            <% end %>
+
+            <% if @candidate.location.blank? %>
+              <div class="mb-10 position-relative">
+                <%= f.input :location,
+                            label: "Où j'habite",
+                            wrapper: false %>
+              </div>
+            <% end %>
+
+            <% if @candidate.phone_num.blank? %>
+              <div id="candidate_phone_num_wrapper" class="input-with-icon mb-10">
+                <%= f.input :phone_num,
+                            label: "Mon numéro de téléphone",
+                            wrapper: false %>
+                <i class="fa-solid fa-phone"></i>
+              </div>
+            <% end %>
+          </div>
+
+          <% if !@candidate.min_info_present? %>
+            <div class="mb-40">
+              <h5 class="text-main mb-10">💼 Votre profil professionnel</h5>
+              <%= render partial: "candidates/min_info", locals: {f: f, candidate: @candidate} %>
+            </div>
+          <% end %>
+
+          <div class="mb-40">
+            <h5 class="text-main mb-10">💪 Comment vous pouvez aidez</h5>
+            <div class="input-with-2-icons mb-10 position-relative">
+              <%= f.input :function,
+                          label: "Mon domaine de compétences",
+                          collection: Candidate::FUNCTIONS,
+                          selected: @candidate.function,
+                          include_blank: true,
+                          input_html: {class: "input-form"},
+                          wrapper: false %>
+              <i class="fa-solid fa-briefcase"></i>
+              <i class="fa-solid fa-angle-down pe-none"></i>
+            </div>
+
+            <div class="mb-10">
+              <%= f.input :skill_list,
+                          input_html: {value: @candidate.skill_list.join(","), data: {controller: "tom-select"}},
+                          placeholder: "Ajouter des compétences détaillés",
+                          label: false,
+                          wrapper: false %>
+            </div>
+
+            <div class="mb-20 position-relative">
+              <%= f.input :volunteering,
+                          label: 'Mes expériences de mécénat / bénévolat',
+                          input_html: {class: "min-h-100"},
+                          wrapper: false %>
+            </div>
+          </div>
+
+          <div class="mb-40">
+            <h5 class="text-main mb-10">💜 L'engagement qui vous conviendrait</h5>
+
+            <div class="mb-10">
+              <label class="label-form">Les causes qui me tiennent à coeur</label>
+              <div class="custom-checkbox-ctn">
+                <%= f.input :primary_cause,
+                            label: false,
+                            collection: Beneficiary::GOALS,
+                            as: :check_boxes,
+                            wrapper: false %>
+              </div>
+            </div>
+
+            <div class="slider-ctn mb-10 position-relative" data-controller="slider" data-slider-type="frequency">
+              <label for="availability" class="label-form">Mes Disponibilités</label>
+              <div class="flex-center-left">
+                <i class="fa-regular fa-clock text-main mr-10"></i>
+                <%= f.input :availability,
+                            as: :range,
+                            label: false,
+                            error: false,
+                            input_html: {min: "0", max:"3", value: @candidate.availability.present? ? @candidate.availability : 0, data: {"slider-target": "input", 'action': "input->slider#update"}},
+                            wrapper: false %>
+                <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>
+              </div>
+              <%= f.error :availability, id: "availability_error", class:"invalid-msg" %>
+            </div>
+
+            <div class="mb-10">
+              <%= f.input :availability_details,
+                          input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                          label: false,
+                          placeholder: "Des contraintes ou disponibilités particulières ?",
+                          wrapper: false %>
+            </div>
+
+            <div class="flex-center-between position-relative mb-10">
+              <%= f.input :remote_work,
+                          as: :boolean,
+                          label: "Je peux travailler 100% à distance",
+                          label_html: {class: "no-wrap"},
+                          input_html: { class: "toggle" },
+                          wrapper: false %>
+            </div>
+          </div>
+
+          <div class="mb-10">
+            <h5 class="text-main mb-10">🙌 Un dernier mot pour nous ?</h5>
+
+            <%= f.input :comment,
+                        input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                        label: false,
+                        placeholder: "Merci !",
+                        wrapper: false %>
+          </div>
+
+          <%= hidden_field_tag 'source', "new" %>
+
+          <div class="flex-center-right">
+            <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+          </div>
+        <% end %>
       </div>
 
     </div>
-    <div class="d-flex justify-content-end">
-      <%= f.submit "Terminer", "data-profile-form-target": 'submit', class: "button btn-flag-color" %>
-    </div>
-  <% end %>
 
+
+  </div>
 </div>

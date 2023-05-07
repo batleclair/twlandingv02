@@ -32,6 +32,12 @@ class ApplicationController < ActionController::Base
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, candidate_attributes: [:location, :birth_date, :phone_num, :id]])
   # end
 
+  protected
+
+  def admin_authenticate
+    authorize current_user, :admin?
+  end
+
   private
 
   def skip_pundit?
@@ -46,9 +52,9 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || root_path
   end
 
-  def after_update_path_for(resource)
-    stored_location_for(resource) || root_path
-  end
+  # def after_update_path_for
+  #   edit_user_registration_path
+  # end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -58,7 +64,7 @@ class ApplicationController < ActionController::Base
         request.fullpath != "/users/sign_up" &&
         request.fullpath != "/users/password" &&
         request.fullpath != "/users/sign_out" &&
-        request.fullpath != "/users/edit" &&
+        # request.fullpath != "/users/edit" &&
         !request.xhr?) # don't store ajax calls
       session["user_return_to"] = request.fullpath
     end

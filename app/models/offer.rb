@@ -15,7 +15,7 @@ class Offer < ApplicationRecord
     'Stratégie/Conseil',
     'Ventes/Business Development',
     'Achats/Logistique',
-    'Administration',
+    # 'Administration',
     'Juridique',
     'Qualité/Environement'
   ]
@@ -37,6 +37,22 @@ class Offer < ApplicationRecord
     '👍 light',
     '👏 moyen',
     '🙌 costaud',
+  ]
+
+  REGIONS = [
+    'Auvergne-Rhône-Alpes',
+    'Bourgogne-Franche-Comté',
+    'Bretagne',
+    'Centre-Val de Loire',
+    'Corse',
+    'Grand Est',
+    'Hauts-de-France',
+    'Île-de-France',
+    'Normandie',
+    'Nouvelle-Aquitaine',
+    'Occitanie',
+    'Pays de la Loire',
+    "Provence-Alpes-Côte d'Azur"
   ]
 
   def active?

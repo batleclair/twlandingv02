@@ -1,61 +1,57 @@
 .menu{
   position: fixed;
   width: 100%;
-  background-color: $first-main-color;
+  background-color: white;
   padding: 0px 5vw;
   z-index: 3;
   height: 50px;
-  >div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    // margin-left: 40px;
-  }
   transition: ease-in-out 0.2s;
+
+  div[data-active-tab="true"], a[data-active-tab="true"]{
+    position: relative;
+    color: $first-main-color;
+    font-weight: 600;
+    a {
+      color: $first-main-color;
+    }
+    span{
+      height: 5px;
+      background-color: $first-main-color;
+      width: 20px;
+      position: absolute;
+      bottom: 0;
+      display: block;
+    }
+  }
+  i{
+    &:hover{
+      color: $first-main-color;
+    }
+  }
+
+  .btn-light-main{
+    margin-left: 10px;
+  }
 }
 
-.menu-light{
-  background-color: $first-light-color;
-  .white-text{
-    color: $first-main-color;
-  }
-  .white-link{
-   color: $first-main-color;
-   &:hover{
-    color: $first-main-color;
-   }
-  }
-  .btn-white-on-main{
-    background-color: $first-light-color;
-    border: solid 2px $first-main-color;
-    color: $first-main-color;
-    font-weight: 400;
-    &:hover {
+.sm-logo{
+  height: 20px;
+}
+
+.xl-logo{
+  height: auto;
+  width: 50vw;
+  max-width: 250px;
+  display: none;
+}
+
+.tab{
+  min-width: 115px;
+  height: 50px;
+  &:hover{
+    font-weight: 600;
+    a{
       color: $first-main-color;
-      background-color: $first-light-darker;
-      font-weight: 400;
-    }
-  }
-  .tabs-ctn{
-    .tab{
-      >div{
-        background-color: $first-light-color;
-      }
-    }
-    .dropdown-tab{
-      >div{
-        background-color: $first-light-color;
-      }
-      .dropdown-arrow{
-        >i{
-          color: $first-main-color;
-          font-weight: bolder;
-        }
-      }
-      .dropdown-options{
-        background-color: $first-light-color;
-      }
     }
   }
 }
@@ -81,78 +77,11 @@
   display: none;
 }
 
-.sm-logo{
-  height: 20px;
-}
-
 .user-nav-box {
   text-align: end;
 }
 
-.tabs-ctn{
-  display: flex;
-  height: 100%;
-  position: relative;
-  .tab{
-    height: 100%;
-    >div{
-      display: flex;
-      align-items: flex-end;
-      height: 70%;
-      background-color: $first-main-color;
-    }
-  }
-  .dropdown-tab{
-    height: 100%;
-    position: relative;
-    cursor: pointer;
-    >div{
-      display: flex;
-      align-items: flex-end;
-      height: 70%;
-      background-color: $first-main-color;
-      >div:first-child{
-        display: flex;
-      }
-    }
-    .dropdown-arrow{
-      height: 20px;
-      width: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: ease-in-out 0.2s;
-      align-self: center;
-      >i{
-        color: white;
-        font-weight: bolder;
-      }
-    }
-    .dropdown-options{
-      display: flex;
-      flex-direction: column;
-      background-color: $first-main-color;
-      position: absolute;
-      top: -150px;
-      z-index: -1;
-      transition: ease-in-out 0.2s;
-      padding: 10px 20px;
-    }
-    &:hover{
-      .dropdown-options{
-      top: 50px;
-      transition: ease-in-out 0.2s;
-      }
-      .dropdown-arrow{
-      transform: rotate(90deg);
-      transition: ease-in-out 0.2s;
-      }
-    }
-  }
-}
-
-
-@media(max-width: 1000px) {
+@media(max-width: $bp-md) {
   .burger-icon{
     display: block;
   }
@@ -161,51 +90,43 @@
     padding-top: 20vw;
     height: 100vh;
     translate: -100vw;
-    >div{
-      flex-direction: column;
-      justify-content: space-around;
+    background-color: $first-main-color;
+    color: white;
+    .sm-logo{
+      display: none;
+    }
+    .xl-logo{
+      display: block;
+      margin-bottom: 100px;
+    }
+    .btn-light-main{
       margin-left: 0px;
+      margin-top: 50px;
+      background-color: $first-main-color;
+      border: solid white 1px;
+    }
+    >div{
+      a, i{
+        color: white !important;
+      }
+    }
+  }
+  .tab{
+    height: 50px;
+  }
+  div[data-active-tab="true"], a[data-active-tab="true"]{
+    color: white !important;
+    a, i{
+      color: white !important;
     }
   }
   .menu-expand{
     translate: 0vw;
   }
-
-  .tabs-ctn{
-    display: block;
-    height: auto;
-    .tab{
-      height: auto;
-      >div{
-        justify-content: center;
-        height: auto;
-      }
-    }
-    .dropdown-tab{
-      height: auto;
-      position: unset;
-      >div{
-        display: block;
-        height: auto;
-        >div:first-child{
-          display: none;
-        }
-      }
-      .dropdown-options{
-        position: unset;
-        >a{
-          text-align: center;
-        }
-       }
-    }
-  }
-
-  .sm-logo{
-    height: auto;
-    width: 50vw;
-    max-width: 250px;
-  }
   .user-nav-box {
     text-align: center;
+    >p{
+      color: white;
+    }
   }
 }

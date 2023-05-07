@@ -1,92 +1,95 @@
-<div class="modal-bg" data-contact-target="window" data-modal-target="window" data-action="click->modal#close">
-<div>
-  <div class="d-flex justify-content-between form-header" data-action="click->modal#keep">
-    <h5>Vos coordonnées</h5>
-    <h5><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
-  </div>
-  <div class="modal-inner" data-action="click->modal#keep">
-    <div class="modal-body">
-      <div>
-        <%= simple_form_for(@contact) do |f| %>
-          <div class="form-wrapper">
-            <h6 class="inline-label">Prénom</h6>
-            <%= f.input :first_name,
-                        label: false,
-                        wrapper: false,
-                        class: "inline-field" %>
-          </div>
-          <p id="first_name_errors" class="sm-red-msg"></p>
+<div class="modal modal-right hidden" data-modal-target="window" data-contact-target="window" data-action="click->modal#close">
+  <div>
+    <div class="max-w-400 bg-white round-10 shadow-xl p-20" data-action="click->modal#keep">
+      <div class="flex-center-between mb-20">
+        <h5 class="text-main fw-5">Demande de contact</h5>
+        <i class="fa-solid fa-xmark text-main square-30 first-main-border round flex-shrink-0 flex-center" data-modal-target="close" data-action="click->modal#close"></i>
+      </div>
 
-          <div class="form-wrapper">
-            <h6 class="inline-label">Nom</h6>
-            <%= f.input :last_name,
-                        label: false,
-                        wrapper: false,
-                        class: "inline-field" %>
-          </div>
-          <p id="last_name_errors" class="sm-red-msg"></p>
 
-          <div class="form-wrapper">
-            <h6 class="inline-label">E-Mail</h6>
-            <%= f.input :email,
-                        label: false,
-                        wrapper: false,
-                        class: "inline-field" %>
-          </div>
-          <p id="email_errors" class="sm-red-msg"></p>
 
-          <div class="form-wrapper">
-            <h6 class="inline-label">Téléphone</h6>
-            <%= f.input :phone_num,
-                        label: false,
-                        wrapper: false,
-                        class: "inline-field" %>
-          </div>
-          <p id="phone_num_errors" class="sm-red-msg"></p>
 
-          <div class="form-wrapper radio-box align-items-start">
-            <h6 class="inline-label">Vous êtes</h6>
+
+        <%= simple_form_for(@contact, data: {turbo: false, "contact-target": "form", action: "submit->contact#save"}) do |f| %>
+
+          <div id="contact_contact_type_wrapper" class="input-with-2-icons mb-15 position-relative">
               <%= f.input :contact_type,
-                          label:'Vous êtes un/une :',
+                          label:'Vous êtes',
                           collection: [['Association', "Une association"], ['Candidat', 'Un ou une candidate'], ['Entreprise', 'Une entreprise']],
                           label_method: :last,
                           value_method: :first,
-                          as: :radio_buttons,
-                          input_html: {data: {action: "change->contact#show"}},
-                          item_wrapper_class: "radio-button-ctn" %>
+                          input_html: {class: "input-form", data: {action: "change->contact#toggle"}},
+                          wrapper: false %>
+            <i class="fa-solid fa-briefcase"></i>
+            <i class="fa-solid fa-angle-down pe-none"></i>
           </div>
-          <p id="contact_type_errors" class="sm-red-msg"></p>
 
-          <div data-contact-target="org" style="display: none;">
-            <div class="form-wrapper">
-              <h6 class="inline-label">Organisation</h6>
+          <div id="contact_organization_wrapper" class="input-with-icon mb-15 position-relative">
               <%= f.input :organization,
+                          input_html: {data: {"contact-target": "org"}},
                           label: false,
-                          wrapper: false,
-                          class: "inline-field" %>
-            </div>
-            <p id="organization_errors" class="sm-red-msg"></p>
+                          placeholder: "Nom de l'organisation",
+                          wrapper: false %>
+            <i class="fa-solid fa-building"></i>
           </div>
 
-          <div class="form-wrapper mb-3  align-items-start">
-            <h6 class="inline-label pt-2">Votre message</h6>
-            <%= f.input :message,
+          <div id="contact_first_name_wrapper" class="input-with-icon mb-15 position-relative">
+            <%= f.input :first_name,
                         label: false,
+                        placeholder: 'Votre prénom',
+                        wrapper: false %>
+            <i class="fa-solid fa-user"></i>
+          </div>
+
+          <div id="contact_last_name_wrapper" class="input-with-icon mb-15 position-relative">
+            <%= f.input :last_name,
+                        label: false,
+                        placeholder: 'Votre nom',
+                        wrapper: false %>
+            <i class="fa-regular fa-user"></i>
+          </div>
+
+          <div id="contact_email_wrapper" class="input-with-icon mb-15 position-relative">
+            <%= f.input :email,
+                        label: false,
+                        placeholder: 'Email',
+                        wrapper: false %>
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+
+          <div id="contact_phone_num_wrapper" class="input-with-icon mb-15 position-relative">
+            <%= f.input :phone_num,
+                        label: false,
+                        placeholder: 'Numéro de téléphone',
+                        wrapper: false %>
+            <i class="fa-solid fa-phone"></i>
+          </div>
+
+          <div id="contact_message_wrapper" class="mb-20 position-relative">
+            <%= f.input :message,
+                        label: 'Votre message',
                         wrapper: false,
-                        placeholder: "N'hésitez pas a nous en dire un peu plus",
-                        class: "inline-field" %>
+                        placeholder: "N'hésitez pas a nous en dire un peu plus" %>
           </div>
 
-          <div class="submission">
-              <%= recaptcha_tags %>
-              <button type="submit" class="button btn-main-color mt-3">Enregistrer</button>
+          <div id="">
+            <%= recaptcha_v3(action: 'contact', site_key: ENV['RECAPTCHA_PUBLIC_KEY']) %>
           </div>
-          <p id="errors" class="sm-red-msg"></p>
-          <p id="robot" class="sm-red-msg"></p>
 
-        <% end %>
-      </div>
+
+
+
+
+
+
+
+        <button type="submit" class="fat-btn fat-btn-md fat-btn-main-color position-relative d-flex justify-content-between align-items-center w-100 mt-20" data-action="click->candidacy#submit">
+          <span></span>
+          <strong class="fw-5">Envoyer</strong>
+          <i class="fa-regular fa-paper-plane round-button bg-white"></i>
+        </button>
+
+      <% end %>
     </div>
   </div>
-</div>
 </div>

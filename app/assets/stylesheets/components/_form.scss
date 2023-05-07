@@ -26,9 +26,6 @@
   margin-top: 20px;
   display: flex;
   align-items: center;
-  textarea{
-    min-height: 100px;
-  }
 }
 
 .sm-red-msg{
@@ -51,5 +48,204 @@
 @media(max-width: 740px) {
   .form-header{
     width: 90%;
+  }
+}
+
+.label-form{
+ font-weight: 500;
+ font-size: 15px;
+}
+
+.input-form{
+  display: block;
+  border-radius: 10px;
+  outline: none;
+  border: 1px rgb(200, 200, 200) solid;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: 0.2s ease-in-out;
+  &:focus{
+    outline: 1px $first-main-color solid;
+    border: 1px $first-main-color solid;
+    background-color: $first-light-lighter;
+    transition: 0.2s ease-in-out;
+  }
+  &:-webkit-autofill{
+    -webkit-fill-color: yellow !important;
+}
+}
+
+.input-with-icon{
+  position: relative;
+  i{
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    color: $first-main-color;
+  }
+  .input-form{
+    padding-left: 35px;
+  }
+}
+
+.input-with-2-icons{
+  position: relative;
+  i:first-of-type{
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    color: $first-main-color;
+  }
+  i:last-of-type{
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    color: rgb(200, 200, 200);
+  }
+  .input-form{
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+}
+
+.login-img-ctn{
+  max-height: 100vh;
+  position: sticky;
+  top: 50px;
+  background-color: $first-light-lighter;
+  >div{
+    max-width: 100%;
+  }
+}
+
+.login-form-ctn{
+  >div:first-of-type{
+    flex-grow: 1;
+    max-width: 350px;
+    width: 100%;
+  }
+}
+
+@media(max-width: $bp-sm) {
+  .login-img-ctn{
+    background-color: transparent;
+    position: unset;
+    text-align: center;
+  }
+  .login-form-ctn{
+    padding-right: 5vw;
+    >div:first-of-type{
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.invalid-msg{
+  position: absolute;
+  font-size: 12px;
+  color: $flag-color-2;
+  bottom: -16px;
+  right: 0;
+}
+
+.feedback-mark{
+  width: 13px;
+  height: 13px;
+}
+
+.invalid-input{
+  background-image: url('/assets/invalid.svg') !important;
+  background-size: 13px 13px;
+  background-position: 98%;
+  background-repeat: no-repeat;
+  transition: none;
+}
+
+.valid-input{
+  background-image: url('/assets/valid.svg');
+  background-size: 13px 13px;
+  background-position: 98%;
+  background-repeat: no-repeat;
+}
+
+.input-with-2-icons{
+  .valid-input + i + i, .invalid-input + div + i + i {
+    right: 25px;
+  }
+}
+
+.input-ctn{
+  position: relative;
+}
+
+.pill-dropdown{
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  option {
+    color: $first-main-darker;
+  }
+  option:checked {
+    background-color: $first-light-darker;
+  }
+  &:focus {
+    background-color: $first-light-color;
+    color: $first-main-darker;
+  }
+}
+/* For IE10 */
+.pill-dropdown::-ms-expand {
+  display: none;
+}
+
+.pill-dropdown-selected{
+  background-color: $first-main-color;
+  color: white;
+  &:focus {
+    background-color: $first-main-color;
+    color: white;
+  }
+  option {
+    background-color: $first-light-color;
+  }
+  + i {
+    color: white !important;
+  }
+}
+
+.readonly-input{
+  pointer-events: none;
+  background-color: #F4F4F4;
+  color: #c8c8c8;
+  + i {
+    color: #c8c8c8 !important;
+  }
+}
+
+.birth-date-ctn{
+  select:nth-of-type(2){
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.sticky-form-title-ctn{
+  position: sticky;
+  top: 50px;
+  padding-bottom: 40px;
+  background: linear-gradient(white, white 70%, rgba(255, 255, 255, 0.7) 90%, rgba(255, 255, 255, 0));
+  z-index: 2;
+}
+
+@media(max-width: $bp-sm) {
+  .sticky-form-title-ctn{
+   position: unset;
+   background: none;
+   padding-bottom: 40px;
   }
 }

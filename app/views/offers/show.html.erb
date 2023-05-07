@@ -29,9 +29,9 @@
     </div>
     <h2 id="offer_title"><%= @offer.title %></h2>
     <div class="offer-specs flex-resp">
-      <p class="white-text ms-2 me-2" id="offer_location">📍 <%= @offer.location %></p>
-      <p class="white-text ms-2 me-2">💜 <%= @offer.beneficiary.cause %></p>
-      <p class="white-text ms-2 me-2 d-flex align-items-center info-bubble" id="offer_commitment"><%= @offer.commitment_output %>
+      <p class="text-white ms-2 me-2" id="offer_location">📍 <%= @offer.location %></p>
+      <p class="text-white ms-2 me-2">💜 <%= @offer.beneficiary.cause %></p>
+      <p class="text-white ms-2 me-2 d-flex align-items-center info-bubble" id="offer_commitment"><%= @offer.commitment_output %>
         <strong>?</strong>
         <% if @offer.commitment.present? %>
           <% case %>
@@ -48,7 +48,7 @@
   </div>
 
 
-  <div class="offer-flex-resp white-bg" data-controller="candidacy">
+  <div class="offer-flex-resp bg-white" data-controller="candidacy">
 
     <div class="mobile-sticky-ctn">
       <%= render partial: "apply", locals: {offer: @offer} %>
@@ -62,20 +62,20 @@
             <h4 class="ms-3 me-3 title-separator">|</h4>
             <h5><em><%= @offer.beneficiary.name %></em></h5>
           </div>
-          <%= link_to offers_path, class: "round-button btn-light-main downsize90" do %>
-            <i class="fa-solid fa-arrow-left primary-text-color"></i>
+          <%= link_to offers_path, class: "round-button btn-light-main downsize90 flex-shrink-0 ml-10" do %>
+            <i class="fa-solid fa-arrow-left text-main"></i>
           <% end %>
         </div>
       </div>
 
-      <div class="ctn-resp resp-lhs-padding shaded-bg pt-5 pb-5 mb-3 d-flex">
+      <div class="ctn-resp resp-lhs-padding bg-shade pt-5 pb-5 mb-3 d-flex">
         <div class="rt-bullet-list-heart">
-          <h5 class="primary-text-color mb-2">2-3 bonnes raisons de s'engager :</h5>
+          <h5 class="text-main mb-2">2-3 bonnes raisons de s'engager :</h5>
           <%= @offer.summary %>
         </div>
       </div>
 
-      <div class="ctn-resp resp-lhs-padding white-bg pt-3 pb-3">
+      <div class="ctn-resp resp-lhs-padding bg-white pt-3 pb-3">
         <div class="flex-resp beneficiary-card">
           <div class="lhs-beneficiary-card">
             <div class="logo-box downsize90 subtle-shadow mb-4">
@@ -85,32 +85,32 @@
 
               <% if @offer.beneficiary.web_url.present? %>
                 <%= link_to @offer.beneficiary.web_url, target: "_blank" do %>
-                  <i class="fa-solid fa-globe round-button btn-round-cta me-3"><span class="cta-top-legend sm-thin-text primary-text-color no-wrap">web</span></i>
+                  <i class="fa-solid fa-globe round-button btn-round-cta me-3"><span class="cta-top-legend sm-thin-text text-main no-wrap">web</span></i>
                 <% end %>
               <% else %>
-                <i class="fa-solid fa-globe round-button btn-round-cta inactive me-3"><span class="cta-top-legend sm-thin-text primary-text-color no-wrap">web</span></i>
+                <i class="fa-solid fa-globe round-button btn-round-cta inactive me-3"><span class="cta-top-legend sm-thin-text text-main no-wrap">web</span></i>
               <% end %>
 
               <% if @offer.beneficiary.li_url.present? %>
                 <%= link_to @offer.beneficiary.li_url, target: "_blank" do %>
-                  <i class="fa-brands fa-linkedin-in round-button btn-round-cta"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+                  <i class="fa-brands fa-linkedin-in round-button btn-round-cta"><span class="cta-top-legend sm-thin-text text-main">linkedin</span></i>
                 <% end %>
               <% else %>
-                <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+                <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive"><span class="cta-top-legend sm-thin-text text-main">linkedin</span></i>
               <% end %>
 
             </div>
             <div class="center-text mt-4">
-              <h6 class="primary-text-color">📍 Siège :</h6>
+              <h6 class="text-main">📍 Siège :</h6>
               <p class="mb-2"><%= @offer.beneficiary.city %></p>
-              <h6 class="primary-text-color"><%= @offer.beneficiary.goal == 'Environnement' ? '🌍' : '🤝🏻' %> Cause :</h6>
+              <h6 class="text-main"><%= @offer.beneficiary.goal == 'Environnement' ? '🌍' : '🤝🏻' %> Cause :</h6>
               <p><%= @offer.beneficiary.cause %></p>
             </div>
 
           </div>
           <div class="d-flex flex-column justify-content-between">
             <div>
-              <h5 class="primary-text-color mb-2">Un mot de l'asso :</h5>
+              <h5 class="text-main mb-2">Un mot de l'asso :</h5>
               <%= @offer.beneficiary.description %>
             </div>
             <% if @offer.beneficiary.publish %>
@@ -123,8 +123,8 @@
       </div>
 
       <div class="ctn-resp resp-lhs-padding pt-3 pb-3">
-        <div class="grey-bg p-3 rt-bullet-list-arrow rt-color-text-style">
-          <h5 class="primary-text-color mb-2">La mission concrètement :</h5>
+        <div class="bg-grey p-3 rt-bullet-list-arrow rt-color-text-style">
+          <h5 class="text-main mb-2">La mission concrètement :</h5>
           <%= @offer.description %>
         </div>
       </div>
@@ -135,7 +135,7 @@
       <div class="sticky-box grey-info-box">
         <%= render partial: "apply", locals: {offer: @offer} %>
         <div class="mt-3">
-          <h6 class="primary-text-color mb-2">Engagement minimal :</h6>
+          <h6 class="text-main mb-2">Engagement minimal :</h6>
           <h6 class="mb-1">⏲️ Fréquence : <span id="offer_frequency"><%= @offer.frequency_output %></span></h6>
           <h6>📅 Durée : <span id="offer_duration"><%= @offer.duration_output %></span></h6>
           <p class="mt-3 mb-3">Demain t'accompagne auprès de ton entreprise pour pouvoir t'engager sur ton temps de travail</p>
@@ -145,6 +145,6 @@
         </div>
       </div>
     </div>
-    <%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %>
+    <span data-candidacy-target="content"><%= render partial: "candidacy", locals: {offer: @offer, candidacy: @candidacy} %></span>
   </div>
 </div>

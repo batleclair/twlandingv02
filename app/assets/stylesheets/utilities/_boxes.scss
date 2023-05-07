@@ -1,0 +1,39 @@
+// Roundings
+
+.round{
+  border-radius: 50em;
+}
+.round-20{
+  border-radius: 20px;
+}
+.round-10{
+  border-radius: 10px;
+}
+.round-5{
+  border-radius: 5px;
+}
+.round-3{
+  border-radius: 3px;
+}
+.round-top-left{
+  border-radius: 50px 0 0 0;
+}
+.round-top-right{
+  border-radius: 0 50px 0 0;
+}
+
+// Borders
+
+.grey-border{
+  border: solid 1px rgb(200, 200, 200);
+}
+.first-main-border{
+  border: solid 1px $first-main-color;
+}
+
+
+
+// Shadows
+.shadow-xl{
+  box-shadow: 10px 25px 25px rgba(0,0,0,0.3);
+}

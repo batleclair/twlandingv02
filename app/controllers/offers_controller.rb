@@ -32,8 +32,11 @@ class OffersController < ApplicationController
     @params = request.query_parameters
     @no_offer = Offer.find_by(title: "no_offer")
     authorize @no_offer
-    @offer = @params[:id].present? ? Offer.find(@params[:id]) : Offer.where(publish: true, status: 'active').last
+    @offer = @params[:id].present? ? Offer.find(@params[:id]) : @offers.first
     authorize @offer
+
+    @active_regions = Offer::REGIONS.select { |region| !Offer.where(publish: true, status:['active', 'draft'], region: region).empty? }
+    @active_functions = Offer::FUNCTIONS.select { |function| !Offer.where(publish: true, status:['active', 'draft'], function: function).empty? }
 
     unless params[:social].blank? && params[:environment].blank?
       if params[:social].blank?
@@ -44,19 +47,28 @@ class OffersController < ApplicationController
       end
     end
 
-    unless params[:low].blank? && params[:mid].blank? && params[:high].blank?
-      if params[:low].blank?
-        @offers = @offers.where.not(commitment: Offer::COMMITMENTS[0])
-      end
-      if params[:mid].blank?
-        @offers = @offers.where.not(commitment: Offer::COMMITMENTS[1])
-      end
-      if params[:high].blank?
-        @offers = @offers.where.not(commitment: Offer::COMMITMENTS[2])
-      end
+    case params[:frequency]
+    when "1"
+      @offers = @offers.where(half_days_min: 1)
+    when "2"
+      @offers = @offers.where(half_days_min: 1..4)
+    else
+    end
+
+    case params[:duration]
+    when "1"
+      @offers = @offers.where(months_min: 1..2)
+    when "2"
+      @offers = @offers.where(half_days_min: 1..6)
+    else
     end
 
     @offers = @offers.where(function: params[:function]) unless params[:function].blank?
+
+    @offers = @offers.where(remote_work: params[:remote_work]) unless params[:remote_work].blank?
+
+    @offers = @offers.where(region: params[:region]) unless params[:region].blank? || params[:remote_work] == "1"
+
 
     @candidacy = Candidacy.new
     if !user_signed_in? || current_user.candidate.nil?
@@ -160,7 +172,9 @@ class OffersController < ApplicationController
       :offer_type,
       :function,
       :slug,
-      :commitment
+      :commitment,
+      :region,
+      :remote_work
     )
   end
 end

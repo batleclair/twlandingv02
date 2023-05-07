@@ -17,6 +17,7 @@
             <th>Organisation</th>
             <th>Prénom</th>
             <th>Nom</th>
+            <th>Téléphone</th>
             <th>Email</th>
             <th>Message</th>
             <th class="center-text">Actions</th>
@@ -30,12 +31,13 @@
               <td class="no-wrap"><%= c.organization %></td>
               <td class="no-wrap"><%= c.first_name %></td>
               <td class="no-wrap"><%= c.last_name %></td>
+              <td class="no-wrap"><%= c.phone_num %></td>
               <td class="no-wrap"><%= c.email %></td>
               <td><%= c.message %></td>
               <td>
                 <div class="d-flex justify-content-center">
                   <%= link_to contact_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-                    <i class="fa-solid fa-trash primary-text-color"></i>
+                    <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>
               </td>

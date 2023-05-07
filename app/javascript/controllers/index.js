@@ -7,8 +7,8 @@ import { application } from "./application"
 import AccountController from "./account_controller.js"
 application.register("account", AccountController)
 
-import BubblesController from "./bubbles_controller.js"
-application.register("bubbles", BubblesController)
+import ButtonMenuController from "./button_menu_controller.js"
+application.register("button-menu", ButtonMenuController)
 
 import CandidacyController from "./candidacy_controller.js"
 application.register("candidacy", CandidacyController)
@@ -57,6 +57,9 @@ application.register("search-form", SearchFormController)
 
 import SliderController from "./slider_controller.js"
 application.register("slider", SliderController)
+
+import SwipeController from "./swipe_controller.js"
+application.register("swipe", SwipeController)
 
 import TomSelectController from "./tom_select_controller.js"
 application.register("tom-select", TomSelectController)

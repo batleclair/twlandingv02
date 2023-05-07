@@ -1,4 +1,5 @@
 // Graphical variables
+@import "config/custom_variables";
 @import "config/fonts";
 @import "config/colors";
 @import "config/bootstrap_variables";
@@ -14,8 +15,19 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+@import "utilities/index";
 
 // removing defaults
+
+body{
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  cursor: default;
+}
+
 a {
   text-decoration: none;
   color: $dark-grey;

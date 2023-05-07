@@ -68,6 +68,10 @@ gem "image_processing", "~> 1.2"
 
 gem "breadcrumbs_on_rails"
 
+# deprecated gem for airtable api
+# gem 'airtable'
+gem 'airrecord'
+
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"

@@ -26,12 +26,12 @@
             <span></span>
             <% if user_signed_in? %>
               <% if current_user.applied?(offer) %>
-                <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+                <button data-lock-target="apply" class="button full-width btn-main-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
               <% else %>
-                <h5 class="white-text primary-text-color mb-4 mt-2 btn-replacement-msg">Votre candidature a bien été prise en compte 🙌</h5>
+                <h5 class="text-white text-main mb-4 mt-2 btn-replacement-msg">Votre candidature a bien été prise en compte 🙌</h5>
               <% end %>
             <% else %>
-                <button data-lock-target="apply" class="button full-width btn-flag-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+                <button data-lock-target="apply" class="button full-width btn-main-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
                 <div class="d-none centered-overlay" data-lock-target="login">
                   <div class="d-flex">
                     <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>
@@ -60,7 +60,7 @@
         <h3 class="center-text">+</h3>
         <h5 class="center-text no-wrap">La mission pour vous</h5>
         <span class="d-flex flex-column justify-content-center align-items-center p-2">
-          <h6 class="white-text center-text mb-2">Aucune mission ne vous correspond ? Laissez-nous trouver pour vous !</h6>
+          <h6 class="text-white center-text mb-2">Aucune mission ne vous correspond ? Laissez-nous trouver pour vous !</h6>
           <%= render partial: "offers/apply", locals: {offer: no_offer} %>
         </span>
       </div>

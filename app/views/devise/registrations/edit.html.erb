@@ -1,119 +1,55 @@
+<div class="ctn-resp pt-50 bg-white">
+  <div class="full-height-ctn flex-stretch-center md-resp-flex-col pb-50">
 
-<div class="profile-form-wrapper ctn-resp-sheet white-bg sheet-pad full-height-ctn" data-controller="account">
-    <h1 class="mb-3 primary-text-color fs-4">Modifie les informations relatives à ton compte</h1>
+    <% active = 2 %>
+    <%= render partial: "navpan", locals: {active: active} %>
 
-    <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
-      <ul class="pill-tag-list step-pills m-0">
-        <li class="me-1 mt-1 mb-1" data-action="click->account#step1" data-account-target="button" data-active>Connexion</li>
-        <li class="me-1 mt-1 mb-1" data-action="click->account#step2" data-account-target="button">Perso</li>
-      </ul>
-    </div>
-
-
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: {turbo: false, 'account-target': 'form'} }) do |f| %>
-    <div class="step-ctn">
-
-      <div data-account-target="creds">
-        <h5 class="bold-6 mb-4">mes identifiants</h5>
+    <div class="w-100 p-40 md-resp-p-0 md-resp-pt-20">
+      <h5 class="mb-10">Mon compte</h5>
+      <h6 class="mb-20">Paramètres de connexion</h6>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "max-w-400", data: {turbo: false} }) do |f| %>
         <%= f.error_notification %>
 
-        <div class="form-inputs">
+        <div class="mb-10 position-relative">
           <%= f.input :email,
-                      error: 'Woops, on en a besoin !',
                       required: true,
                       label: "E-mail",
-                      label_html: {class: "me-3 flex-width-150"},
-                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <p>En attente de confirmation pour : <%= resource.unconfirmed_email %></p>
-          <% end %>
-
-          <%= f.input :password,
-                      error: 'Woops, on en a besoin !',
-                      required: false,
-                      input_html: { autocomplete: "new-password" },
-                      label: "Nouveau mot de passe",
-                      label_html: {class: "me-3 flex-width-150"},
-                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-
-          <%= f.input :password_confirmation,
-                      error: 'Woops, on en a besoin !',
-                      required: false,
-                      input_html: { autocomplete: "new-password" },
-                      label: "Confirmation",
-                      label_html: {class: "me-3 flex-width-150"},
-                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-
-          <%= f.input :current_password,
-                      error: 'Woops, on en a besoin !',
-                      required: true,
-                      input_html: { autocomplete: "current-password" },
-                      label: "Mot de passe actuel",
-                      label_html: {class: "me-3 flex-width-150"},
-                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-
-          <div class="form-actions flex-resp justify-content-end">
-            <%= link_to "Retour", :back, class: "button btn-light-flag me-2 mb-2-resp" %>
-            <%= f.submit "Enregistrer", class: "button btn-flag-color", data: { action: 'click->account#save' } %>
-          </div>
-
-          </div>
-      </div>
-
-      <div data-account-target="extras" data-position="right">
-        <h5 class="bold-6 mb-4">mes infos perso</h5>
-
-        <div class="form-inputs">
-          <%= f.input :first_name,
-                      error: 'Woops, on en a besoin !',
-                      required: true,
-                      label: "Prénom",
-                      label_html: {class: "me-3 flex-width-150"},
-                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-
-          <%= f.input :last_name,
-                      error: 'Woops, on en a besoin !',
-                      required: true,
-                      label: "Nom",
-                      label_html: {class: "me-3 flex-width-150"},
-                      wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-
-          <%= f.simple_fields_for :candidate, resource.candidate do |p| %>
-          <div class="flex-resp align-items-center custom-label mb-3">
-            <label for="user_candidate_attributes_birth_date" class="me-3 flex-width-150">Anniversaire :</label>
-            <%= p.input :birth_date,
-                        error: 'Woops, on en a besoin !',
-                        required: true,
-                        as: :date,
-                        start_year: Date.today.year - 70,
-                        end_year: Date.today.year - 18,
-                        use_month_numbers: true,
-                        order: [:day, :month, :year],
-                        include_blank: true,
-                        label: false,
-                        wrapper_html: {class: 'full-width'} %>
-          </div>
-            <%= p.input :location,
-                        error: 'Woops, on en a besoin !',
-                        required: true,
-                        label: "Ville de résidence",
-                        label_html: {class: "me-3 flex-width-150"},
-                        wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-            <%= p.input :phone_num,
-                        error: 'Woops, on en a besoin !',
-                        label: "Numéro de téléphone",
-                        required: true,
-                        label_html: {class: "me-3 flex-width-150"},
-                        wrapper_html: {class: 'flex-resp align-items-center custom-label mb-3 full-width'} %>
-          <% end %>
+                      wrapper: false %>
         </div>
 
-          <div class="form-actions flex-resp justify-content-end">
-            <%= link_to "Retour", :back, class: "button btn-light-flag me-2 mb-2-resp" %>
-            <%= f.submit "Enregistrer", class: "button btn-flag-color", data: { action: 'click->account#save' } %>
-          </div>
-      </div>
-    </div>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>En attente de confirmation pour : <%= resource.unconfirmed_email %></p>
+        <% end %>
+
+        <div class="mb-10 position-relative">
+          <%= f.input :current_password,
+                      required: true,
+                      label: "Mot de passe actuel",
+                      wrapper: false %>
+        </div>
+
+        <div class="mb-10 position-relative">
+          <%= f.input :password,
+                      required: false,
+                      label: "Nouveau mot de passe",
+                      label_html: {class: "text-grey"},
+                      wrapper: false %>
+        </div>
+
+        <div class="mb-20 position-relative">
+          <%= f.input :password_confirmation,
+                      required: false,
+                      label: "Confirmation",
+                      label_html: {class: "text-grey"},
+                      wrapper: false %>
+        </div>
+
+        <div class="flex-center-right">
+          <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+        </div>
+
       <% end %>
+    </div>
+
+  </div>
 </div>

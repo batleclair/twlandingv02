@@ -1,39 +1,36 @@
-<div class="modal-bg" data-modal-target="window" data-candidacy-target="window" data-action="click->modal#close">>
+<div class="modal" data-modal-target="window" data-candidacy-target="window" data-action="click->modal#close">
   <div>
-    <div class="d-flex justify-content-between form-header" data-action="click->modal#keep">
-      <div>
-        <h5>
-          <% if offer.title == "no_offer" %>
-            Candidature spontanée
-          <% else %>
-            <%= offer.title %>
-          <% end %>
-        </h5>
-        <% if offer.status == 'upcoming' %>
-          <p>Cette offre sera bientôt dispo 🤩 Candidatez dès maintenant !</p>
-        <% end %>
+    <div class="max-w-400 bg-white round-10 shadow-xl p-20" data-action="click->modal#keep">
+      <div class="flex-center-between mb-20">
+        <h5 class="text-main fw-5">Ma candidature</h5>
+        <i class="fa-solid fa-xmark text-main square-30 first-main-border round flex-shrink-0 flex-center" data-modal-target="close" data-action="click->modal#close"></i>
       </div>
 
-      <h5><a href="" data-modal-target="close" data-action="click->modal#close"><i class="fa-solid fa-xmark"></i></a></h5>
-    </div>
-    <div class="modal-inner" data-action="click->modal#keep">
-      <div class="modal-body" data-controller="progress">
+      <% method = user_signed_in? && current_user&.candidate&.present? ? :patch : :post %>
+      <% url = user_signed_in? && current_user&.candidate&.present? ? candidates_synch_update_path(@candidate) : candidates_synch_create_path %>
+      <%= simple_form_for(@candidate, method: method, url: url, data: {offer: offer.slug, "candidacy-target": "form"}) do |f| %>
 
-        <div data-progress-target="header">
-          <h5 class="primary-text-color bolder mb-3">étape <span data-progress-target="num">1</span>/3</h5>
-          <div class="full-width d-flex justify-content-between mb-4">
-            <div class="step-bar"><div data-progress-target="bar1" class="sb-active"></div></div>
-            <div class="step-bar ms-2 me-2"><div data-progress-target="bar2"></div></div>
-            <div class="step-bar"><div data-progress-target="bar3"></div></div>
-          </div>
+        <%= render partial: "candidates/min_info", locals: {f: f, candidate: @candidate} %>
+
+        <div id="candidate_phone_num_wrapper" class="input-with-icon mb-10">
+          <%= f.input :phone_num,
+                      label: "Mon numéro de téléphone",
+                      wrapper: false %>
+          <i class="fa-solid fa-phone"></i>
         </div>
 
-        <div data-progress-target="step1"><%= render partial: "offers/candidacy_step_1", locals: {offer: offer, candidacy: candidacy} %></div>
-        <div class="d-none" data-progress-target="step2"><%= render partial: "offers/candidacy_step_2", locals: {offer: offer, candidacy: candidacy} %></div>
-        <div class="d-none" data-progress-target="step3"><%= render partial: "offers/candidacy_step_3", locals: {offer: offer, candidacy: candidacy} %></div>
-        <div class="d-none" data-progress-target="confirmation"><%= render partial: "offers/confirmation", locals: {offer: offer, candidacy: candidacy}  %></div>
+        <%= f.simple_fields_for([offer, candidacy]) do |c| %>
+          <%  c.input :motivation_msg,
+                      label: "Mes motivations" %>
+        <% end %>
 
-      </div>
+        <button type="submit" class="fat-btn fat-btn-md fat-btn-main-color position-relative d-flex justify-content-between align-items-center w-100 mt-20" data-action="click->candidacy#submit">
+          <span></span>
+          <strong class="fw-5">Envoyer</strong>
+          <i class="fa-regular fa-paper-plane round-button bg-white"></i>
+        </button>
+
+      <% end %>
     </div>
   </div>
 </div>

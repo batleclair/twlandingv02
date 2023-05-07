@@ -1,11 +1,11 @@
 <%= simple_form_for(beneficiary) do |f| %>
 
-  <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
+  <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3">
     <%= link_to "Retour", admin_beneficiaries_path, class:"button btn-light-main me-3" %>
     <button type="submit" class="button btn-main-color">Enregistrer</button>
   </div>
 
-  <h6 class="primary-text-color mb-3">Informations principales</h6>
+  <h6 class="text-main mb-3">Informations principales</h6>
 
   <div class="d-flex">
     <%= f.input :name, label: "Nom de l'association", wrapper_html: {class: "me-3 full-width"} %>
@@ -29,17 +29,17 @@
 
   <div class="d-flex">
     <div class="full-width align-self-center pt-3 me-3 grey-border">
-      <%= f.input :publish_logo, as: :boolean, label: "Logo partenaire", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
+      <%= f.input :publish_logo, as: :boolean, label: "Logo partenaire", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
     </div>
-    <div class="full-width align-self-center pt-3 shaded-bg">
-      <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "primary-text-color bold-6"} %>
+    <div class="full-width align-self-center pt-3 bg-shade">
+      <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
     </div>
   </div>
 
   <%= f.input :description, as: :rich_text_area, label: 'Description courte (page mission)' %>
   <%= f.input :long_desc, as: :rich_text_area, label: 'Description longue (page asso - la courte est utilisée si la longue reste vide)' %>
 
-  <h6 class="primary-text-color mb-3">Elements visuels</h6>
+  <h6 class="text-main mb-3">Elements visuels</h6>
   <div class="pic-upload-ctn mb-3">
     <%= render partial: "photo_upload", locals: {f: f, arg: 'logo', title: 'Logo'} %>
     <%= render partial: "photo_upload", locals: {f: f, arg: 'photo', title: 'Bannière'} %>
@@ -48,7 +48,7 @@
     <%= render partial: "photo_upload", locals: {f: f, arg: 'profile_pic_three', title: 'Photo de profil 3'} %>
   </div>
 
-  <h6 class="primary-text-color mb-3">Chiffres clé</h6>
+  <h6 class="text-main mb-3">Chiffres clé</h6>
   <div class="d-flex mb-3">
     <div class="grey-border full-width me-3 p-3">
       <h6 class="mb-2">Chiffre clé 1 :</h6>

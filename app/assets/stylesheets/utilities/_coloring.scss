@@ -1,0 +1,65 @@
+// Text coloring
+.text-main{
+  color: $first-main-color;
+}
+.text-flag-1{
+  color: $flag-color-1;
+}
+.text-flag-2{
+  color: $flag-color-2;
+}
+.text-flag-3{
+  color: $flag-color-3;
+}
+.text-white{
+  color: white;
+}
+.text-grey{
+  color: grey;
+}
+
+// Background coloring
+.bg-flag-1{
+  background-color: $flag-color-1;
+}
+.bg-flag-2{
+  background-color: $flag-color-2;
+}
+.bg-flag-3{
+  background-color: $flag-color-3;
+}
+.bg-main{
+  background-color: $first-main-color;
+}
+.bg-shade{
+  background-color: $first-light-lighter;
+}
+.bg-white{
+  background-color: white;
+}
+.bg-grey{
+  background-color: rgb(250, 250, 250);
+}
+
+@each $id, $bp in $breakpoints {
+  @media(max-width: #{$bp}px) {
+    .#{$id}-resp-bg-main{
+      background-color: $first-main-color !important;
+    }
+    .#{$id}-resp-text-white{
+      color: white !important;
+    }
+  }
+}
+
+
+// Content fading
+.fade-grey{
+  background: linear-gradient(rgba(250, 250, 250, 0), rgba(250, 250, 250, 0.7) 20%, #fafafa 80%, #fafafa);
+}
+.fade-white{
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7) 20%, white 80%, white);
+}
+.fade-dark{
+  background: linear-gradient(rgba(83, 28, 179, 0), rgba(83, 28, 179, 0.7) 20%, $first-main-color 80%, $first-main-color);
+}

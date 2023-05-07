@@ -4,7 +4,7 @@
       <%= link_to 'Retour', :back, class: "button btn-light-flag" %>
     </div>
 
-    <h1 class="mt-4 mb-4 primary-text-color fs-4">Mot de passe oublié ?</h1>
+    <h1 class="mt-4 mb-4 text-main fs-4">Mot de passe oublié ?</h1>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, data: {turbo: false}) do |f| %>
       <div class="form-inputs">

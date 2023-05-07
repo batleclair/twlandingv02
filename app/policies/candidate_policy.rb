@@ -9,7 +9,7 @@ class CandidatePolicy < ApplicationPolicy
   end
 
   def new?
-    create?
+    true
   end
 
   def synch_create?
@@ -22,6 +22,14 @@ class CandidatePolicy < ApplicationPolicy
 
   def create?
     user.candidate.blank?
+  end
+
+  def skillset?
+    record.user == user
+  end
+
+  def wishes?
+    record.user == user
   end
 
   def synch_update?

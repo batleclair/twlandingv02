@@ -4,7 +4,7 @@
 <div class="white-wrapper-narrow-content">
   <div class="mb-5">
     <h1 class="d-none">Demain Works : un blog sur le mécénat de compétences, les associations et le "Future of Work"</h1>
-    <h2 class="center-text primary-text-color mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h2>
+    <h2 class="center-text text-main mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h2>
 
     <h5 class="center-text mb-3">Retrouvez toutes nos publications</h5>
     <h6 class="center-text">On y parle du futur du travail, de gentilles entreprises et de l'urgence de de bosser pour l'intérêt général avant qu'il ne soit trop tard 🤯</h6>
@@ -15,7 +15,7 @@
       <% bg_img = @last_post.photo.attached? ? cl_image_path(@last_post.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
       <%= link_to(post_path(slug: @last_post.slug), class: "me-5") do %>
         <div class="full-width upper-post-card upper-post-card-xl d-flex align-items-center" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >
-          <h4 class="white-text full-width pt-3 pb-3 me-5 ms-5 center-text"><%= @last_post.title %></h4>
+          <h4 class="text-white full-width pt-3 pb-3 me-5 ms-5 center-text"><%= @last_post.title %></h4>
           <% unless @last_post.category_list.blank? %>
             <h6><%= @last_post.category_list[0] %></h6>
           <% end %>
@@ -48,7 +48,7 @@
             <span><%= @last_post.published_ago %></span>
           </div>
           <div class="lower-post-card lower-post-card-sm">
-            <h5 class="primary-text-color mb-2"><%= @last_post.title %></h5>
+            <h5 class="text-main mb-2"><%= @last_post.title %></h5>
             <p><%= @last_post.content.to_plain_text.truncate(200, omission: '') %></p>
             <div class="d-flex justify-content-end align-items-center">
               <i class="fa-solid fa-arrow-right-long me-2"></i><strong>lire l'article</strong>
@@ -70,7 +70,7 @@
               <span><%= post.published_ago %></span>
             </div>
             <div class="lower-post-card lower-post-card-sm">
-              <h5 class="primary-text-color mb-2"><%= post.title %></h5>
+              <h5 class="text-main mb-2"><%= post.title %></h5>
               <p><%= post.content.to_plain_text.truncate(200, omission: '') %></p>
               <div class="d-flex justify-content-end align-items-center">
                 <i class="fa-solid fa-arrow-right-long me-2"></i><strong>lire l'article</strong>
@@ -83,8 +83,8 @@
   </div>
 
   <div class="flex-resp justify-content-center align-items-center mt-5" data-controller="contact">
-    <h6 class="primary-text-color m-2 center-text">Restez informé·e de nos actus : </h6>
-    <a class="button btn-flag-color" href="" data-action="click->contact#popup">Inscription</a>
+    <h6 class="text-main m-2 center-text">Restez informé·e de nos actus : </h6>
+    <a class="button btn-main-color" href="" data-action="click->contact#popup">Inscription</a>
     <%= render partial: "pages/contact" %>
   </div>
 </div>

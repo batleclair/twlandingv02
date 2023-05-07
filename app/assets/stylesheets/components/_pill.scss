@@ -20,39 +20,6 @@
   }
 }
 
-.pill-dropdown{
-  border-radius: 50em;
-  padding: 5px 15px;
-  font-family: $body-font;
-  background-color: $light-gray;
-  color: $first-main-darker;
-  font-size: 12px;
-  border-color: $light-gray;
-  cursor: pointer;
-  option {
-    color: $first-main-darker;
-  }
-  option:checked {
-    background-color: $first-light-darker;
-  }
-  &:focus {
-    background-color: $first-light-color;
-    color: $first-main-darker;
-  }
-}
-
-.pill-dropdown-selected{
-  background-color: $first-main-color;
-  color: white;
-  &:focus {
-    background-color: $first-main-color;
-    color: white;
-  }
-  option {
-    background-color: $first-light-color;
-  }
-}
-
 .pill-tag-list{
   padding: 0;
   list-style: none;

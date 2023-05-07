@@ -1,0 +1,11 @@
+// Breakpoints
+$breakpoints: ("xl": 1400, "lg": 1200, "md": 1000, "sm": 800, "xs": 600);
+// $breakpoints: ("xs": 600, "sm": 800, "md": 1000, "lg": 1200, "xl": 1400);
+$bp-xl: 1400px;
+$bp-lg: 1200px;
+$bp-md: 1000px;
+$bp-sm: 800px;
+$bp-xs: 600px;
+
+// Sizes
+$sizes: 0, 10, 20, 40, 50, 60, 80, 100;

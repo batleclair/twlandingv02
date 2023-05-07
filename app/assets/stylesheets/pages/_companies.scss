@@ -1,0 +1,183 @@
+.button-menu{
+  overflow-x: hidden;
+  button{
+    border-radius: 5px;
+    white-space: nowrap;
+    flex: 1 1 0px;
+    background-color: $first-light-lighter;
+    border: none;
+    &:hover{
+      background-color: $first-light-color;
+      border: none;
+    }
+    &:focus{
+      border: none;
+    }
+    padding: 10px 20px;
+    margin-right: 20px;
+  }
+  button:last-of-type{
+    margin-right: 0px;
+  }
+  button[data-status="active"]{
+    background-color: $first-light-color;
+    color: $first-main-color;
+    box-shadow: 4px 10px 10px rgba(0,0,0,0.3);
+    font-weight: 500;
+  }
+}
+
+.button-menu-ctn{
+  div[data-status=""] {
+    display: none;
+  }
+  div[data-status="active"] > h6, div[data-status="active"] > p{
+    display: block;
+  }
+}
+
+.resp-img-ctn{
+  display: flex;
+  >img{
+    width: 200px;
+  }
+  p{
+    background-color: rgba(255,255,255,0.5);
+  }
+}
+
+.resp-card-ctn{
+  >div{
+    position: relative;
+  }
+  button{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: -40px;
+    border: none;
+    &:focus{
+      border: none;
+    }
+  }
+}
+
+.screenshot-menu{
+  button{
+    border: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    text-align: left;
+    background-color: transparent;
+    border-radius: 50em;
+    transition: 0.2s ease-in-out;
+    h5:first-child{
+      height: 60px;
+      width: 60px;
+      padding: 20px;
+      border-radius: 50em;
+      background-color: $first-light-color;
+      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.2s ease-in-out;
+    }
+    h5:last-child{
+      width: 100%;
+      height: 40px;
+      border-radius: 50em;
+      display: flex;
+      align-items: center;
+    }
+    &:focus{
+      border: none;
+    }
+  }
+  button[data-status="active"]{
+    background-color: white;
+    transition: 0.2s ease-in-out;
+    h5:first-child{
+      height: 60px;
+      width: 60px;
+      background-color: white;
+      color: $first-main-color;
+      font-weight: 600;
+      transition: 0.2s ease-in-out;
+    }
+    h5:last-child{
+      color: $first-main-color;
+    }
+  }
+  div[data-status]{
+    overflow-y: hidden;
+    max-height: 0;
+    transition: 0.2s ease-in-out;
+  }
+  div[data-status="active"]{
+    display: block;
+    padding-left: 80px;
+    max-height: 100px;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+@media(max-width: $bp-md) {
+  .button-menu-ctn{
+    >div{
+      overflow: hidden;
+    }
+  }
+  .resp-img-ctn{
+    position: relative;
+    >div{
+      z-index: 1;
+    }
+    >img{
+      position: absolute;
+      bottom: -40px;
+      z-index: 0;
+      width: 150px;
+    }
+    >img.right{
+      right: 0;
+    }
+    >img.left{
+      left: 0;
+    }
+  }
+}
+
+@media(max-width: $bp-sm) {
+  .resp-card-ctn{
+    position: relative;
+    >div{
+      position: unset;
+    }
+    button{
+      transform: scale(0.8);
+      transition: 0.2s ease-in-out;
+    }
+    button[data-status="active"]{
+      transform: scale(1);
+      background-color: $first-light-darker;
+      transition: 0.2s ease-in-out;
+    }
+    .btn-l{
+      left: -85px;
+    }
+    .btn-r{
+      right: -85px;
+    }
+    div[data-button-menu-target="content"]{
+      display: none;
+    }
+    div[data-status="active"]{
+      display: block;
+    }
+  }
+}

@@ -52,13 +52,13 @@
               <td>
                 <div class="d-flex justify-content-evenly">
                   <%= link_to(admin_candidate_path(c)) do %>
-                    <i class="fa-solid fa-eye primary-text-color"></i>
+                    <i class="fa-solid fa-eye text-main"></i>
                   <% end %>
                   <%= link_to(candidate_path(c), target: "_blank") do %>
-                    <i class="fa-solid fa-user primary-text-color"></i>
+                    <i class="fa-solid fa-user text-main"></i>
                   <% end %>
                   <%= link_to candidate_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-                    <i class="fa-solid fa-trash primary-text-color"></i>
+                    <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>
               </td>

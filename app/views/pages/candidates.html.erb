@@ -4,13 +4,13 @@
 
 <div class="light-bg pt-5 pb-5 resp-overflow-hidden">
   <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
-    <div class="big-title-resp max-width-500 full-width position-relative">
+    <div class="big-title-resp max-w-500 full-width position-relative">
       <%= image_tag("sq_dark_bg.svg", class: "flat-shape-bg", alt: "aplat de couleur violet") %>
       <h1 class="d-none">Salarié·e·s : Travailler pour une asso sans quitter son boulot</h1>
-      <h2 class="primary-text-color mb-3">s'engager sur son temps de travail !</h2>
-      <h4 class="mb-2">grâce à Demain, consacre une partie de ton temps de travail à une association, <span class="primary-text-color bold-7">en restant salarié·e de ton entreprise</span>.</h4>
+      <h2 class="text-main mb-3">s'engager sur son temps de travail !</h2>
+      <h4 class="mb-2">grâce à Demain, consacre une partie de ton temps de travail à une association, <span class="text-main fw-7">en restant salarié·e de ton entreprise</span>.</h4>
     </div>
-    <div class="rounded-20 pt-2 pb-2 max-width-500 flex-grow-1">
+    <div class="round-20 pt-2 pb-2 max-w-500 flex-grow-1">
       <h5 class="mb-3">rejoins les talents de Demain</h5>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
@@ -51,10 +51,10 @@
 
         <div class="form-actions flex-resp justify-content-between align-items-center">
           <div>
-            <%= recaptcha_tags %>
+            <%= recaptcha_v3(action: 'signup') %>
           </div>
           <div class="d-flex flex-column">
-              <%= f.button :submit, "Inscription", class:"button btn-flag-color" %>
+              <%= f.button :submit, "Inscription", class:"button btn-main-color" %>
               <%= link_to "déjà inscrit·e ?", new_user_session_path, class: "mt-1 text-nowrap color-link center-text" %>
           </div>
         </div>
@@ -66,10 +66,10 @@
   </div>
 </div>
 
-<div class="white-bg pt-5 pb-5 ctn-resp justify-content-between">
+<div class="bg-white pt-5 pb-5 ctn-resp justify-content-between">
 
   <div class="flex-resp full-width">
-    <div class="full-width max-width-500 mg-resp-r">
+    <div class="full-width max-w-500 mg-resp-r">
       <div class="full-width mb-5">
         <h2 class="mb-3 fs-1">comment ça marche ?</h2>
         <p class="mb-2">Tu es salarié·e à temps plein en entreprise ?</p>
@@ -77,27 +77,27 @@
         <p>Tu n’es pas seul·e ! Demain t’aide à le faire, sans sacrifier ton salaire !</p>
       </div>
     </div>
-    <div class="flex-resp align-items-start h-auto max-width-500 mt-5 pt-5 mg-resp-l">
+    <div class="flex-resp align-items-start h-auto max-w-500 mt-5 pt-5 mg-resp-l">
       <%= image_tag('profile_illustration.svg', width: "150px", class: "d-block mx-auto mg-resp-r mb-2-resp", alt: "page profil utilisateur") %>
       <div class="mg-resp-l">
-        <h4 class="primary-text-color mb-3">crée ton profil</h4>
+        <h4 class="text-main mb-3">crée ton profil</h4>
         <p>Mets en valeur tes compétences, tes engagements et ce que tu souhaites apporter à l'association qui pourrait t'accueillir !</p>
       </div>
     </div>
   </div>
 
   <div class="d-flex home-card full-width">
-    <div class="illustration-card-resp align-items-start h-auto max-width-500 mg-resp-r">
+    <div class="illustration-card-resp align-items-start h-auto max-w-500 mg-resp-r">
       <div class="mg-resp-r">
-        <h4 class="primary-text-color mb-3">trouve ta mission</h4>
+        <h4 class="text-main mb-3">trouve ta mission</h4>
         <p>Choisis parmi les missions déjà en ligne ou bien laisse nous trouver la mission qui correspond à ton profil et tes valeurs !</p>
       </div>
       <%= image_tag('search_illustration.svg', width: "150px", class: "d-block mx-auto mg-resp-l mb-2-resp", alt: "loupe de recherche") %>
     </div>
-    <div class="flex-resp align-items-start h-auto max-width-500 mt-5 pt-5 mg-resp-l">
+    <div class="flex-resp align-items-start h-auto max-w-500 mt-5 pt-5 mg-resp-l">
       <%= image_tag('match_illustration.svg', width: "150px", class: "d-block mx-auto mg-resp-r mb-2-resp", alt: "pièces de puzzle qui s'emboîtent") %>
       <div class="mg-resp-l">
-        <h4 class="primary-text-color mb-3">valide ton projet</h4>
+        <h4 class="text-main mb-3">valide ton projet</h4>
         <p>Demain t'accompagne dans les démarches auprès de ton employeur afin qu'il soutienne et participe à ton projet d'engagement !</p>
       </div>
     </div>
@@ -106,11 +106,11 @@
 
 <%= render partial: "offer_carousel", locals: {offers: @offers} %>
 
-<div class="shaded-bg pt-5 pb-5 ctn-resp" data-controller="faq">
-  <h4 class="primary-text-color center-text mb-5">questions très (très) fréquentes</h4>
+<div class="bg-shade pt-5 pb-5 ctn-resp" data-controller="faq">
+  <h4 class="text-main center-text mb-5">questions très (très) fréquentes</h4>
   <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
     <div class="faq-arrow me-4">
-      <i class="fa-solid fa-angle-right primary-text-color"></i>
+      <i class="fa-solid fa-angle-right text-main"></i>
     </div>
     <div>
       <h5>Comment ça se passe avec les associations ?</h5>
@@ -119,7 +119,7 @@
   </div>
   <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
     <div class="faq-arrow me-4">
-      <i class="fa-solid fa-angle-right primary-text-color"></i>
+      <i class="fa-solid fa-angle-right text-main"></i>
     </div>
     <div>
       <h5>Comment ça se passe avec mon employeur ?</h5>
@@ -128,7 +128,7 @@
   </div>
   <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
     <div class="faq-arrow me-4">
-      <i class="fa-solid fa-angle-right primary-text-color"></i>
+      <i class="fa-solid fa-angle-right text-main"></i>
     </div>
     <div>
       <h5>Quel impact sur ma rémunération ?</h5>
@@ -137,7 +137,7 @@
   </div>
   <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
     <div class="faq-arrow me-4">
-      <i class="fa-solid fa-angle-right primary-text-color"></i>
+      <i class="fa-solid fa-angle-right text-main"></i>
     </div>
     <div>
       <h5>Pourquoi mon employeur accepterait ?</h5>
@@ -146,7 +146,7 @@
   </div>
   <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
     <div class="faq-arrow me-4">
-      <i class="fa-solid fa-angle-right primary-text-color"></i>
+      <i class="fa-solid fa-angle-right text-main"></i>
     </div>
     <div>
       <h5>Demain me garantit que mon employeur va accepter ?</h5>
@@ -155,7 +155,7 @@
   </div>
   <div class="d-flex faq-ctn mb-3" data-action="click->faq#show" data-faq-target="box">
     <div class="faq-arrow me-4">
-      <i class="fa-solid fa-angle-right primary-text-color"></i>
+      <i class="fa-solid fa-angle-right text-main"></i>
     </div>
     <div>
       <h5>Je ne suis pas salarié, est-ce que je peux quand-même candidater aux missions proposées par Demain ?</h5>
@@ -167,7 +167,7 @@
       <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
         <span></span>
         <strong>D'autres questions ?</strong>
-        <i class="fa-solid fa-phone round-button white-bg"></i>
+        <i class="fa-solid fa-phone round-button bg-white"></i>
       <% end %>
     </div>
     <%= render partial: "pages/contact" %>

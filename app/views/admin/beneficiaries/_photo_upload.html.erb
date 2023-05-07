@@ -5,7 +5,7 @@
     <%= f.input arg.to_s, as: :file, label: false, wrapper: false %>
     <% if @beneficiary.send(arg).attached? %>
       <%= link_to send("destroy_img_path", @beneficiary, img: arg), data: {turbo_method: :patch, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-        <i class="fa-solid fa-trash primary-text-color ms-3 me-1"></i>
+        <i class="fa-solid fa-trash text-main ms-3 me-1"></i>
       <% end %>
     <% end %>
   </div>

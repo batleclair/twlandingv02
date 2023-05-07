@@ -1,4 +1,8 @@
 class CandidacyPolicy < ApplicationPolicy
+  # def show?
+  #   record.user == user || user.user_type == 'admin'
+  # end
+
   def create?
     true
   end
@@ -12,7 +16,7 @@ class CandidacyPolicy < ApplicationPolicy
   end
 
   def show?
-    user.user_type == 'admin'
+    record.user == user || user.user_type == 'admin'
   end
 
   def destroy?

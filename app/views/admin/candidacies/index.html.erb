@@ -42,10 +42,10 @@
               <td>
                 <div class="d-flex justify-content-evenly">
                   <%= link_to(admin_candidacy_path(c)) do %>
-                    <i class="fa-solid fa-eye primary-text-color"></i>
+                    <i class="fa-solid fa-eye text-main"></i>
                   <% end %>
                   <%= link_to candidacy_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-                    <i class="fa-solid fa-trash primary-text-color"></i>
+                    <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>
               </td>

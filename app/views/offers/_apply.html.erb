@@ -1,18 +1,9 @@
-<div class="mb-3 dynamic-apply-ctn" data-controller="lock">
-  <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
-  <% if user_signed_in? %>
-    <% if offer.candidates.where(user_id: current_user.id).none? %>
-      <button class="button full-width btn-flag-color" data-action=<%= action %> data-lock-target="apply">Candidater !</button>
-    <% else %>
-      <h5 class="text-center main-color pt-3 pb-3 mb-4">Votre candidature a bien été prise en compte 🙌</h5>
-    <% end %>
+<div class="flex-center">
+  <% if !user_signed_in? %>
+    <%= link_to "Candidater",  new_user_registration_path, class: "button full-width btn-main-color no-wrap" %>
+  <% elsif current_user.applied?(offer) %>
+    <button class="button full-width btn-main-color no-wrap" data-action="click->candidacy#popup2" data-id=<%=offer.id%>>Candidater</button>
   <% else %>
-    <button class="button full-width btn-flag-color" data-action=<%= action %> data-lock-target="apply">Candidater !</button>
-    <div class="d-none" data-lock-target="login">
-      <div class="d-flex">
-        <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color me-2"%>
-        <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main ms-2"%>
-      </div>
-    </div>
+    <p class="text-main sm-text center-text">Merci pour votre candidature 🙌</p>
   <% end %>
 </div>

@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
+  devise_scope :user do
+    get 'users/info', to: "users/registrations#info"
+  end
 
   # static pages
   root to: "pages#home"
   get "associations", to: "pages#nonprofits", as: :nonprofits
-  get "talents", to: "pages#candidates", as: :candidates
+  get "talents", to: "pages#candidates", as: :talents
   get "entreprises", to: "pages#companies", as: :companies
   get "about", to: "pages#about"
   get "terms", to: "pages#terms"
@@ -14,14 +17,19 @@ Rails.application.routes.draw do
   get '/candidates', to: redirect('/talents')
 
   # profile routes
-  post "candidates/synch", to: "candidates#synch_create"
-  patch "candidates/:id/synch", to: "candidates#synch_update"
+  post "candidates/synch", to: "candidates#synch_create", as: :candidates_synch_create
+  patch "candidates/:id/synch", to: "candidates#synch_update", as: :candidates_synch_update
   patch "candidates/:id/synch_min", to: "candidates#synch_update_min"
-  resources :candidates, only: %i[show new edit create update] do
+  get "users/situation", to: "candidates#edit"
+  get "users/skills", to: "candidates#skillset"
+  get "users/wishes", to: "candidates#wishes"
+  patch "users/complete", to: "candidates#complete"
+  resources :candidates, only: %i[show new create update] do
     resources :experiences, only: %i[create]
   end
   resources :experiences, only: %i[update destroy]
   get "experiences/:id/select", to: "experiences#select", as: :experience_select
+
 
   # offer and candidacy routes
   get "missions/mission_indisponible", to: "offers#dead", as: :dead_offer
@@ -30,6 +38,7 @@ Rails.application.routes.draw do
   resources :missions, controller: 'offers', as: :offers, param: :slug, only: %i[index show] do
     resources :candidacies, only: :create
   end
+  resources :candidacies, only: :show
   post "offers/:id/check", to: "candidacies#check", as: :candidacy_check
   get '/offers', to: redirect('/missions')
   get '/offers/:slug', to: redirect('/missions/%{slug}')

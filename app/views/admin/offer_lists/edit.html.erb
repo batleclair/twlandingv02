@@ -38,10 +38,10 @@
             <td class="p-0">
               <div class="d-flex justify-content-center align-items-center">
                 <%= link_to offer_path(bookmark.offer), target: "_blank" do %>
-                  <i class="fa-solid fa-eye primary-text-color"></i>
+                  <i class="fa-solid fa-eye text-main"></i>
                 <% end %>
                 <%= link_to offer_bookmark_path(bookmark), data: { method: :delete, turbo: false, action: 'click->form-submitter#destroy'} do %>
-                  <i class="fa-solid fa-trash primary-text-color"></i>
+                  <i class="fa-solid fa-trash text-main"></i>
                 <% end %>
               </div>
             </td>

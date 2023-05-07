@@ -1,96 +1,81 @@
 <div data-controller="menu">
   <i class="fa-solid fa-bars burger-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
 
-  <nav class= "menu ctn-resp <%= "menu-light" if controller.controller_name == 'pages' %>" data-menu-target="nav" >
-    <div>
+  <nav class= "menu ctn-resp" data-menu-target="nav">
+    <div class="flex-center-between md-resp-flex-col">
       <%= link_to root_path, data: {turbo: false} do %>
-        <%= controller.controller_name == 'pages' ? image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain sombre") : image_tag("logo_white.svg", class: "sm-logo", alt: "Logo Demain clair") %>
+        <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
+        <%= image_tag("logo_white.svg", class: "xl-logo", alt: "Logo Demain") %>
       <% end %>
 
-
-      <div class="tabs-ctn">
-        <div class="tab">
-          <div>
-            <%= link_to "⭐ Missions ⭐", offers_path, class: "bold-6 white-link" %>
-          </div>
-        </div>
-
-        <div class="tab">
-          <div>
-            <%= link_to "Candidat·e ?", candidates_path, class:"white-link ms-4 me-4" %>
-          </div>
-        </div>
-
-        <div class="dropdown-tab">
-          <div>
-            <div>
-              <div class="dropdown-arrow">
-                <i class="fa-solid fa-angle-right"></i>
-              </div>
-              <a class="white-link">Nos solutions</a>
+      <div class="flex-center-between md-resp-flex-col">
+        <div class="d-flex md-resp-flex-col">
+          <%= link_to root_path, data: {turbo: false}, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
+            <i class="fa-solid fa-house-chimney">
+              <span></span>
+            </i>
+          <% end %>
+          <%= link_to offers_path do %>
+            <div class="tab flex-center p-10" data-active-tab=<%= controller_name == 'offers' || controller_name == 'candidacies' %>>
+              Je m'engage
+              <span></span>
             </div>
-            <div class="dropdown-options">
-              <%= link_to "Entreprises", companies_path, class:"white-link" %>
-              <%= link_to "Associations", nonprofits_path, class:"white-link" %>
+          <% end %>
+          <%= link_to companies_path do %>
+            <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'companies' %>>
+              Entreprises
+              <span></span>
             </div>
-          </div>
+          <% end %>
+          <%= link_to nonprofits_path do %>
+            <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'nonprofits' %>>
+              Associations
+              <span></span>
+            </div>
+          <% end %>
         </div>
-      </div>
 
-      <% if user_signed_in? %>
-        <div class="d-flex align-items-center">
-          <div class="user-nav-box">
-            <p class="white-text">👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
-            <div>
-              <% if current_user.candidate.blank? %>
-                <%= link_to new_candidate_path, class: "white-link sm-thin-text", id: "profile-link" do %>
-                  <i class="fa-solid fa-user me-1"></i>
-                  profil
-                <% end %>
-              <% else %>
-                <% if current_user.candidate.info_missing? %>
-                  <%= link_to candidate_path(current_user.candidate), class: "white-link sm-thin-text", data: {'action': 'click->menu#popup' } do %>
+        <% if user_signed_in? %>
+          <div class="d-flex align-items-center">
+            <div class="user-nav-box ml-20 md-resp-ml-0 md-resp-mt-40">
+              <p>👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
+              <div>
+                <% if current_user.candidate.blank? || current_user.candidate.info_missing? %>
+                  <%= link_to new_candidate_path, class: "sm-thin-text", id: "profile-link" do %>
                     <i class="fa-solid fa-user me-1"></i>
                     profil
                   <% end %>
                 <% else %>
-                  <%= link_to candidate_path(current_user.candidate), class: "white-link sm-thin-text" do %>
+                  <%= link_to candidate_path(current_user.candidate), class: "sm-thin-text" do %>
                     <i class="fa-solid fa-user me-1"></i>
                     profil
                   <% end %>
                 <% end %>
-              <% end %>
-              <span class="ms-2 me-2 white-text">|</span>
-                <%= link_to edit_user_registration_path, class: "white-link sm-thin-text" do %>
-                  <i class="fa-solid fa-gear me-1"></i>
-                  compte
-              <% end %>
-              <span class="ms-2 me-2 white-text">|</span>
-              <%= link_to destroy_user_session_path, method: :delete, class: "white-link sm-thin-text" do %>
-                <i class="fa-solid fa-right-from-bracket me-1"></i>
-                déconnexion
-              <% end %>
+                <span class="text-white">|</span>
+                  <%= link_to edit_user_registration_path, class: "sm-thin-text" do %>
+                    <i class="fa-solid fa-gear me-1"></i>
+                    compte
+                <% end %>
+                <span class="text-white">|</span>
+                <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  déconnexion
+                <% end %>
 
+              </div>
             </div>
-          </div>
-          <% if current_user.user_type == 'admin' %>
-            <%= link_to admin_path, class: "round-button btn-admin-cta ms-3" do %>
-              <i class="fa-solid fa-gear"></i>
+            <% if current_user.user_type == 'admin' %>
+              <%= link_to admin_path, class: "round-button btn-admin-cta ms-3" do %>
+                <i class="fa-solid fa-gear"></i>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
-      <% else %>
-        <%= link_to "Connexion", new_user_session_path, class: "button-round btn-white-on-main"%>
-      <% end %>
+          </div>
+        <% else %>
+          <%= link_to "Connexion", new_user_session_path, class: "button-round btn-light-main"%>
+        <% end %>
+
+      </div>
+
     </div>
   </nav>
-
-  <% if user_signed_in? %>
-    <% if current_user.candidate.present? %>
-      <% if current_user.candidate.info_missing? %>
-        <%= render partial: "candidates/min_info" %>
-      <% end %>
-    <% end %>
-  <% end %>
-
 </div>

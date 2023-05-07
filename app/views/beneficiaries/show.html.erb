@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="white-bg full-height-ctn sheet-pad-y">
+<div class="bg-white full-height-ctn sheet-pad-y">
 
 
   <div class="ctn-resp resp-rhs-pad">
@@ -44,7 +44,7 @@
         </div>
         <div class="grey-info-box mb-3 d-flex flex-column justify-content-between" style="height: 260px">
           <div>
-            <h6 class="bold-7 center-text mb-3" id="beneficiary_name"><%= @beneficiary.name %></h6>
+            <h6 class="fw-7 center-text mb-3" id="beneficiary_name"><%= @beneficiary.name %></h6>
             <ul class="mb-4">
               <li>Cause : <span id="beneficiary_cause"><%= @beneficiary.cause %></span></li>
               <li>Adresse : <span id="beneficiary_address"><%= @beneficiary.address %></span></li>
@@ -54,18 +54,18 @@
           <div class="d-flex justify-content-center full-width">
             <% if @beneficiary.web_url.present? %>
               <%= link_to @beneficiary.web_url, target: "_blank", id: "beneficiary_web_url" do %>
-                <i class="fa-solid fa-globe round-button btn-round-cta me-3"><span class="cta-top-legend sm-thin-text primary-text-color no-wrap">web</span></i>
+                <i class="fa-solid fa-globe round-button btn-round-cta me-3"><span class="cta-top-legend sm-thin-text text-main no-wrap">web</span></i>
               <% end %>
             <% else %>
-              <i class="fa-solid fa-globe round-button btn-round-cta inactive me-3"><span class="cta-top-legend sm-thin-text primary-text-color no-wrap">web</span></i>
+              <i class="fa-solid fa-globe round-button btn-round-cta inactive me-3"><span class="cta-top-legend sm-thin-text text-main no-wrap">web</span></i>
             <% end %>
 
             <% if @beneficiary.li_url.present? %>
               <%= link_to @beneficiary.li_url, target: "_blank" do %>
-                <i class="fa-brands fa-linkedin-in round-button btn-round-cta"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+                <i class="fa-brands fa-linkedin-in round-button btn-round-cta"><span class="cta-top-legend sm-thin-text text-main">linkedin</span></i>
               <% end %>
             <% else %>
-              <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive"><span class="cta-top-legend sm-thin-text primary-text-color">linkedin</span></i>
+              <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive"><span class="cta-top-legend sm-thin-text text-main">linkedin</span></i>
             <% end %>
           </div>
         </div>
@@ -77,7 +77,7 @@
 
       <div class="full-width mg-resp-l d-flex flex-column justify-content-between overflow-auto">
         <div class="mb-2 overflow-auto ctn-resp ps-0">
-          <h5 class="primary-text-color mb-2">L'asso en 2-3 mots</h5>
+          <h5 class="text-main mb-2">L'asso en 2-3 mots</h5>
           <%= @beneficiary.long_desc.present? ? @beneficiary.long_desc : @beneficiary.description %>
         </div>
         <div class="lighter-bg ctn-resp ps-0 custom-resp-rhs-pad overflow-auto card-list-height">
@@ -94,7 +94,7 @@
           <% @offers.each do |o| %>
             <%= link_to offer_path(o) do %>
               <div class="asso-mission-card ms-3 mb-2">
-                <h5 class="primary-text-color mb-2"><%= o.title %></h5>
+                <h5 class="text-main mb-2"><%= o.title %></h5>
                 <p>⏲️ <%= o.frequency_output %> | 📅  <%= o.duration_output %> | 📍 <%= o.location %></p>
               </div>
             <% end %>
@@ -107,24 +107,24 @@
   </div>
 
   <div class="ctn-resp flex-resp justify-content-between">
-    <div class="max-width-750 d-flex flex-column justify-content-between full-width mg-resp-r mb-2-resp">
-      <h5 class="primary-text-color mb-2">L'asso en 2-3 chiffres</h5>
+    <div class="max-w-750 d-flex flex-column justify-content-between full-width mg-resp-r mb-2-resp">
+      <h5 class="text-main mb-2">L'asso en 2-3 chiffres</h5>
       <div class="three-box-grid">
         <% if @beneficiary.kpi_one.present? %>
           <div>
-            <h5 class="primary-text-color bold-7 mb-3"><%= @beneficiary.kpi_one %></h5>
+            <h5 class="text-main fw-7 mb-3"><%= @beneficiary.kpi_one %></h5>
             <p><%= @beneficiary.kpt_one %></h5></p>
           </div>
         <% end %>
         <% if @beneficiary.kpi_two.present? %>
           <div>
-            <h5 class="primary-text-color bold-7 mb-3"><%= @beneficiary.kpi_two %></h5>
+            <h5 class="text-main fw-7 mb-3"><%= @beneficiary.kpi_two %></h5>
             <p><%= @beneficiary.kpt_two %></h5></p>
           </div>
         <% end %>
         <% if @beneficiary.kpi_three.present? %>
           <div>
-            <h5 class="primary-text-color bold-7 mb-3"><%= @beneficiary.kpi_three %></h5>
+            <h5 class="text-main fw-7 mb-3"><%= @beneficiary.kpi_three %></h5>
             <p><%= @beneficiary.kpt_three %></h5></p>
           </div>
         <% end %>

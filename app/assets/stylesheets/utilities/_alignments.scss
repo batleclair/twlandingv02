@@ -1,0 +1,86 @@
+.flex-between{
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-center-top{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flex-center-between{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-stretch-center{
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.flex-center-right{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.flex-center-left{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.flex-center-evenly{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@each $id, $bp in $breakpoints {
+  @media(max-width: #{$bp}px) {
+    .#{$id}-resp-flex-col{
+      flex-direction: column !important;
+    }
+  }
+}
+
+@each $id, $bp in $breakpoints {
+  @media(max-width: #{$bp}px) {
+    .#{$id}-resp-order-1{
+      order: 1 !important;
+    }
+    .#{$id}-resp-order-2{
+      order: 2 !important;
+    }
+    .#{$id}-resp-order-3{
+      order: 3 !important;
+    }
+  }
+}
+
+
+.va-top{
+  vertical-align: top;
+}
+
+.text-right{
+  text-align: end;
+}
+
+.full-height-ctn{
+  min-height: calc(100vh - 50px - 283px);
+}

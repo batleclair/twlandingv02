@@ -3,7 +3,6 @@ import { createPopper } from "@popperjs/core";
 
 
 
-
 // Connects to data-controller="slider"
 export default class extends Controller {
   static targets = ['input', 'custom', 'output']
@@ -19,28 +18,16 @@ export default class extends Controller {
     const progress = (value-min)/(max-min)*100
     this.inputTarget.style.background = `linear-gradient(to right, #531cb3 0%, #531cb3 ${progress}%, #FFFBFE ${progress}%, #FFFBFE 100%)`
 
-    if (this.element.dataset.sliderType === 'custom') {
-      switch (value) {
-        case '1':
-          this.outputTarget.innerHTML = 'impossible ! 😩';
-          break;
-        case '2':
-          this.outputTarget.innerHTML = 'pas sûr... 😟';
-          break;
-        case '3':
-          this.outputTarget.innerHTML = 'je ne sais pas 😗';
-          break;
-        case '4':
-          this.outputTarget.innerHTML = 'possible 🙂';
-          break;
-        case '5':
-          this.outputTarget.innerHTML = "c'est sûr ! 🤩";
-          break;
-        default:
-          break;
-        }
+    const custom = ['impossible ! 😩', 'pas sûr... 😟', 'je ne sais pas 😗', 'possible 🙂', "c'est sûr ! 🤩"]
+    const duration = ['entre 1 et 2 mois', 'entre 3 et 6 mois', "+ de 6 mois"]
+    const frequency = ['1 à 2 jours par mois', '1 jour par semaine', "+ d'1 jour par sem."]
+
+    if (value === "0") {
+      this.outputTarget.innerHTML = 'sélectionner'
+    } else if (this.element.dataset.sliderType === 'standard') {
+      this.outputTarget.innerHTML = value
       } else {
-        this.outputTarget.innerHTML = value
+        this.outputTarget.innerHTML = eval(this.element.dataset.sliderType)[value - 1]
       }
   }
 
@@ -52,28 +39,16 @@ export default class extends Controller {
     const progress = (value-min)/(max-min)*100
     this.inputTarget.style.background = `linear-gradient(to right, #531cb3 0%, #531cb3 ${progress}%, #FFFBFE ${progress}%, #FFFBFE 100%)`
 
-    if (this.element.dataset.sliderType === 'custom') {
-      switch (value) {
-        case '1':
-          this.outputTarget.innerHTML = 'impossible ! 😩';
-          break;
-        case '2':
-          this.outputTarget.innerHTML = 'pas sûr... 😟';
-          break;
-        case '3':
-          this.outputTarget.innerHTML = 'je ne sais pas 😗';
-          break;
-        case '4':
-          this.outputTarget.innerHTML = 'possible 🙂';
-          break;
-        case '5':
-          this.outputTarget.innerHTML = "c'est sûr ! 🤩";
-          break;
-        default:
-          break;
-        }
+    const custom = ['impossible ! 😩', 'pas sûr... 😟', 'je ne sais pas 😗', 'possible 🙂', "c'est sûr ! 🤩"]
+    const duration = ['entre 1 et 2 mois', 'entre 3 et 6 mois', "+ de 6 mois"]
+    const frequency = ['1 à 2 jours par mois', '1 jour par semaine', "+ d'1 jour par sem."]
+
+    if (value === "0") {
+      this.outputTarget.innerHTML = 'sélectionner'
+    } else if (this.element.dataset.sliderType === 'standard') {
+      this.outputTarget.innerHTML = value
       } else {
-        this.outputTarget.innerHTML = value
+        this.outputTarget.innerHTML = eval(this.element.dataset.sliderType)[value - 1]
       }
   }
 

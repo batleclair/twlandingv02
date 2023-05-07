@@ -9,8 +9,11 @@
 .toggle + label {
   width: 80%;
   user-select: none;
+  display: flex;
+  align-items: center;
 
   &::before{
+    cursor: pointer;
     content: '';
     width: 50px;
     height: 26px;
@@ -23,6 +26,7 @@
   }
 
   &::after{
+    cursor: pointer;
     content: '';
     width: 20px;
     height: 20px;
@@ -30,7 +34,7 @@
     border-radius: 50em;
     position: absolute;
     right: 27px;
-    top: 3px;
+    // top: 3px;
     transition: 0.2s ease-in-out;
   }
 }

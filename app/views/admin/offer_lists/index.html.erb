@@ -8,7 +8,7 @@
   <div class="navpan-white-ctn">
 
     <div>
-      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3">
         <%= link_to "+ Ajouter", new_admin_offer_list_path, class:"button btn-main-color" %>
       </div>
       <table class="tw-table">
@@ -27,13 +27,13 @@
               <td>
                 <div class="d-flex justify-content-evenly">
                   <%= link_to(offer_selection_path(slug: list.slug), target: "_blank") do %>
-                    <i class="fa-solid fa-eye primary-text-color"></i>
+                    <i class="fa-solid fa-eye text-main"></i>
                   <% end %>
                   <%= link_to edit_admin_offer_list_path(list, list.offer_bookmarks) do %>
-                    <i class="fa-solid fa-pen-to-square primary-text-color"></i>
+                    <i class="fa-solid fa-pen-to-square text-main"></i>
                   <% end %>
                   <%= link_to offer_list_path(list), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-                    <i class="fa-solid fa-trash primary-text-color"></i>
+                    <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>
               </td>

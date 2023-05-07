@@ -2,34 +2,52 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="search-form"
 export default class extends Controller {
-  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication', 'card', 'preview', 'id', 'loader', 'close']
+  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication', 'card', 'preview', 'id', 'loader', 'close', 'slider']
 
   connect() {
     addEventListener('popstate', (event) => { });
     onpopstate = (event) => {location.reload()};
-    let counter = -1
+
     const form = new FormData(this.formTarget)
-    form.get('function') ? counter += 0 : counter += -1
-    for (var key of form.keys()) {counter += 1}
-    this.counterTarget.innerHTML = counter
-    this.counterTarget.classList.remove('d-none')
-    if (counter === 0) {
-      this.counterTarget.classList.add('d-none')
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParams = Array.from(urlParams.values())
+    let counter = 0
+    console.log(searchParams)
+
+    searchParams.forEach(value => {
+      value !== '' ? counter += 1 : counter
+    });
+
+    urlParams.get('frequency') === '3' ? counter += -1 : counter
+    urlParams.get('duration') === '3' ? counter += -1 : counter
+    console.log(urlParams.get('id'))
+    urlParams.get('id') ? counter += -1 : this.cardTargets[0].dataset.active = "true"
+
+    if (urlParams.get('remote_work') === '1') {
+      this.selectTargets[1].classList.add('readonly-input')
     }
-    counter === 0 ? this.counterTarget.innerHTML = '' : this.counterTarget.innerHTML = counter
-    this.selectTarget.classList.remove('pill-dropdown-selected')
-    if (form.get('function')) {this.selectTarget.classList.add('pill-dropdown-selected')}
+
+    this.counterTarget.innerHTML = counter
+    if (counter !== 0) {
+      this.counterTarget.classList.remove('invisible')
+    }
+
+    this.selectTargets.forEach(target => {
+      target.classList.remove('pill-dropdown-selected')
+      if (form.get(target.id)) {target.classList.add('pill-dropdown-selected')}
+    });
   }
 
   result() {
     this.submitbtnTarget.click()
   }
 
-  toggle() {
-    this.filtersTarget.classList.toggle('filters-expand')
-    this.btnTarget.classList.toggle('filter-icon-active')
-    this.indicationTargets.forEach(indication => {
-      indication.classList.toggle('d-none')
+  showup() {
+    const y = this.element.getBoundingClientRect().top + window.scrollY;
+    console.log(y)
+    window.scroll({
+      top: y - 35,
+      behavior: 'smooth'
     });
   }
 

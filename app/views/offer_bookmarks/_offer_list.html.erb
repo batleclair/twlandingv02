@@ -4,9 +4,9 @@
     <td><%= bookmark.offer.title %></td>
     <td>
       <div class="d-flex justify-content-center align-items-center">
-        <i class="fa-solid fa-eye primary-text-color"></i>
+        <i class="fa-solid fa-eye text-main"></i>
         <%= link_to offer_bookmark_path(bookmark), data: { method: :delete, turbo: false, action: 'click->form-submitter#destroy'} do %>
-          <i class="fa-solid fa-trash primary-text-color"></i>
+          <i class="fa-solid fa-trash text-main"></i>
         <% end %>
       </div>
     </td>

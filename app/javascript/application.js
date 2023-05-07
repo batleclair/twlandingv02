@@ -4,5 +4,9 @@ import "./controllers"
 import "@hotwired/turbo-rails"
 import "trix"
 import "@rails/actiontext"
-import { initFlatpickr } from "./plugins/flatpickr";
-initFlatpickr();
+
+// import { initFlatpickr } from '../plugins/flatpickr';
+
+// document.addEventListener('turbolinks:load', () => {
+//   initFlatpickr();
+// })

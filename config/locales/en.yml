@@ -31,3 +31,18 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        email: ""
+        current_password: ""
+      candidate:
+        location: ""
+        description: ""
+        volunteering: ""
+        function: ""
+        birth_date: ""
+        phone_num: ""
+        cv: ""
+        linkedin_url: ""
+        availability_details: ""

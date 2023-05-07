@@ -33,13 +33,13 @@
               <td>
                 <div class="d-flex justify-content-evenly">
                   <%= link_to(post_path(slug: p.slug), target: "_blank") do %>
-                    <i class="fa-solid fa-eye primary-text-color"></i>
+                    <i class="fa-solid fa-eye text-main"></i>
                   <% end %>
                   <%= link_to edit_admin_post_path(p) do %>
-                    <i class="fa-solid fa-pen-to-square primary-text-color"></i>
+                    <i class="fa-solid fa-pen-to-square text-main"></i>
                   <% end %>
                   <%= link_to post_path(p), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-                    <i class="fa-solid fa-trash primary-text-color"></i>
+                    <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>
               </td>

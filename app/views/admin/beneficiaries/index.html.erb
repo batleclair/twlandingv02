@@ -8,7 +8,7 @@
   <div class="navpan-white-ctn">
 
     <div>
-      <div class="sticky-admin-nav d-flex white-bg pt-3 pb-3">
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3">
         <%= link_to "+ Ajouter", new_admin_beneficiary_path, class:"button btn-main-color" %>
       </div>
       <table class="tw-table">
@@ -33,13 +33,13 @@
               <td>
                 <div class="d-flex justify-content-evenly">
                 <%= link_to(beneficiary_path(b), target: "_blank") do %>
-                  <i class="fa-solid fa-eye primary-text-color"></i>
+                  <i class="fa-solid fa-eye text-main"></i>
                 <% end %>
                 <%= link_to edit_admin_beneficiary_path(b) do %>
-                  <i class="fa-solid fa-pen-to-square primary-text-color"></i>
+                  <i class="fa-solid fa-pen-to-square text-main"></i>
                 <% end %>
                 <%= link_to beneficiary_path(b), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-                  <i class="fa-solid fa-trash primary-text-color"></i>
+                  <i class="fa-solid fa-trash text-main"></i>
                 <% end %>
                 </div>
               </td>

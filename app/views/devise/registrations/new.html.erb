@@ -1,47 +1,78 @@
-<div class="ctn-resp-sheet sheet-pad white-bg full-height-ctn">
-  <div class="flex-resp align-items-center mb-3">
-    <%= render "devise/shared/links" %>
-  </div>
+<div class="ctn-resp pe-0 bg-white pt-50">
 
-  <h1 class="mt-4 mb-4 primary-text-color fs-4">Créez votre compte pour candidater aux offres de nos partenaires</h1>
+  <div class="d-flex login-form-ctn full-height-ctn">
 
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
-    <%= f.error_notification %>
-
-    <div class="form-inputs">
-      <%= f.input :first_name,
-                  label: "Prénom",
-                  error: 'Woops, on en a besoin !',
-                  required: true %>
-      <%= f.input :last_name,
-                  label: "Nom",
-                  error: 'Woops, on en a besoin !',
-                  required: true %>
-      <%= f.input :email,
-                  required: true,
-                  label: "Adresse mail",
-                  error: 'Woops ! il y a un problème',
-                  autofocus: true,
-                  input_html: { autocomplete: "email" } %>
-      <%= f.input :password,
-                  required: true,
-                  label: "Choississez votre mot de passe",
-                  error: 'Woops ! il y a un problème',
-                  hint: ("doit contenir au moins #{@minimum_password_length} caractères" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  required: true,
-                  label: "Confirmez votre mot de passe",
-                  error: 'Woops ! il y a un problème',
-                  input_html: { autocomplete: "new-password" } %>
-
-    </div>
-
-    <div class="form-actions flex-resp justify-content-between align-items-center">
-      <div class="mb-2-resp">
-        <%= recaptcha_tags %>
+    <div class="pt-50 pb-50 flex-shrink-0">
+      <div class="mb-20">
+        <h2>Créer un compte</h2>
+        <div class="d-flex">
+          <p class="me-1">Déjà inscrit.e ?</p>
+          <%= link_to "Se connecter", new_session_path(resource_name), class:"text-main fw-7" %>
+        </div>
       </div>
-      <%= f.button :submit, "Enregistrer", class:"button btn-flag-color" %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
+        <%= f.error_notification %>
+        <div class="mb-10 position-relative">
+          <%= f.input :first_name,
+                      label: "Prénom",
+                      wrapper: false,
+                      error: 'avez-vous bien renseigné votre prénom ?',
+                      required: true %>
+        </div>
+        <div class="mb-10 position-relative">
+          <%= f.input :last_name,
+                      label: "Nom",
+                      wrapper: false,
+                      error: 'avez-vous bien renseigné votre nom ?',
+                      required: true %>
+        </div>
+        <div class="input-with-icon mb-10 position-relative">
+          <%= f.input :email,
+                      required: true,
+                      label: "Adresse mail",
+                      wrapper: false,
+                      error: 'une adresse mail valide est requise',
+                      input_html: { autocomplete: "email" } %>
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+        <div class="input-with-2-icons mb-10 position-relative">
+          <%= f.input :password,
+                      required: true,
+                      wrapper: false,
+                      label: "Mot de passe",
+                      error: 'votre mot de passe doit faire au moins 6 caractères',
+                      input_html: { autocomplete: "new-password" } %>
+          <i class="fa-solid fa-lock"></i>
+          <i class="fa-regular fa-eye-slash"></i>
+        </div>
+        <div class="input-with-2-icons mb-20 position-relative">
+          <%= f.input :password_confirmation,
+                      required: true,
+                      wrapper: false,
+                      label: "Confirmation",
+                      input_html: { autocomplete: "new-password" } %>
+          <i class="fa-solid fa-lock"></i>
+          <i class="fa-regular fa-eye-slash"></i>
+        </div>
+
+        <%= recaptcha_v3(action: 'signup') %>
+        <button type="submit" class="fat-btn fat-btn-md w-100 fat-btn-main-color position-relative flex-center-between">
+          <span></span>
+          <strong>Inscription</strong>
+          <i class="fa-solid fa-right-to-bracket round-button bg-white"></i>
+        </button>
+      <% end %>
+
+      <div class="mt-10 flex-center">
+        <p class="d-inline me-1">En m'inscrivant, j'accepte les</p><%= link_to 'CGU', terms_path, class:"fw-6" %>
+      </div>
     </div>
-  <% end %>
+
+    <div class="bg-shade round-top-left login-img-ctn ml-50 flex-center w-100 sm-resp-hide p-20">
+      <div>
+        <%= image_tag('homepage.svg', class: "w-100 max-w-500") %>
+      </div>
+    </div>
+
+  </div>
 </div>
