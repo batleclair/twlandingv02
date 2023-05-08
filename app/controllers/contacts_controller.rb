@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     authorize @contact
-    if @contact.valid? && verify_recaptcha(action: 'contact', minimum_score: 0.5, message: "test robot")
+    if @contact.valid? && verify_recaptcha(action: 'contact', minimum_score: 0.1, secret_key: ENV['RECAPTCHA_PRIVATE_KEY'])
       log_event if @contact.save
       # ContactMailer.with(contact: @contact).new_contact_email.deliver_later
     end

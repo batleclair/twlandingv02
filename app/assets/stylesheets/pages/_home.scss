@@ -128,19 +128,19 @@
   }
 }
 
-// @media(max-width: 720px) {
-//   .home-card {
-//     flex-direction: column;
-//     justify-content: center;
-//   }
-//   .home-card-img {
-//     max-width: 100%;
-//     height: 60vw;
-//   }
-//   .card-offset-resp{
-//     padding-top: 0;
-//   }
-// }
+@media(max-width: $bp-sm) {
+  .home-card {
+    flex-direction: column;
+    justify-content: center;
+  }
+  // .home-card-img {
+  //   max-width: 100%;
+  //   height: 60vw;
+  // }
+  // .card-offset-resp{
+  //   padding-top: 0;
+  // }
+}
 
 // // .home-info-card {
 //   background-color: $first-light-color;

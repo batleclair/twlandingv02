@@ -15,3 +15,12 @@
     margin-right: 5vw;
     }
 }
+
+.ctn-resp-left{
+  padding-left: 10vw;
+  padding-right: 0;
+  @media(max-width: $bp-sm) {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    }
+}

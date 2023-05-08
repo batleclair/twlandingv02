@@ -57,13 +57,13 @@
 }
 
 .resp-lhs-padding{
-  padding-right: 0 !important;
+  padding-right: 0;
   .title{
     padding-top: 3rem;
   }
 }
 
-@media(max-width: 720px) {
+@media(max-width: $bp-sm) {
   .sticky-placeholder{
     width: 100%;
   }
@@ -83,7 +83,7 @@
     padding-right: 5vw;
   }
   .resp-lhs-padding{
-    padding-right: 5vw;
+    padding-right: 5vw !important;
     .title{
       padding-top: 0;
     }

@@ -17,7 +17,6 @@ class Candidate < ApplicationRecord
 
   validates :description, presence: { message: "Présentez-vous en quelques mots" }, if: :should_validate?
   validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
-  # validates :title, presence: { message: "Indiquez un intitulé de job ou une expertise" }, if: :should_validate?
   validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
   validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
   validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?

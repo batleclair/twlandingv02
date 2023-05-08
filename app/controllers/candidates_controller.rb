@@ -40,6 +40,7 @@ class CandidatesController < ApplicationController
   def create
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
+    @candidate.should_validate = true if params[:source] == "new"
     @candidate.user_id = current_user.id
     if @candidate.save
       save_to_airtable if @candidate.first_completion?

@@ -50,12 +50,12 @@
 
   <div class="offer-flex-resp bg-white" data-controller="candidacy">
 
-    <div class="mobile-sticky-ctn">
+    <div class="mobile-sticky-ctn sm-resp-pb-20">
       <%= render partial: "apply", locals: {offer: @offer} %>
     </div>
 
     <div>
-      <div class="ctn-resp resp-lhs-padding pb-4 position-relative">
+      <div class="ctn-resp-left pb-4 position-relative">
         <div class="d-flex justify-content-between align-items-end">
           <div class="flex-resp align-items-center title mt-3">
             <h4><span class="stress"><%= @offer.title %></span></h4>
@@ -68,14 +68,14 @@
         </div>
       </div>
 
-      <div class="ctn-resp resp-lhs-padding bg-shade pt-5 pb-5 mb-3 d-flex">
+      <div class="ctn-resp-left bg-shade pt-5 pb-5 mb-3 d-flex">
         <div class="rt-bullet-list-heart">
           <h5 class="text-main mb-2">2-3 bonnes raisons de s'engager :</h5>
           <%= @offer.summary %>
         </div>
       </div>
 
-      <div class="ctn-resp resp-lhs-padding bg-white pt-3 pb-3">
+      <div class="ctn-resp-left bg-white pt-3 pb-3">
         <div class="flex-resp beneficiary-card">
           <div class="lhs-beneficiary-card">
             <div class="logo-box downsize90 subtle-shadow mb-4">
@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <div class="ctn-resp resp-lhs-padding pt-3 pb-3">
+      <div class="ctn-resp-left pt-3 pb-3">
         <div class="bg-grey p-3 rt-bullet-list-arrow rt-color-text-style">
           <h5 class="text-main mb-2">La mission concrètement :</h5>
           <%= @offer.description %>

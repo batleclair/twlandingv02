@@ -73,123 +73,123 @@
 
   <%= image_tag('purple_triangle_light.svg', class: "tilted-ctn flip-hz") %>
 
-  <div class="ctn-resp bg-white pb-50 flex-center-between md-resp-flex-col">
-    <div class="embedded-cards xs-resp-resize-60 sm-resp-resize-70 md-resp-resize-80 lg-resp-resize-90 md-resp-order-2">
-      <%= link_to offers_path(function: "IT/Data/Produit"), class: "p-20 round-20 grey-border embedded-card" do %>
-          <h5 class="mb-10">Product management</h5>
-          <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>1 jour / semaine</h6></span>
-          <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>5 mois</h6></span>
-      <% end %>
-      <%= link_to offers_path(function: "Ressources Humaines"), class: "p-20 round-20 grey-border embedded-card" do %>
-        <h5 class="mb-10">Gestion RH</h5>
-        <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>2 jours / semaine</h6></span>
-        <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>2 mois</h6></span>
-      <% end %>
-      <%= link_to offers_path(function: "Ventes/Business Development"), class: "p-20 round-20 grey-border embedded-card" do %>
-        <h5 class="mb-10">Business development</h5>
-        <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>2 jours / mois</h6></span>
-        <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>12 mois</h6></span>
-      <% end %>
-      <%= image_tag('yellow_shape_1.svg', class:"") %>
-      <%= image_tag('home_illustration_4.svg', class:"max-w-300") %>
-    </div>
-    <div class="md-resp-order-1 ml-40 lg-resp-ml-0">
-      <h3 class="mb-20 md-resp-pt-20">L’engagement en compétences qui fait la différence</h3>
-      <p class="mb-20">Demain propose des missions qui nécessitent un engagement de quelques jours par mois à plusieurs par semaine au sein d’associations ayant des besoins en compétences tech, RH, sales ou encore juridiques</p>
-      <%= link_to offers_path, class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup"} do %>
-        <span></span>
-        <strong>Voir les missions</strong>
-        <i class="fa-solid fa-magnifying-glass round-button bg-white"></i>
-      <% end %>
-    </div>
+</div>
+
+<div class="ctn-resp bg-white pb-50 flex-center-between md-resp-flex-col">
+  <div class="embedded-cards xs-resp-resize-60 sm-resp-resize-70 md-resp-resize-80 lg-resp-resize-90 md-resp-order-2">
+    <%= link_to offers_path(function: "IT/Data/Produit"), class: "p-20 round-20 grey-border embedded-card" do %>
+        <h5 class="mb-10">Product management</h5>
+        <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>1 jour / semaine</h6></span>
+        <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>5 mois</h6></span>
+    <% end %>
+    <%= link_to offers_path(function: "Ressources Humaines"), class: "p-20 round-20 grey-border embedded-card" do %>
+      <h5 class="mb-10">Gestion RH</h5>
+      <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>2 jours / semaine</h6></span>
+      <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>2 mois</h6></span>
+    <% end %>
+    <%= link_to offers_path(function: "Ventes/Business Development"), class: "p-20 round-20 grey-border embedded-card" do %>
+      <h5 class="mb-10">Business development</h5>
+      <span class="flex-center-left"><i class="fa-regular fa-clock min-w-20 mr-10 text-main"></i><h6>2 jours / mois</h6></span>
+      <span class="flex-center-left"><i class="fa-regular fa-calendar min-w-20 mr-10 text-main"></i><h6>12 mois</h6></span>
+    <% end %>
+    <%= image_tag('yellow_shape_1.svg', class:"") %>
+    <%= image_tag('home_illustration_4.svg', class:"max-w-300") %>
   </div>
-
-
-  <div class="ctn-resp bg-grey pt-80 position-relative">
-    <h3 class="round grey-border testimony-title">talents heureux</h3>
-    <div class="flex-between sm-resp-flex-col">
-
-      <blockquote class="testimony mb-40">
-        <div class="flex-center-left mb-20">
-          <%= image_tag("karim.jpg", class: "round square-40 mr-20") %>
-          <div>
-            <cite class="fw-6">Karim</cite>
-            <cite>Consultant IT</cite>
-          </div>
-        </div>
-        <div class="position-relative pl-10 pt-10 w-100">
-          <%= image_tag('quote_sign.svg') %>
-          <p>Grâce à Demain, mon entreprise m’a permis de réaliser une mission pro bono pour aider une association dans le cadre de sa transformation digitale</p>
-        </div>
-      </blockquote>
-
-      <blockquote class="testimony mb-40 ml-20 sm-resp-ml-0 mr-20 sm-resp-mr-0">
-        <div class="flex-center-left mb-20">
-          <%= image_tag("patricia.jpg", class: "round square-40 mr-20") %>
-          <div>
-            <cite class="fw-6">Patricia</cite>
-            <cite>Responsable RH</cite>
-          </div>
-        </div>
-        <div class="position-relative pl-10 pt-10 w-100">
-          <%= image_tag('quote_sign.svg') %>
-          <p>En me laissant consacrer 3 jours par mois à une association qui m’est chère, mon entreprise m’a permis de retrouver du sens dans mon métier et un meilleur équilibre personnel</p>
-        </div>
-      </blockquote>
-
-      <blockquote class="testimony mb-40">
-        <div class="flex-center-left mb-20">
-          <%= image_tag("julie.jpg", class: "round square-40 mr-20") %>
-          <div>
-            <cite class="fw-6">Julie</cite>
-            <cite>Chargée de Marketing Digital</cite>
-          </div>
-        </div>
-        <div class="position-relative pl-10 pt-10 w-100">
-          <%= image_tag('quote_sign.svg') %>
-          <p>Demain m’a permis de trouver une asso géniale dans laquelle exercer et développer de nouvelles compétences en lien avec mon projet de reconversion</p>
-        </div>
-        </blockquote>
-
-    </div>
+  <div class="md-resp-order-1 ml-40 lg-resp-ml-0">
+    <h3 class="mb-20 md-resp-pt-20">L’engagement en compétences qui fait la différence</h3>
+    <p class="mb-20">Demain propose des missions qui nécessitent un engagement de quelques jours par mois à plusieurs par semaine au sein d’associations ayant des besoins en compétences tech, RH, sales ou encore juridiques</p>
+    <%= link_to offers_path, class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center" do %>
+      <span></span>
+      <strong>Voir les missions</strong>
+      <i class="fa-solid fa-magnifying-glass round-button bg-white"></i>
+    <% end %>
   </div>
+</div>
 
 
-  <div class="ctn-resp bg-white pt-50 pb-50">
-    <div class="flex-center-between md-resp-flex-col">
-      <div>
-        <h3>Demain simplifie le partage des compétences</h3>
-        <p class="mb-20">Notre mission : mettre le talent et les compétences professionnelles au service de l'intérêt général, en conciliant les intérêts de toutes les parties prenantes</p>
-        <div class="d-flex">
-          <i class="fa-regular fa-circle-check min-w-40 text-flag-1 fs-25 va-top"></i>
-          <span>Talents salariés, en disponibilité ou indépendants</span>
-        </div>
-        <div class="d-flex mt-10 mb-10">
-          <i class="fa-regular fa-circle-check min-w-40 text-flag-2 fs-25 va-top"></i>
-          <span>Equipes RH et RSE au sein d’entreprises, petites ou grandes</span>
-        </div>
-        <div class="d-flex">
-          <i class="fa-regular fa-circle-check min-w-40 text-flag-3 fs-25 va-top"></i>
-          <span>Fondations, associations et autres organismes d’intérêt général</span>
+<div class="ctn-resp bg-grey pt-80 position-relative">
+  <h3 class="round grey-border testimony-title">talents heureux</h3>
+  <div class="flex-between sm-resp-flex-col">
+
+    <blockquote class="testimony mb-40">
+      <div class="flex-center-left mb-20">
+        <%= image_tag("karim.jpg", class: "round square-40 mr-20") %>
+        <div>
+          <cite class="fw-6">Karim</cite>
+          <cite>Consultant IT</cite>
         </div>
       </div>
-      <%= image_tag('home_illustration_5.svg', class: "w-100 max-w-500 pl-40 md-resp-pr-40 md-resp-pt-40") %>
-    </div>
-  </div>
+      <div class="position-relative pl-10 pt-10 w-100">
+        <%= image_tag('quote_sign.svg') %>
+        <p>Grâce à Demain, mon entreprise m’a permis de réaliser une mission pro bono pour aider une association dans le cadre de sa transformation digitale</p>
+      </div>
+    </blockquote>
 
-  <div class="ctn-resp bg-shade pt-5 pb-5">
-    <h4 class="text-main center-text mb-5">nous les accompagnons</h4>
-    <div class="row align-items-center justify-content-center">
-      <% @beneficiaries.each do |b| %>
-        <% if b.logo.attached? %>
-          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
-            <%= link_to b.home_url(beneficiary_path(b)), target: (b.home_url(beneficiary_path(b)) == b.web_url && b.web_url.present? ? "_blank" : "_self"), class: "d-flex align-items-center full-width" do %>
-              <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Logo de l'association #{b.name}") %>
-            <% end %>
-          </div>
-        <% end %>
+    <blockquote class="testimony mb-40 ml-20 sm-resp-ml-0 mr-20 sm-resp-mr-0">
+      <div class="flex-center-left mb-20">
+        <%= image_tag("patricia.jpg", class: "round square-40 mr-20") %>
+        <div>
+          <cite class="fw-6">Patricia</cite>
+          <cite>Responsable RH</cite>
+        </div>
+      </div>
+      <div class="position-relative pl-10 pt-10 w-100">
+        <%= image_tag('quote_sign.svg') %>
+        <p>En me laissant consacrer 3 jours par mois à une association qui m’est chère, mon entreprise m’a permis de retrouver du sens dans mon métier et un meilleur équilibre personnel</p>
+      </div>
+    </blockquote>
+
+    <blockquote class="testimony mb-40">
+      <div class="flex-center-left mb-20">
+        <%= image_tag("julie.jpg", class: "round square-40 mr-20") %>
+        <div>
+          <cite class="fw-6">Julie</cite>
+          <cite>Chargée de Marketing Digital</cite>
+        </div>
+      </div>
+      <div class="position-relative pl-10 pt-10 w-100">
+        <%= image_tag('quote_sign.svg') %>
+        <p>Demain m’a permis de trouver une asso géniale dans laquelle exercer et développer de nouvelles compétences en lien avec mon projet de reconversion</p>
+      </div>
+      </blockquote>
+
+  </div>
+</div>
+
+
+<div class="ctn-resp bg-white pt-50 pb-50">
+  <div class="flex-center-between md-resp-flex-col">
+    <div>
+      <h3>Demain simplifie le partage des compétences</h3>
+      <p class="mb-20">Notre mission : mettre le talent et les compétences professionnelles au service de l'intérêt général, en conciliant les intérêts de toutes les parties prenantes</p>
+      <div class="d-flex">
+        <i class="fa-regular fa-circle-check min-w-40 text-flag-1 fs-25 va-top"></i>
+        <span>Talents salariés, en disponibilité ou indépendants</span>
+      </div>
+      <div class="d-flex mt-10 mb-10">
+        <i class="fa-regular fa-circle-check min-w-40 text-flag-2 fs-25 va-top"></i>
+        <span>Equipes RH et RSE au sein d’entreprises, petites ou grandes</span>
+      </div>
+      <div class="d-flex">
+        <i class="fa-regular fa-circle-check min-w-40 text-flag-3 fs-25 va-top"></i>
+        <span>Fondations, associations et autres organismes d’intérêt général</span>
+      </div>
+    </div>
+    <%= image_tag('home_illustration_5.svg', class: "w-100 max-w-500 pl-40 md-resp-pr-40 md-resp-pt-40") %>
+  </div>
+</div>
+
+<div class="ctn-resp bg-shade pt-5 pb-5">
+  <h4 class="text-main center-text mb-5">nous les accompagnons</h4>
+  <div class="row align-items-center justify-content-center">
+    <% @beneficiaries.each do |b| %>
+      <% if b.logo.attached? %>
+        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
+          <%= link_to b.home_url(beneficiary_path(b)), target: (b.home_url(beneficiary_path(b)) == b.web_url && b.web_url.present? ? "_blank" : "_self"), class: "d-flex align-items-center full-width" do %>
+            <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Logo de l'association #{b.name}") %>
+          <% end %>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
-
 </div>
