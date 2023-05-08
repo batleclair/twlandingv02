@@ -9,20 +9,20 @@ class Candidate < ApplicationRecord
   acts_as_taggable_on :skills
 
   validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }
-  validates :status, presence: { message: "Sélectionner parmi les options" }
-  validates :employer_name, presence: { message: "Renseigner l'employeur actuel" }, if: :employed?
+  validates :status, presence: { message: "Sélectionnez parmi les options" }
+  validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, if: :employed?
 
   validate :basics
   validate :cv_file_type
 
-  validates :description, presence: { message: "Veuillez vous présenter en quelques mots" }, if: :should_validate?
-  validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionner un domaine d'expertise" }, if: :should_validate?
-  validates :title, presence: { message: "Indiquer un intitulé de job ou une expertise" }, if: :should_validate?
-  validates :location, presence: { message: "Indiquer votre ville de résidence" }, if: :should_validate?
-  validates :volunteering, presence: { message: "Avez-vous une expérience en asso ?" }, if: :should_validate?
-  validates :primary_cause, presence: { message: "Sélectionner au moins une catégorie" }, length: { minimum: 1 }, if: :should_validate?
-  validates :availability, inclusion: {in: 1..3, message: "Sélectionner au moins 1 jour / mois"}, if: :should_validate?
-
+  validates :description, presence: { message: "Présentez-vous en quelques mots" }, if: :should_validate?
+  validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
+  # validates :title, presence: { message: "Indiquez un intitulé de job ou une expertise" }, if: :should_validate?
+  validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
+  validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
+  validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?
+  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
+  validate :skill_present, if: :should_validate?
 
   # accepts_nested_attributes_for :candidacies
 
@@ -38,12 +38,16 @@ class Candidate < ApplicationRecord
     status == 'pt_employee' || status == 'ft_employee' || status == STATUSES[0]
   end
 
-  def should_validate?
-    should_validate.present?
+  def freelance?
+    status == 'freelance' || status == STATUSES[1]
   end
 
   def min_info_present?
-    status.present? && (employer_name.present? if employed?) && (linkedin_url.present? || cv.attached?)
+    if employed?
+      status.present? && employer_name.present? && (linkedin_url.present? || cv.attached?)
+    else
+      status.present? && (linkedin_url.present? || cv.attached?)
+    end
   end
 
   def info_missing?
@@ -53,7 +57,14 @@ class Candidate < ApplicationRecord
   def first_completion?
     profile_completed == false &&
     min_info_present? &&
-    location.present? && phone_num.present? && status.present? && employer_name.present? && linkedin_url.present?
+    description.present? &&
+    function.present? &&
+    location.present? &&
+    phone_num.present? &&
+    availability > 0 &&
+    !skill_list.empty? &&
+    primary_cause != [""] &&
+    volunteering.present?
   end
 
   def age
@@ -84,6 +95,14 @@ class Candidate < ApplicationRecord
 
   private
 
+  def should_validate?
+    should_validate.present?
+  end
+
+  def skill_present
+    errors.add(:skill_list, "Indiquer au moins une compétence") if skill_list.empty?
+  end
+
   def basics
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
     if linkedin_url.blank? && !cv.attached?
@@ -95,7 +114,7 @@ class Candidate < ApplicationRecord
 
   def cv_file_type
     if cv.attached?
-      errors.add(:cv, 'formats : PDF ou DOC') unless cv.content_type.in?(%w[application/pdf application/msword])
+      errors.add(:linkedin_url, 'formats : PDF ou DOC') unless cv.content_type.in?(%w[application/pdf application/msword])
     end
   end
 

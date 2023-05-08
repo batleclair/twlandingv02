@@ -42,6 +42,7 @@ class CandidatesController < ApplicationController
     authorize @candidate
     @candidate.user_id = current_user.id
     if @candidate.save
+      save_to_airtable if @candidate.first_completion?
       redirect_to candidate_path(@candidate)
     else
       render :new, status: :unprocessable_entity
@@ -78,8 +79,7 @@ class CandidatesController < ApplicationController
     @candidate.should_validate = true if params[:source] == "new"
     @candidate.update(candidate_params)
     if @candidate.save
-      # save_to_airtable if @candidate.first_completion?
-      save_to_airtable
+      save_to_airtable if @candidate.first_completion?
       flash[:notice] = "Vos informations ont bien été enregistrées"
       @experience = Experience.new
       render params[:source].to_sym, status: :see_other
@@ -144,7 +144,7 @@ class CandidatesController < ApplicationController
   end
 
   def save_to_airtable
-    @table = Airrecord.table("patpv9PoowQe6o0eH.63555bec12e012fa3a019ee00390a9ab3709696e0787c857eef9e9675a4550b7", "appxT62OstSXOz8FQ", "Candidats")
+    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_APP"], "Candidats")
     @record = @table.new(
       "Prénom": @candidate.user.first_name,
       "Nom": @candidate.user.last_name,

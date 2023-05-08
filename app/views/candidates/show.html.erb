@@ -6,21 +6,18 @@
     <h5 class="text-main fw-6"><%= "#{@candidate.user.first_name} (#{@candidate.age})" %></h5>
     <h6 class="mb-3"><%= "#{@candidate.title} à #{@candidate.location}" %></h5>
     <% case @candidate.status %>
-    <% when 'ft_employee' %>
-      <p>💼 Salarié·e souhaitant s’engager sur son temps de travail</p>
+    <% when @candidate.employed? %>
+      <p>💼 Salarié·e</p>
       <p>Employeur : <strong><%= @candidate.employer_name.upcase %></strong></p>
         <% if @candidate.employer_approved %>
           <p class="green-color"><i class="fa-solid fa-circle-check"></i> approuvé par l’entreprise</p>
         <% else %>
           <p class="grey-color"><i class="fa-solid fa-circle-question"></i> pas encore approuvé par l'entreprise</p>
         <% end %>
-    <% when 'pt_employee' %>
-      <p>💼 Salarié·e à temps partiel</p>
-      <p>Employeur : <strong><%= @candidate.employer_name.upcase %></strong></p>
-    <% when 'freelance' %>
+    <% when @candidate.freelance? %>
       <p>💼 Indépendant·e</p>
     <% else %>
-      <p>💼 Candidat·e</p>
+      <p>💼 En disponibilité</p>
     <% end %>
   </div>
   <div class="d-flex justify-content-evenly">

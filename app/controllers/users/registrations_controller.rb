@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  # prepend_before_action :check_captcha, only: :create
+  prepend_before_action :check_captcha, only: :create
   # after_action :log_event, only: :create
   prepend_before_action :authenticate_scope!, only: [:info]
 
@@ -42,7 +42,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    return if verify_recaptcha(action: 'signup', minimum_score: 0.1, secret_key: ENV['RECAPTCHA_PRIVATE_KEY'])
+    return if verify_recaptcha(action: 'signup', minimum_score: 0.2, secret_key: ENV['RECAPTCHA_PRIVATE_KEY'])
 
     self.resource = resource_class.new sign_up_params
     resource.validate

@@ -81,12 +81,13 @@
               <i class="fa-solid fa-angle-down pe-none"></i>
             </div>
 
-            <div class="mb-10">
+            <div class="mb-10 position-relative">
               <%= f.input :skill_list,
                           input_html: {value: @candidate.skill_list.join(","), data: {controller: "tom-select"}},
                           placeholder: "Ajouter des compétences détaillés",
                           label: false,
                           wrapper: false %>
+              <%= f.error :skill_list, id: "skill_list", class:"invalid-msg" %>
             </div>
 
             <div class="mb-20 position-relative">
@@ -100,7 +101,7 @@
           <div class="mb-40">
             <h5 class="text-main mb-10">💜 L'engagement qui vous conviendrait</h5>
 
-            <div class="mb-10">
+            <div class="mb-10 position-relative">
               <label class="label-form">Les causes qui me tiennent à coeur</label>
               <div class="custom-checkbox-ctn">
                 <%= f.input :primary_cause,
@@ -109,6 +110,7 @@
                             as: :check_boxes,
                             wrapper: false %>
               </div>
+              <%= f.error :primary_cause, id: "primary_cause", class:"invalid-msg" %>
             </div>
 
             <div class="slider-ctn mb-10 position-relative" data-controller="slider" data-slider-type="frequency">
