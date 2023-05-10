@@ -20,7 +20,7 @@
                       input_html: { autocomplete: "email" } %>
           <i class="fa-regular fa-envelope"></i>
         </div>
-        <div class="input-with-2-icons mb-20 position-relative" data-controller="password">
+        <div class="input-with-2-icons mb-15 position-relative" data-controller="password">
           <%= f.input :password,
                       required: true,
                       wrapper: false,
@@ -28,6 +28,15 @@
                       input_html: { autocomplete: "new-password", data: {"password-target": "input"} } %>
           <i class="fa-solid fa-lock"></i>
           <i class="fa-regular fa-eye-slash min-w-20 text-center" data-action="click->password#toggle"></i>
+        </div>
+
+        <div class="flex-center-between position-relative mb-20">
+          <%= f.input :remember_me,
+                      as: :boolean,
+                      label: "Rester connecté·e",
+                      label_html: {class: "no-wrap"},
+                      input_html: { class: "toggle" },
+                      wrapper: false %>
         </div>
 
         <button type="submit" class="fat-btn fat-btn-md w-100 fat-btn-main-color position-relative flex-center-between">
