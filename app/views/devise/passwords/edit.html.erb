@@ -1,34 +1,58 @@
-<div class="white-wrapper">
-  <div class="ctn">
-    <div class="flex-resp align-items-center mb-3">
-      <%= link_to 'Accueil', :root, class: "button btn-light-flag" %>
+
+<div class="ctn-resp pe-0 bg-white pt-50">
+
+  <div class="d-flex login-form-ctn full-height-ctn">
+
+    <div class="pt-50 pb-50 flex-shrink-0">
+      <div class="mb-20">
+        <h2>Nouveau mot de passe</h2>
+        <div class="d-flex">
+          <p class="me-1">Pas encore inscrit.e ?</p>
+          <%= link_to "Créer un compte", new_registration_path(resource_name), class:"text-main fw-7" %>
+        </div>
+      </div>
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :reset_password_token, as: :hidden %>
+        <%= f.full_error :reset_password_token %>
+
+        <div class="input-with-2-icons mb-10 position-relative" data-controller="password">
+          <%= f.input :password,
+                      required: true,
+                      wrapper: false,
+                      label: "Mot de passe",
+                      input_html: { autocomplete: "new-password" }, data: {"password-target": "input"} %>
+          <i class="fa-solid fa-lock"></i>
+          <i class="fa-regular fa-eye-slash min-w-20 text-center" data-action="click->password#toggle"></i>
+        </div>
+
+        <div class="input-with-2-icons mb-20 position-relative" data-controller="password">
+          <%= f.input :password_confirmation,
+                      required: true,
+                      wrapper: false,
+                      label: "Confirmation",
+                      input_html: { autocomplete: "new-password" }, data: {"password-target": "input"} %>
+          <i class="fa-solid fa-lock"></i>
+          <i class="fa-regular fa-eye-slash min-w-20 text-center" data-action="click->password#toggle"></i>
+        </div>
+
+        <%= hidden_field_tag 'source', "edit" %>
+
+        <button type="submit" class="fat-btn fat-btn-md w-100 fat-btn-main-color position-relative flex-center-between">
+          <span></span>
+          <strong>Connexion</strong>
+          <i class="fa-solid fa-right-to-bracket round-button bg-white"></i>
+        </button>
+
+      <% end %>
+
     </div>
 
-    <h1 class="mt-4 mb-4 text-main fs-4">Réinitialisation du mot de passe</h1>
-
-    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-      <%= f.error_notification %>
-
-      <%= f.input :reset_password_token, as: :hidden %>
-      <%= f.full_error :reset_password_token %>
-
-      <div class="form-inputs">
-        <%= f.input :password,
-                    label: "New password",
-                    required: true,
-                    autofocus: true,
-                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                    input_html: { autocomplete: "new-password" } %>
-        <%= f.input :password_confirmation,
-                    label: "Confirm your new password",
-                    required: true,
-                    input_html: { autocomplete: "new-password" } %>
+    <div class="bg-shade round-top-left login-img-ctn ml-50 flex-center w-100 sm-resp-hide p-20">
+      <div>
+        <%= image_tag('homepage.svg', class: "w-100 max-w-500") %>
       </div>
-
-      <div class="form-actions flex-resp flex-column align-items-end justify-content-end">
-        <%= f.button :submit, "Modifier", class: "button btn-flag-color mb-3" %>
-      </div>
-    <% end %>
+    </div>
 
   </div>
 </div>

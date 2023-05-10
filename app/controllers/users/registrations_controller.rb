@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # prepend_before_action :check_captcha, only: :create
   # after_action :log_event, only: :create
-  prepend_before_action :authenticate_scope!, only: [:info]
+  prepend_before_action :authenticate_scope!, only: [:info, :edit]
 
   def new
     add_breadcrumb "Inscription", new_user_registration_path
@@ -19,7 +19,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update
     account_update_params = devise_parameter_sanitizer.sanitize(:account_update)
-    if account_update_params[:password].present? || !account_update_params[:email].nil?
+    # if account_update_params[:password].present? || !account_update_params[:email].nil?
+    if params[:source] == "edit"
       super
     else
       @user = current_user
@@ -36,7 +37,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     flash[:notice] = "Vos informations ont bien été enregistrées"
-    edit_user_registration_path
+    edit_user_registration_path || root_path
   end
 
   private

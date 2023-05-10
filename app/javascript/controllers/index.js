@@ -46,6 +46,9 @@ application.register("modal", ModalController)
 import NewProfileController from "./new_profile_controller.js"
 application.register("new-profile", NewProfileController)
 
+import PasswordController from "./password_controller.js"
+application.register("password", PasswordController)
+
 import ProfileFormController from "./profile_form_controller.js"
 application.register("profile-form", ProfileFormController)
 

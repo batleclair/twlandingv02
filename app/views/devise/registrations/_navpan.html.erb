@@ -9,9 +9,13 @@
       <i class="fa-solid fa-user min-w-30"></i>
       <h5>Mon profil</h5>
     </div>
-    <%= link_to 'Ma situation', @candidate.nil? ? new_candidate_path : users_situation_path , class: "pl-40", data: {"active": active == 3} %>
-    <%= link_to 'Mes compétences', @candidate.nil? ? new_candidate_path : users_skills_path , class: "pl-40", data: {"active": active == 4} %>
-    <%= link_to 'Mes engagements', @candidate.nil? ? new_candidate_path : users_wishes_path , class: "pl-40", data: {"active": active == 5} %>
+    <% if current_user.candidate.nil? %>
+      <%= link_to 'Compléter mon profil', new_candidate_path, class: "pl-40" %>
+    <% else %>
+      <%= link_to 'Ma situation', current_user.candidate.nil? ? new_candidate_path : users_situation_path , class: "pl-40", data: {"active": active == 3} %>
+      <%= link_to 'Mes compétences', current_user.candidate.nil? ? new_candidate_path : users_skills_path , class: "pl-40", data: {"active": active == 4} %>
+      <%= link_to 'Mes engagements', current_user.candidate.nil? ? new_candidate_path : users_wishes_path , class: "pl-40", data: {"active": active == 5} %>
+    <% end %>
   </div>
 
   <div>

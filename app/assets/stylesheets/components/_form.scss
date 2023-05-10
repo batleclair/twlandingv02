@@ -113,6 +113,13 @@
 
 }
 
+.input-with-2-icons{
+  position: relative;
+  i:last-of-type.text-main{
+    color: $first-main-color;
+  }
+}
+
 .login-img-ctn{
   max-height: 100vh;
   position: sticky;

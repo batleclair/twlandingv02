@@ -83,7 +83,12 @@ class CandidatesController < ApplicationController
       save_to_airtable if @candidate.first_completion?
       flash[:notice] = "Vos informations ont bien été enregistrées"
       @experience = Experience.new
-      render params[:source].to_sym, status: :see_other
+      case params[:source]
+      when "new"
+        redirect_to candidate_path(@candidate)
+      else
+        render params[:source].to_sym, status: :see_other
+      end
     else
       render params[:source].to_sym, status: :unprocessable_entity
     end
