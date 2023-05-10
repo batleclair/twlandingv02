@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     resources :posts, only: %i[index new edit]
     resources :candidates, only: %i[index show]
     resources :offer_lists, only: %i[index new edit]
+    resources :users, only: %i[index destroy]
   end
 
   # error routes

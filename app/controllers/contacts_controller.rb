@@ -2,6 +2,7 @@ class ContactsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def create
+    return if daily_limit?
     @contact = Contact.new(contact_params)
     authorize @contact
     if @contact.valid?
@@ -31,6 +32,11 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:first_name, :last_name, :email, :contact_type, :organization, :message, :phone_num)
+  end
+
+  def daily_limit?
+    count = Contact.where(created_at: (Time.now - 1.day)..).length
+    return count > 50
   end
 
   def event_params

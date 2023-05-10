@@ -1,4 +1,9 @@
 class UserPolicy < ApplicationPolicy
+
+  def index?
+    user.user_type == 'admin'
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

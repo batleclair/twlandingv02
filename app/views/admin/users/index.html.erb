@@ -1,0 +1,50 @@
+<%= render partial: "shared/navpan", locals: {active: 8} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Liste des utilisateurs</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Date de création</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th class="center-text">Candidat ?</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.created_at %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td><%= user.email %></td>
+              <td class="center-text">
+                <% if user.candidate.present? %>
+                  <i class="fa-solid fa-circle-check green-color"></i>
+                <% else %>
+                  <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                <% end %>
+              </td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <%= link_to admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash text-main"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

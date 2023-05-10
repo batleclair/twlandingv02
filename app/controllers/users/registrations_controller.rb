@@ -8,6 +8,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def create
+    return if daily_limit?
+    super
+  end
+
   def edit
     add_breadcrumb "Mon compte", edit_user_registration_path
     self.resource = resource_class.new(sign_up_params)
@@ -72,5 +77,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         }
       ]
     }
+  end
+
+  def daily_limit?
+    count = User.where(created_at: (Time.now - 1.day)..).length
+    return count > 50
   end
 end

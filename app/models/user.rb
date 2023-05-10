@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_one :candidate, autosave: true
+  has_one :candidate, autosave: true, dependent: :destroy
   accepts_nested_attributes_for :candidate
   validates :first_name, presence: { message: "Prénom requis" }
   validates :last_name, presence: { message: "Nom requis" }
