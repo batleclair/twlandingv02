@@ -1,0 +1,41 @@
+<%= f.error_notification %>
+<div class="mb-10 position-relative">
+  <%= f.input :first_name,
+              label: "Prénom",
+              wrapper: false,
+              required: true %>
+</div>
+<div class="mb-10 position-relative">
+  <%= f.input :last_name,
+              label: "Nom",
+              wrapper: false,
+              required: true %>
+</div>
+<div class="input-with-icon mb-10 position-relative">
+  <%= f.input :email,
+              required: true,
+              label: "Adresse mail",
+              wrapper: false,
+              input_html: { autocomplete: "email" } %>
+    <i class="fa-regular fa-envelope"></i>
+  </div>
+<div class="input-with-2-icons mb-10 position-relative">
+  <%= f.input :password,
+              required: true,
+              wrapper: false,
+              label: "Mot de passe",
+              input_html: { autocomplete: "new-password" } %>
+  <i class="fa-solid fa-lock"></i>
+  <i class="fa-regular fa-eye-slash"></i>
+</div>
+<div class="input-with-2-icons mb-20 position-relative">
+  <%= f.input :password_confirmation,
+              required: true,
+              wrapper: false,
+              label: "Confirmation",
+              input_html: { autocomplete: "new-password" } %>
+  <i class="fa-solid fa-lock"></i>
+  <i class="fa-regular fa-eye-slash"></i>
+</div>
+
+<%= recaptcha_v3(action: 'signup') %>

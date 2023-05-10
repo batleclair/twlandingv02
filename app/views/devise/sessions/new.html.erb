@@ -17,16 +17,14 @@
                       required: true,
                       label: "Adresse mail",
                       wrapper: false,
-                      error: 'une adresse mail valide est requise',
                       input_html: { autocomplete: "email" } %>
-            <i class="fa-regular fa-envelope"></i>
-          </div>
+          <i class="fa-regular fa-envelope"></i>
+        </div>
         <div class="input-with-2-icons mb-20 position-relative">
           <%= f.input :password,
                       required: true,
                       wrapper: false,
                       label: "Mot de passe",
-                      error: 'votre mot de passe doit faire au moins 6 caractères',
                       input_html: { autocomplete: "new-password" } %>
           <i class="fa-solid fa-lock"></i>
           <i class="fa-regular fa-eye-slash"></i>
@@ -37,7 +35,12 @@
           <strong>Connexion</strong>
           <i class="fa-solid fa-right-to-bracket round-button bg-white"></i>
         </button>
+
       <% end %>
+
+      <div class="mt-10 flex-center">
+        <p class="d-inline me-1">Mot de passe</p><%= link_to 'oublié ?', new_password_path(resource_name), class:"fw-6 text-main" %>
+      </div>
     </div>
 
     <div class="bg-shade round-top-left login-img-ctn ml-50 flex-center w-100 sm-resp-hide p-20">
