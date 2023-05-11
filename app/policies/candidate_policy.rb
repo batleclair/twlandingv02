@@ -9,7 +9,7 @@ class CandidatePolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    record.id.nil? || (record.user == user && !record.profile_completed)
   end
 
   def synch_create?
