@@ -1,18 +1,54 @@
-<div style="background-color: #E2D8F4; padding: 50px 50px 0 50px;">
-  <div style="background-color: #fff; padding: 20px 50px;">
-    <h5 style="font-family: Verdana; font-size: 25px; color: #531cb3;">Hello <%= @user.first_name %> !</h5>
-    <br>
-    <p style="font-family: Verdana;">Ton compte a bien été créé et on est ravis que tu rejoignes notre communauté. On a hâte de t'aider à t'engager durablement pour de belles causes.</p>
-    <p style="font-family: Verdana;">Les associations et autres acteurs de l'intérê général n'attendent plus que toi, ton talent, tes compétences et ton enthousiasme !</p>
-    <br>
-    <p style="font-family: Verdana;">N'hésite pas à compléter ton profil pour que l'on puisse te proposer les projets les plus en lien avec tes aspirations et tes compétences</p>
-    <p style="font-family: Verdana;">Tu peux déjà jeter un oeil et candidater aux offres actuellement disponibles <a style="font-weight: bolder; color: #531cb3;" href="https://www.demain.works/offers">ici</a></p>
-    <br>
-    <p style="font-family: Verdana;">En cas de pépin n'hésite pas à nous contacter ici: <a style="font-weight: bolder; color: #531cb3;" href="mailto:contact@demain.works">contact@demain.works</a></p>
-    <br>
-    <p style="font-family: Verdana;">L'équipe <strong>Demain</strong></p>
-    <p>🙌</p>
-  </div>
-</div>
-<div style="background-color: #531cb3; height: 100px;">
-</div>
+<%= image_tag("logo_dark.svg", style: "margin-left: auto; margin-right: auto; width: 100%; max-width: 200px; display: block; ", alt: "Logo Demain") %>
+<br>
+<br>
+
+<h1 style="font-family: sans-serif; font-weight: 600; font-size: 25px; color: #531cb3;">Hello <%= @user.first_name %> !</h5>
+<br>
+
+<p style="font-family: sans-serif;">Ton compte a bien été créé et on est ravis que tu rejoignes notre communauté. On a hâte de t'aider à t'engager durablement pour de belles causes.</p>
+<p style="font-family: sans-serif;">N'hésite pas à compléter ton profil pour que l'on puisse te proposer les projets les plus en lien avec tes aspirations et tes compétences</p>
+<br>
+
+<a href="https://www.demain.works/candidates/new" style="
+    font-size: 15px;
+    padding: 10px 20px;
+    background-color: #531cb3;
+    color: white;
+    border-radius: 20px;
+    font-family: sans-serif;
+    text-decoration: none;
+    font-weight: 600;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+  ">Compléter mon profil
+</a>
+<br>
+
+<p style="font-family: sans-serif;">Les associations et autres acteurs de l'intérêt général n'attendent plus que toi, ton talent, tes compétences et ton enthousiasme !</p>
+<p style="font-family: sans-serif;">Tu peux déjà jeter un oeil et candidater aux offres actuellement disponibles sur le site</p>
+<br>
+
+<a href="https://www.demain.works/missions" style="
+    font-size: 15px;
+    padding: 10px 20px;
+    background-color: white;
+    color: #531cb3;
+    border-radius: 20px;
+    font-family: sans-serif;
+    text-decoration: none;
+    font-weight: 600;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+    border: solid 1px #531cb3
+  ">Consulter les missions
+</a>
+<br>
+
+<p style="font-family: sans-serif;">En cas de pépin n'hésite pas à nous contacter ici: <a style="font-weight: bolder; color: #531cb3;" href="mailto:contact@demain.works">contact@demain.works</a></p>
+<br>
