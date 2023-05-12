@@ -1,15 +1,9 @@
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <p>Nouveau contact !!!</p>
-    <p>--------------------------</p>
-    <p>Nom : <%= @contact.first_name %> <%= @contact.last_name.upcase %></p>
-    <p>Email : <%= @contact.email %></p>
-    <p>Type : <%= @contact.contact_type %></p>
-    <p>Organisation : <%= @contact.organization %></p>
-    <p>Message : <%= @contact.message %></p>
-    <p>--------------------------</p>
-  </body>
-</html>
+<h1 style="font-family: sans-serif; font-weight: 600; font-size: 25px; color: #531cb3;">😘 Nouveau contact entrant</h1>
+<p>--------------------------</p>
+<p style="font-family: sans-serif;">Nom : <%= @contact.first_name %> <%= @contact.last_name.upcase %></p>
+<p style="font-family: sans-serif;">Email : <%= @contact.email %></p>
+<p style="font-family: sans-serif;">Téléphone : <%= @contact.phone_num %></p>
+<p style="font-family: sans-serif;">Type : <%= @contact.contact_type %></p>
+<p style="font-family: sans-serif;">Organisation : <%= @contact.organization %></p>
+<p style="font-family: sans-serif;">Message : <%= @contact.message %></p>
+<p>--------------------------</p>

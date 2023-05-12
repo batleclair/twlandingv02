@@ -43,6 +43,8 @@ class CandidatesController < ApplicationController
     @candidate.should_validate = true if params[:source] == "new"
     @candidate.user_id = current_user.id
     if @candidate.save
+      # clip_to_airtable
+      CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later
       save_to_airtable if @candidate.first_completion?
       redirect_to candidate_path(@candidate)
     else
@@ -54,7 +56,7 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
     @candidate.user_id = current_user.id
-    @candidate.save
+    CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later if @candidate.save
     @candidate.valid?
     render json: json_response(@candidate)
   end
@@ -67,13 +69,13 @@ class CandidatesController < ApplicationController
     render json: json_response(@candidate)
   end
 
-  def synch_update_min
-    @candidate = Candidate.find_by(user_id: current_user.id)
-    authorize @candidate
-    @candidate.update(candidate_params)
-    @candidate.valid?(:min_info)
-    render json: json_resp_min(@candidate)
-  end
+  # def synch_update_min
+  #   @candidate = Candidate.find_by(user_id: current_user.id)
+  #   authorize @candidate
+  #   @candidate.update(candidate_params)
+  #   @candidate.valid?(:min_info)
+  #   render json: json_resp_min(@candidate)
+  # end
 
   def update
     authorize @candidate
@@ -149,6 +151,22 @@ class CandidatesController < ApplicationController
     )
   end
 
+  def clip_to_airtable
+    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_CRM"], "Candidats")
+    @record = @table.new(
+      "Candidat": "#{@candidate.user.first_name} #{@candidate.user.last_name}",
+      "Email": @candidate.user.email,
+      "Téléphone": @candidate.phone_num,
+      "Statut": @candidate.status,
+      "CV": Cloudinary::Utils.cloudinary_url(@candidate.cv.key),
+      "Linkedin": @candidate.linkedin_url,
+      "Entreprise": @candidate.employer_name,
+      "Source": "Site web"
+      )
+    @record.create
+    # CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later
+  end
+
   def save_to_airtable
     @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_APP"], "Candidats")
     @record = @table.new(
@@ -175,8 +193,7 @@ class CandidatesController < ApplicationController
     if @record.create
       @candidate.profile_completed = true
       @candidate.save
-    else
-      raise
+      CandidateMailer.with(candidate: @candidate).new_profile_email.deliver_later
     end
   end
 end

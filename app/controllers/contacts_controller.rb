@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
     if @contact.valid?
       # && verify_recaptcha(action: 'contact', minimum_score: 0.1, secret_key: ENV['RECAPTCHA_PRIVATE_KEY'])
       log_event if @contact.save
-      # ContactMailer.with(contact: @contact).new_contact_email.deliver_later
+      ContactMailer.with(contact: @contact).new_contact_email.deliver_later
     end
     render json: json_response(@contact)
   end
