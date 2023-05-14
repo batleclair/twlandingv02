@@ -1,12 +1,16 @@
 <h1 style="font-family: sans-serif; font-weight: 600; font-size: 25px; color: #531cb3;">🤘 Nouveau candidat inscrit</h1>
+
 <p>--------------------------</p>
+
 <p style="font-family: sans-serif;">Nom : <%= @candidate.user.first_name %> <%= @candidate.user.last_name.upcase %></p>
 <p style="font-family: sans-serif;">Email : <%= @candidate.user.email %></p>
 <p style="font-family: sans-serif;">Téléphone : <%= @candidate.phone_num %></p>
 <p style="font-family: sans-serif;">Statut : <%= @candidate.status %></p>
+
 <% if @candidate.employed? %>
   <p style="font-family: sans-serif;">Employeur : <%= @candidate.employer_name %></p>
 <% end %>
+
 <p style="font-family: sans-serif;">CV :
   <% if @candidate.cv.attached? %>
     <%= link_to 'Disponible', Cloudinary::Utils.cloudinary_url(@candidate.cv.key), target: "_blank" %>
@@ -14,6 +18,7 @@
     Non communiqué
   <% end %>
 </p>
+
 <p style="font-family: sans-serif;">CV :
   <% if @candidate.linkedin_url.present? %>
     <%= link_to "Disponible", @candidate.clean_linkedin_url, target: "_blank" %>
@@ -21,6 +26,7 @@
     Non communiqué
   <% end %>
 </p>
+
 <p style="font-family: sans-serif;">Candidature associée :
   <% if @candidate.candidacies.empty? %>
     Aucune
@@ -28,4 +34,5 @@
     <%= "#{@candidate.candidacies.first.beneficiary.name} - #{@candidate.candidacies.first.offer.title}" %>
   <% end %>
 </p>
+
 <p>--------------------------</p>
