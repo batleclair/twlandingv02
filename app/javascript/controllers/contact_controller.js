@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="contact"
 export default class extends Controller {
-  static targets = ["window", "org", "form", "org"]
+  static targets = ["window", "org", "form", "type"]
 
   connect() {
   }
@@ -10,14 +10,16 @@ export default class extends Controller {
   popup(event) {
     event.preventDefault()
     this.windowTarget.style.display = "block"
+    this.typeTarget.value = event.target.dataset.type
+    this.typeTarget.focus()
   }
 
-  show(event) {
-    this.orgTarget.style="display: none;"
-    if  (event.target.value === 'Association' || event.target.value === 'Entreprise') {
-      this.orgTarget.style=""
-    }
-  }
+  // show(event) {
+  //   this.orgTarget.style="display: none;"
+  //   if  (event.target.value === 'Association' || event.target.value === 'Entreprise') {
+  //     this.orgTarget.style=""
+  //   }
+  // }
 
   toggle(event) {
     const form = new FormData(this.formTarget)

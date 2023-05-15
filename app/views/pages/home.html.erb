@@ -24,6 +24,7 @@
     <div class="flex-center position-absolute home-cards-ctn" data-swipe-target="ctn" data-focus="1">
 
         <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <%= link_to '', candidates_path, data: {action: "click->swipe#keep"} %>
           <h5 class="mb-10">candidat.es</h5>
           <p class="overflow-hidden hover-2">Mettez vos compétences au service d'une cause qui vous tient à cœur, et regagnez du sens et de l'équilibre dans votre travail au quotidien</p>
           <%= image_tag('home_illustration_1.svg', class: "hover-2 pe-none") %>
@@ -39,13 +40,14 @@
         </div>
 
         <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <%= link_to '', companies_path, data: {action: "click->swipe#keep"} %>
           <h5 class="mb-10">entreprises</h5>
           <p class="overflow-hidden hover-2">Mobilisez votre entreprise autour d’initiatives à fort impact sociétal en y associant de manière ciblée des collaborateurs en quête de sens</p>
           <%= image_tag('home_illustration_2.svg', class: "hover-2 pe-none") %>
           <div>
           </div>
           <em class="hover-2 flex-center-between bg-flag-2">
-            <%= link_to '', class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup"} do %>
+            <%= link_to '', class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup", type: "Entreprise"} do %>
               <span></span>
               <strong>Discutons-en !</strong>
               <i class="fa-solid fa-phone round-button bg-white"></i>
@@ -54,13 +56,14 @@
         </div>
 
         <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <%= link_to '', nonprofits_path, data: {action: "click->swipe#keep"} %>
           <h5 class="mb-10">associations</h5>
           <p class="overflow-hidden hover-2">Attirez les compétences utiles à la professionnalisation, la structuration ou la digitalisation de votre organisation</p>
           <%= image_tag('home_illustration_3.svg', class: "hover-2 pe-none") %>
           <div>
           </div>
           <em class="hover-2 flex-center-between bg-flag-3">
-            <%= link_to '', class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup"} do %>
+            <%= link_to '', class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup", type: "Association"} do %>
               <span></span>
               <strong>Discutons-en !</strong>
               <i class="fa-solid fa-phone round-button bg-white"></i>
@@ -97,7 +100,8 @@
   </div>
   <div class="md-resp-order-1 ml-40 lg-resp-ml-0">
     <h3 class="mb-20 md-resp-pt-20">L’engagement en compétences qui fait la différence</h3>
-    <p class="mb-20">Demain propose des missions qui nécessitent un engagement de quelques jours par mois à plusieurs par semaine au sein d’associations ayant des besoins en compétences tech, RH, sales ou encore juridiques</p>
+    <p class="mb-20">Demain propose des missions qui nécessitent un engagement de quelques jours par mois à plusieurs par semaine au sein d’associations.</p>
+    <p class="mb-20">L'objectif : mettre les compétences professionnelles issues de l'entreprise - <span class="fw-6 text-main">IT, RH, sales, juridiques, finance / comptabilité, ou encore marketing / communication</span> - au service de l'intérêt général</p>
     <%= link_to offers_path, class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center" do %>
       <span></span>
       <strong>Voir les missions</strong>

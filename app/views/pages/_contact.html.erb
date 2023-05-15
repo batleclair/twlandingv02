@@ -18,7 +18,8 @@
                           collection: [['Association', "Une association"], ['Candidat', 'Un ou une candidate'], ['Entreprise', 'Une entreprise']],
                           label_method: :last,
                           value_method: :first,
-                          input_html: {class: "input-form", data: {action: "change->contact#toggle"}},
+                          # autofocus: true,
+                          input_html: {class: "input-form", data: {action: "change->contact#toggle", "contact-target": "type"}},
                           wrapper: false %>
             <i class="fa-solid fa-briefcase"></i>
             <i class="fa-solid fa-angle-down pe-none"></i>

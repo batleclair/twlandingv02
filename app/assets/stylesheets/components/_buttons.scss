@@ -185,13 +185,16 @@
     height: 100%;
     min-height: 20px;
     transition: 0.3s ease-in-out;
+    pointer-events: none;
   }
   strong{
     z-index: 1;
+    pointer-events: none;
   }
   i {
     color: $first-flag-color;
     z-index: 1;
+    pointer-events: none;
   }
   &:hover{
     transition: 0.3s ease-in-out;
