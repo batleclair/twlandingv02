@@ -1,7 +1,8 @@
 class Contact < ApplicationRecord
   CONTACT_BLACKLIST = [
     "ericjonesmyemail@gmail.com",
-    "katytrilly9@gmail.com"
+    "katytrilly9@gmail.com",
+    "gloversteve282@gmail.com"
   ]
 
   validates :first_name, presence: { message: "Veuillez renseigner votre prénom" }
