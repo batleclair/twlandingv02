@@ -80,17 +80,15 @@ Rails.application.configure do
 
   # Configuration GMAIL
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: '587',
-    domain: 'demain.works',
-    user_name: ENV['GMAIL_NOREPLY_USERNAME'],
-    password: ENV['GMAIL_NOREPLY_PASSWORD'],
-    authentication: :plain,
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'demain.works',
+    user_name:            ENV['GMAIL_NOREPLY_USERNAME'],
+    password:             ENV['GMAIL_NOREPLY_PASSWORD'],
+    authentication:       'plain',
     enable_starttls_auto: true,
-    openssl_verify_mode: :none,
-    ssl: true,
-    tls: true
-  }
+    open_timeout:         5,
+    read_timeout:         5 }
 
   config.action_mailer.perform_caching = false
 
