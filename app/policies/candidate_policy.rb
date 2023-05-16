@@ -16,8 +16,8 @@ class CandidatePolicy < ApplicationPolicy
     create?
   end
 
-  def synch_create_min?
-    create?
+  def completed?
+    record.user == user && record.profile_completed
   end
 
   def create?

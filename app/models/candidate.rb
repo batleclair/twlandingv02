@@ -23,8 +23,6 @@ class Candidate < ApplicationRecord
   validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
   validate :skill_present, if: :should_validate?
 
-  # accepts_nested_attributes_for :candidacies
-
   FUNCTIONS = Offer::FUNCTIONS
 
   STATUSES = [
@@ -116,5 +114,4 @@ class Candidate < ApplicationRecord
       errors.add(:linkedin_url, 'formats : PDF ou DOC') unless cv.content_type.in?(%w[application/pdf application/msword])
     end
   end
-
 end

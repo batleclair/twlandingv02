@@ -37,7 +37,7 @@
                   <%= link_to edit_admin_offer_path(o) do %>
                     <i class="fa-solid fa-pen-to-square text-main"></i>
                   <% end %>
-                  <%= link_to offer_path(o), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                  <%= link_to admin_offer_path(o), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
                     <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>

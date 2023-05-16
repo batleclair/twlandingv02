@@ -8,6 +8,9 @@
   <div class="navpan-white-ctn">
 
     <div>
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
+        <%= link_to "+ Créer", new_admin_user_path, class:"button btn-main-color" %>
+      </div>
       <table class="tw-table">
         <thead>
           <tr>
@@ -22,7 +25,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= user.created_at %></td>
+              <td><%= user.created_at.strftime("%Y-%m (%H:%M)") %></td>
               <td><%= user.first_name %></td>
               <td><%= user.last_name %></td>
               <td><%= user.email %></td>

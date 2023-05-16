@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  before_action :set_offer, only: %i[show edit update destroy]
+  before_action :set_offer, only: %i[show]
   skip_before_action :authenticate_user!, only: %i[index show dead preview]
 
   def show
@@ -38,6 +38,64 @@ class OffersController < ApplicationController
     @active_regions = Offer::REGIONS.select { |region| !Offer.where(publish: true, status:['active', 'draft'], region: region).empty? }
     @active_functions = Offer::FUNCTIONS.select { |function| !Offer.where(publish: true, status:['active', 'draft'], function: function).empty? }
 
+    apply_search_filters
+    set_candidacy
+    add_breadcrumb "Missions", offers_path
+  end
+
+  def select
+    params[:slug] == "nil" ? @offer = Offer.new : @offer = Offer.find(params[:slug])
+    authorize @offer
+    set_candidacy
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  def preview
+    @no_offer = Offer.find_by(title: "no_offer")
+    authorize @no_offer
+    @offer = params[:id].present? ? Offer.find(params[:id]) : Offer.last
+    authorize @offer
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  private
+
+  def set_offer
+    @offer = Offer.find_by(slug: params[:slug])
+  end
+
+  def set_candidacy
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+  end
+
+  def show_existent
+    authorize @offer
+    @candidacy = Candidacy.new
+    if !user_signed_in? || current_user.candidate.nil?
+      @candidate = Candidate.new
+    else
+      @candidate = Candidate.find_by(user_id: current_user.id)
+    end
+    add_breadcrumb "Missions", offers_path
+    add_breadcrumb "#{@offer.beneficiary.name} : #{@offer.title}", offer_path(@offer)
+  end
+
+  def apply_search_filters
     unless params[:social].blank? && params[:environment].blank?
       if params[:social].blank?
         @offers = @offers.joins(:beneficiary).where.not(beneficiary: { goal: Beneficiary::GOALS[1] })
@@ -64,117 +122,7 @@ class OffersController < ApplicationController
     end
 
     @offers = @offers.where(function: params[:function]) unless params[:function].blank?
-
     @offers = @offers.where(remote_work: params[:remote_work]) unless params[:remote_work].blank?
-
     @offers = @offers.where(region: params[:region]) unless params[:region].blank? || params[:remote_work] == "1"
-
-
-    @candidacy = Candidacy.new
-    if !user_signed_in? || current_user.candidate.nil?
-      @candidate = Candidate.new
-    else
-      @candidate = Candidate.find_by(user_id: current_user.id)
-    end
-    add_breadcrumb "Missions", offers_path
-  end
-
-  def select
-    params[:slug] == "nil" ? @offer = Offer.new : @offer = Offer.find(params[:slug])
-    authorize @offer
-    @candidacy = Candidacy.new
-    if !user_signed_in? || current_user.candidate.nil?
-      @candidate = Candidate.new
-    else
-      @candidate = Candidate.find_by(user_id: current_user.id)
-    end
-    respond_to do |format|
-      format.json
-    end
-  end
-
-  def preview
-    @no_offer = Offer.find_by(title: "no_offer")
-    authorize @no_offer
-    @offer = params[:id].present? ? Offer.find(params[:id]) : Offer.last
-    authorize @offer
-    @candidacy = Candidacy.new
-    if !user_signed_in? || current_user.candidate.nil?
-      @candidate = Candidate.new
-    else
-      @candidate = Candidate.find_by(user_id: current_user.id)
-    end
-    respond_to do |format|
-      format.json
-    end
-  end
-
-  def create
-    @offer = Offer.new(offer_params)
-    authorize @offer
-    @offer.save
-    # @offer.beneficiary_id = params[:beneficiary_id]
-    if @offer.save
-      redirect_to offer_path(@offer)
-    else
-      render new_admin_offer_path, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @offer.update(offer_params)
-    authorize @offer
-    if @offer.save
-      redirect_to admin_offers_path
-    else
-      redirect_to edit_admin_offer_path(@offer)
-    end
-  end
-
-  def destroy
-    authorize @offer
-    @offer.destroy
-    redirect_to admin_offers_path, status: :see_other
-  end
-
-  private
-
-  def set_offer
-    @offer = Offer.find_by(slug: params[:slug])
-  end
-
-  def show_existent
-    authorize @offer
-    @candidacy = Candidacy.new
-    if !user_signed_in? || current_user.candidate.nil?
-      @candidate = Candidate.new
-    else
-      @candidate = Candidate.find_by(user_id: current_user.id)
-    end
-    add_breadcrumb "Missions", offers_path
-    add_breadcrumb "#{@offer.beneficiary.name} : #{@offer.title}", offer_path(@offer)
-  end
-
-  def offer_params
-    params.require(:offer).permit(
-      :title,
-      :location,
-      :half_days_min,
-      :half_days_max,
-      :months_min,
-      :months_max,
-      :monthly_gross_salary,
-      :description,
-      :summary,
-      :status,
-      :publish,
-      :beneficiary_id,
-      :offer_type,
-      :function,
-      :slug,
-      :commitment,
-      :region,
-      :remote_work
-    )
   end
 end

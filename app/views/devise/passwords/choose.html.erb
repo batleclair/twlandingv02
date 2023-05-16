@@ -5,16 +5,14 @@
 
     <div class="pt-50 pb-50 flex-shrink-0">
       <div class="mb-20">
-        <h2>Nouveau mot de passe</h2>
-        <div class="d-flex">
-          <p class="me-1">Pas encore inscrit.e ?</p>
-          <%= link_to "Créer un compte", new_registration_path(resource_name), class:"text-main fw-7" %>
-        </div>
+        <h2>Bienvenue chez <span class="text-main fw-6">Demain</span></h2>
+        <p>Il ne vous reste plus qu'à choisir un mot de passe pour finaliser votre inscription</p>
       </div>
-      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, data: { turbo: false } }) do |f| %>
         <%= f.error_notification %>
         <%= f.input :reset_password_token, as: :hidden %>
         <%= f.full_error :reset_password_token %>
+        <%= f.input :created_by_admin, as: :hidden, input_html: {value: true} %>
 
         <div class="input-with-2-icons mb-10 position-relative" data-controller="password">
           <%= f.input :password,

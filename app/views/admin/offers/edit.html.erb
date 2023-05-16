@@ -5,5 +5,5 @@
     <h3>Editer l'offre</h3>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
-  <%= render partial: "offer_form", locals: {offer: @offer} %>
+  <%= render partial: "admin/offers/offer_form", locals: {offer: @offer, url: admin_offer_path(@offer), action: :update} %>
 </div>

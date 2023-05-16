@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/info', to: "users/registrations#info"
     get 'users', to: "users/registrations#new"
+    get 'users/passwords/choose', to: "users/passwords#choose", as: :choose_password
   end
 
   # static pages
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
   get "users/situation", to: "candidates#edit"
   get "users/skills", to: "candidates#skillset"
   get "users/wishes", to: "candidates#wishes"
-  patch "users/complete", to: "candidates#complete"
+  get "users/completed", to: "candidates#completed"
   resources :candidates, only: %i[show new create update] do
     resources :experiences, only: %i[create]
   end
@@ -70,18 +71,18 @@ Rails.application.routes.draw do
   # admin routes
   get "/admin", to: "admin#dashboard"
   resources :contacts, only: %i[create update destroy]
-  resources :missions, controller: 'offers', param: :slug, only: %i[create update destroy]
   resources :candidacies, only: %i[destroy]
   resources :candidates, only: %i[destroy]
   namespace :admin do
     resources :beneficiaries, param: :slug, only: %i[index new edit]
-    resources :offers, param: :slug, only: %i[index new edit]
+    resources :offers, param: :slug, only: %i[index new edit create update destroy]
     resources :contacts, only: %i[index]
     resources :candidacies, only: %i[index show]
     resources :posts, only: %i[index new edit]
     resources :candidates, only: %i[index show]
     resources :offer_lists, only: %i[index new edit]
-    resources :users, only: %i[index destroy]
+    resources :users, only: %i[new create index destroy]
+    resources :companies
   end
 
   # error routes

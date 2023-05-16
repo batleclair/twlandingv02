@@ -25,6 +25,15 @@
     }
 }
 
+.ctn-resp-right{
+  padding-left: 0;
+  padding-right: 10vw;
+  @media(max-width: $bp-sm) {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    }
+}
+
 .sm-resp-ctn{
   padding-left: 0vw;
   padding-right: 0;

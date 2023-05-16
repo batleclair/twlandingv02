@@ -6,6 +6,7 @@ class Offer < ApplicationRecord
   has_many :candidates, through: :candidacies
   after_save :set_slug
   has_many :offer_bookmarks
+  validates :beneficiary_id, presence: {message: "Il faut associer une asso à l'offre"}
 
   FUNCTIONS = [
     'IT/Data/Produit',

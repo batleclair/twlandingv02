@@ -5,12 +5,6 @@ export default class extends Controller {
   static targets =["window", "content", "form", "employer"]
 
   connect() {
-    const form = new FormData(this.formTarget)
-    if (form.get('candidate[status]').startsWith('Salar')) {
-      this.employerTarget.classList.remove("readonly-input")
-    } else (
-      this.employerTarget.classList.add("readonly-input")
-    )
   }
 
   popup2(event) {
@@ -31,13 +25,12 @@ export default class extends Controller {
 
   toggle(event) {
     const form = new FormData(this.formTarget)
-    console.log(form.get('candidate[status]'))
     if (form.get('candidate[status]').startsWith('Salar')) {
       this.employerTarget.classList.remove("readonly-input")
-      this.employerTarget.classList.disabled = false
+      this.employerTarget.disabled = false
     } else {
       this.employerTarget.classList.add("readonly-input")
-      this.employerTarget.classList.disabled = true
+      this.employerTarget.disabled = true
     }
   }
 

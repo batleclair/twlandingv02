@@ -40,7 +40,7 @@
             <div class="user-nav-box ml-20 md-resp-ml-0 md-resp-mt-40">
               <p>👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
               <div>
-                <% if current_user.candidate.blank? || current_user.candidate.info_missing? %>
+                <% if current_user.candidate.blank? || !current_user.candidate.profile_completed %>
                   <%= link_to new_candidate_path, class: "sm-thin-text", id: "profile-link" do %>
                     <i class="fa-solid fa-user me-1"></i>
                     profil

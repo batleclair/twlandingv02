@@ -1,0 +1,30 @@
+<%= image_tag(attachments['logo_dark.png'].url, style: "margin-left: auto; margin-right: auto; width: 100%; max-width: 200px; display: block; ", alt: "Logo Demain") %>
+<br>
+<br>
+
+<h1 style="font-family: sans-serif; font-weight: 600; font-size: 25px; color: #531cb3;">👋 Bonjour <%= @user.first_name %> !</h1>
+<br>
+
+<p style="font-family: sans-serif;">Demain vous accompagne afin de mettre vos compétences et votre envie d'aider au service d'associations qui vous correspondent.</p>
+<p style="font-family: sans-serif;">Une fois votre inscription validée, une personne de notre équipe prendra rapidement contact avec vous afin de convenir d'un entretien et d'en savoir plus sur vos compétences, votre situation et vos aspirations.</p>
+<p style="font-family: sans-serif;">Nous vous encourageons donc à compléter votre inscription depuis le lien suivant :</p>
+<br>
+
+<%= link_to 'Compléter mon inscription', choose_password_url(@user, reset_password_token: @token), style: "font-size: 15px;
+    padding: 10px 20px;
+    background-color: #531cb3;
+    color: white;
+    border-radius: 20px;
+    font-family: sans-serif;
+    text-decoration: none;
+    font-weight: 600;
+    max-width: 210px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;" %>
+<br>
+<br>
+
+<p style="font-family: sans-serif;">L'équipe <strong>Demain</strong></p>
+<p>🙌</p>

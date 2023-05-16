@@ -1,5 +1,5 @@
   <div class="navpan-white-ctn">
-    <%= simple_form_for(offer) do |f| %>
+    <%= simple_form_for(offer, url: url, action: action) do |f| %>
 
       <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
         <div class="d-flex">
@@ -10,19 +10,19 @@
       </div>
 
       <div class="d-flex">
-        <%= f.association :beneficiary, wrapper_html: {class: "me-3 full-width"} %>
-        <%= f.input :function, collection: Offer::FUNCTIONS, wrapper_html: {class: "full-width"} %>
+        <%= f.association :beneficiary, wrapper_html: {class: "me-3 full-width position-relative"} %>
+        <%= f.input :function, collection: Offer::FUNCTIONS, wrapper_html: {class: "full-width position-relative"} %>
       </div>
 
       <div class="d-flex">
-        <%= f.input :title, wrapper_html: {class: "me-3 full-width"} %>
-        <%= f.input :location, wrapper_html: {class: "full-width"} %>
+        <%= f.input :title, wrapper_html: {class: "me-3 full-width position-relative"} %>
+        <%= f.input :location, wrapper_html: {class: "full-width position-relative"} %>
       </div>
 
       <div class="d-flex">
-        <%= f.input :region, collection: Offer::REGIONS, wrapper_html: {class: "me-3 full-width"}  %>
+        <%= f.input :region, collection: Offer::REGIONS, wrapper_html: {class: "me-3 full-width position-relative"}  %>
         <div class="full-width align-self-center pt-3 bg-shade">
-          <%= f.input :remote_work, as: :boolean, label: "100% remote possible ?", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
+          <%= f.input :remote_work, as: :boolean, label: "100% remote possible ?", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3 position-relative" }, label_html: {class: "text-main fw-6"} %>
         </div>
       </div>
 
@@ -30,28 +30,28 @@
         <div class="p-3 me-3 grey-border full-width">
           <h6>Fréquence (1/2 journées)</h6>
           <div class="d-flex me-3">
-            <%= f.input :half_days_min, label: "min", wrapper_html: {class: "me-3 full-width"} %>
-            <%= f.input :half_days_max, label: "max", wrapper_html: {class: "full-width"}  %>
+            <%= f.input :half_days_min, label: "min", wrapper_html: {class: "me-3 full-width position-relative"} %>
+            <%= f.input :half_days_max, label: "max", wrapper_html: {class: "full-width position-relative"}  %>
           </div>
         </div>
         <div class="p-3 grey-border full-width">
           <h6>Durée (mois)</h6>
           <div class="d-flex me-3">
-            <%= f.input :months_min, label: "min", wrapper_html: {class: "me-3 full-width"} %>
-            <%= f.input :months_max, label: "max", wrapper_html: {class: "full-width"}  %>
+            <%= f.input :months_min, label: "min", wrapper_html: {class: "me-3 full-width position-relative"} %>
+            <%= f.input :months_max, label: "max", wrapper_html: {class: "full-width position-relative"}  %>
           </div>
         </div>
       </div>
 
       <div class="d-flex">
-        <%= f.input :commitment, collection: Offer::COMMITMENTS, wrapper_html: {class: "me-3 full-width"} %>
-        <%= f.input :offer_type, collection: Offer::OFFER_TYPES, wrapper_html: {class: "full-width"} %>
+        <%= f.input :commitment, collection: Offer::COMMITMENTS, wrapper_html: {class: "me-3 full-width position-relative"} %>
+        <%= f.input :offer_type, collection: Offer::OFFER_TYPES, wrapper_html: {class: "full-width position-relative"} %>
       </div>
 
       <div class="d-flex">
         <%= f.input :status, collection: Offer::STATUSES, wrapper_html: {class: "me-3 full-width"}  %>
         <div class="full-width align-self-center pt-3 bg-shade">
-          <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
+          <%= f.input :publish, as: :boolean, label: "Publier", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3 position-relative" }, label_html: {class: "text-main fw-6"} %>
         </div>
       </div>
 

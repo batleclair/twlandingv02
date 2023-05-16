@@ -11,6 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     return if daily_limit?
     super
+    resource.send_welcome_mail if resource.persisted?
   end
 
   def edit

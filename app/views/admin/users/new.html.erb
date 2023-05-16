@@ -1,0 +1,43 @@
+<%= render partial: "shared/navpan", locals: {active: 8} %>
+
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Nouvel utilisateur</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <%= simple_form_for(@user, url: admin_users_path, action: :create, data: {turbo: false}) do |f| %>
+
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
+        <div class="d-flex">
+          <%= link_to "Retour", admin_users_path, class:"button btn-light-main mb-2 me-2" %>
+          <%= link_to "Ajouter une entreprise", new_admin_company_path, class:"button btn-flag-color ms-2" %>
+        </div>
+        <button type="submit" class="button btn-main-color">Enregistrer</button>
+      </div>
+
+      <div class="position-relative">
+        <%= f.input :email,
+                    label: "Email" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :first_name,
+                    label: "Prénom" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :last_name,
+                    label: "Nom" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :company_id,
+                    collection: @companies,
+                    label_method: :second,
+                    value_method: :first,
+                    label: "Entreprise" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

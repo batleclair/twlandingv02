@@ -1,0 +1,44 @@
+<%= render partial: "shared/navpan", locals: {active: 9} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Gestion des Entreprises</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3">
+        <%= link_to "+ Ajouter", new_admin_company_path, class:"button btn-main-color" %>
+      </div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Création</th>
+            <th>Nom</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @companies.each do |company| %>
+            <tr>
+              <td><%= company.created_at %></td>
+              <td><%= company.name %></td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to edit_admin_company_path(company) do %>
+                    <i class="fa-solid fa-pen-to-square text-main"></i>
+                  <% end %>
+                  <%= link_to admin_company_path(company), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash text-main"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -1,5 +1,5 @@
 class CandidatesController < ApplicationController
-  before_action :set_candidate, only: %i[show update]
+  before_action :set_candidate, only: %i[show update complete]
   respond_to :html, :xml, :json
 
   def show
@@ -11,6 +11,11 @@ class CandidatesController < ApplicationController
 
   def new
     @candidate = current_user.candidate.present? ? current_user.candidate : Candidate.new
+    authorize @candidate
+  end
+
+  def completed
+    @candidate = current_user.candidate
     authorize @candidate
   end
 
@@ -40,13 +45,11 @@ class CandidatesController < ApplicationController
   def create
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
-    @candidate.should_validate = true if params[:source] == "new"
+    @candidate.should_validate = true
     @candidate.user_id = current_user.id
     if @candidate.save
-      # clip_to_airtable
-      CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later
-      save_to_airtable if @candidate.first_completion?
-      redirect_to candidate_path(@candidate)
+      process_profile_completion
+      redirect_to users_completed_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -56,7 +59,7 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
     @candidate.user_id = current_user.id
-    CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later if @candidate.save
+    send_new_candidate_alert if @candidate.save
     @candidate.valid?
     render json: json_response(@candidate)
   end
@@ -69,30 +72,27 @@ class CandidatesController < ApplicationController
     render json: json_response(@candidate)
   end
 
-  # def synch_update_min
-  #   @candidate = Candidate.find_by(user_id: current_user.id)
-  #   authorize @candidate
-  #   @candidate.update(candidate_params)
-  #   @candidate.valid?(:min_info)
-  #   render json: json_resp_min(@candidate)
-  # end
-
   def update
     authorize @candidate
     @candidate.should_validate = true if params[:source] == "new"
     @candidate.update(candidate_params)
-    if @candidate.save
-      save_to_airtable if @candidate.first_completion?
-      flash[:notice] = "Vos informations ont bien été enregistrées"
-      @experience = Experience.new
-      case params[:source]
-      when "new"
-        redirect_to candidate_path(@candidate)
+    saved = @candidate.save
+    case params[:source]
+    when "new"
+      if saved
+        process_profile_completion
+        redirect_to users_completed_path
       else
-        render params[:source].to_sym, status: :see_other
+        render :new, status: :unprocessable_entity
       end
     else
-      render params[:source].to_sym, status: :unprocessable_entity
+      if saved
+        process_profile_completion if @candidate.first_completion?
+        flash[:notice] = "Vos informations ont bien été enregistrées"
+        render params[:source].to_sym, status: :see_other
+      else
+        render params[:source].to_sym, status: :unprocessable_entity
+      end
     end
   end
 
@@ -164,7 +164,6 @@ class CandidatesController < ApplicationController
       "Source": "Site web"
       )
     @record.create
-    # CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later
   end
 
   def save_to_airtable
@@ -190,10 +189,21 @@ class CandidatesController < ApplicationController
       "Remarques": @candidate.comment,
       "Source": "Site"
       )
-    if @record.create
-      @candidate.profile_completed = true
-      @candidate.save
-      CandidateMailer.with(candidate: @candidate).new_profile_email.deliver_later
-    end
+    @record.create
+  end
+
+  def send_new_candidate_alert
+    CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later
+  end
+
+  def send_new_profile_alert
+    CandidateMailer.with(candidate: @candidate).new_profile_email.deliver_later
+  end
+
+  def process_profile_completion
+    save_to_airtable
+    send_new_profile_alert
+    @candidate.profile_completed = true
+    @candidate.save
   end
 end

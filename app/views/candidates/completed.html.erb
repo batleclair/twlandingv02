@@ -1,0 +1,25 @@
+<div class="sm-resp-ctn bg-white pt-50">
+
+  <div class="d-flex full-height-ctn">
+
+    <div class="ctn-resp-left bg-shade round-top-right login-img-ctn mr-50 flex-center w-100 sm-resp-hide p-20">
+      <div>
+        <%= image_tag('profile_illustration_xl.svg', class: "w-100 max-w-400") %>
+      </div>
+    </div>
+
+    <div class="ctn-resp-right pt-50 pb-50 w-100">
+      <div class="mb-20 sticky-form-title-ctn">
+        <div class="flex-center-left mb-40">
+          <%= image_tag('valid') %>
+          <h2 class="ml-10">C'est enregistré !</h2>
+        </div>
+        <h5 class="text-main mb-10 pr-20">Merci pour ces réponses, qui vont permettre à Demain de vous proposer les missions les plus adaptées.</h5>
+        <p class="pr-20">Nous prendrons prochainement contact avec vous pour vous présenter celles susceptibles de vous intéresser. En attendant vous pouvez d'ores et déjà consulter celles actuellement en ligne en cliquant ici :</p>
+        <%= link_to "Voir les missions", offers_path, class: "button btn-main-color mt-20" %>
+      </div>
+    </div>
+
+
+  </div>
+</div>

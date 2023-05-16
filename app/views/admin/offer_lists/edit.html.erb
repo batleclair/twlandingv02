@@ -13,8 +13,12 @@
     <%= simple_form_for(@offer_list) do |f| %>
       <div class="d-flex align-items-center">
         <div class="full-width pe-5">
-          <%= f.input :title %>
-          <%= f.input :description %>
+          <div class="position-relative">
+            <%= f.input :title %>
+          </div>
+          <div class="position-relative">
+            <%= f.input :description %>
+          </div>
         </div>
         <div class="d-flex align-items-center">
           <button type="submit" class="button btn-main-color button-form" style="width: 100px">Modifier</button>

@@ -2,21 +2,16 @@
 
 <div class="navpan-mg-ctn">
   <div class="navpan-transp-ctn">
-    <h3>Créer une nouvelle liste de missions</h3>
+    <h3>Créer une nouvelle entreprise</h3>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
   <div class="navpan-white-ctn">
     <div class="d-flex">
-      <%= link_to "Retour", admin_offer_lists_path, class:"button btn-light-main mb-2 me-2" %>
+      <%= link_to "Retour", admin_companies_path, class:"button btn-light-main mb-2 me-2" %>
     </div>
-    <%= simple_form_for(@offer_list) do |f| %>
-      <div>
-        <div class="position-relative">
-          <%= f.input :title %>
-        </div>
-        <div class="position-relative">
-          <%= f.input :description %>
-        </div>
+    <%= simple_form_for(@company, url: admin_companies_path, action: :create) do |f| %>
+      <div class="position-relative">
+        <%= f.input :name %>
       </div>
       <button type="submit" class="button btn-main-color mt-3">Créer</button>
     <% end %>
