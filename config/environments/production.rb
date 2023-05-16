@@ -85,10 +85,9 @@ Rails.application.configure do
     domain:               'demain.works',
     user_name:            ENV['GMAIL_NOREPLY_USERNAME'],
     password:             ENV['GMAIL_NOREPLY_PASSWORD'],
-    authentication:       'plain',
-    enable_starttls_auto: true,
-    open_timeout:         5,
-    read_timeout:         5 }
+    authentication:       'login',
+    enable_starttls_auto: true
+  }
 
   config.action_mailer.perform_caching = false
 
