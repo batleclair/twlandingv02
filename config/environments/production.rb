@@ -75,7 +75,7 @@ Rails.application.configure do
     open_timeout:         5,
     read_timeout:         5 }
 
-  config.action_mailer.default_url_options = { host: 'demain.works' }
+  config.action_mailer.default_url_options = { host: 'https://www.demain.works' }
 
   config.action_mailer.raise_delivery_errors = false
 
