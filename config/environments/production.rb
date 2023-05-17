@@ -63,22 +63,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "twlandingv02_production"
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default charset: "utf-8"
-  config.action_mailer.default_url_options = { host: 'demain.works' }
 
-  # Configuration SENDINBLUE
-  # config.action_mailer.smtp_settings = {
-  #   address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
-  #   port: ENV.fetch('SMTP_PORT', '587'),
-  #   authentication: :plain,
-  #   user_name: ENV['SIB_USERNAME'],
-  #   password: ENV['SIB_PASSWORD'],
-  #   enable_starttls_auto: true
-  # }
-
-  # Configuration GMAIL
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
@@ -90,11 +75,24 @@ Rails.application.configure do
     open_timeout:         5,
     read_timeout:         5 }
 
+  config.action_mailer.default_url_options = { host: 'demain.works' }
+
+  config.action_mailer.raise_delivery_errors = false
+
   config.action_mailer.perform_caching = false
+
+  # Configuration SENDINBLUE
+  # config.action_mailer.smtp_settings = {
+  #   address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
+  #   port: ENV.fetch('SMTP_PORT', '587'),
+  #   authentication: :plain,
+  #   user_name: ENV['SIB_USERNAME'],
+  #   password: ENV['SIB_PASSWORD'],
+  #   enable_starttls_auto: true
+  # }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
