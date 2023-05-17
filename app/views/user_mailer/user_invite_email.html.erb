@@ -10,7 +10,8 @@
 <p style="font-family: sans-serif;">Nous vous encourageons donc à compléter votre inscription depuis le lien suivant :</p>
 <br>
 
-<%= link_to 'Compléter mon inscription', choose_password_url(@user, reset_password_token: @token), style: "font-size: 15px;
+
+<a href=<%= choose_password_url(@user, reset_password_token: @token) %> style="font-size: 15px;
     padding: 10px 20px;
     background-color: #531cb3;
     color: white;
@@ -22,7 +23,7 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-    text-align: center;" %>
+    text-align: center;">Compléter mon inscription</a>
 <br>
 <br>
 
