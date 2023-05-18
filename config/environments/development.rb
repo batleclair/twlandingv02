@@ -45,6 +45,7 @@ Rails.application.configure do
   # }
 
   config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
@@ -55,6 +56,16 @@ Rails.application.configure do
     enable_starttls_auto: true,
     open_timeout:         5,
     read_timeout:         5 }
+
+  # Configuration SENDINBLUE
+  # config.action_mailer.smtp_settings = {
+  #   address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
+  #   port: ENV.fetch('SMTP_PORT', '587'),
+  #   authentication: :plain,
+  #   user_name: ENV['SIB_USERNAME'],
+  #   password: ENV['SIB_PASSWORD'],
+  #   enable_starttls_auto: true
+  # }
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 

@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "demain.notifications@gmail.com"
+  default from: "hello@demain.works"
   layout "mailer"
 end

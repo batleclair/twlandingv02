@@ -64,16 +64,27 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
+  # Configuration GMAIL
+  # config.action_mailer.smtp_settings = {
+  #   address:              'smtp.gmail.com',
+  #   port:                 587,
+  #   domain:               'demain.works',
+  #   user_name:            ENV['GMAIL_NOREPLY_USERNAME'],
+  #   password:             ENV['GMAIL_NOREPLY_PASSWORD'],
+  #   authentication:       'plain',
+  #   enable_starttls_auto: true,
+  #   open_timeout:         5,
+  #   read_timeout:         5 }
+
+  # Configuration SENDINBLUE
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'demain.works',
-    user_name:            ENV['GMAIL_NOREPLY_USERNAME'],
-    password:             ENV['GMAIL_NOREPLY_PASSWORD'],
-    authentication:       'plain',
-    enable_starttls_auto: true,
-    open_timeout:         5,
-    read_timeout:         5 }
+    address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
+    port: ENV.fetch('SMTP_PORT', '587'),
+    authentication: :plain,
+    user_name: ENV['SIB_USERNAME'],
+    password: ENV['SIB_PASSWORD'],
+    enable_starttls_auto: true
+  }
 
   config.action_mailer.default_url_options = { host: 'https://www.demain.works' }
 
@@ -81,15 +92,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # Configuration SENDINBLUE
-  # config.action_mailer.smtp_settings = {
-  #   address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
-  #   port: ENV.fetch('SMTP_PORT', '587'),
-  #   authentication: :plain,
-  #   user_name: ENV['SIB_USERNAME'],
-  #   password: ENV['SIB_PASSWORD'],
-  #   enable_starttls_auto: true
-  # }
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
