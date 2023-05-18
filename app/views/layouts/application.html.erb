@@ -90,5 +90,19 @@
     <% end %>
 
     <%= render partial: "shared/footer" %>
+
+    <!-- Axeptio consent management -->
+    <script>
+    window.axeptioSettings = {
+      clientId: "63e228ba8cdd110ee8133a17",
+    };
+    (function(d, s) {
+      var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+      e.async = true; e.src = "//static.axept.io/sdk.js";
+      t.parentNode.insertBefore(e, t);
+    })(document, "script");
+    </script>
+    <!-- End Axeptio consent management -->
+
   </body>
 </html>
