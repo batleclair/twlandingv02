@@ -7,11 +7,20 @@
     </style>
   </head>
 
-  <body style="margin: 0; background-color: #f5f1fb; padding: 10vh 20px 0 20px">
-    <div style="background-color: #fff; padding: 50px 5vw; max-width: 600px; margin-left: auto; margin-right: auto; border-radius: 20px 20px 0 0; box-shadow: 20px 20px 20px rgba(0,0,0,0.1);">
-
-      <%= yield %>
-
-    </div>
+  <body style="margin: 0; background-color: #f5f1fb">
+    <%# <div style="background-color: #fff; padding: 50px 5vw; max-width: 600px; margin-left: auto; margin-right: auto; border-radius: 20px 20px 0 0; box-shadow: 20px 20px 20px rgba(0,0,0,0.1);"> %>
+      <table style="table-layout: fixed; min-width: 500px;" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="center" valign="top" bgcolor="f5f1fb">
+            <table style="table-layout: fixed; max-width: 600px; background-color: #f5f1fb;" width="500" border="0" cellspacing="0" cellpadding="40">
+              <tr>
+                <td></td>
+              </tr>
+            </table>
+            <%= yield %>
+          </td>
+        </tr>
+      </table>
+    <%# </div> %>
   </body>
 </html>

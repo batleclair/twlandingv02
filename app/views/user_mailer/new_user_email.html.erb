@@ -1,55 +1,62 @@
-<%= image_tag(attachments['logo_dark.png'].url, style: "margin-left: auto; margin-right: auto; width: 100%; max-width: 200px; display: block; ", alt: "Logo Demain") %>
-<br>
-<br>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="40">
+  <tr>
+    <td align="center" valign="top" >
+      <%= image_tag(attachments['logo_dark.png'].url, style: "margin-left: auto; margin-right: auto; width: 200px; max-width: 200px; display: block; ", width: "200", alt: "Logo Demain") %>
+    </td>
+  </tr>
+</table>
 
-<h1 style="font-family: sans-serif; font-weight: 600; font-size: 25px; color: #531cb3;">Hello <%= @user.first_name %> !</h1>
-<br>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td valign="top">
+      <h1 style="font-family: sans-serif; font-weight: 600; font-size: 20px; color: #531cb3;">👋 Hello <%= @user.first_name %> !</h1>
+    </td>
+  </tr>
+</table>
 
-<p style="font-family: sans-serif;">Votre compte a bien été créé, et on est ravis que vous rejoigniez notre communauté. On a hâte de vous aider à vous engager durablement pour de belles causes.</p>
-<p style="font-family: sans-serif;">N'hésitez pas à compléter votre profil pour que l'on puisse vous proposer les projets les plus en lien avec vos aspirations et vos compétences :</p>
-<br>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td valign="top">
+      <p style="font-family: sans-serif; font-size: 14px;">Votre compte a bien été créé, et on est ravis que vous rejoigniez notre communauté. On a hâte de vous aider à vous engager durablement pour de belles causes.</p>
+      <p style="font-family: sans-serif; font-size: 14px;">N'hésitez pas à compléter votre profil pour que l'on puisse vous proposer les projets les plus en lien avec vos aspirations et vos compétences :</p>
+    </td>
+  </tr>
+</table>
 
-<a href=<%= new_candidate_url %> style="
-    font-size: 15px;
-    padding: 10px 20px;
-    background-color: #531cb3;
-    color: white;
-    border-radius: 20px;
-    font-family: sans-serif;
-    text-decoration: none;
-    font-weight: 600;
-    max-width: 180px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    text-align: center;
-  ">Compléter mon profil</a>
-<br>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="top" >
+      <%= link_to new_candidate_url do %>
+        <%= image_tag(attachments['profile_btn.png'].url, style: "margin-left: auto; margin-right: auto; width: 200px; max-width: 200px; display: block; ", width: "200", alt: "Compléter mon profil") %>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
-<p style="font-family: sans-serif;">Les associations et autres acteurs de l'intérêt général n'attendent plus que vous, votre talent, vos compétences et votre enthousiasme !</p>
-<p style="font-family: sans-serif;">Vous pouvez déjà jeter un oeil et candidater aux offres actuellement disponibles sur le site :</p>
-<br>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td valign="top">
+      <p style="font-family: sans-serif; font-size: 14px;">Les associations et autres acteurs de l'intérêt général n'attendent plus que vous, votre talent, vos compétences et votre enthousiasme !</p>
+      <p style="font-family: sans-serif; font-size: 14px;">N'hésitez pas à compléter votre profil pour que l'on puisse vous proposer les projets les plus en lien avec vos aspirations et vos compétences :</p>
+    </td>
+  </tr>
+</table>
 
-<a href=<%= offers_url %> style="
-    font-size: 15px;
-    padding: 10px 20px;
-    background-color: white;
-    color: #531cb3;
-    border-radius: 20px;
-    font-family: sans-serif;
-    text-decoration: none;
-    font-weight: 600;
-    max-width: 180px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    text-align: center;
-    border: solid 1px #531cb3
-  ">Consulter les missions</a>
-<br>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="top" >
+      <%= link_to offers_url do %>
+        <%= image_tag(attachments['missions_btn.png'].url, style: "margin-left: auto; margin-right: auto; width: 200px; max-width: 200px; display: block; ", width: "200", alt: "Compléter mon profil") %>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
-<p style="font-family: sans-serif;">En cas de pépin n'hésitez pas à nous contacter ici: <a style="font-weight: bolder; color: #531cb3;" href="mailto:contact@demain.works">contact@demain.works</a></p>
-<br>
-
-<p style="font-family: sans-serif;">L'équipe <strong>Demain</strong></p>
-<p>🙌</p>
+<table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td valign="top">
+      <p style="font-family: sans-serif;">L'équipe <strong>Demain</strong></p>
+      <p>🙌</p>
+    </td>
+  </tr>
+</table>
