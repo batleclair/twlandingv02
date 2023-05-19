@@ -7,6 +7,6 @@ import "@rails/actiontext"
 
 // import { initFlatpickr } from '../plugins/flatpickr';
 
-// document.addEventListener('turbolinks:load', () => {
+// document.addEventListener('turbo:load', () => {
 //   initFlatpickr();
 // })

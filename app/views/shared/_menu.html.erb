@@ -2,15 +2,15 @@
   <i class="fa-solid fa-bars burger-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
 
   <nav class= "menu ctn-resp" data-menu-target="nav">
-    <div class="flex-center-between md-resp-flex-col">
-      <%= link_to root_path, data: {turbo: false} do %>
+    <div class="flex-center-between md-resp-flex-col", data-turbo="false">
+      <%= link_to root_path do %>
         <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
         <%= image_tag("logo_white.svg", class: "xl-logo", alt: "Logo Demain") %>
       <% end %>
 
       <div class="flex-center-between md-resp-flex-col">
         <div class="d-flex md-resp-flex-col">
-          <%= link_to root_path, data: {turbo: false}, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
+          <%= link_to root_path, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
             <i class="fa-solid fa-house-chimney">
               <span></span>
             </i>
