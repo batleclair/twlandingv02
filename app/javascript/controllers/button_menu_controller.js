@@ -32,7 +32,6 @@ export default class extends Controller {
     });
     event.target.dataset.status = "active"
     active = this.buttonTargets.findIndex(isActive)
-    console.log(active)
     this.contentTargets.forEach(content => {
       content.dataset.status = ""
     });

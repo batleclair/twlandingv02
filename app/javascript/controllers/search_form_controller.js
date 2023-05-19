@@ -12,7 +12,6 @@ export default class extends Controller {
     const urlParams = new URLSearchParams(window.location.search);
     const searchParams = Array.from(urlParams.values())
     let counter = 0
-    console.log(searchParams)
 
     searchParams.forEach(value => {
       value !== '' ? counter += 1 : counter
@@ -20,7 +19,6 @@ export default class extends Controller {
 
     urlParams.get('frequency') === '3' ? counter += -1 : counter
     urlParams.get('duration') === '3' ? counter += -1 : counter
-    console.log(urlParams.get('id'))
     urlParams.get('id') ? counter += -1 : this.cardTargets[0].dataset.active = "true"
 
     if (urlParams.get('remote_work') === '1') {
@@ -44,7 +42,6 @@ export default class extends Controller {
 
   showup() {
     const y = this.element.getBoundingClientRect().top + window.scrollY;
-    console.log(y)
     window.scroll({
       top: y - 35,
       behavior: 'smooth'
@@ -69,8 +66,6 @@ export default class extends Controller {
       window.history.pushState('', '', url)
       this.idTarget.value = event.target.dataset.id
       const urlPreview = `../offers/${event.target.dataset.id}/preview/?search=${window.location.search}`
-      console.log(event.target)
-      console.log(event.target.dataset.id)
       fetch(urlPreview, {
       })
         .then(response => response.json())
@@ -87,7 +82,6 @@ export default class extends Controller {
   close() {
     event.preventDefault()
     const url = this.closeTarget.href
-    console.log(url)
     window.history.pushState('', '', url)
     this.previewTarget.dataset.active = "false"
     this.cardTargets.forEach(card => {

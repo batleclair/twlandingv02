@@ -35,7 +35,6 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(data['errors'])
         if (data.valid) {
           document.querySelector('body').insertAdjacentHTML('beforeend', '<p class="notice">👍 tes changements ont été enregistrés !</p>')
           this.listTarget.outerHTML = data['content']
@@ -60,7 +59,6 @@ export default class extends Controller {
       })
       .then(response => response.json())
         .then((data) => {
-          console.log(data)
           this.listTarget.outerHTML = data['content']
         })
     }

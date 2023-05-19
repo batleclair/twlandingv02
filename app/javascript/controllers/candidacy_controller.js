@@ -44,7 +44,6 @@ export default class extends Controller {
     const candidateMethod = this.formTarget.id.startsWith("new") ? "POST" : "PATCH"
     const offer = this.formTarget.dataset.offer
     const candidacyUrl = `../missions/${offer}/candidacies`
-    console.log(candidacyUrl)
     this.formTarget.querySelectorAll(".invalid-msg").forEach((div) => { div.outerHTML = ''; });
     this.formTarget.querySelectorAll(".invalid-input").forEach((input) => { input.classList.remove("invalid-input"); });
 
@@ -64,7 +63,6 @@ export default class extends Controller {
           })
             .then(response => response.json())
             .then((data) => {
-              console.log(data['id'])
               window.location.replace(`/candidacies/${data['id']}`);
             })
         } else {
