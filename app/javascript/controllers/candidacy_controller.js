@@ -2,9 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="candidacy"
 export default class extends Controller {
-  static targets =["window", "content", "form", "employer"]
+  static targets =["window", "content", "status", "employer", "form"]
 
   connect() {
+    if (this.statusTarget.value.startsWith('Salar')) {
+      this.employerTarget.classList.remove("readonly-input")
+      this.employerTarget.disabled = false
+    } else {
+      this.employerTarget.classList.add("readonly-input")
+      this.employerTarget.disabled = true
+    }
   }
 
   popup2(event) {
@@ -24,8 +31,7 @@ export default class extends Controller {
   }
 
   toggle(event) {
-    const form = new FormData(this.formTarget)
-    if (form.get('candidate[status]').startsWith('Salar')) {
+    if (this.statusTarget.value.startsWith('Salar')) {
       this.employerTarget.classList.remove("readonly-input")
       this.employerTarget.disabled = false
     } else {

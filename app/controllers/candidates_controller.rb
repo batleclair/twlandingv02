@@ -12,6 +12,7 @@ class CandidatesController < ApplicationController
   def new
     @candidate = current_user.candidate.present? ? current_user.candidate : Candidate.new
     authorize @candidate
+    @candidate_on_record = @candidate
   end
 
   def completed
@@ -22,6 +23,7 @@ class CandidatesController < ApplicationController
   def edit
     @candidate = current_user.candidate
     authorize @candidate
+    @candidate_on_record
     # add_breadcrumb "Mon profil", candidate_path(@candidate)
     # add_breadcrumb "Modification du profil", edit_candidate_path(@candidate)
   end
@@ -45,6 +47,7 @@ class CandidatesController < ApplicationController
   def create
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
+    @candidate_on_record = Candidate.new
     @candidate.should_validate = true
     @candidate.user_id = current_user.id
     if @candidate.save
@@ -74,6 +77,7 @@ class CandidatesController < ApplicationController
 
   def update
     authorize @candidate
+    @candidate_on_record = @candidate
     @candidate.should_validate = true if params[:source] == "new"
     @candidate.update(candidate_params)
     saved = @candidate.save

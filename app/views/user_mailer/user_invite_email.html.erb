@@ -27,9 +27,17 @@
 <table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center" valign="top" >
-      <%= link_to choose_password_url(@user, reset_password_token: @token) do %>
-        <%= image_tag(attachments['complete_btn.png'].url, style: "margin-left: auto; margin-right: auto; width: 200px; max-width: 200px; display: block; ", width: "200", alt: "Compléter mon inscription") %>
-      <% end %>
+    <div style="font-family: Helvetica, sans-serif;font-size: 100%;margin: 0;padding: 0;margin-top: 0">
+        <%== '<!--[if mso]>
+          <v:roundrect href="' + choose_password_url(@user, reset_password_token: @token) + '" style="width:300px;height:45px;v-text-anchor:middle;" arcsize="50%" strokecolor="#531cb3" fillcolor="#531cb3" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word">
+            <w:anchorlock/>
+              <v:textbox inset="0,0,0,0">
+              <center style="font-family: Helvetica, sans-serif; font-size: 14px; color: #ffffff; font-weight: bold;">Finaliser mon inscription</center>
+            </v:textbox>
+          </v:roundrect>
+        <![endif]-->' %>
+        <%= link_to "Finaliser mon inscription", choose_password_url(@user, reset_password_token: @token), style: "font-family: Helvetica, sans-serif; text-decoration: none; font-size: 14px; margin: 0; padding: 0 25px; color: #ffffff; border: 1px solid #531cb3 ; margin-top: 0; font-weight: bold; line-height: 40px; letter-spacing: 0.1ch; background-color: #531cb3; border-radius: 5000px; display: inline-block;text-align: center; text-decoration: none; white-space: nowrap; -webkit-text-size-adjust: none; mso-hide: all" %>
+    </div>
     </td>
   </tr>
 </table>

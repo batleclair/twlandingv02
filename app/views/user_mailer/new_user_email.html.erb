@@ -26,9 +26,17 @@
 <table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center" valign="top" >
-      <%= link_to new_candidate_url do %>
-        <%= image_tag(attachments['profile_btn.png'].url, style: "margin-left: auto; margin-right: auto; width: 200px; max-width: 200px; display: block; ", width: "200", alt: "Compléter mon profil") %>
-      <% end %>
+    <div style="font-family: Helvetica, sans-serif;font-size: 100%;margin: 0;padding: 0;margin-top: 0">
+        <%== '<!--[if mso]>
+          <v:roundrect href="' + new_candidate_url + '" style="width:280px;height:45px;v-text-anchor:middle;" arcsize="50%" strokecolor="#531cb3" fillcolor="#531cb3" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word">
+            <w:anchorlock/>
+              <v:textbox inset="0,0,0,0">
+              <center style="font-family: Helvetica, sans-serif; font-size: 14px; color: #ffffff; font-weight: bold;">Compléter mon profil</center>
+            </v:textbox>
+          </v:roundrect>
+        <![endif]-->' %>
+        <%= link_to "Compléter mon profil", new_candidate_url, style: "font-family: Helvetica, sans-serif; text-decoration: none; font-size: 14px; margin: 0; padding: 0 25px; color: #ffffff; border: 1px solid #531cb3 ; margin-top: 0; font-weight: bold; line-height: 40px; letter-spacing: 0.1ch; background-color: #531cb3; border-radius: 5000px; display: inline-block;text-align: center; text-decoration: none; white-space: nowrap; -webkit-text-size-adjust: none; mso-hide: all" %>
+    </div>
     </td>
   </tr>
 </table>
@@ -45,12 +53,21 @@
 <table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center" valign="top" >
-      <%= link_to offers_url do %>
-        <%= image_tag(attachments['missions_btn.png'].url, style: "margin-left: auto; margin-right: auto; width: 200px; max-width: 200px; display: block; ", width: "200", alt: "Compléter mon profil") %>
-      <% end %>
+    <div style="font-family: Helvetica, sans-serif;font-size: 100%;margin: 0;padding: 0;margin-top: 0">
+        <%== '<!--[if mso]>
+          <v:roundrect href="' + offers_url + '" style="width:280px;height:45px;v-text-anchor:middle;" arcsize="50%" strokecolor="#531cb3" fillcolor="#ffffff" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word">
+            <w:anchorlock/>
+              <v:textbox inset="0,0,0,0">
+              <center style="font-family: Helvetica, sans-serif; font-size: 14px; color: #531cb3; font-weight: bold;">Consulter les missions</center>
+            </v:textbox>
+          </v:roundrect>
+        <![endif]-->' %>
+        <%= link_to "Consulter les missions", offers_url, style: "font-family: Helvetica, sans-serif; text-decoration: none; font-size: 14px; margin: 0; padding: 0 25px; color: #531cb3; border: 1px solid #531cb3 ; margin-top: 0; font-weight: bold; line-height: 40px; letter-spacing: 0.1ch; background-color: #ffffff; border-radius: 5000px; display: inline-block;text-align: center; text-decoration: none; white-space: nowrap; -webkit-text-size-adjust: none; mso-hide: all" %>
+    </div>
     </td>
   </tr>
 </table>
+
 
 <table style="table-layout: fixed; max-width: 600px; background-color: #fff;" width="500" border="0" cellspacing="0" cellpadding="20">
   <tr>

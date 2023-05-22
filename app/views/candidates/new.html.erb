@@ -11,67 +11,50 @@
     <div class="ctn-resp-right pt-50 pb-50 w-100">
       <div class="mb-20 sticky-form-title-ctn">
         <h2 class="mb-10">Complétez votre profil</h2>
-        <p class="pr-20">Nous aimerions mieux vous connaître pour vous proposer les missions et associations les plus adaptées !</p>
+        <p class="mb-10 pr-20">Nous aimerions mieux vous connaître pour vous proposer les missions et associations les plus adaptées !</p>
+        <p class="pr-20 text-main fw-5 fs-12">Les champs obligatoires sont indiqués par une (*)</p>
       </div>
 
-      <div data-controller="candidacy">
-        <%= simple_form_for(@candidate, html: { class: "max-w-400", data: {controller: "profile-form", "candidacy-target": "form"}}) do |f| %>
+      <div>
+        <%= simple_form_for(@candidate, html: { class: "max-w-400", data: {controller: "profile-form", "candidacy-target": "form", "profile-form-target": "form"}}) do |f| %>
 
-          <div class="mb-40">
-            <h5 class="text-main mb-10">😊 Mieux vous connaître, <%= current_user.first_name %></h5>
+          <h5 class="text-main mb-10">😊 Mieux vous connaître, <%= current_user.first_name %></h5>
 
-            <div class="mb-10 position-relative">
-              <%= f.input :description,
-                          input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
-                          label: false,
-                          placeholder: "Je me présente en quelques mots",
-                          wrapper: false %>
-            </div>
+          <div class="mb-10 position-relative">
+            <%= f.input :description,
+                        input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                        label: false,
+                        placeholder: "Je me présente en quelques mots *",
+                        wrapper: false %>
+          </div>
 
-            <% if @candidate.birth_date.nil? %>
-              <div class="mb-10 birth-date-ctn">
-                <%= f.input :birth_date,
-                            as: :date,
-                            label: "Date de naissance",
-                            start_year: Date.today.year - 70,
-                            end_year: Date.today.year - 18,
-                            use_month_numbers: true,
-                            order: [:day, :month, :year],
-                            include_blank: true,
-                            wrapper: false %>
-              </div>
-            <% end %>
+          <div class="mb-10 position-relative">
+            <%= f.input :location,
+                        label: "Où j'habite *",
+                        wrapper: false %>
+          </div>
 
-            <% if @candidate.location.blank? %>
-              <div class="mb-10 position-relative">
-                <%= f.input :location,
-                            label: "Où j'habite",
-                            wrapper: false %>
-              </div>
-            <% end %>
-
-            <% if @candidate.phone_num.blank? %>
+          <% if !@candidate_on_record.min_info_present? %>
+            <div class="mb-40">
               <div id="candidate_phone_num_wrapper" class="input-with-icon mb-10">
                 <%= f.input :phone_num,
                             label: "Mon numéro de téléphone",
                             wrapper: false %>
                 <i class="fa-solid fa-phone"></i>
               </div>
-            <% end %>
-          </div>
+            </div>
 
-          <% if !@candidate.min_info_present? %>
-            <div class="mb-40">
+            <div data-controller="candidacy">
               <h5 class="text-main mb-10">💼 Votre profil professionnel</h5>
               <%= render partial: "candidates/min_info", locals: {f: f, candidate: @candidate} %>
             </div>
           <% end %>
 
-          <div class="mb-40">
+          <div class="mt-40 mb-40">
             <h5 class="text-main mb-10">💪 Comment vous pouvez aidez</h5>
-            <div class="input-with-2-icons mb-10 position-relative">
+            <div class="input-with-2-icons mb-15 position-relative">
               <%= f.input :function,
-                          label: "Mon domaine de compétences",
+                          label: "Mon domaine de compétences *",
                           collection: Candidate::FUNCTIONS,
                           selected: @candidate.function,
                           include_blank: true,
@@ -87,7 +70,6 @@
                           placeholder: "Ajouter des compétences détaillés",
                           label: false,
                           wrapper: false %>
-              <%= f.error :skill_list, id: "skill_list", class:"invalid-msg" %>
             </div>
 
             <div class="mb-20 position-relative">
@@ -102,7 +84,7 @@
             <h5 class="text-main mb-10">💜 L'engagement qui vous conviendrait</h5>
 
             <div class="mb-15 position-relative">
-              <label class="label-form">Les causes qui me tiennent à coeur</label>
+              <label class="label-form">Les causes qui me tiennent à coeur *</label>
               <div class="custom-checkbox-ctn">
                 <%= f.input :primary_cause,
                             label: false,
@@ -110,11 +92,10 @@
                             as: :check_boxes,
                             wrapper: false %>
               </div>
-              <%= f.error :primary_cause, id: "primary_cause", class:"invalid-msg" %>
             </div>
 
-            <div class="slider-ctn mb-10 position-relative" data-controller="slider" data-slider-type="frequency">
-              <label for="availability" class="label-form">Mes Disponibilités</label>
+            <div class="slider-ctn mb-15 position-relative" data-controller="slider" data-slider-type="frequency">
+              <label for="availability" class="label-form">Mes Disponibilités *</label>
               <div class="flex-center-left">
                 <i class="fa-regular fa-clock text-main mr-10"></i>
                 <%= f.input :availability,

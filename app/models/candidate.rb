@@ -18,10 +18,10 @@ class Candidate < ApplicationRecord
   validates :description, presence: { message: "Présentez-vous en quelques mots" }, if: :should_validate?
   validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
   validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
-  validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
+  # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
   validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?
   validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
-  validate :skill_present, if: :should_validate?
+  # validate :skill_present, if: :should_validate?
 
   FUNCTIONS = Offer::FUNCTIONS
 
@@ -41,9 +41,9 @@ class Candidate < ApplicationRecord
 
   def min_info_present?
     if employed?
-      status.present? && employer_name.present? && (linkedin_url.present? || cv.attached?)
+      phone_num.present? && status.present? && employer_name.present? && (linkedin_url.present? || cv.attached?)
     else
-      status.present? && (linkedin_url.present? || cv.attached?)
+      phone_num.present? && status.present? && (linkedin_url.present? || cv.attached?)
     end
   end
 
@@ -96,9 +96,9 @@ class Candidate < ApplicationRecord
     should_validate.present?
   end
 
-  def skill_present
-    errors.add(:skill_list, "Indiquer au moins une compétence") if skill_list.empty?
-  end
+  # def skill_present
+  #   errors.add(:skill_list, "Indiquer au moins une compétence") if skill_list.empty?
+  # end
 
   def basics
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/

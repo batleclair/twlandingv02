@@ -4,13 +4,13 @@
               label: 'Ma situation',
               collection: Candidate::STATUSES,
               selected: candidate.status,
-              input_html: {class: "input-form", data: {action: "change->candidacy#toggle"}},
+              input_html: {class: "input-form", data: {"candidacy-target": "status", action: "change->candidacy#toggle"}},
               wrapper: false %>
   <i class="fa-solid fa-briefcase"></i>
   <i class="fa-solid fa-angle-down pe-none"></i>
 </div>
 
-<div id="candidate_employer_name_wrapper" class="input-with-icon mb-10 position-relative">
+<div id="candidate_employer_name_wrapper" class="input-with-icon mb-15 position-relative">
   <%= f.input :employer_name,
               label: 'Mon employeur',
               input_html: {class: "input-form", data: {"candidacy-target": "employer"}},

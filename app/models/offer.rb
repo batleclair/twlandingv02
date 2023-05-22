@@ -16,9 +16,8 @@ class Offer < ApplicationRecord
     'Stratégie/Conseil',
     'Ventes/Business Development',
     'Achats/Logistique',
-    # 'Administration',
     'Juridique',
-    'Qualité/Environement'
+    'Gestion de projet'
   ]
 
   OFFER_TYPES = [
