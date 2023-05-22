@@ -13,7 +13,7 @@
       <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
         <div class="d-flex">
           <%= link_to "Retour", admin_users_path, class:"button btn-light-main mb-2 me-2" %>
-          <%= link_to "Ajouter une entreprise", new_admin_company_path, class:"button btn-flag-color ms-2" %>
+          <%= link_to "Ajouter un client", new_admin_company_path, class:"button btn-flag-color ms-2" %>
         </div>
         <button type="submit" class="button btn-main-color">Enregistrer</button>
       </div>
@@ -35,8 +35,30 @@
                     collection: @companies,
                     label_method: :second,
                     value_method: :first,
-                    label: "Entreprise" %>
+                    label: "Client" %>
       </div>
+
+      <%= f.simple_fields_for :candidate, @candidate do |p| %>
+        <div id="candidate_status_wrapper" class="input-with-2-icons mb-10 position-relative">
+
+          <%= p.input :status,
+                      label: 'Situation professionnelle',
+                      collection: Candidate::STATUSES,
+                      include_blank: "Sélectionner",
+                      input_html: {class: "input-form", data: {"candidacy-target": "status", action: "change->candidacy#toggle"}},
+                      wrapper: false %>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-angle-down pe-none"></i>
+        </div>
+
+        <div id="candidate_employer_name_wrapper" class="input-with-icon mb-15 position-relative">
+          <%= p.input :employer_name,
+                      label: "Employeur (visible par l'utilisateur)",
+                      input_html: {class: "input-form", data: {"candidacy-target": "employer"}},
+                      wrapper: false %>
+          <i class="fa-solid fa-building"></i>
+        </div>
+      <% end %>
     <% end %>
 
   </div>

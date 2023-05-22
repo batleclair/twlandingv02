@@ -1,9 +1,9 @@
 <div id="candidate_status_wrapper" class="input-with-2-icons mb-10 position-relative">
 
   <%= f.input :status,
-              label: 'Ma situation',
+              label: 'Ma situation *',
               collection: Candidate::STATUSES,
-              selected: candidate.status,
+              include_blank: "Sélectionner",
               input_html: {class: "input-form", data: {"candidacy-target": "status", action: "change->candidacy#toggle"}},
               wrapper: false %>
   <i class="fa-solid fa-briefcase"></i>
@@ -12,7 +12,7 @@
 
 <div id="candidate_employer_name_wrapper" class="input-with-icon mb-15 position-relative">
   <%= f.input :employer_name,
-              label: 'Mon employeur',
+              label: 'Mon employeur *',
               input_html: {class: "input-form", data: {"candidacy-target": "employer"}},
               wrapper: false %>
   <i class="fa-solid fa-building"></i>
@@ -20,7 +20,7 @@
 
 <div id=candidate_cv_wrapper class="flex-center-between mb-10" data-controller="progress">
   <div class="overflow-hidden">
-    <label for="candidate_cv" class="label-form">Mon CV et/ou LinkedIn</label>
+    <label for="candidate_cv" class="label-form">Mon CV et/ou LinkedIn *</label>
         <p data-progress-target="cvmsg" class="fs-10 text-ellipsis">
           <% if candidate.cv.present? %>
             CV transmis.

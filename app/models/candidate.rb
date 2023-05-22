@@ -1,5 +1,6 @@
 class Candidate < ApplicationRecord
   attr_accessor :should_validate
+  attr_accessor :admin_bypass_validation
 
   belongs_to :user
   has_many :candidacies, dependent: :destroy
@@ -8,8 +9,8 @@ class Candidate < ApplicationRecord
   has_one_attached :photo
   acts_as_taggable_on :skills
 
-  validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }
-  validates :status, presence: { message: "Sélectionnez parmi les options" }
+  validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, if: :not_admin?
+  validates :status, presence: { message: "Sélectionnez parmi les options" }, if: :not_admin?
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, if: :employed?
 
   validate :basics
@@ -90,17 +91,23 @@ class Candidate < ApplicationRecord
     return a
   end
 
+  def not_admin?
+    !admin_bypass_validation.present?
+  end
+
   private
 
   def should_validate?
     should_validate.present?
   end
 
+
   # def skill_present
   #   errors.add(:skill_list, "Indiquer au moins une compétence") if skill_list.empty?
   # end
 
   def basics
+    return if !not_admin?
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
     if linkedin_url.blank? && !cv.attached?
       errors.add(:linkedin_url, "Veuillez fournir a minima votre LinkedIn OU votre CV")
