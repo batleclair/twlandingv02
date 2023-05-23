@@ -28,6 +28,10 @@ class PagesController < ApplicationController
     add_breadcrumb "Légal", legal_path
   end
 
+  def privacy
+    add_breadcrumb "Politique de Confidentialité", privacy_policy_path
+  end
+
   def about
     add_breadcrumb "A propos", about_path
   end

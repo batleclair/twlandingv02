@@ -2,36 +2,53 @@
 <% content_for :description, "Travailler pour une association, grâce à son entreprise ! Demain propose la mission de mécénat de compétences qui vous convient et vous aide à convaincre votre employeur de la soutenir." %>
 <% canonical(candidates_url) %>
 
-<div class="light-bg pt-5 pb-5 resp-overflow-hidden">
-  <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
-    <div class="big-title-resp max-w-500 full-width position-relative">
-      <%= image_tag("sq_dark_bg.svg", class: "flat-shape-bg", alt: "aplat de couleur violet") %>
-      <h1 class="d-none">Salarié·e·s : Travailler pour une asso sans quitter son boulot</h1>
-      <h2 class="text-main mb-3">s'engager sur son temps de travail !</h2>
-      <h4 class="mb-2">grâce à Demain, consacre une partie de ton temps de travail à une association, <span class="text-main fw-7">en restant salarié·e de ton entreprise</span>.</h4>
+<div class="pt-5 pb-5 resp-overflow-hidden bg-white">
+
+  <div class="flex-stretch-center sm-resp-flex-col">
+
+    <div class="ctn-resp-left flex-center-left mr-50 sm-resp-mr-0 position-relative">
+      <div class="max-w-900">
+        <%= image_tag("sq_dark_bg.svg", class: "flat-shape-bg downsize90", alt: "aplat de couleur violet") %>
+        <h1 class=" fs-60 text-main mb-3">s'engager sur son temps de travail !</h2>
+        <h4 class="mb-2">grâce à Demain, consacre une partie de ton temps de travail à une association, <span class="text-main fw-7">en restant salarié·e de ton entreprise</span>.</h4>
+      </div>
     </div>
-    <div class="round-20 pt-2 pb-2 min-w-300 max-w-500 flex-grow-1">
-      <h5 class="mb-3">rejoins les talents de Demain</h5>
 
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
-        <%= f.error_notification %>
-
-        <%= render partial: "devise/registrations/signup", locals: {f: f} %>
-
-        <div class="form-actions flex-resp justify-content-between align-items-center">
-          <div>
-            <%# <%= recaptcha_v3(action: 'signup') %>
-          </div>
-          <div class="d-flex flex-column">
-              <%= f.button :submit, "Inscription", class:"button btn-main-color" %>
-              <%= link_to "déjà inscrit·e ?", new_user_session_path, class: "mt-1 text-nowrap color-link center-text" %>
+    <div class="ctn-resp-right pb-20 pt-20">
+      <div class="min-w-300 max-w-500">
+        <div class="mb-20">
+          <h2>Créer un compte</h2>
+          <div class="d-flex">
+            <p class="me-1">Déjà inscrit.e ?</p>
+            <%= link_to "Se connecter", new_session_path(resource_name), class:"text-main fw-7" %>
           </div>
         </div>
-      <% end %>
 
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
+          <%= f.error_notification %>
 
+          <%= render partial: "devise/registrations/signup", locals: {f: f} %>
 
+          <div id="user_captcha" class="mb-20 position-relative">
+            <p id="captcha_error" class="invalid-msg"></p>
+          </div>
+
+          <%= invisible_captcha %>
+
+          <div class="form-actions flex-resp justify-content-between align-items-center">
+            <%# <div> %>
+              <%# <%= recaptcha_v3(action: 'signup') %>
+            <%# </div> %>
+            <button type="submit" class="fat-btn fat-btn-md w-100 fat-btn-main-color position-relative flex-center-between">
+              <span></span>
+              <strong>Inscription</strong>
+              <i class="fa-solid fa-right-to-bracket round-button bg-white"></i>
+            </button>
+          </div>
+        <% end %>
+      </div>
     </div>
+
   </div>
 </div>
 

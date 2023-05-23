@@ -175,11 +175,11 @@
       transition: ease-in-out 0.2s;
     }
   }
-  a[data-active="true"]{
-    bottom: 0px;
-    transition: ease-in-out 0.2s;
-    cursor: default;
-  }
+  // a[data-active="true"]{
+  //   bottom: 0px;
+  //   transition: ease-in-out 0.2s;
+  //   cursor: default;
+  // }
   .dynamic-apply-ctn{
     h5{
       color: white;

@@ -33,6 +33,7 @@ class OffersController < ApplicationController
     @no_offer = Offer.find_by(title: "no_offer")
     authorize @no_offer
     @offer = @params[:id].present? ? Offer.find(@params[:id]) : @offers.first
+    # @offer = policy_scope(Offer).order(:status).first if @offer == @no_offer
     authorize @offer
 
     @active_regions = Offer::REGIONS.select { |region| !Offer.where(publish: true, status:['active', 'draft'], region: region).empty? }

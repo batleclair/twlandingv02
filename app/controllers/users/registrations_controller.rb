@@ -43,6 +43,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def after_sign_up_path_for(resource)
+    if stored_location_for(resource).include?("missions")
+      stored_location_for(resource) || new_candidate_path
+    else
+      new_candidate_path
+    end
+  end
+
   def after_update_path_for(resource)
     flash[:notice] = "Vos informations ont bien été enregistrées"
     edit_user_registration_path || root_path

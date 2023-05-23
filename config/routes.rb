@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "about", to: "pages#about"
   get "terms", to: "pages#terms"
   get "legal", to: "pages#legal"
+  get "privacy-policy", to: "pages#privacy"
   get '/companies', to: redirect('/entreprises')
   get '/nonprofits', to: redirect('/associations')
   get '/candidates', to: redirect('/talents')
