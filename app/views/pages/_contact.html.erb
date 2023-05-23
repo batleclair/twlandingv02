@@ -66,16 +66,22 @@
             <i class="fa-solid fa-phone"></i>
           </div>
 
-          <div id="contact_message_wrapper" class="mb-20 position-relative">
+          <div id="contact_message_wrapper" class="position-relative">
             <%= f.input :message,
                         label: 'Votre message',
                         wrapper: false,
                         placeholder: "N'hésitez pas a nous en dire un peu plus" %>
           </div>
 
-          <div id="">
-            <%# <%= recaptcha_v3(action: 'contact', site_key: ENV['RECAPTCHA_PUBLIC_KEY']) %>
+          <div id="contact_captcha_wrapper" class="mb-20 position-relative">
+            <span id="contact_captcha"></span>
           </div>
+
+          <%= invisible_captcha %>
+
+          <%# <div id=""> %>
+            <%# <%= recaptcha_v3(action: 'contact', site_key: ENV['RECAPTCHA_PUBLIC_KEY']) %>
+          <%# </div> %>
 
 
 

@@ -2,6 +2,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # prepend_before_action :check_captcha, only: :create
   # after_action :log_event, only: :create
   prepend_before_action :authenticate_scope!, only: [:info, :edit]
+  invisible_captcha only: [:create], on_timestamp_spam: :custom_spam_callback
+
 
   def new
     add_breadcrumb "Inscription", new_user_registration_path
@@ -83,5 +85,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def daily_limit?
     count = User.where(created_at: (Time.now - 1.day)..).length
     return count > 50
+  end
+
+  def custom_spam_callback
+    session[:invisible_captcha_timestamp] = 2.seconds.from_now(Time.zone.now).iso8601
   end
 end

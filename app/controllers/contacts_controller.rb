@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   skip_before_action :authenticate_user!
+  invisible_captcha only: [:create], on_timestamp_spam: :custom_spam_callback
 
   def create
     return if daily_limit?
@@ -59,5 +60,15 @@ class ContactsController < ApplicationController
         }
       ]
     }
+  end
+
+  def custom_spam_callback
+    session[:invisible_captcha_timestamp] = 2.seconds.from_now(Time.zone.now).iso8601
+    json = {
+      errors: {
+        captcha: ["Une erreur s'est produite, veuillez réessayer"]
+      }
+    }
+    render json: json
   end
 end

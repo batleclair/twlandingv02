@@ -28,7 +28,10 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Google recaptcha for form submission
-gem "recaptcha", require: "recaptcha/rails"
+# gem "recaptcha", require: "recaptcha/rails"
+
+# Insivisble captcha alternative for form submission
+gem 'invisible_captcha'
 
 # Tags management gem
 gem 'acts-as-taggable-on', '~> 9.0'

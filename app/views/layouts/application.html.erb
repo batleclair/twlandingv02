@@ -58,9 +58,9 @@
 
     <% if flash.any? %>
       <% flash.each do |notice, msg| %>
-      <div>
-      <p class="notice"><%= msg %></p>
-      </div>
+        <div>
+          <p class=<%= notice %>><%= msg %></p>
+        </div>
       <% end %>
     <% end %>
 
