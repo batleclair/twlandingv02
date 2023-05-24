@@ -52,6 +52,7 @@ en:
         availability_details: ""
         primary_cause: ""
         skill_list: ""
+        volunteering_aknowledged: ""
     errors:
       models:
         user:

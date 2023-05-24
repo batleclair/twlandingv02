@@ -1,5 +1,6 @@
 class Candidate < ApplicationRecord
   attr_accessor :should_validate
+  attr_accessor :volunteering_aknowledged
   attr_accessor :admin_bypass_validation
 
   belongs_to :user
@@ -12,6 +13,7 @@ class Candidate < ApplicationRecord
   validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, if: :not_admin?
   validates :status, presence: { message: "Sélectionnez parmi les options" }, if: :not_admin?
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, if: :employed?
+  # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && should_validate? && !status.blank?}
 
   validate :basics
   validate :cv_file_type

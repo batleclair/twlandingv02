@@ -10,6 +10,20 @@
   <i class="fa-solid fa-angle-down pe-none"></i>
 </div>
 
+<% if request.path.starts_with?("/candidates") %>
+  <div id="aknowledge_wrapper" data-candidacy-target="aknowledge">
+    <p class="fs-14"><em>En règle générale, les missions proposées par Demain ne sont pas rémunérées par les associations :</em></p>
+    <div class="flex-center-between position-relative mb-10">
+      <%= f.input :volunteering_aknowledged,
+                  as: :boolean,
+                  label: "Je peux m'engager bénévolement",
+                  label_html: {class: "no-wrap"},
+                  input_html: { class: "toggle" },
+                  wrapper: false %>
+    </div>
+  </div>
+<% end %>
+
 <div id="candidate_employer_name_wrapper" class="input-with-icon mb-15 position-relative">
   <%= f.input :employer_name,
               label: 'Mon employeur *',

@@ -2,15 +2,17 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="candidacy"
 export default class extends Controller {
-  static targets =["window", "content", "status", "employer", "form"]
+  static targets =["window", "content", "status", "employer", "form", "aknowledge"]
 
   connect() {
     if (this.statusTarget.value.startsWith('Salar')) {
       this.employerTarget.classList.remove("readonly-input")
       this.employerTarget.disabled = false
+      this.hasAknowledgeTarget ? this.aknowledgeTarget.classList.remove('active') : console.log('💜')
     } else {
       this.employerTarget.classList.add("readonly-input")
       this.employerTarget.disabled = true
+      this.hasAknowledgeTarget ? this.aknowledgeTarget.classList.add('active') : console.log('💜')
     }
   }
 
@@ -34,9 +36,11 @@ export default class extends Controller {
     if (this.statusTarget.value.startsWith('Salar')) {
       this.employerTarget.classList.remove("readonly-input")
       this.employerTarget.disabled = false
+      this.hasAknowledgeTarget ? this.aknowledgeTarget.classList.remove('active') : console.log('💜')
     } else {
       this.employerTarget.classList.add("readonly-input")
       this.employerTarget.disabled = true
+      this.hasAknowledgeTarget ? this.aknowledgeTarget.classList.add('active') : console.log('💜')
     }
   }
 

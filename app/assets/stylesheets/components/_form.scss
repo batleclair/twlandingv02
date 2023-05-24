@@ -259,3 +259,14 @@
    padding-bottom: 40px;
   }
 }
+
+#aknowledge_wrapper {
+  max-height: 0px;
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
+}
+
+#aknowledge_wrapper.active {
+  max-height: 100px;
+  padding-bottom: 5px;
+}

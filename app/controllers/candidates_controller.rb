@@ -1,4 +1,6 @@
 class CandidatesController < ApplicationController
+  include ControllerUtilities
+
   before_action :set_candidate, only: %i[show update complete]
   respond_to :html, :xml, :json
 
@@ -149,6 +151,7 @@ class CandidatesController < ApplicationController
       :availability_details,
       :remote_work,
       :comment,
+      :volunteering_aknowledged,
       primary_cause: [],
       secondary_cause: [],
       candidacy_attributes: [:motivation_msg]
@@ -191,7 +194,8 @@ class CandidatesController < ApplicationController
       "Cause": @candidate.primary_causes,
       "Télétravail": @candidate.remote_work,
       "Remarques": @candidate.comment,
-      "Source": "Site"
+      "Source": "Site",
+      "Pas de rem": to_boolean(@candidate.volunteering_aknowledged)
       )
     @record.create
   end
