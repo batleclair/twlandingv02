@@ -14,9 +14,6 @@ class Admin::UsersController < AdminController
     @user.password = password
     @user.password_confirmation = password
     if @user.save
-      # @candidate = Candidate.new(user_params[:candidate_attributes])
-      # @candidate.user = @user
-      # @candidate.admin_bypass_validation = true
       @token = password_invite_token
       @user.send_invite_email(@token)
       redirect_to admin_users_path
@@ -48,7 +45,7 @@ class Admin::UsersController < AdminController
   def password_invite_token
     raw, enc = Devise.token_generator.generate(User, :reset_password_token)
     @user.reset_password_token   = enc
-    @user.reset_password_sent_at = Time.now.utc
+    @user.reset_password_sent_at = Time.now.utc + 30.days
     @user.save(validate: false)
     raw
   end
