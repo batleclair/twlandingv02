@@ -14,10 +14,11 @@ class Offer < ApplicationRecord
     'Ressources Humaines',
     'Marketing/Communication',
     'Stratégie/Conseil',
-    'Ventes/Business Development',
+    'Vente/Business Development',
     'Achats/Logistique',
     'Juridique',
-    'Gestion de projet'
+    'Gestion de projet',
+    'Qualité/Environnement'
   ]
 
   OFFER_TYPES = [

@@ -158,48 +158,6 @@ class CandidatesController < ApplicationController
     )
   end
 
-  def clip_to_airtable
-    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_CRM"], "Candidats")
-    @record = @table.new(
-      "Candidat": "#{@candidate.user.first_name} #{@candidate.user.last_name}",
-      "Email": @candidate.user.email,
-      "Téléphone": @candidate.phone_num,
-      "Statut": @candidate.status,
-      "CV": Cloudinary::Utils.cloudinary_url(@candidate.cv.key),
-      "Linkedin": @candidate.linkedin_url,
-      "Entreprise": @candidate.employer_name,
-      "Source": "Site web"
-      )
-    @record.create
-  end
-
-  def save_to_airtable
-    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_APP"], "Candidats")
-    @record = @table.new(
-      "Prénom": @candidate.user.first_name,
-      "Nom": @candidate.user.last_name,
-      "Email": @candidate.user.email,
-      "Phone": @candidate.phone_num,
-      "Statut": @candidate.status,
-      "Profil": @candidate.description,
-      "CV": Cloudinary::Utils.cloudinary_url(@candidate.cv.key),
-      "Linkedin": @candidate.linkedin_url,
-      "Localisation": @candidate.location,
-      "Entreprise": @candidate.employer_name,
-      "Compétences": [ @candidate.function ],
-      "Détails": @candidate.skill_list.join(", "),
-      "Bénévolat": @candidate.volunteering,
-      "Dispos": @candidate.availability_output,
-      "Dispo détails": @candidate.availability_details,
-      "Cause": @candidate.primary_causes,
-      "Télétravail": @candidate.remote_work,
-      "Remarques": @candidate.comment,
-      "Source": "Site",
-      "Pas de rem": to_boolean(@candidate.volunteering_aknowledged)
-      )
-    @record.create
-  end
-
   def send_new_candidate_alert
     CandidateMailer.with(candidate: @candidate).new_candidate_email.deliver_later
   end
@@ -209,7 +167,7 @@ class CandidatesController < ApplicationController
   end
 
   def process_profile_completion
-    save_to_airtable
+    @candidate.save_to_airtable
     send_new_profile_alert
     @candidate.profile_completed = true
     @candidate.save

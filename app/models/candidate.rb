@@ -1,4 +1,6 @@
 class Candidate < ApplicationRecord
+  include ControllerUtilities
+
   attr_accessor :should_validate
   attr_accessor :volunteering_aknowledged
   attr_accessor :admin_bypass_validation
@@ -13,18 +15,22 @@ class Candidate < ApplicationRecord
   validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, if: :not_admin?
   validates :status, presence: { message: "Sélectionnez parmi les options" }, if: :not_admin?
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, if: :employed?
-  # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && should_validate? && !status.blank?}
-
-  validate :basics
-  validate :cv_file_type
-
   validates :description, presence: { message: "Présentez-vous en quelques mots" }, if: :should_validate?
   validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
   validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
-  # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
   validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?
   validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
+  # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && should_validate? && !status.blank?}
+  # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
   # validate :skill_present, if: :should_validate?
+  validate :basics
+  validate :cv_file_type
+
+  # after_create do
+  #   clip_to_airtable
+  #   save_to_airtable if first_completion?
+  # end
+  # after_update :save_to_airtable, if: :first_completion?
 
   FUNCTIONS = Offer::FUNCTIONS
 
@@ -62,9 +68,9 @@ class Candidate < ApplicationRecord
     location.present? &&
     phone_num.present? &&
     availability > 0 &&
-    !skill_list.empty? &&
-    primary_cause != [""] &&
-    volunteering.present?
+    # !skill_list.empty? &&
+    # volunteering.present? &&
+    primary_cause != [""]
   end
 
   def age
@@ -95,6 +101,48 @@ class Candidate < ApplicationRecord
 
   def not_admin?
     !admin_bypass_validation.present?
+  end
+
+  def clip_to_airtable
+    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_CRM"], "Candidats")
+    @record = @table.new(
+      "Candidat": "#{user.first_name} #{user.last_name}",
+      "Email": user.email,
+      "Téléphone": phone_num,
+      "Statut": status,
+      "CV": Cloudinary::Utils.cloudinary_url(cv.key),
+      "LinkedIn": linkedin_url,
+      "Entreprise": employer_name,
+      "Canal": ["Site web"]
+      )
+    @record.create
+  end
+
+  def save_to_airtable
+    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_APP"], "Candidats")
+    @record = @table.new(
+      "Prénom": user.first_name,
+      "Nom": user.last_name,
+      "Email": user.email,
+      "Phone": phone_num,
+      "Statut": status,
+      "Profil": description,
+      "CV": Cloudinary::Utils.cloudinary_url(cv.key),
+      "Linkedin": linkedin_url,
+      "Localisation": location,
+      "Entreprise": employer_name,
+      "Compétences": [ function ],
+      "Détails": skill_list.join(", "),
+      "Bénévolat": volunteering,
+      "Dispos": availability_output,
+      "Dispo détails": availability_details,
+      "Cause": primary_causes,
+      "Télétravail": remote_work,
+      "Remarques": comment,
+      "Source": "Site",
+      "Pas de rem": to_boolean(volunteering_aknowledged)
+      )
+    @record.create
   end
 
   private
