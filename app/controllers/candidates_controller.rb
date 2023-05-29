@@ -53,6 +53,7 @@ class CandidatesController < ApplicationController
     @candidate.should_validate = true
     @candidate.user_id = current_user.id
     if @candidate.save
+      @candidate.clip_to_airtable
       process_profile_completion
       redirect_to users_completed_path
     else
@@ -64,8 +65,10 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
     @candidate.user_id = current_user.id
-    send_new_candidate_alert if @candidate.save
-    @candidate.valid?
+    if @candidate.save
+      send_new_candidate_alert
+      @candidate.clip_to_airtable
+    end
     render json: json_response(@candidate)
   end
 
@@ -73,7 +76,6 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.find_by(user_id: current_user.id)
     authorize @candidate
     @candidate.update(candidate_params)
-    @candidate.valid?
     render json: json_response(@candidate)
   end
 
