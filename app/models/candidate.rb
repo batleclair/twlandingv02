@@ -19,7 +19,7 @@ class Candidate < ApplicationRecord
   validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
   validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
   validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?
-  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
+  # validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
   # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && should_validate? && !status.blank?}
   # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
   # validate :skill_present, if: :should_validate?
