@@ -28,13 +28,12 @@ class OffersController < ApplicationController
 
   def index
     @contact = Contact.new
-    @offers = policy_scope(Offer).order(:status)
+    @offers = policy_scope(Offer).order(status: :asc, created_at: :desc)
     @params = request.query_parameters
-    @no_offer = Offer.find_by(title: "no_offer")
-    authorize @no_offer
     @offer = @params[:id].present? ? Offer.find(@params[:id]) : @offers.first
-    # @offer = policy_scope(Offer).order(:status).first if @offer == @no_offer
     authorize @offer
+    @no_offer = Offer.find_by(title: "no_offer")
+    # @offer = policy_scope(Offer).order(:status).first if @offer == @no_offer
 
     @active_regions = Offer::REGIONS.select { |region| !Offer.where(publish: true, status:['active', 'draft'], region: region).empty? }
     @active_functions = Offer::FUNCTIONS.select { |function| !Offer.where(publish: true, status:['active', 'draft'], function: function).empty? }

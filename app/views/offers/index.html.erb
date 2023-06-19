@@ -93,7 +93,7 @@
           <%= link_to "suppr. filtres", offers_path, class: "text-main fw-5 fs-15" %>
         </div>
         <% @offers.each do |offer| %>
-          <%= link_to offers_path(@params.merge!(id: offer.id)), data: {"search-form-target": "card", active: params[:id].to_s == offer.id.to_s, id: offer.id, action: "click->search-form#preview", destination: (offer.active? ? offer_path(offer) : '')}, class:"flat-card-bg" do %>
+          <%= link_to offers_path(@params.merge!(id: offer.id)), data: {"search-form-target": "card", active: offer == @offer, id: offer.id, action: "click->search-form#preview", destination: (offer.active? ? offer_path(offer) : '')}, class:"flat-card-bg" do %>
             <div class="p-3 d-flex mt-2 mb-2 pe-none">
               <div class="logo-box square-80 flex-shrink-0">
                 <%= offer.beneficiary.logo.attached? && offer.active? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>

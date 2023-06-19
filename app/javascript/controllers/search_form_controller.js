@@ -19,7 +19,8 @@ export default class extends Controller {
 
     urlParams.get('frequency') === '3' ? counter += -1 : counter
     urlParams.get('duration') === '3' ? counter += -1 : counter
-    urlParams.get('id') ? counter += -1 : this.cardTargets[0].dataset.active = "true"
+    // urlParams.get('id') ? counter += -1 : this.cardTargets[0].dataset.active = "true"
+    urlParams.get('id') ? counter += -1 : counter += 0
 
     if (urlParams.get('remote_work') === '1') {
       this.selectTargets[1].classList.add('readonly-input')
