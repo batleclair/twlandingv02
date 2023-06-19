@@ -19,7 +19,7 @@ class Candidate < ApplicationRecord
   validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
   validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
   validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?
-  # validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
+  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
   # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && should_validate? && !status.blank?}
   # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
   # validate :skill_present, if: :should_validate?
@@ -38,6 +38,12 @@ class Candidate < ApplicationRecord
     "Salarié·e",
     "Freelance",
     "Autre"
+  ]
+
+  AVAILABILITY = [
+    [1, "1 à 2 jours par mois"],
+    [2, "1 jour par semaine"],
+    [3, "+ d'1 jour par sem."]
   ]
 
   def employed?
@@ -82,14 +88,7 @@ class Candidate < ApplicationRecord
   end
 
   def availability_output
-    case availability
-    when 1
-      return "1 à 2 jours par mois"
-    when 2
-      return "1 jour par semaine"
-    when 3
-      return "+ d'1 jour par sem."
-    end
+    return AVAILABILITY[availability - 1][1]
   end
 
   def primary_causes
@@ -160,7 +159,7 @@ class Candidate < ApplicationRecord
     return if !not_admin?
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
     if linkedin_url.blank? && !cv.attached?
-      errors.add(:linkedin_url, "Veuillez fournir a minima votre LinkedIn OU votre CV")
+      errors.add(:linkedin_url, "Renseignez a minima votre LinkedIn OU votre CV")
     elsif linkedin_url.present? && !linkedin_url.match?(pattern)
       errors.add(:linkedin_url, "Oh oh.. le lien indiqué semble erroné")
     end

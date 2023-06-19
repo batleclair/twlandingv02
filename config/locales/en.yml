@@ -53,6 +53,7 @@ en:
         primary_cause: ""
         skill_list: ""
         volunteering_aknowledged: ""
+        status: ""
     errors:
       models:
         user:

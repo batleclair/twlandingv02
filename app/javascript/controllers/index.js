@@ -55,6 +55,9 @@ application.register("profile-form", ProfileFormController)
 import ProgressController from "./progress_controller.js"
 application.register("progress", ProgressController)
 
+import RadioController from "./radio_controller.js"
+application.register("radio", RadioController)
+
 import SearchFormController from "./search_form_controller.js"
 application.register("search-form", SearchFormController)
 

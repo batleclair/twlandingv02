@@ -22,7 +22,7 @@
 
           <div class="mb-10 position-relative">
             <%= f.input :description,
-                        input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                        input_html: {class: "min-h-100"},
                         label: false,
                         placeholder: "Je me présente en quelques mots *",
                         wrapper: false %>
@@ -94,7 +94,7 @@
               </div>
             </div>
 
-            <div class="slider-ctn mb-15 position-relative" data-controller="slider" data-slider-type="frequency">
+            <%# <div class="slider-ctn mb-15 position-relative" data-controller="slider" data-slider-type="frequency">
               <label for="availability" class="label-form">Mes Disponibilités *</label>
               <div class="flex-center-left">
                 <i class="fa-regular fa-clock text-main mr-10"></i>
@@ -104,14 +104,32 @@
                             error: false,
                             input_html: {min: "0", max:"3", value: @candidate.availability.present? ? @candidate.availability : 0, data: {"slider-target": "input", 'action': "input->slider#update"}},
                             wrapper: false %>
-                <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>
+                <%# <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>
+              </div>
+              <%= f.error :availability, id: "availability_error", class:"invalid-msg" %>
+            <%# </div> %>
+
+            <div class="slider-ctn mb-15 position-relative" data-controller="radio">
+              <label for="availability" class="label-form">Mes Disponibilités *</label>
+              <div class="inline-radio-btns">
+                <%# <i class="fa-regular fa-clock text-main mr-10"></i> %>
+                <%= f.input :availability,
+                            as: :radio_buttons,
+                            collection: Candidate::AVAILABILITY,
+                            value_method: :first,
+                            label_method: :last,
+                            legend_tag: false,
+                            input_html: {data: {"radio-target": "input", "action": "input->radio#update"}},
+                            error: false,
+                            wrapper: false %>
+                <span><span data-radio-target="bar"></span></span>
               </div>
               <%= f.error :availability, id: "availability_error", class:"invalid-msg" %>
             </div>
 
-            <div class="mb-10">
+                        <div class="mb-10">
               <%= f.input :availability_details,
-                          input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                          input_html: {class: "min-h-100"},
                           label: false,
                           placeholder: "Des contraintes ou disponibilités particulières ?",
                           wrapper: false %>
@@ -131,7 +149,7 @@
             <h5 class="text-main mb-10">🙌 Un dernier mot pour nous ?</h5>
 
             <%= f.input :comment,
-                        input_html: {class: "min-h-100", data: {action: 'keydown->profile-form#step3'}},
+                        input_html: {class: "min-h-100"},
                         label: false,
                         placeholder: "Merci !",
                         wrapper: false %>

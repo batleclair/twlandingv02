@@ -61,3 +61,96 @@
 .radio-button-ctn:last-child > label {
   margin-bottom: 0;
 }
+
+.inline-radio-btns{
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+  height: 60px;
+  margin-bottom: 40px;
+  input{
+    display: none;
+  }
+  .form-check {
+    width: 75px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  label{
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 13px;
+    transition: 0.2s ease-in-out;
+    &::before{
+      content: '';
+      padding: 10px;
+      border: 2px solid white;
+      outline: 2px solid $first-light-color;
+      background-color: $first-light-color;
+      border-radius: 50em;
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      margin-right: auto;
+      margin-left: auto;
+      width: 10px;
+      z-index: 1;
+      cursor: pointer;
+    }
+    &::after{
+      content: '';
+      padding: 10px;
+      background-color: $first-main-color;
+      border-radius: 50em;
+      position: absolute;
+      bottom: -18px;
+      left: 0;
+      right: 0;
+      margin-right: auto;
+      margin-left: auto;
+      width: 10px;
+      scale: 0;
+      transition: 0.2s ease-in-out;
+      z-index: 1;
+    }
+  }
+  input:checked + label{
+    font-size: 15px;
+    font-weight: 600;
+    color: $first-main-color;
+    transition: 0.2s ease-in-out;
+    &::after{
+      scale: 100%;
+      transition: 0.2s ease-in-out;
+    }
+  }
+  .lit-radio-btn + label{
+    &::before{
+      outline: 2px solid $first-main-color;
+    }
+  }
+  >span{
+    height: 5px;
+    background-color: $first-light-color;
+    width: 66%;
+    z-index: 0;
+    position: absolute;
+    bottom: -11px;
+    >span{
+      transition: 0.2s ease-in-out;
+      display: block;
+      height: 100%;
+      width: 0%;
+      background-color: $first-main-color;
+    }
+  }
+}
+
+.inline-radio-btns + .invalid-msg{
+  bottom: -38px;
+}
