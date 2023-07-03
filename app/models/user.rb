@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: "Prénom requis" }
   validates :last_name, presence: { message: "Nom requis" }
   has_one :company
+  validate :not_blacklisted
 
   def send_welcome_mail
     UserMailer.new_user_email(self).deliver
@@ -23,5 +24,11 @@ class User < ApplicationRecord
 
   def send_invite_email(password_invite_token)
     UserMailer.user_invite_email(self, password_invite_token).deliver
+  end
+
+  def not_blacklisted
+    if first_name.include?('💳')
+      errors.add(:general, "un problème est survenu, réessayez plus tard")
+    end
   end
 end
