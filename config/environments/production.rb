@@ -78,7 +78,7 @@ Rails.application.configure do
 
   # Configuration SENDINBLUE
   config.action_mailer.smtp_settings = {
-    address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
+    address: ENV.fetch('SMTP_HOST', 'smtp-relay.brevo.com'),
     port: ENV.fetch('SMTP_PORT', '587'),
     authentication: :plain,
     user_name: ENV['SIB_USERNAME'],
