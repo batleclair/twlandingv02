@@ -37,6 +37,12 @@
                     value_method: :first,
                     label: "Client" %>
       </div>
+      <div class="position-relative">
+        <%= f.input :company_role,
+                    collection: User.company_roles.values,
+                    include_blank: "sélectionner",
+                    label: "Rôle" %>
+      </div>
 
       <%= f.simple_fields_for :candidate, @candidate do |p| %>
         <div id="candidate_status_wrapper" class="input-with-2-icons mb-10 position-relative">

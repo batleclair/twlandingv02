@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_15_181514) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_181514) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -132,6 +133,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_181514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone_num"
+  end
+
+  create_table "employee_applications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "motivation_msg"
+    t.string "status"
+    t.text "response_msg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_employee_applications_on_user_id"
   end
 
   create_table "experiences", force: :cascade do |t|
@@ -192,6 +203,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_181514) do
     t.string "slug"
   end
 
+  create_table "selections", force: :cascade do |t|
+    t.bigint "offer_id", null: false
+    t.bigint "candidate_id", null: false
+    t.string "origin"
+    t.string "status"
+    t.text "response_msg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"], name: "index_selections_on_candidate_id"
+    t.index ["offer_id"], name: "index_selections_on_offer_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -235,6 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_181514) do
     t.string "last_name"
     t.string "user_type", default: "candidate"
     t.bigint "company_id"
+    t.string "company_role"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -245,10 +269,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_181514) do
   add_foreign_key "candidacies", "candidates"
   add_foreign_key "candidacies", "offers"
   add_foreign_key "candidates", "users"
+  add_foreign_key "employee_applications", "users"
   add_foreign_key "experiences", "candidates"
   add_foreign_key "offer_bookmarks", "offer_lists"
   add_foreign_key "offer_bookmarks", "offers"
   add_foreign_key "offers", "beneficiaries"
+  add_foreign_key "selections", "candidates"
+  add_foreign_key "selections", "offers"
   add_foreign_key "taggings", "tags"
   add_foreign_key "users", "companies"
 end

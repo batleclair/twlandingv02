@@ -56,6 +56,15 @@ class Offer < ApplicationRecord
     "Provence-Alpes-Côte d'Azur"
   ]
 
+  def selected_by?(user)
+    selection = Selection.find_by(offer: self, candidate: user.candidate)
+    selection.present? && selection.liked? && selection.candidacy.nil? && selection.status.nil? ? true : false
+  end
+
+  def selection_by(user)
+    selection = Selection.find_by(offer: self, candidate: user.candidate)
+  end
+
   def active?
     status == 'active'
   end

@@ -37,7 +37,11 @@ class ApplicationPolicy
   end
 
   def admin?
-    user.user_type == 'admin'
+    user.admin?
+  end
+
+  def company_admin?
+    user.company_admin?
   end
 
   class Scope

@@ -8,6 +8,7 @@ class Candidate < ApplicationRecord
   belongs_to :user
   has_many :candidacies, dependent: :destroy
   has_many :experiences, dependent: :destroy
+  has_many :selections, dependent: :destroy
   has_one_attached :cv
   has_one_attached :photo
   acts_as_taggable_on :skills
@@ -77,6 +78,10 @@ class Candidate < ApplicationRecord
     # !skill_list.empty? &&
     # volunteering.present? &&
     primary_cause != [""]
+  end
+
+  def full_name
+    "#{user.first_name} #{user.last_name}"
   end
 
   def age

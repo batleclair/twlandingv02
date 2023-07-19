@@ -57,16 +57,6 @@ Rails.application.configure do
     open_timeout:         5,
     read_timeout:         5 }
 
-  # Configuration SENDINBLUE
-  # config.action_mailer.smtp_settings = {
-  #   address: ENV.fetch('SMTP_HOST', 'smtp-relay.sendinblue.com'),
-  #   port: ENV.fetch('SMTP_PORT', '587'),
-  #   authentication: :plain,
-  #   user_name: ENV['SIB_USERNAME'],
-  #   password: ENV['SIB_PASSWORD'],
-  #   enable_starttls_auto: true
-  # }
-
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   # Don't care if the mailer can't send.
@@ -92,6 +82,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # By default, Rails set the top-level domain length to 1, but we want to use localhost to set this setting to 0
+  # config.action_dispatch.tld_length = 0
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -103,4 +96,10 @@ Rails.application.configure do
 
   # avoid error message Rails: Sprockets::Rails::Helper::AssetNotPrecompiled in development
   config.assets.check_precompiled_asset = false
+
+  config.hosts << "lvh.me"
+  config.hosts << "clipperton.lvh.me"
+  config.hosts << "test.lvh.me"
+  config.hosts << "apec.lvh.me"
+  config.hosts << "tomorrow.lvh.me"
 end

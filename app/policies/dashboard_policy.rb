@@ -1,6 +1,14 @@
 class DashboardPolicy < ApplicationPolicy
-  def show?
-    user.user_type == 'admin'
+  def super_admin?
+    user.admin?
+  end
+
+  def company_admin?
+    user.company_admin?
+  end
+
+  def company_user?
+    user.company_user?
   end
 
   class Scope < Scope

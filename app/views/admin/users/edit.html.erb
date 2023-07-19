@@ -1,0 +1,71 @@
+<%= render partial: "shared/navpan", locals: {active: 8} %>
+
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Nouvel utilisateur</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <%= simple_form_for(@user, url: admin_user_path(@user), action: :update, data: {turbo: false}) do |f| %>
+
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
+        <div class="d-flex">
+          <%= link_to "Retour", admin_users_path, class:"button btn-light-main mb-2 me-2" %>
+          <%= link_to "Ajouter un client", new_admin_company_path, class:"button btn-flag-color ms-2" %>
+        </div>
+        <button type="submit" class="button btn-main-color">Enregistrer</button>
+      </div>
+
+      <div class="position-relative">
+        <%= f.input :email,
+                    label: "Email" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :first_name,
+                    label: "Prénom" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :last_name,
+                    label: "Nom" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :company_id,
+                    collection: @companies,
+                    label_method: :second,
+                    value_method: :first,
+                    label: "Client" %>
+      </div>
+      <div class="position-relative">
+        <%= f.input :company_role,
+                    collection: User.company_roles.values,
+                    selected: User.company_roles[@user.company_role],
+                    include_blank: "sélectionner",
+                    label: "Rôle" %>
+      </div>
+      <%= f.simple_fields_for :candidate, @candidate do |p| %>
+        <div id="candidate_status_wrapper" class="input-with-2-icons mb-10 position-relative">
+
+          <%= p.input :status,
+                      label: 'Situation professionnelle',
+                      collection: Candidate::STATUSES,
+                      include_blank: "Sélectionner",
+                      input_html: {class: "input-form", data: {"candidacy-target": "status", action: "change->candidacy#toggle"}},
+                      wrapper: false %>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-angle-down pe-none"></i>
+        </div>
+
+        <div id="candidate_employer_name_wrapper" class="input-with-icon mb-15 position-relative">
+          <%= p.input :employer_name,
+                      label: "Employeur (visible par l'utilisateur)",
+                      input_html: {class: "input-form", data: {"candidacy-target": "employer"}},
+                      wrapper: false %>
+          <i class="fa-solid fa-building"></i>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

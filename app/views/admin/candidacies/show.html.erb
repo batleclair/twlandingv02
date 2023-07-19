@@ -9,7 +9,7 @@
 
     <div>
       <%= link_to "Retour", admin_candidacies_path, class:"button btn-light-main mb-3" %>
-      <h5>Nom : <%= "#{@candidacy.candidate.user.first_name} #{@candidacy.candidate.user.last_name.upcase}" %></h5>
+      <h5>Nom : <%= @candidacy.candidate.full_name %></h5>
       <p>Status :
         <% case @candidacy.candidate.status%>
         <% when "ft_employee" %>

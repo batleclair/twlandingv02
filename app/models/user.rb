@@ -4,11 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :candidate, autosave: true, dependent: :destroy
+  has_many :employee_applications, dependent: :destroy
   accepts_nested_attributes_for :candidate
+  accepts_nested_attributes_for :employee_applications, reject_if: proc { |l| l[:status].blank? }
   validates :first_name, presence: { message: "Prénom requis" }
   validates :last_name, presence: { message: "Nom requis" }
-  has_one :company
+  belongs_to :company
   validate :not_blacklisted
+
+  enum :company_role, { user: "utilisateur", admin: "administrateur" }, suffix: true, default: :user
 
   def send_welcome_mail
     UserMailer.new_user_email(self).deliver
@@ -17,6 +21,38 @@ class User < ApplicationRecord
   def admin?
     user_type == 'admin'
   end
+
+  def company_admin?
+    company_role == 'admin'
+  end
+
+  def company_user?
+    company_role == 'user'
+  end
+
+  def subdomain
+    company.slug
+  end
+
+  def never_applied?
+    employee_applications.empty?
+  end
+
+  def last_employee_application
+    employee_applications.last
+  end
+
+  # def approved?
+  #   employee_applications.where(status: "true").any?
+  # end
+
+  # def pending?
+  #   employee_applications.where(status: nil).any?
+  # end
+
+  # def rejected?
+  #   employee_applications.any? && !self.pending? && !self.approved? && !self.never_applied?
+  # end
 
   def applied?(offer)
     offer.candidates.where(user_id: id).none?

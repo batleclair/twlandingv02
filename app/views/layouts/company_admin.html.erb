@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title><%= yield(:title).present? ? yield(:title) : meta_title %></title>
+  <meta name="description" content="<%= yield(:description).present? ? yield(:description) : meta_description %>">
+  <%= favicon_link_tag %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
+
+<body>
+
+  <%= render partial: "shared/admin_menu" %>
+
+  <div class="company-content-ctn">
+    <%= yield %>
+  </div>
+
+  <% if flash.any? %>
+    <% flash.each do |notice, msg| %>
+      <div>
+        <p class=<%= notice %>><%= msg %></p>
+      </div>
+    <% end %>
+  <% end %>
+
+</body>
+
+</html>

@@ -27,7 +27,7 @@
               <td class="no-wrap"><%= c.created_at.strftime("%d-%m-%Y") %></td>
               <td><%= c.offer.beneficiary.name %></td>
               <td><%= c.offer.title %></td>
-              <td><%= "#{c.candidate.user.first_name} #{c.candidate.user.last_name.upcase}" %></td>
+              <td><%= c.candidate.full_name %></td>
               <td><%= c.candidate.status %></td>
               <td><%= c.candidate.employer_name %></td>
               <td>

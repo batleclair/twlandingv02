@@ -6,10 +6,16 @@ class Admin::UsersController < AdminController
     set_company_list
   end
 
+  def edit
+    @user = User.find(params[:id])
+    authorize @user
+    set_company_list
+  end
+
   def create
     @user = User.new(user_params)
     authorize @user
-    @user.candidate.admin_bypass_validation = true
+    @user.candidate.admin_bypass_validation = true if @user.candidate.present?
     password = Devise.friendly_token
     @user.password = password
     @user.password_confirmation = password
@@ -23,8 +29,21 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    authorize @user
+    @user.update(user_params)
+    @user.candidate.admin_bypass_validation = true if @user.candidate.present?
+    if @user.save
+      redirect_to admin_users_path
+    else
+      set_company_list
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = policy_scope(User).order(created_at: :desc)
     authorize @users
   end
 
@@ -39,7 +58,7 @@ class Admin::UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :company_id, candidate_attributes: [:status, :employer_name])
+    params.require(:user).permit(:email, :first_name, :last_name, :company_id, :company_role, candidate_attributes: [:status, :employer_name])
   end
 
   def password_invite_token

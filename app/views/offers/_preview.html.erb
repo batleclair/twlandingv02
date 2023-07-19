@@ -24,7 +24,7 @@
     <div class="preview-box mb-3">
       <div class="d-flex justify-content-between full-width first-main-border align-items-center pe-2 ps-2 height-46 round-10">
         <h6 class="text-main me-1">Engagement</h6>
-        <p>⏲️ <%= @offer.frequency_output %>  📅 <%= offer.duration_output %></p>
+        <p>⏲️ <%= offer.frequency_output %>  📅 <%= offer.duration_output %></p>
       </div>
       <%= render partial: "apply", locals: {offer: offer} %>
     </div>

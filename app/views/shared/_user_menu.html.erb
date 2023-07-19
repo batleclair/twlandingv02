@@ -1,0 +1,15 @@
+<div class="company-navbar ctn-resp-tight">
+  <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
+  <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
+    <i class="fa-solid fa-right-from-bracket"></i>
+    déconnexion
+  <% end %>
+</div>
+
+<div class="company-menu">
+  <%= link_to "Accueil", root_path %>
+  <%= link_to "Recherche", user_offers_path %>
+  <%= link_to "Mes sélections", selections_path %>
+  <%= link_to "Mes candidatures", candidacies_path %>
+  <p>Ma mission en cours</p>
+</div>

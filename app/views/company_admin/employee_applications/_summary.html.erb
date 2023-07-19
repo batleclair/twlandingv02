@@ -1,0 +1,28 @@
+<h5><%= "#{user.first_name} #{user.last_name}" %></h5>
+<h6><%= user.candidate.title %></h6>
+<h6><%= demand.created_at %></h6>
+<p><%= demand.motivation_msg %></p>
+
+<% if demand.rejected? || demand.approved? %>
+  <div class="mt-40">
+    <h5>Cette demande a été traitée.</h5>
+    <h6>Réponse envoyée à <%= demand.user.first_name %> : </h6>
+    <p><%= demand.response_msg %></p>
+  </div>
+<% end %>
+
+<% if demand.pending? %>
+  <div class="max-w-300">
+    <%= simple_form_for(demand, url: admin_employee_application_path(demand), action: :update, data: {turbo: false}) do |f| %>
+      <%= f.input :status,
+                  as: :radio_buttons,
+                  legend_tag: false,
+                  label: false,
+                  collection: [['Accepter', true], ['Refuser', false]],
+                  required: true %>
+      <%= f.input :response_msg,
+                  label: "Votre message de réponse" %>
+      <button type="submit" class="button btn-main-color">Enregistrer</button>
+    <% end %>
+  </div>
+<% end %>

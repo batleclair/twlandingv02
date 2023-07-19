@@ -1,0 +1,20 @@
+<div class="mb-20">
+  <%= link_to "Ajouter", new_admin_user_path, class:"button btn-main-color" %>
+</div>
+
+<% @users.each do |user| %>
+  <div class="mb-20 w-100 max-w-300 bg-shade p-10 flex-center-between">
+    <div>
+      <h6><%= "#{user.first_name} #{user.last_name}" %></h6>
+      <p><%= user.company_role %></p>
+    </div>
+    <div class="flex-center">
+      <%= link_to edit_admin_user_path(user) do %>
+        <i class="fa-solid fa-pen-to-square text-main"></i>
+      <% end %>
+      <%= link_to admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+        <i class="fa-solid fa-trash text-main"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>

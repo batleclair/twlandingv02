@@ -7,6 +7,15 @@
     }
 }
 
+.ctn-resp-tight{
+  padding-left: 4vw;
+  padding-right: 4vw;
+  @media(max-width: $bp-sm) {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    }
+}
+
 .ctn-resp-sheet{
   margin-left: 10vw;
   margin-right: 10vw;

@@ -4,71 +4,74 @@
 
 import { application } from "./application"
 
-import AccountController from "./account_controller.js"
+import AccountController from "./account_controller"
 application.register("account", AccountController)
 
-import ButtonMenuController from "./button_menu_controller.js"
+import ButtonMenuController from "./button_menu_controller"
 application.register("button-menu", ButtonMenuController)
 
-import CandidacyController from "./candidacy_controller.js"
+import CandidacyController from "./candidacy_controller"
 application.register("candidacy", CandidacyController)
 
-import CarouselController from "./carousel_controller.js"
+import CarouselController from "./carousel_controller"
 application.register("carousel", CarouselController)
 
-import ContactController from "./contact_controller.js"
+import ContactController from "./contact_controller"
 application.register("contact", ContactController)
 
-import ExperienceController from "./experience_controller.js"
+import DisplayController from "./display_controller"
+application.register("display", DisplayController)
+
+import ExperienceController from "./experience_controller"
 application.register("experience", ExperienceController)
 
-import FaqController from "./faq_controller.js"
+import FaqController from "./faq_controller"
 application.register("faq", FaqController)
 
-import FormSubmitterController from "./form_submitter_controller.js"
+import FormSubmitterController from "./form_submitter_controller"
 application.register("form-submitter", FormSubmitterController)
 
-import HelloController from "./hello_controller.js"
+import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import LegendController from "./legend_controller.js"
+import LegendController from "./legend_controller"
 application.register("legend", LegendController)
 
-import LockController from "./lock_controller.js"
+import LockController from "./lock_controller"
 application.register("lock", LockController)
 
-import MenuController from "./menu_controller.js"
+import MenuController from "./menu_controller"
 application.register("menu", MenuController)
 
-import ModalController from "./modal_controller.js"
+import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
-import NewProfileController from "./new_profile_controller.js"
+import NewProfileController from "./new_profile_controller"
 application.register("new-profile", NewProfileController)
 
-import PasswordController from "./password_controller.js"
+import PasswordController from "./password_controller"
 application.register("password", PasswordController)
 
-import ProfileFormController from "./profile_form_controller.js"
+import ProfileFormController from "./profile_form_controller"
 application.register("profile-form", ProfileFormController)
 
-import ProgressController from "./progress_controller.js"
+import ProgressController from "./progress_controller"
 application.register("progress", ProgressController)
 
-import RadioController from "./radio_controller.js"
+import RadioController from "./radio_controller"
 application.register("radio", RadioController)
 
-import SearchFormController from "./search_form_controller.js"
+import SearchFormController from "./search_form_controller"
 application.register("search-form", SearchFormController)
 
-import SliderController from "./slider_controller.js"
+import SliderController from "./slider_controller"
 application.register("slider", SliderController)
 
-import SwipeController from "./swipe_controller.js"
+import SwipeController from "./swipe_controller"
 application.register("swipe", SwipeController)
 
-import TomSelectController from "./tom_select_controller.js"
+import TomSelectController from "./tom_select_controller"
 application.register("tom-select", TomSelectController)
 
-import TypedJsController from "./typed_js_controller.js"
+import TypedJsController from "./typed_js_controller"
 application.register("typed-js", TypedJsController)

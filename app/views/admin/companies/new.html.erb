@@ -12,6 +12,7 @@
     <%= simple_form_for(@company, url: admin_companies_path, action: :create) do |f| %>
       <div class="position-relative">
         <%= f.input :name %>
+        <%= f.input :slug %>
       </div>
       <button type="submit" class="button btn-main-color mt-3">Créer</button>
     <% end %>

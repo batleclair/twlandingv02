@@ -1,3 +1,7 @@
+require 'airrecords/aircandidate'
+require 'airrecords/aircandidacy'
+require 'airrecords/airoffer'
+
 class CandidatesController < ApplicationController
   include ControllerUtilities
 
@@ -39,6 +43,12 @@ class CandidatesController < ApplicationController
   def init
     @candidate = current_user.candidate
     authorize @candidate
+  end
+
+  def dashboard
+    @candidate = current_user.candidate
+    authorize @candidate
+    @aircandidate = Aircandidate.find_by_email(@candidate.user.email)
   end
 
   def wishes

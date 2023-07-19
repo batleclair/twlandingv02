@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   before_action :admin_authenticate
 
   def dashboard
-    authorize :dashboard, :show?
+    authorize :dashboard, :super_admin?
   end
 
   # def verify_admin

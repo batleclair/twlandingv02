@@ -1,0 +1,57 @@
+<div class="row" data-controller="candidacy">
+
+    <% @offers.each do |offer| %>
+      <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key, alt: "logo de l'association #{offer.beneficiary.name}") : cl_image_tag('../default_logo.png', alt: "logo par défaut représentant un coeur sur une planète") %>
+      <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
+        <% if offer.active? %>
+          <%= link_to user_offer_path(offer), class: "job-card", data: { turbo: false } do %>
+            <div class="job-card-tag">
+              <h6>voir l'offre <%= offer.commitment.first %></h6>
+              <div class="job-card-text">
+                <h4><%= offer.title %></h4>
+                <h6><%= offer.location %></h6>
+              </div>
+              <div class="job-card-footer">
+                <h6 class="line-clamp-2"><%= offer.beneficiary.cause %></h6>
+                <div class="logo-box downsize90 card-logo-offset">
+                  <%= b_logo %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class='upcoming-badge' data-controller="lock">
+          <% action = user_signed_in? ? "click->candidacy#popup2" : "click->lock#unhide" %>
+            <h6>à venir</h6>
+            <span></span>
+            <% if user_signed_in? %>
+              <% if current_user.applied?(offer) %>
+                <button data-lock-target="apply" class="button full-width btn-main-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+              <% else %>
+                <h5 class="text-white text-main mb-4 mt-2 btn-replacement-msg">Votre candidature a bien été prise en compte 🙌</h5>
+              <% end %>
+            <% else %>
+                <button data-lock-target="apply" class="button full-width btn-main-color" data-action=<%=action%> data-id=<%=offer.id%>>Intéressé.e ?</button>
+                <div class="d-none centered-overlay" data-lock-target="login">
+                  <div class="d-flex">
+                    <%= link_to "Connexion", new_user_session_path, class: "button full-width btn-main-color mb-1 me-2", data: { turbo: false }%>
+                    <%= link_to "Inscription",  new_user_registration_path, class: "button full-width btn-light-main mb-1 ms-2", data: { turbo: false }%>
+                  </div>
+                  <p class="center-text">connectez-vous pour candidater dès maintenant !</p>
+                </div>
+            <% end %>
+            <div class="job-card-text">
+              <h4><%= offer.title %></h4>
+              <h6><%= offer.location %></h6>
+            </div>
+            <div class="job-card-footer">
+              <h6 class="line-clamp-2"><%= offer.beneficiary.cause %></h6>
+              <div class="logo-box downsize90 card-logo-offset">
+                <%= cl_image_tag('../default_logo.png') %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>

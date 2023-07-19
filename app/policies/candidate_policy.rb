@@ -8,6 +8,10 @@ class CandidatePolicy < ApplicationPolicy
     record.user == user || user.user_type == 'admin'
   end
 
+  def dashboard?
+    show?
+  end
+
   def new?
     record.id.nil? || (record.user == user && !record.profile_completed)
   end
@@ -50,8 +54,15 @@ class CandidatePolicy < ApplicationPolicy
 
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      case
+      when user.admin?
+        scope.all
+      when user.company_admin?
+        scope.joins(:user).where(user: {company_id: user.company_id})
+      else
+        scope.where(user: user)
+      end
+    end
   end
 end

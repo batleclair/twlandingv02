@@ -1,0 +1,91 @@
+<div class="w-100 max-w-300">
+
+  <div class="mb-40">
+    <h5 class="mb-20">🔥 nouvelles propositions</h5>
+    <% @selections.suggested.pending.each do |selection| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= selection.offer.beneficiary.name %></h6>
+            <p><%= selection.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-40">
+    <h5 class="mb-20">💜 coups de coeur</h5>
+    <% @selections.liked.pending.each do |selection| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= selection.offer.beneficiary.name %></h6>
+            <p><%= selection.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-40">
+    <h5 class="mb-20">⏳ candidature en cours</h5>
+    <% @selections.accepted.each do |selection| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= selection.offer.beneficiary.name %></h6>
+            <p><%= selection.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-40">
+    <h5 class="mb-20">😥 missions où ça n’a pas marché</h5>
+    <% @selections.refused.each do |selection| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= selection.offer.beneficiary.name %></h6>
+            <p><%= selection.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,17 @@
+<h5><%= "#{@employee_application.user.first_name} #{@employee_application.user.last_name}" %></h5>
+<h6><%= @employee_application.created_at %></h6>
+<p><%= @employee_application.motivation_msg %></p>
+
+<div class="max-w-300">
+  <%= simple_form_for(@employee_application, url: admin_employee_application_path(@employee_application), action: :update, data: {turbo: false}) do |f| %>
+    <%= f.input :status,
+                as: :radio_buttons,
+                legend_tag: false,
+                label: false,
+                collection: [['Accepter', true], ['Refuser', false]],
+                required: true %>
+    <%= f.input :response_msg,
+                label: "Votre message de réponse" %>
+    <button type="submit" class="button btn-main-color">Enregistrer</button>
+  <% end %>
+</div>

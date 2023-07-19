@@ -25,8 +25,17 @@ class CandidacyPolicy < ApplicationPolicy
 
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      case
+      when user.company_admin?
+        scope.joins(:candidate, :user).where(user: {company_id: user.company_id})
+      when user.company_user?
+        scope.joins(candidate: :user).where(user: {id: user.id})
+      when user.admin?
+        true
+      else
+        false
+      end
+    end
   end
 end

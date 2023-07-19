@@ -1,0 +1,20 @@
+<%= simple_form_for(@user, url: admin_user_path(@user), action: :update, data: {turbo: false}) do |f| %>
+
+  <div class="d-flex justify-content-between">
+    <%= link_to "Retour", admin_users_path, class:"button btn-light-main mb-2 me-2" %>
+    <button type="submit" class="button btn-main-color">Enregistrer</button>
+  </div>
+
+  <div class="position-relative">
+    <%= f.input :email,
+                label: "Email" %>
+  </div>
+  <div class="position-relative">
+    <%= f.input :first_name,
+                label: "Prénom" %>
+  </div>
+  <div class="position-relative">
+    <%= f.input :last_name,
+                label: "Nom" %>
+  </div>
+<% end %>

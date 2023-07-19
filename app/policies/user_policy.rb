@@ -1,7 +1,7 @@
 class UserPolicy < ApplicationPolicy
 
   def index?
-    user.user_type == 'admin'
+    user.admin? || user.company_admin?
   end
 
   def new?
@@ -12,10 +12,25 @@ class UserPolicy < ApplicationPolicy
     index?
   end
 
+  def edit?
+    index?
+  end
+
+  def update?
+    index?
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      case
+      when user.admin?
+        scope.all
+      when user.company_admin?
+        scope.where(company_id: user.company_id)
+      else
+        scope.where(user: user)
+      end
+    end
   end
 end

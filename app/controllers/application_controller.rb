@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
+  before_action :subdomain_authentication!
+  before_action :subdomain_redirection!, if: :user_signed_in?
+
   include Pundit::Authorization
 
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
@@ -12,7 +15,7 @@ class ApplicationController < ActionController::Base
   add_breadcrumb "Accueil", "/"
 
   def default_url_options
-    { host: ENV["DOMAIN"] || "localhost:3000" }
+    { host: ENV["DOMAIN"] || "lvh.me:3000" }
   end
 
   def configure_permitted_parameters
@@ -38,15 +41,28 @@ class ApplicationController < ActionController::Base
     authorize current_user, :admin?
   end
 
+  def company_admin_authenticate
+    authorize current_user, :company_admin?
+  end
+
   private
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
-  def after_sign_in_path_for(resource)
-    stored_location_for(resource) || root_path
+  def subdomain_authentication!
+    authenticate_user! if request.subdomain.present?
   end
+
+  def subdomain_redirection!
+    user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && request.subdomain.blank? )
+  end
+
+  # def after_sign_in_path_for(resource)
+    # admin_url(subdomain: resource.company.slug)
+    # stored_location_for(resource) || root_path
+  # end
 
   # def after_update_path_for
   #   edit_user_registration_path
@@ -78,7 +94,16 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    redirect_back(fallback_location: root_path)
+    if user_signed_in?
+      if current_user.company_admin?
+        redirect_to admin_url(subdomain: current_user.subdomain), allow_other_host: true
+      else
+        redirect_to root_url(subdomain: current_user.subdomain), allow_other_host: true
+      end
+    else
+      redirect_to root_url
+    end
     flash[:notice] = "✋ cette page n'est pas autorisée"
   end
+
 end
