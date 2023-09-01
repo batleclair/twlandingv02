@@ -1,0 +1,65 @@
+<%= render partial: "shared/navpan", locals: {active: 3} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <div class="mb-20">
+      <h3>Candidatures reçues</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+    </div>
+    <div class="d-flex">
+      <%= link_to "Candidatures missions", admin_candidacies_path, class:"button-round btn-light-main no-wrap mr-20" %>
+      <%= link_to "Demandes de salariés", admin_employee_applications_path, class:"button-round btn-light-main no-wrap" %>
+    </div>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Entreprise</th>
+            <th>Salarié</th>
+            <th>Message</th>
+            <th class="center-text">Statut</th>
+            <th>Réponse</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @employee_applications.each do |e| %>
+            <tr>
+              <td class="no-wrap"><%= e.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= e.user.company.name %></td>
+              <td><%= e.user.first_name %></td>
+              <td><%= e.motivation_msg %></td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <% if e.approved? %>
+                    <i class="fa-solid fa-circle-check green-color"></i>
+                  <% elsif e.pending? %>
+                    <i class="fa-solid fa-circle-question red-color"></i>
+                  <% else %>
+                    <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+                  <% end %>
+                </div>
+              </td>
+              <td><%= e.response_msg %></td>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to(edit_admin_employee_application_path(e)) do %>
+                    <i class="fa-solid fa-pen-to-square text-main"></i>
+                  <% end %>
+                  <%= link_to admin_employee_application_path(e), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash text-main"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

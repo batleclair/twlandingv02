@@ -94,7 +94,8 @@ class BeneficiariesController < ApplicationController
       :kpt_two,
       :kpt_three,
       :publish,
-      :publish_logo
+      :publish_logo,
+      :airtable_id
     )
   end
 end

@@ -1,7 +1,7 @@
-    <%= simple_form_for(@user, url: admin_users_path, action: :create, data: {turbo: false}) do |f| %>
+    <%= simple_form_for(@user, url: company_admin_users_path, action: :create, data: {turbo: false}) do |f| %>
 
       <div class="d-flex justify-content-between">
-        <%= link_to "Retour", admin_users_path, class:"button btn-light-main mb-2 me-2" %>
+        <%= link_to "Retour", company_admin_users_path, class:"button btn-light-main mb-2 me-2" %>
         <button type="submit" class="button btn-main-color">Enregistrer</button>
       </div>
 

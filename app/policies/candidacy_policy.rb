@@ -15,8 +15,27 @@ class CandidacyPolicy < ApplicationPolicy
     user.user_type == 'admin'
   end
 
+  def edit_comments?
+    user.user_type == 'admin'
+  end
+
+  def index_selection?
+    true
+  end
+
+  def show_selection?
+    show?
+  end
+
   def show?
-    record.user == user || user.user_type == 'admin'
+    true
+    # record.user == user || user.user_type == 'admin'
+  end
+
+  def update?
+    record.user == user ||
+    (user.company_admin? && record.user.company_id == user.company_id) ||
+    user.user_type == 'admin'
   end
 
   def destroy?
@@ -32,7 +51,7 @@ class CandidacyPolicy < ApplicationPolicy
       when user.company_user?
         scope.joins(candidate: :user).where(user: {id: user.id})
       when user.admin?
-        true
+        scope.all
       else
         false
       end

@@ -9,8 +9,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :employee_applications, reject_if: proc { |l| l[:status].blank? }
   validates :first_name, presence: { message: "Prénom requis" }
   validates :last_name, presence: { message: "Nom requis" }
-  belongs_to :company
+  belongs_to :company, optional: true
   validate :not_blacklisted
+  acts_as_token_authenticatable
 
   enum :company_role, { user: "utilisateur", admin: "administrateur" }, suffix: true, default: :user
 
@@ -30,8 +31,21 @@ class User < ApplicationRecord
     company_role == 'user'
   end
 
+  def role
+    case
+    when admin?
+      "admin"
+    when company_admin?
+      "company_admin"
+    when company_user?
+      "company_user"
+    else
+      "user"
+    end
+  end
+
   def subdomain
-    company.slug
+    company&.slug
   end
 
   def never_applied?
@@ -40,6 +54,10 @@ class User < ApplicationRecord
 
   def last_employee_application
     employee_applications.last
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   # def approved?

@@ -8,6 +8,10 @@ class CandidatePolicy < ApplicationPolicy
     record.user == user || user.user_type == 'admin'
   end
 
+  def profile?
+    show?
+  end
+
   def dashboard?
     show?
   end

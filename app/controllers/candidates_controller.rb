@@ -45,12 +45,6 @@ class CandidatesController < ApplicationController
     authorize @candidate
   end
 
-  def dashboard
-    @candidate = current_user.candidate
-    authorize @candidate
-    @aircandidate = Aircandidate.find_by_email(@candidate.user.email)
-  end
-
   def wishes
     @candidate = current_user.candidate
     authorize @candidate
@@ -60,9 +54,8 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
     @candidate_on_record = Candidate.new
-    @candidate.should_validate = true
     @candidate.user_id = current_user.id
-    if @candidate.save
+    if @candidate.save(context: :profile)
       @candidate.clip_to_airtable
       process_profile_completion
       redirect_to users_completed_path
@@ -75,42 +68,39 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(candidate_params)
     authorize @candidate
     @candidate.user_id = current_user.id
-    if @candidate.save
+    if @candidate.save(context: :apply)
       send_new_candidate_alert
       @candidate.clip_to_airtable
     end
-    render json: json_response(@candidate)
+    render json: json_response(:apply)
   end
 
   def synch_update
     @candidate = Candidate.find_by(user_id: current_user.id)
     authorize @candidate
-    @candidate.update(candidate_params)
-    render json: json_response(@candidate)
+    @candidate.assign_attributes(candidate_params)
+    @candidate.save(context: :apply)
+    render json: json_response(:apply)
   end
 
   def update
     authorize @candidate
     @candidate_on_record = @candidate
-    @candidate.should_validate = true if params[:source] == "new"
-    @candidate.update(candidate_params)
-    saved = @candidate.save
-    case params[:source]
-    when "new"
-      if saved
+    source = params[:source]
+    context = source == "new" ? :profile : :apply
+    @candidate.assign_attributes(candidate_params)
+    saved = @candidate.save(context: context)
+    if saved
+      if source == "new"
         process_profile_completion
         redirect_to users_completed_path
       else
-        render :new, status: :unprocessable_entity
-      end
-    else
-      if saved
         process_profile_completion if @candidate.first_completion?
         flash[:notice] = "Vos informations ont bien été enregistrées"
         render params[:source].to_sym, status: :see_other
-      else
-        render params[:source].to_sym, status: :unprocessable_entity
       end
+    else
+      render params[:source].to_sym, status: :unprocessable_entity
     end
   end
 
@@ -123,19 +113,11 @@ class CandidatesController < ApplicationController
 
   private
 
-  def json_response(candidate)
+  def json_response(context)
     {
-      valid: candidate.valid?,
-      id: candidate.id,
-      errors: candidate.errors
-    }
-  end
-
-  def json_resp_min(candidate)
-    {
-      valid: candidate.valid?(:min_info),
-      id: candidate.id,
-      errors: candidate.errors
+      valid: @candidate.valid?(context),
+      id: @candidate.id,
+      errors: @candidate.errors
     }
   end
 

@@ -2,10 +2,20 @@
 
 <div class="navpan-mg-ctn">
   <div class="navpan-transp-ctn">
-  <h3>Candidatures reçues</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+    <div class="mb-20">
+      <h3>Candidatures reçues</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+    </div>
+    <div class="d-flex">
+      <%= link_to "Candidatures missions", admin_candidacies_path, class:"button-round btn-light-main no-wrap mr-20" %>
+      <%= link_to "Demandes de salariés", admin_employee_applications_path, class:"button-round btn-light-main no-wrap" %>
+    </div>
   </div>
   <div class="navpan-white-ctn">
+
+  <div class="mb-20">
+    <%= link_to "Proposer une mission", new_admin_candidacy_path, class: "button btn-main-color" %>
+  </div>
 
     <div>
       <table class="tw-table">
@@ -17,7 +27,9 @@
             <th>Candidat</th>
             <th>Status</th>
             <th>Employeur</th>
-            <th class="center-text">CV transmis</th>
+            <th>Status</th>
+            <th>Origine</th>
+            <th class="center-text">Active ?</th>
             <th class="center-text">Actions</th>
           </tr>
         </thead>
@@ -30,9 +42,11 @@
               <td><%= c.candidate.full_name %></td>
               <td><%= c.candidate.status %></td>
               <td><%= c.candidate.employer_name %></td>
+              <td><%= c.last_active_status %></td>
+              <td><%= c.origin %></td>
               <td>
                 <div class="d-flex justify-content-center">
-                  <% if c.candidate.cv.attached? %>
+                  <% if c.active %>
                     <i class="fa-solid fa-circle-check green-color"></i>
                   <% else %>
                     <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
@@ -41,10 +55,10 @@
               </td>
               <td>
                 <div class="d-flex justify-content-evenly">
-                  <%= link_to(admin_candidacy_path(c)) do %>
-                    <i class="fa-solid fa-eye text-main"></i>
+                  <%= link_to admin_candidacy_path(c) do %>
+                    <i class="fa-solid fa-pen-to-square text-main"></i>
                   <% end %>
-                  <%= link_to candidacy_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                  <%= link_to admin_candidacy_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
                     <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>

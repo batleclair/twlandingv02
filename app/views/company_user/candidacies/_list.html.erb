@@ -1,0 +1,67 @@
+<div class="w-100 max-w-300">
+  <div class="mb-40">
+    <h5 class="mb-20">⏳ candidature en cours</h5>
+    <% candidacies.select{|c| c.in_progress? && !c.validated?}.each do |candidacy| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-40">
+    <h5 class="mb-20">✔️ demandes acceptées</h5>
+    <% candidacies.select{|c| c.validated?}.each do |candidacy| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-40">
+    <h5 class="mb-20">😥 ça n'est pas allé au bout</h5>
+    <% candidacies.select{|c| c.abandonned?}.each do |candidacy| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+          <div class="pe-none">
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

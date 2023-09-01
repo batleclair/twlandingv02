@@ -1,6 +1,6 @@
 <h2 class="mb-50">Je fais ma demande aux RH</h2>
 <div class="max-w-500">
-  <%= simple_form_for(@employee_application, controller: 'company_user/employee_applications', action: :create) do |f| %>
+  <%= simple_form_for(@employee_application, url: user_employee_applications_path) do |f| %>
     <div class="position-relative">
       <%= f.input :motivation_msg,
                   label: "Message" %>

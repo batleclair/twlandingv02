@@ -63,6 +63,9 @@ gem "cloudinary"
 # Pundit for authorization management
 gem "pundit"
 
+# API authentication management
+gem "simple_token_authentication"
+
 # testing mailers locally
 gem "letter_opener", group: :development
 

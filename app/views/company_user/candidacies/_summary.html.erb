@@ -1,0 +1,110 @@
+<div class="pl-40 w-100 max-w-500">
+
+  <div class="mb-40">
+    <h5><%= @candidacy.offer.beneficiary.name %></h5>
+    <h6><%= @candidacy.offer.title %></h6>
+    <p><%= @candidacy_on_record.last_active_status %></p>
+    <p>id : <%= @candidacy.id %></p>
+  </div>
+
+  <% if @candidacy_on_record.active %>
+
+    <% case @candidacy_on_record.last_active_status %>
+    <% when "user_application" %>
+      <p class="mb-10">Votre demande a bien été transmise à l'association !</p>
+      <p>Votre message :</p>
+      <p><%= @candidacy_on_record.motivation_msg %></p>
+    <% when "beneficiary_application" %>
+      <p class="mb-20">L'association a confirmé vouloir échanger avec vous ! Nous allons vous mettre en relation</p>
+      <h6>Message :</h6>
+      <p><%= @candidacy_on_record.current_comment.content if @candidacy_on_record.current_comment.present? %></p>
+    <% when "in_discussions" %>
+      <p>Vous êtes maintenant en contact avec l'association</p>
+      <p class="mb-20">Si ça n'est pas déjà fait, nous vous invitons à organiser un call ou une rencontre afin de préciser le périmètre et les modalités de la mission</p>
+      <p>Silence radio ? Contactez-nous !</p>
+    <% when "beneficiary_validation" %>
+      <p>Félicitations ! L'association a confirmé compter sur vous :)</p>
+      <h6>Message :</h6>
+      <p><%= @candidacy_on_record.current_comment.content if @candidacy_on_record.current_comment.present? %></p>
+      <p class="mb-20"><%= @candidacy_on_record.current_comment.created_at %></p>
+
+      <h5>Vous pouvez maintenant confirmer et soumettre à validation RH</h5>
+      <p class="mb-20">...ou bien refuser la mission, si vous ne le sentez pas :/</p>
+
+      <div data-controller="dynamic-form">
+        <%= simple_form_for(@candidacy) do |f| %>
+
+          <div class="flex-center">
+            <%= f.input :active,
+                  as: :radio_buttons,
+                  legend_tag: false,
+                  label: false,
+                  wrapper: false,
+                  collection: [['Confirmer', true], ['Refuser', false]],
+                  required: true,
+                  input_html: {data: {id: "1", action: "change->dynamic-form#display"}} %>
+          </div>
+
+          <%= f.input :last_active_status, as: :hidden, input_html: {value: "user_validation"} %>
+
+          <%= f.simple_fields_for :comments, @comment do |c| %>
+            <%= c.input :content, label: "Message", wrapper_html: {class: "position-relative"} %>
+          <% end %>
+
+          <div data-id="1" data-dynamic-form-target="output">
+            <p class="mt-20 mb-10">Afin d'accélérer la décision de vos RH, nous vous invitons à renseigner un maximum d'informations sur le contenu et les modalités envisagées pour cette mission </p>
+            <%= f.input :req_start_date %>
+            <%= f.input :req_days %>
+            <%= f.input :req_periodicity, collection: Candidacy::PERIODICITY,
+                        input_html: {data: {action: "change->dynamic-form#custom"}} %>
+            <div data-dynamic-form-target="customctn" class="d-none">
+              <%= f.input :custom_periodicity, input_html: {value: nil}, label: false, placeholder: 'Indiquez les modalités' %>
+            </div>
+            <%= f.input :req_description, input_html: {value: @candidacy.offer.summary.to_plain_text} %>
+          </div>
+          <%= f.input :source, as: :hidden, input_html: {value: "show"} %>
+          <%= f.submit 'Envoyer aux RH' %>
+        <% end %>
+      </div>
+    <% when "user_validation" %>
+      <p>Merci de votre engagement !</p>
+      <p class="mb-20">Votre demande va être évaluée par l'équipe RH et votre manager afin de s'assurer qu'elle satisfait les conditons d'éligibilité.</p>
+      <p>Silence radio ? Contactez-nous !</p>
+
+    <% when "admin_validation" %>
+      <div class="mb-10">
+        <p>Ouaaaaaaaaaais les RH ont validé !</p>
+        <% if @candidacy.admin_validation_message.present? %>
+          <p>Voici leur réponse :</p>
+          <p><%= @candidacy.admin_validation_message %></p>
+        <% end %>
+      </div>
+      <h5>Attention ! Il reste encore une étape :</h5>
+      <p>La formalisation de la mission entre votre entreprise, l'association et vous.</p>
+      <p>Nous sommes sur le coup avec votre équipe RH</p>
+      <p>Silence radio ? Contactez-nous !</p>
+
+    <% when "mission" %>
+      <h5 class="mb-20">yeah</h5>
+      <%= link_to "Voir le détail", "" %>
+    <% end %>
+
+  <% else %>
+
+    <% case @candidacy.last_active_status %>
+    <% when "beneficiary_application" || "beneficiary_validation" %>
+      <p>L'association n'a pas souhaité donner suite :(</p>
+      <h6>Message :</h6>
+      <p><%= @candidacy.current_comment.content if @candidacy.current_comment.present? %></p>
+    <% when "user_validation" %>
+      <p class="mb-20">Vous avez préféré ne pas donner suite malgré l'intérêt de l'association ;(</p>
+      <h6>Votre message :</h6>
+      <p><%= @candidacy.current_comment.content if @candidacy.current_comment.present? %></p>
+    <% when "admin_validation" %>
+      <p>Malheureusement votre demande a été refusée par votre équipe RH ou votre manager</p>
+      <h6>Les raisons de ce refus :</h6>
+      <p><%= @candidacy.admin_validation_message %></p>
+    <% end %>
+  <% end %>
+
+</div>

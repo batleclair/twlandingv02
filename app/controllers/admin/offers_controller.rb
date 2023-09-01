@@ -1,3 +1,5 @@
+require 'airrecords/airoffer'
+
 class Admin::OffersController < AdminController
   before_action :set_offer, only: %i[edit update destroy]
 
@@ -21,6 +23,7 @@ class Admin::OffersController < AdminController
     authorize @offer
     @offer.save
     if @offer.save
+      @offer.clip_to_airtable
       redirect_to offer_path(@offer)
     else
       render new_admin_offer_path, status: :unprocessable_entity

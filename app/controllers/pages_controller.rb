@@ -44,6 +44,10 @@ class PagesController < ApplicationController
 
   private
 
+  def ats_params
+    params.permit(:test)
+  end
+
   def new
     @contact = Contact.new
   end

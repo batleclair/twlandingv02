@@ -22,6 +22,9 @@ application.register("contact", ContactController)
 import DisplayController from "./display_controller"
 application.register("display", DisplayController)
 
+import DynamicFormController from "./dynamic_form_controller"
+application.register("dynamic-form", DynamicFormController)
+
 import ExperienceController from "./experience_controller"
 application.register("experience", ExperienceController)
 

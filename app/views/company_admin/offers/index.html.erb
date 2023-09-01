@@ -4,7 +4,7 @@
       <% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key, alt: "logo de l'association #{offer.beneficiary.name}") : cl_image_tag('../default_logo.png', alt: "logo par défaut représentant un coeur sur une planète") %>
       <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12 ps-4 pe-4 mt-5">
         <% if offer.active? %>
-          <%= link_to admin_offer_path(offer), class: "job-card", data: { turbo: false } do %>
+          <%= link_to company_admin_offer_path(offer), class: "job-card", data: { turbo: false } do %>
             <div class="job-card-tag">
               <h6>voir l'offre <%= offer.commitment.first %></h6>
               <div class="job-card-text">

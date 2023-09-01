@@ -1,0 +1,23 @@
+<%= render partial: "shared/navpan", locals: {active: 3} %>
+
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Nouvel utilisateur</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <%= simple_form_for(@candidacy, url: admin_candidacies_path, action: :create, data: {turbo: false}) do |f| %>
+
+      <%= f.association :candidate, collection: @candidates, label_method: lambda { |candidate| candidate.full_name }, wrapper_html: {class: "position-relative"} %>
+      <%= f.association :offer, collection: @offers, label_method: lambda { |offer| "#{offer.beneficiary.name} - #{offer.title}" }, wrapper_html: {class: "position-relative"} %>
+
+      <div class="flex-center-between">
+        <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+        <%= link_to "Retour", admin_candidacies_path, class:"button btn-light-main mb-2 me-2" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

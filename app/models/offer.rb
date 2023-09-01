@@ -3,9 +3,9 @@ class Offer < ApplicationRecord
   has_rich_text :summary
   has_rich_text :description
   has_many :candidacies
-  has_many :candidates, through: :candidacies
+  has_many :candidates, through: :candidacies, dependent: :destroy
   after_save :set_slug
-  has_many :offer_bookmarks
+  has_many :offer_bookmarks, dependent: :destroy
   validates :beneficiary_id, presence: {message: "Il faut associer une asso à l'offre"}
 
   FUNCTIONS = [
@@ -40,6 +40,19 @@ class Offer < ApplicationRecord
     '🙌 costaud',
   ]
 
+  def commitment_sanitized
+    case commitment
+    when '👍 light'
+      "1 à 2 jours par mois"
+    when '👏 moyen'
+      "1 jour par semaine"
+    when '🙌 costaud'
+      "+ d'1 jour par sem."
+    else
+      return
+    end
+  end
+
   REGIONS = [
     'Auvergne-Rhône-Alpes',
     'Bourgogne-Franche-Comté',
@@ -55,15 +68,6 @@ class Offer < ApplicationRecord
     'Pays de la Loire',
     "Provence-Alpes-Côte d'Azur"
   ]
-
-  def selected_by?(user)
-    selection = Selection.find_by(offer: self, candidate: user.candidate)
-    selection.present? && selection.liked? && selection.candidacy.nil? && selection.status.nil? ? true : false
-  end
-
-  def selection_by(user)
-    selection = Selection.find_by(offer: self, candidate: user.candidate)
-  end
 
   def active?
     status == 'active'
@@ -138,5 +142,20 @@ class Offer < ApplicationRecord
         }
       }
     }
+  end
+
+  def clip_to_airtable
+    if airtable_id.nil?
+      @record = Airoffer.create(
+        "Offre": "#{title} [#{beneficiary.name}]",
+        "Association": [beneficiary.airtable_id],
+        "Localisation": location,
+        "[A MAJ] Lien offre": Rails.application.routes.url_helpers.offers_path(self),
+        "Télétravail": remote_work,
+        "Description": summary.to_plain_text,
+        "Engagement": commitment_sanitized
+        )
+      self.update(airtable_id: @record.id)
+    end
   end
 end

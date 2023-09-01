@@ -1,28 +1,34 @@
-<h5><%= "#{user.first_name} #{user.last_name}" %></h5>
-<h6><%= user.candidate.title %></h6>
-<h6><%= demand.created_at %></h6>
-<p><%= demand.motivation_msg %></p>
+<div class="pl-40 w-100">
+  <h5><%= "#{employee_application.user.first_name} #{employee_application.user.last_name}" %></h5>
+  <h6><%= employee_application.user.candidate.title %></h6>
+  <h6><%= employee_application.created_at %></h6>
+  <p><%= employee_application.motivation_msg %></p>
 
-<% if demand.rejected? || demand.approved? %>
-  <div class="mt-40">
-    <h5>Cette demande a été traitée.</h5>
-    <h6>Réponse envoyée à <%= demand.user.first_name %> : </h6>
-    <p><%= demand.response_msg %></p>
-  </div>
-<% end %>
+  <% if employee_application.rejected? || employee_application.approved? %>
+    <div class="mt-40">
+      <h5>Cette employee_applicatione a été traitée.</h5>
+      <h6>Réponse envoyée à <%= employee_application.user.first_name %> : </h6>
+      <p><%= employee_application.response_msg %></p>
+    </div>
+  <% end %>
 
-<% if demand.pending? %>
-  <div class="max-w-300">
-    <%= simple_form_for(demand, url: admin_employee_application_path(demand), action: :update, data: {turbo: false}) do |f| %>
-      <%= f.input :status,
-                  as: :radio_buttons,
-                  legend_tag: false,
-                  label: false,
-                  collection: [['Accepter', true], ['Refuser', false]],
-                  required: true %>
-      <%= f.input :response_msg,
-                  label: "Votre message de réponse" %>
-      <button type="submit" class="button btn-main-color">Enregistrer</button>
-    <% end %>
-  </div>
-<% end %>
+  <% if employee_application.approved? %>
+    <%= button_to 'Révoquer', company_admin_employee_application_path(employee_application), method: :patch, params: {employee_application: {status: "false"}} %>
+  <% end %>
+
+  <% if employee_application.pending? %>
+    <div class="max-w-300">
+      <%= simple_form_for(employee_application, url: company_admin_employee_application_path(employee_application), action: :update, data: {turbo: false}) do |f| %>
+        <%= f.input :status,
+                    as: :radio_buttons,
+                    legend_tag: false,
+                    label: false,
+                    collection: [['Accepter', true], ['Refuser', false]],
+                    required: true %>
+        <%= f.input :response_msg,
+                    label: "Votre message de réponse" %>
+        <button type="submit" class="button btn-main-color">Enregistrer</button>
+      <% end %>
+    </div>
+  <% end %>
+</div>

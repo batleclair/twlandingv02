@@ -1,0 +1,44 @@
+<%= render partial: "shared/navpan", locals: {active: 3} %>
+
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+  <h3>Modifier les commentaires relatifs à une candidature</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <div class="mb-20">
+      <h5>Nom : <%= @candidacy.candidate.full_name %></h5>
+      <h6>Offre : <%= @candidacy.offer.beneficiary.name %> - <%= @candidacy.offer.title %></h6>
+      <p>Message de candidature : <%= @candidacy.motivation_msg %></p>
+    </div>
+
+    <%= simple_form_for(@candidacy, url: admin_candidacy_path(@candidacy), action: :update, data: {turbo: false}) do |f| %>
+      <% @comments.each do |comment| %>
+        <div class="flex-center-left">
+          <%= f.simple_fields_for :comments, comment do |c| %>
+            <div class="flex-center">
+              <div class="mr-20">
+                <h6><%= comment.status %></h6>
+                <p><%= comment.created_at %></p>
+                <div class="w-100 flex-center">
+                  <%= c.input :_destroy, label: "Suppr ?", as: :boolean %>
+                </div>
+              </div>
+              <%= c.input :content, default: comment.content %>
+              <%= c.input :id, as: :hidden, input_html: {value: comment.id} %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="flex-center-left">
+        <% if @comments.any? %>
+          <%= f.submit "Enregistrer", class: "button btn-main-color mr-20" %>
+        <% end %>
+        <%= link_to "Retour", admin_candidacy_path(@candidacy), class:"button btn-light-main" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

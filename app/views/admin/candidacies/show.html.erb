@@ -2,50 +2,91 @@
 
 <div class="navpan-mg-ctn">
   <div class="navpan-transp-ctn">
-  <h3>Formulaires de contact</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
-  </div>
-  <div class="navpan-white-ctn">
-
-    <div>
-      <%= link_to "Retour", admin_candidacies_path, class:"button btn-light-main mb-3" %>
-      <h5>Nom : <%= @candidacy.candidate.full_name %></h5>
-      <p>Status :
-        <% case @candidacy.candidate.status%>
-        <% when "ft_employee" %>
-        Salarié.e temps plein
-        <% when "pt_employee" %>
-        Salarié.e temps partiel
-        <% when "freelance" %>
-        Indépendant.e
-        <% when "inactive" %>
-        Sans activité
-        <% else %>
-        ???
-        <% end %>
-      <p>Employeur : <%= @candidacy.candidate.employer_name %></p>
-      <p>L'employeur est-il au courant ?
-        <% if @candidacy.employer_aware %>
-          <i class="fa-solid fa-circle-check green-color"></i>
-        <% else %>
-          <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
-        <% end %>
-      </p>
-      <p>Les chances qu'il accepte : <%= "#{@candidacy.employer_ok_chance}/5" %></p>
-      <p>Fréquence souhaitée : <%= "#{@candidacy.half_days_wish} demi/j par semaine" %></p>
-      <p>Email : <%= @candidacy.candidate.user.email %></p>
-      <p>Tel : <%= @candidacy.candidate.phone_num %></p>
-      <p>LinkedIn : <a target="blank" href="<%= @candidacy.candidate.linkedin_url %>"><%= @candidacy.candidate.linkedin_url %></a></p>
-      <p>CV transmis ?
-        <% if @candidacy.candidate.cv.attached? %>
-          <i class="fa-solid fa-circle-check green-color"></i>
-        <% else %>
-          <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
-        <% end %>
-      </p>
-      <p>Message : <%= @candidacy.motivation_msg %></p>
-
+    <div class="mb-20">
+      <h3>Candidatures reçues</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
     </div>
+    <div class="d-flex">
+      <%= link_to "Candidatures missions", admin_candidacies_path, class:"button-round btn-light-main no-wrap mr-20" %>
+      <%= link_to "Demandes de salariés", admin_employee_applications_path, class:"button-round btn-light-main no-wrap" %>
+    </div>
+  </div>
+
+  <div class="navpan-white-ctn">
+      <%= link_to "Retour", admin_candidacies_path, class:"button btn-light-main mb-3" %>
+      <div class="flex-center-left">
+        <div class="mr-40">
+          <h5>Nom : <%= @candidacy.candidate.full_name %></h5>
+          <h6 class="mb-20">Offre : <%= @candidacy.offer.beneficiary.name %> - <%= @candidacy.offer.title %></h6>
+          <p>Status :
+            <% case @candidacy.candidate.status%>
+            <% when "ft_employee" %>
+            Salarié.e temps plein
+            <% when "pt_employee" %>
+            Salarié.e temps partiel
+            <% when "freelance" %>
+            Indépendant.e
+            <% when "inactive" %>
+            Sans activité
+            <% else %>
+            ???
+            <% end %>
+          <p>Employeur : <%= @candidacy.candidate.employer_name %></p>
+          <p>L'employeur est-il au courant ?
+            <% if @candidacy.employer_aware %>
+              <i class="fa-solid fa-circle-check green-color"></i>
+            <% else %>
+              <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+            <% end %>
+          </p>
+          <p>Les chances qu'il accepte : <%= "#{@candidacy.employer_ok_chance}/5" %></p>
+          <p>Fréquence souhaitée : <%= "#{@candidacy.half_days_wish} demi/j par semaine" %></p>
+          <p>Email : <%= @candidacy.candidate.user.email %></p>
+          <p>Tel : <%= @candidacy.candidate.phone_num %></p>
+          <p>LinkedIn : <a target="blank" href="<%= @candidacy.candidate.linkedin_url %>"><%= @candidacy.candidate.linkedin_url %></a></p>
+          <p>CV transmis ?
+            <% if @candidacy.candidate.cv.attached? %>
+              <i class="fa-solid fa-circle-check green-color"></i>
+            <% else %>
+              <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
+            <% end %>
+          </p>
+          <p>Message : <%= @candidacy.motivation_msg %></p>
+        </div>
+
+        <div>
+          <%= simple_form_for(@candidacy, url: admin_candidacy_path(@candidacy), action: :update, data: {turbo: false}) do |f| %>
+
+            <div class="position-relative mb-40">
+              <%= f.input :active, as: :boolean, default: @candidacy.active %>
+              <%= f.input :last_active_status,
+                          include_blank: true,
+                          collection: [['Sélection', "selection"], ['Intérêt candidat', "user_application"], ['Intérêt asso', "beneficiary_application"], ['Mise en relation', "in_discussions"], ['Validation asso', "beneficiary_validation"], ['Validation candidat', "user_validation"], ['Validation RH', "admin_validation"], ['Mission', "mission"]] %>
+              <%= f.simple_fields_for :comments, @comment do |c| %>
+                <%= c.error :commentable_type, id: "commentable_type_error", class:"invalid-msg" %>
+                <%= c.input :content, label: "Message" %>
+                <%= c.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+              <% end %>
+              <%= f.submit "Enregistrer", class: "button btn-main-color" %>
+            </div>
+
+            <% @comments.each do |comment| %>
+              <div class="mb-20">
+                <h6><%= comment.status %></h6>
+                <p><%= comment.created_at %></p>
+                <p><%= comment.content %></p>
+              </div>
+            <% end %>
+            <% if @comments.any? %>
+              <%= link_to "Modifier les commentaires", edit_admin_candidacy_path, class:"button btn-light-main" %>
+            <% end %>
+          <% end %>
+
+        </div>
+
+      </div>
+    <div>
 
   </div>
+
 </div>

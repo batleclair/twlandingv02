@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.string "kpt_three"
     t.boolean "publish", default: false
     t.boolean "publish_logo", default: false
+    t.string "airtable_id"
   end
 
   create_table "candidacies", force: :cascade do |t|
@@ -87,6 +88,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.text "motivation_msg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "origin"
+    t.string "last_active_status"
+    t.string "airtable_id"
+    t.date "req_start_date"
+    t.integer "req_days"
+    t.string "req_periodicity"
+    t.string "req_periodicity_details"
+    t.text "req_description"
+    t.boolean "active"
+    t.date "user_validation_date"
+    t.text "user_validation_message"
+    t.boolean "manager_validation"
+    t.date "admin_validation_date"
+    t.text "admin_validation_message"
     t.index ["candidate_id"], name: "index_candidacies_on_candidate_id"
     t.index ["offer_id"], name: "index_candidacies_on_offer_id"
   end
@@ -113,7 +128,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.boolean "remote_work", default: false
     t.text "comment"
     t.integer "availability"
+    t.string "airtable_id"
     t.index ["user_id"], name: "index_candidates_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -156,6 +184,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.index ["candidate_id"], name: "index_experiences_on_candidate_id"
   end
 
+  create_table "missions", force: :cascade do |t|
+    t.bigint "candidacy_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.string "periodicity"
+    t.integer "days_count"
+    t.string "title"
+    t.text "description"
+    t.string "referent_name"
+    t.string "referent_email"
+    t.boolean "active"
+    t.string "last_active_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidacy_id"], name: "index_missions_on_candidacy_id"
+  end
+
   create_table "offer_bookmarks", force: :cascade do |t|
     t.bigint "offer_id", null: false
     t.bigint "offer_list_id", null: false
@@ -192,6 +237,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.string "slug"
     t.string "region"
     t.boolean "remote_work", default: false
+    t.string "airtable_id"
     t.index ["beneficiary_id"], name: "index_offers_on_beneficiary_id"
   end
 
@@ -201,18 +247,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.datetime "updated_at", null: false
     t.boolean "publish", default: false
     t.string "slug"
-  end
-
-  create_table "selections", force: :cascade do |t|
-    t.bigint "offer_id", null: false
-    t.bigint "candidate_id", null: false
-    t.string "origin"
-    t.string "status"
-    t.text "response_msg"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["candidate_id"], name: "index_selections_on_candidate_id"
-    t.index ["offer_id"], name: "index_selections_on_offer_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -259,6 +293,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
     t.string "user_type", default: "candidate"
     t.bigint "company_id"
     t.string "company_role"
+    t.string "authentication_token", limit: 30
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -269,13 +305,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_143641) do
   add_foreign_key "candidacies", "candidates"
   add_foreign_key "candidacies", "offers"
   add_foreign_key "candidates", "users"
+  add_foreign_key "comments", "users"
   add_foreign_key "employee_applications", "users"
   add_foreign_key "experiences", "candidates"
+  add_foreign_key "missions", "candidacies"
   add_foreign_key "offer_bookmarks", "offer_lists"
   add_foreign_key "offer_bookmarks", "offers"
   add_foreign_key "offers", "beneficiaries"
-  add_foreign_key "selections", "candidates"
-  add_foreign_key "selections", "offers"
   add_foreign_key "taggings", "tags"
   add_foreign_key "users", "companies"
 end

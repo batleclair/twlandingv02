@@ -21,7 +21,7 @@ class EmployeeApplicationPolicy < ApplicationPolicy
       when user.company_user?
         scope.where(user: user)
       when user.admin?
-        true
+        scope.all
       else
         false
       end

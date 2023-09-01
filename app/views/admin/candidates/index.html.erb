@@ -17,6 +17,7 @@
             <th>Email</th>
             <th>Status</th>
             <th>Employeur</th>
+            <th>Airtable ID</th>
             <th>Candidatures</th>
             <th class="center-text">CV</th>
             <th class="center-text">Actions</th>
@@ -31,6 +32,7 @@
               <td><%= c.user.email %></td>
               <td><%= c.status %></td>
               <td><%= c.employer_name %></td>
+              <td><%= c.airtable_id %></td>
               <td>
                 <ul>
                   <% c.candidacies.each do |candidacy| %>
@@ -57,7 +59,7 @@
                   <%= link_to(candidate_path(c), target: "_blank") do %>
                     <i class="fa-solid fa-user text-main"></i>
                   <% end %>
-                  <%= link_to candidate_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                  <%= link_to admin_candidate_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
                     <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>

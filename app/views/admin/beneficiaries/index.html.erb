@@ -19,6 +19,7 @@
             <th>Association</th>
             <th>Objectif</th>
             <th>Cause</th>
+            <th>airtable_id</th>
             <th>Photos</th>
             <th>Long desc</th>
             <th>Profil open</th>
@@ -46,6 +47,7 @@
               <td><%= b.name %></td>
               <td><%= b.goal %></td>
               <td><%= b.cause %></td>
+              <td><%= b.airtable_id %></td>
               <td class="center-text">
                 <% photo_count = [b.photo.attached?, b.profile_pic_one.attached?, b.profile_pic_two.attached?, b.profile_pic_three.attached?] %>
                 <%= "#{photo_count.count(true)}/4" %>

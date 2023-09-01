@@ -1,13 +1,12 @@
 <div class="w-100 max-w-300">
-
   <div class="mb-40">
     <h5 class="mb-20">🔥 nouvelles propositions</h5>
-    <% @selections.suggested.pending.each do |selection| %>
+    <% candidacies.select{|c| c.suggestion?}.each do |candidacy| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+        <%= link_to user_selections_path(candidacy.id), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
           <div class="pe-none">
-            <h6><%= selection.offer.beneficiary.name %></h6>
-            <p><%= selection.offer.title %></p>
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
           </div>
           <div class="flex-center">
             <%= link_to root_path do %>
@@ -23,13 +22,13 @@
   </div>
 
   <div class="mb-40">
-    <h5 class="mb-20">💜 coups de coeur</h5>
-    <% @selections.liked.pending.each do |selection| %>
+    <h5 class="mb-20">💜 vos coups de coeur</h5>
+    <% candidacies.select{|c| c.selection?}.each do |candidacy| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+        <%= link_to user_selections_path(candidacy.id), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
           <div class="pe-none">
-            <h6><%= selection.offer.beneficiary.name %></h6>
-            <p><%= selection.offer.title %></p>
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
           </div>
           <div class="flex-center">
             <%= link_to root_path do %>
@@ -44,14 +43,14 @@
     <% end %>
   </div>
 
-  <div class="mb-40">
+    <div class="mb-40">
     <h5 class="mb-20">⏳ candidature en cours</h5>
-    <% @selections.accepted.each do |selection| %>
+    <% candidacies.select{|c| c.in_progress?}.each do |candidacy| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+        <%= link_to user_selections_path(candidacy.id), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
           <div class="pe-none">
-            <h6><%= selection.offer.beneficiary.name %></h6>
-            <p><%= selection.offer.title %></p>
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
           </div>
           <div class="flex-center">
             <%= link_to root_path do %>
@@ -67,13 +66,13 @@
   </div>
 
   <div class="mb-40">
-    <h5 class="mb-20">😥 missions où ça n’a pas marché</h5>
-    <% @selections.refused.each do |selection| %>
+    <h5 class="mb-20">😥 ça n'est pas allé au bout</h5>
+    <% candidacies.select{|c| c.abandonned? || c.disliked?}.each do |candidacy| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to selection_path(selection), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+        <%= link_to user_selections_path(candidacy.id), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
           <div class="pe-none">
-            <h6><%= selection.offer.beneficiary.name %></h6>
-            <p><%= selection.offer.title %></p>
+            <h6><%= candidacy.offer.beneficiary.name %></h6>
+            <p><%= candidacy.offer.title %></p>
           </div>
           <div class="flex-center">
             <%= link_to root_path do %>
@@ -87,5 +86,4 @@
       </div>
     <% end %>
   </div>
-
 </div>

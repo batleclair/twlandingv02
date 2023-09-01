@@ -7,36 +7,36 @@
     <h5 class="mb-10">Bienvenue chez Demain.</h5>
     <p class=mb-10>Vous souhaitez aider une association ou une fondation ?</p>
     <p class="mb-20">Vous devez avant cela en faire part à votre employeur en cliquant ici :</p>
-    <%= link_to "Faire ma demande", new_employee_application_path, class: "button btn-main-color" %>
+    <%= link_to "Faire ma demande", new_user_employee_application_path, class: "button btn-main-color" %>
   </div>
 <% end %>
 
-<% if current_user.last_employee_application.rejected? %>
+<% if current_user.last_employee_application&.rejected? %>
   <div>
     <h5 class="mb-10">Bienvenue chez Demain.</h5>
     <p class=mb-10>Vous avez demandé à vous engager, mais votre dernière demande n'a malheureusement pas été validée par votre équipe RH :</p>
 
     <div class="max-w-750 w-100">
-        <div class="p-20 mb-20 bg-shade">
-          <table width=500>
-            <tr>
-              <td>Demande envoyée le : </td>
-              <td><%= current_user.last_employee_application.created_at %></td>
-            </tr>
-            <tr>
-              <td>Votre message à l'intention des RH : </td>
-              <td><%= current_user.last_employee_application.motivation_msg %></td>
-            </tr>
-            <tr>
-              <td>Status de la demande : </td>
-              <td><%= current_user.last_employee_application.status %></td>
-            </tr>
-            <tr>
-              <td>Réponse de votre équipe RH : </td>
-              <td><%= current_user.last_employee_application.response_msg %></td>
-            </tr>
-          </table>
-        </div>
+      <div class="p-20 mb-20 bg-shade">
+        <table width=500>
+          <tr>
+            <td>Demande envoyée le : </td>
+            <td><%= current_user.last_employee_application.created_at %></td>
+          </tr>
+          <tr>
+            <td>Votre message à l'intention des RH : </td>
+            <td><%= current_user.last_employee_application.motivation_msg %></td>
+          </tr>
+          <tr>
+            <td>Status de la demande : </td>
+            <td><%= current_user.last_employee_application.status %></td>
+          </tr>
+          <tr>
+            <td>Réponse de votre équipe RH : </td>
+            <td><%= current_user.last_employee_application.response_msg %></td>
+          </tr>
+        </table>
+      </div>
     </div>
 
     <p class="mb-20">Si vous le souhaitez, vous pouvez renouveller votre demande en cliquant ici :</p>
@@ -44,31 +44,33 @@
   </div>
 <% end %>
 
-<% if current_user.last_employee_application.pending? %>
+<% if current_user.last_employee_application&.pending? %>
   <div>
     <h5 class="mb-10">Bienvenue chez Demain.</h5>
     <p class=mb-10>Vous avez demandé à vous engager et on s'en rejouit ! Un peu de patience, votre demande est en cours de validation par votre équipe RH :</p>
 
     <div class="max-w-750 w-100">
-        <div class="p-20 mb-20 bg-shade">
-          <table width=500>
-            <tr>
-              <td>Demande envoyée le : </td>
-              <td><%= current_user.last_employee_application.created_at %></td>
-            </tr>
-            <tr>
-              <td>Votre message à l'intention des RH : </td>
-              <td><%= current_user.last_employee_application.motivation_msg %></td>
-            </tr>
-          </table>
-        </div>
+      <div class="p-20 mb-20 bg-shade">
+        <table width=500>
+          <tr>
+            <td>Demande envoyée le : </td>
+            <td><%= current_user.last_employee_application.created_at %></td>
+          </tr>
+          <tr>
+            <td>Votre message à l'intention des RH : </td>
+            <td><%= current_user.last_employee_application.motivation_msg %></td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 <% end %>
 
 
-<% if current_user.last_employee_application.approved? %>
-  <% current_user.employee_applications.each do |demand| %>
-    <p><%= demand.motivation_msg %></p>
+<% if current_user.last_employee_application&.approved? %>
+  <% if current_user.candidate.profile_completed %>
+    <h5>Vous pouvez candidater aux <%= link_to "Offres", user_offers_path %> ou bien <%= link_to "Demander un call", "" %> </h5>
+  <% else %>
+    <%= link_to "Compléter votre profil", user_profile_path %>
   <% end %>
 <% end %>

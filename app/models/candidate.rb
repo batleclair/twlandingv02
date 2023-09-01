@@ -1,31 +1,30 @@
 class Candidate < ApplicationRecord
   include ControllerUtilities
 
-  attr_accessor :should_validate
   attr_accessor :volunteering_aknowledged
-  attr_accessor :admin_bypass_validation
 
   belongs_to :user
   has_many :candidacies, dependent: :destroy
   has_many :experiences, dependent: :destroy
-  has_many :selections, dependent: :destroy
   has_one_attached :cv
   has_one_attached :photo
   acts_as_taggable_on :skills
 
-  validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, if: :not_admin?
-  validates :status, presence: { message: "Sélectionnez parmi les options" }, if: :not_admin?
-  validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, if: :employed?
-  validates :description, presence: { message: "Présentez-vous en quelques mots" }, if: :should_validate?
-  validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, if: :should_validate?
-  validates :location, presence: { message: "Indiquez votre ville de résidence" }, if: :should_validate?
-  validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, if: :should_validate?
-  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, if: :should_validate?
-  # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && should_validate? && !status.blank?}
-  # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, if: :should_validate?
-  # validate :skill_present, if: :should_validate?
-  validate :basics
+  # min_info context for both profile and candidacies
+  validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, on: [:apply, :profile]
+  validates :status, presence: { message: "Sélectionnez parmi les options" }, on: [:apply, :profile]
+  validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, on: [:apply, :profile], if: :employed?
+  validate :basics, on: [:apply, :profile]
   validate :cv_file_type
+
+  validates :description, presence: { message: "Présentez-vous en quelques mots" }, on: :profile
+  validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, on: :profile
+  validates :location, presence: { message: "Indiquez votre ville de résidence" }, on: :profile
+  validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, on: :profile
+  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, on: :profile
+  # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && !status.blank?}, on: :profile
+  # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, on: :profile
+  # validate :skill_present, on: :profile
 
   # after_create do
   #   clip_to_airtable
@@ -103,23 +102,20 @@ class Candidate < ApplicationRecord
     return a
   end
 
-  def not_admin?
-    !admin_bypass_validation.present?
-  end
-
   def clip_to_airtable
-    @table = Airrecord.table(ENV["AIRTABLE_PAT"], ENV["AIRTABLE_CRM"], "Candidats")
-    @record = @table.new(
-      "Candidat": "#{user.first_name} #{user.last_name}",
-      "Email": user.email,
-      "Téléphone": phone_num,
-      "Statut": status,
-      "CV": Cloudinary::Utils.cloudinary_url(cv.key),
-      "LinkedIn": linkedin_url,
-      "Entreprise": employer_name,
-      "Canal": ["Site web"]
-      )
-    @record.create
+    if airtable_id.nil?
+      @record = Aircandidate.create(
+        "Candidat": "#{user.first_name} #{user.last_name}",
+        "Email": user.email,
+        "Téléphone": phone_num,
+        "Statut": status,
+        "CV": Cloudinary::Utils.cloudinary_url(cv.key),
+        "LinkedIn": linkedin_url,
+        "Entreprise": employer_name,
+        "Canal": ["Site web"]
+        )
+      self.update(airtable_id: @record.id)
+    end
   end
 
   def save_to_airtable
@@ -151,17 +147,11 @@ class Candidate < ApplicationRecord
 
   private
 
-  def should_validate?
-    should_validate.present?
-  end
-
-
   # def skill_present
   #   errors.add(:skill_list, "Indiquer au moins une compétence") if skill_list.empty?
   # end
 
   def basics
-    return if !not_admin?
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
     if linkedin_url.blank? && !cv.attached?
       errors.add(:linkedin_url, "Renseignez a minima votre LinkedIn OU votre CV")

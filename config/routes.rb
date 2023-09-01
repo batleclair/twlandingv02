@@ -12,27 +12,43 @@ Rails.application.routes.draw do
 
     scope module: "company_admin" do
       scope path: "/admin" do
-        get "/", to: "pages#dashboard"
-        resources :users, except: %i[show]
-        resources :recherches, controller: 'offers', as: :admin_offers, param: :slug, only: %i[index]
-        resources :recherches, controller: 'offers', as: :admin_offers, param: :slug, only: %i[show] do
-          resources :selections, only: %i[create]
+        get "/", to: "pages#dashboard", as: :company_admin
+        resources :users, except: %i[show], as: :company_admin_users
+        resources :recherches, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[index]
+        resources :recherches, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[show] do
+          resources :candidacies, only: %i[create]
         end
-        resources :demandes, controller: 'employee_applications', as: :admin_employee_applications, only: %i[index show update]
+        resources :demandes, controller: 'employee_applications', as: :company_admin_employee_applications, only: %i[index show update]
+        resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[index update]
+        resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[show] do
+          resources :missions, only: %i[new create]
+        end
       end
     end
 
     scope module: "company_user" do
       get "/", to: "pages#dashboard"
-      resources :ma_demande, controller: 'employee_applications', as: :employee_applications, only: %i[new create]
+      resources :candidates, only: %i[update]
+      get "/mon_profil", to: "candidates#profile", as: :user_profile
+      resources :ma_demande, controller: 'employee_applications', as: :user_employee_applications, only: %i[new create]
       resources :recherches, controller: 'offers', as: :user_offers, param: :slug, only: %i[index show] do
         resources :candidacies, only: %i[create]
-        resources :selections, only: %i[create]
       end
-      resources :selections, only: %i[index show update]
-      resources :candidacies, only: %i[index show]
+      get "selections", to: "candidacies#index_selection"
+      get "selections/:id", to: "candidacies#show_selection", as: :user_selections
+      resources :candidacies, as: :user_candidacies, only: %i[index show update]
     end
 
+  end
+
+  constraints subdomain: /.*/ do
+    namespace :api, defaults: { format: :json } do
+      namespace :v1 do
+        get ":aircandidate_id/:airoffer_id", to: "candidacies#show"
+        post ":aircandidate_id/:airoffer_id", to: "candidacies#create"
+        patch ":aircandidate_id/:airoffer_id", to: "candidacies#update"
+      end
+    end
   end
 
   # static pages
@@ -58,7 +74,6 @@ Rails.application.routes.draw do
   get "users/skills", to: "candidates#skillset"
   get "users/wishes", to: "candidates#wishes"
   get "users/completed", to: "candidates#completed"
-  get "candidates/dashboard", to: "candidates#dashboard"
   resources :candidates, only: %i[show new create update] do
     resources :experiences, only: %i[create]
   end
@@ -109,12 +124,13 @@ Rails.application.routes.draw do
     resources :beneficiaries, param: :slug, only: %i[index new edit]
     resources :offers, param: :slug, only: %i[index new edit create update destroy]
     resources :contacts, only: %i[index]
-    resources :candidacies, only: %i[index show]
+    resources :candidacies
     resources :posts, only: %i[index new edit]
-    resources :candidates, only: %i[index show]
+    resources :candidates, only: %i[index show destroy]
     resources :offer_lists, only: %i[index new edit]
     resources :users, only: %i[new edit create update index destroy]
     resources :companies
+    resources :employee_applications, only: %i[edit update index destroy]
   end
 
   # error routes

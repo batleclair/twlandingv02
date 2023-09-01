@@ -1,0 +1,39 @@
+<%= render partial: "shared/navpan", locals: {active: 3} %>
+
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <div class="mb-20">
+      <h3>Candidatures reçues</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+    </div>
+    <div class="d-flex">
+      <%= link_to "Candidatures missions", admin_candidacies_path, class:"button-round btn-light-main no-wrap mr-20" %>
+      <%= link_to "Demandes de salariés", admin_employee_applications_path, class:"button-round btn-light-main no-wrap" %>
+    </div>
+  </div>
+  <div class="navpan-white-ctn">
+
+    <%= simple_form_for(@employee_application, url: admin_employee_application_path(@employee_application), action: :update, data: {turbo: false}) do |f| %>
+
+      <div class="sticky-admin-nav d-flex bg-white pt-3 pb-3 justify-content-between">
+        <div class="d-flex">
+          <%= link_to "Retour", admin_employee_applications_path, class:"button btn-light-main mb-2 me-2" %>
+        </div>
+        <button type="submit" class="button btn-main-color">Enregistrer</button>
+      </div>
+
+      <div class="position-relative">
+        <%= f.input :status,
+                    as: :radio_buttons,
+                    legend_tag: false,
+                    label: false,
+                    collection: [['Accepter', true], ['Refuser', false]],
+                    required: true %>
+        <%= f.input :response_msg,
+                    label: "Votre message de réponse" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

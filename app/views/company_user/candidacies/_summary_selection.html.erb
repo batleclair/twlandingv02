@@ -1,0 +1,47 @@
+<div class="pl-40 w-100">
+
+  <div class="mb-40">
+    <h5><%= @candidacy.offer.beneficiary.name %></h5>
+    <h6><%= @candidacy.offer.title %></h6>
+  </div>
+
+  <% if @candidacy_on_record.suggestion? || @candidacy_on_record.selection? %>
+    <%= simple_form_for(@candidacy) do |f| %>
+      <%= f.input :last_active_status,
+            as: :radio_buttons,
+            legend_tag: false,
+            label: false,
+            collection: [['Candidater', "user_application"], [@candidacy_on_record.selection? ? "Retirer" : "Refuser", "selection"]],
+            required: true %>
+      <%= f.input :active, as: :hidden, input_html: {value: false} %>
+      <%= f.input :source, as: :hidden, input_html: {value: "show_selection"} %>
+      <%= f.input :motivation_msg, wrapper_html: {class: "position-relative"} %>
+      <%= f.submit %>
+      <% end %>
+  <% end %>
+
+  <% if @candidacy.in_progress? %>
+    <h5 class="mb-20">yeah</h5>
+    <%= link_to "Voir le détail", candidacy_path(@candidacy), class: "button btn-main-color" %>
+  <% end %>
+
+
+  <% if @candidacy_on_record.disliked? %>
+    <div class="mb-20">
+      <h6>Vous n'avez pas souhaité candidater :</h6>
+      <p><%= @candidacy.motivation_msg %></p>
+    </div>
+    <h5>Vous avez changé d'avis ?</h5>
+    <%= simple_form_for(@candidacy) do |f| %>
+      <%= f.input :motivation_msg, input_html: {value: nil} %>
+      <%= f.input :last_active_status, as: :hidden, input_html: {value: "user_application"} %>
+      <%= f.input :active, as: :hidden, input_html: {value: true} %>
+      <%= f.submit "Candidater", class: "button btn-main-color" %>
+    <% end %>
+  <% end %>
+  <% if @candidacy_on_record.abandonned? %>
+      <h5 class="mb-20">Ca n'est pas allé au bout malheureusement :/</h5>
+      <%= link_to "Voir le détail", candidacy_path(@candidacy), class: "button btn-main-color" %>
+  <% end %>
+
+</div>

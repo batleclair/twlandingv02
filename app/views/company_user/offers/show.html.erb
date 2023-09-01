@@ -137,30 +137,35 @@
         </div>
         <div class="justify-content-between">
 
+          <% if @candidacy.in_progress? || @candidacy.abandonned? %>
+            <h5>Vous avez candidaté à cette mission</h5>
+          <% else %>
 
+            <% url = @candidacy.id.nil? ? user_offer_candidacies_path(@offer) : user_candidacy_path(@candidacy) %>
+            <% args = @candidacy.id.nil? ? [@offer, @candidacy] : @candidacy %>
+            <% method = @candidacy.id.nil? ? :post : :patch %>
+            <% status = @candidacy.id.nil? ? true : !@candidacy.active %>
+            <% label = @candidacy.id.nil? || @candidacy.active == false ? "Ajouter aux <3" : "Retirer des <3" %>
 
-            <% if @selection&.applied? %>
-              <h5>Merci !</h5>
+            <% if @candidacy.suggestion? %>
+              <h5>Cette mission vous a été recommandée !</h5>
             <% else %>
-
-              <% if @selection.nil? %>
-                <%= button_to "Ajouter <3", user_offer_selections_path(@offer), method: :post %>
-              <% elsif !@selection.liked?%>
-                <h5>Suggestion</h5>
-              <% else %>
-                <% status = @selection.refused? ? nil : "refused" %>
-                <% label = @selection.refused? ? "Re <3" : "Retirer des <3"  %>
-                <%= button_to label, selection_path(@selection), method: :patch, params: {selection: {status: status}} %>
-              <% end %>
-
-              <% if current_user.last_employee_application&.approved? %>
-
-                <%= simple_form_for([@offer, @candidacy], url: user_offer_candidacies_path(@offer)) do |f| %>
-                  <%= f.input :motivation_msg %>
-                  <%= f.submit %>
-                <% end %>
+              <%= simple_form_for(args, url: url, method: method) do |f| %>
+                <%= f.input :last_active_status, as: :hidden, input_html: {value: "selection"} %>
+                <%= f.input :active, as: :hidden, input_html: {value: status} %>
+                <%= f.submit label %>
               <% end %>
             <% end %>
+
+            <% if current_user.last_employee_application&.approved? %>
+              <%= simple_form_for(args, url: url) do |f| %>
+                <%= f.input :motivation_msg %>
+                <%= f.input :last_active_status, as: :hidden, input_html: {value: "user_application"} %>
+                <%= f.submit %>
+              <% end %>
+            <% end %>
+
+          <% end %>
 
         </div>
       </div>

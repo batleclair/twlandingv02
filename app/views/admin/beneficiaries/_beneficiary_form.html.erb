@@ -7,6 +7,10 @@
 
   <h6 class="text-main mb-3">Informations principales</h6>
 
+  <div class="max-w-300">
+    <%= f.input :airtable_id %>
+  </div>
+
   <div class="d-flex">
     <%= f.input :name, label: "Nom de l'association", wrapper_html: {class: "me-3 full-width"} %>
     <%= f.input :start_year, label: "Année de création", wrapper_html: {class: "full-width"} %>

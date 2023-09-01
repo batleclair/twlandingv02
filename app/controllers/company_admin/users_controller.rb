@@ -24,9 +24,8 @@ class CompanyAdmin::UsersController < CompanyAdminController
     @user.password = "demain123"
     @user.password_confirmation = "demain123"
     @user.company = current_user.company
-    @user.candidate.admin_bypass_validation = true if @user.candidate.present?
     if @user.save
-      redirect_to admin_users_path
+      redirect_to company_admin_users_path
     else
       @candidate = Candidate.new
       @employee_application = EmployeeApplication.new
@@ -40,7 +39,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
     @user.update(user_params)
     @user.candidate.admin_bypass_validation = true if @user.candidate.present?
     if @user.save
-      redirect_to admin_users_path
+      redirect_to company_admin_users_path
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,7 +49,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
     @user = User.find(params[:id])
     @user.destroy
     if @user.destroy
-      redirect_to admin_users_path, status: :see_other
+      redirect_to company_admin_users_path, status: :see_other
     end
   end
 

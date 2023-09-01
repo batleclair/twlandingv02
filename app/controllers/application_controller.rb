@@ -45,18 +45,18 @@ class ApplicationController < ActionController::Base
     authorize current_user, :company_admin?
   end
 
-  private
-
-  def skip_pundit?
-    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-  end
-
   def subdomain_authentication!
     authenticate_user! if request.subdomain.present?
   end
 
   def subdomain_redirection!
     user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && request.subdomain.blank? )
+  end
+
+  private
+
+  def skip_pundit?
+    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
   # def after_sign_in_path_for(resource)

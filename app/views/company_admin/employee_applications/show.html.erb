@@ -1,17 +1,10 @@
-<h5><%= "#{@employee_application.user.first_name} #{@employee_application.user.last_name}" %></h5>
-<h6><%= @employee_application.created_at %></h6>
-<p><%= @employee_application.motivation_msg %></p>
+<div class="d-flex mb-40">
+  <%= link_to "Demandes", company_admin_employee_applications_path, class: "button" %>
+  <%= link_to "Missions", company_admin_candidacies_path, class: "button" %>
+  <%= link_to "Contrats", "", class: "button" %>
+</div>
 
-<div class="max-w-300">
-  <%= simple_form_for(@employee_application, url: admin_employee_application_path(@employee_application), action: :update, data: {turbo: false}) do |f| %>
-    <%= f.input :status,
-                as: :radio_buttons,
-                legend_tag: false,
-                label: false,
-                collection: [['Accepter', true], ['Refuser', false]],
-                required: true %>
-    <%= f.input :response_msg,
-                label: "Votre message de réponse" %>
-    <button type="submit" class="button btn-main-color">Enregistrer</button>
-  <% end %>
+<div class="d-flex">
+  <%= render partial: "list", locals: {employee_applications: @employee_applications} %>
+  <div><%= render partial: "summary", locals: {employee_application: @employee_application} %></div>
 </div>

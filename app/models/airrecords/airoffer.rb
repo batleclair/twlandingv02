@@ -5,4 +5,5 @@ class Airoffer < Airrecord::Table
   self.table_name = "Offres"
 
   has_many :aircandidacies, class: "Aircandidacy", column: "ATS Test"
+  belongs_to :airbeneficiaries, class: "Airbeneficiary", column: "Associations"
 end

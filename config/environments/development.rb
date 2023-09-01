@@ -102,4 +102,6 @@ Rails.application.configure do
   config.hosts << "test.lvh.me"
   config.hosts << "apec.lvh.me"
   config.hosts << "tomorrow.lvh.me"
+  config.hosts << "5279-88-126-41-204.ngrok-free.app"
+  config.hosts << /.+\.ngrok.+\..+/
 end
