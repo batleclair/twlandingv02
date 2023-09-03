@@ -1,6 +1,6 @@
-require 'airrecords/aircandidacy'
-require 'airrecords/airoffer'
-require 'airrecords/aircandidate'
+# require 'airrecords/aircandidacy'
+# require 'airrecords/airoffer'
+# require 'airrecords/aircandidate'
 
 class Api::V1::BaseController < ApplicationController
   include Pundit

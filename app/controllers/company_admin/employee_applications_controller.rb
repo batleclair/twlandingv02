@@ -1,4 +1,4 @@
-require 'airrecords/aircandidate'
+# require 'airrecords/aircandidate'
 
 class CompanyAdmin::EmployeeApplicationsController < CompanyAdminController
   def index

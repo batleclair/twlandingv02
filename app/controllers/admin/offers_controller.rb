@@ -1,4 +1,4 @@
-require 'airrecords/airoffer'
+# require 'airrecords/airoffer'
 
 class Admin::OffersController < AdminController
   before_action :set_offer, only: %i[edit update destroy]

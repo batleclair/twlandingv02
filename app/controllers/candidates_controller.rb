@@ -1,6 +1,6 @@
-require 'airrecords/aircandidate'
-require 'airrecords/aircandidacy'
-require 'airrecords/airoffer'
+# require 'airrecords/aircandidate'
+# require 'airrecords/aircandidacy'
+# require 'airrecords/airoffer'
 
 class CandidatesController < ApplicationController
   include ControllerUtilities

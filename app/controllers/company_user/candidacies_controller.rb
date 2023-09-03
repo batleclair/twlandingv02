@@ -1,6 +1,6 @@
-require 'airrecords/aircandidacy'
-require 'airrecords/airoffer'
-require 'airrecords/aircandidate'
+# require 'airrecords/aircandidacy'
+# require 'airrecords/airoffer'
+# require 'airrecords/aircandidate'
 
 class CompanyUser::CandidaciesController < CompanyUserController
   before_action :set_candidacy, except: [:index, :index_selection, :create]
