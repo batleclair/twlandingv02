@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   # tenant routes
   constraints subdomain: /.+/ do
-
     scope module: "company_admin" do
       scope path: "/admin" do
         get "/", to: "pages#dashboard", as: :company_admin
@@ -57,13 +56,15 @@ Rails.application.routes.draw do
     get "associations", to: "pages#nonprofits", as: :nonprofits
     get "talents", to: "pages#candidates", as: :talents
     get "entreprises", to: "pages#companies", as: :companies
+    get '/companies', to: redirect('/entreprises')
+    get '/nonprofits', to: redirect('/associations')
+    get '/candidates', to: redirect('/talents')
+  end
+  constraints subdomain: /.*/ do
     get "about", to: "pages#about"
     get "terms", to: "pages#terms"
     get "legal", to: "pages#legal"
     get "privacy-policy", to: "pages#privacy"
-    get '/companies', to: redirect('/entreprises')
-    get '/nonprofits', to: redirect('/associations')
-    get '/candidates', to: redirect('/talents')
   end
 
   # profile routes

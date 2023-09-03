@@ -2,97 +2,175 @@
 <% content_for :description, "Demain permet gratuitement aux associations d'intégrer durablement des compétences grâce au mécénat d'entreprise" %>
 <% canonical(nonprofits_url) %>
 
-<div class="pb-5 bg-white">
-  <div class="pt-5">
-    <div class="ctn">
-      <h1 class="center-text text-main mb-5">Associations</h1>
 
-      <div class="flex-resp mb-5">
-        <div style="background-image: url('<%= image_path "illustration4.png" %>')" class="lg-illustration"></div>
-        <div class="text-card-xl">
-          <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Vos <span class="stress">enjeux</span></h4>
-          <p class="mb-1">Vous avez des besoins croissants de <strong>professionalisation, de digitalisation, de structuration</strong> de vos activités qui nécessitent des compétences en dehors de votre coeur d'activité</p>
-          <p>Vous rencontrez des <strong>difficultés à attirer suffisament de candidatures qualifiées</strong> pour répondre à ces besoins</p>
+<div data-controller="contact">
+  <div class="bg-white pt-5 pb-5">
+    <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
+      <div class="full-width max-w-500">
+        <h1 class="d-none">Associations : L'accès facilité au bénévolat et mécénat de coméptences</h1>
+        <h2 class="text-main mb-3 fs-60">associations</h2>
+        <h4 class="mb-3">rencontrez des talents souhaitant mettre leurs compétences professionnelles au service de votre cause</h4>
+        <div class="mt-4">
+          <div class="d-flex">
+            <%= link_to '', class: "fat-btn fat-btn-main-color position-relative flex-center-between", data: {action: "click->contact#popup", type: "Association"} do %>
+              <span></span>
+              <strong>Nous contacter</strong>
+              <i class="fa-solid fa-phone round-button bg-white"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="round-20 pt-2 pb-2 max-w-500">
+        <%= image_tag("home_illustration_5.svg", class: "full-width", alt: "entreprise permettant à une employée de s'engager associativement") %>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctn-resp bg-grey pt-50 pb-50" data-controller="swipe" data-action="click->swipe#refocus" data-focus="0">
+    <div class="button-menu-ctn resp-img-ctn">
+      <%= image_tag('match_illustration.svg', class:"max-w-200 mr-50 md-resp-mr-0 left") %>
+      <div>
+        <h3 class="mb-20">L’apport de compétences avec <span class="text-main fw-7">Demain</span></h3>
+        <div data-controller="button-menu" data-swipe-target="ctn" data-focus="0">
+          <div class="flex-center-left button-menu pb-20">
+            <button class="hover-2" data-button-menu-target="button" data-swipe-target="card" data-action="click->button-menu#update" data-status="active">mécénat</button>
+            <button class="hover-2" data-button-menu-target="button" data-swipe-target="card" data-action="click->button-menu#update" data-status="">bénévolat</button>
+          </div>
+          <div>
+            <div data-button-menu-target="content" data-status="active">
+              <h6 class="mb-20 mt-10">La garantie d'un engagement bien encadré</h6>
+              <p>Nous vous présentons des personnes salariées souhaitant s'impliquer sur une mission de mécénat de compétences qui leur ressemble, et dont l'employeur est disposé à mettre en place un mécénat de compétences. Demain vous accompagne gratuitement à sa mise en place et son suivi avec le mécène.</p>
+            </div>
+            <div data-button-menu-target="content" data-status="">
+              <h6 class="mb-20 mt-10">La flexibilité et la simplicité de l'engagement direct</h6>
+              <p>Nous vous permettons gratuitement d’être mis en relation avec des personnes ayant une activité professionnelle leur permettant un engagement bénévole compatible avec le rythme de travail de votre organisation.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="ctn">
-
-    <div class="flex-resp mb-5">
-      <div class="text-card-xl">
-        <h4><i class="fa-solid fa-circle-arrow-right fixed-title-icon"></i></i>Notre <span class="stress">solution</span></h4>
-        <p class="mb-1">Attirez des candidats dont les <strong>compétences développées en entreprise</strong> bénéficieront à votre organisation</p>
-        <p class="mb-1"><span class="stress">Demain</span> vous <strong>accompagne pour identifier les profils</strong> à même de répondre à des enjeux structurants que vous ne pouvez actuellement adresser, faute d'expertise interne</p>
-        <p class="mb-1">Capitalisez sur la volonté croissante des talents issus du privé de s'engager dans la durée</p>
-        <p class="mb-1">Probono, mécénat de compétences, temps partagé co-financé...  Demain vous accompagne sur <strong>tous types de besoins moyen ou long-terme, quel que soit votre budget</strong></p>
+  <div class="ctn-resp bg-white pt-50 pb-50">
+    <div class="flex-center-between sm-resp-flex-col mb-50">
+      <div class="w-100 sm-resp-mb-50">
+        <h3>Pour vos besoins en expertise </h3>
+        <h3 class="mb-30"> <strong class="text-main" data-controller="typed-js"></strong></h3>
+        <p class="mb-10">Attirez des candidats dont les compétences développées en entreprise bénéficieront à votre organisation.</p>
+        <p>Demain vous accompagne pour identifier les profils à même de répondre à des enjeux structurants que vous ne pouvez actuellement adresser, faute de ressources ou d'expertise.</p>
       </div>
-      <div class="mid-page-ctn">
-        <div>
-          <h5 class="center-text">Pour vos recrutements identifiés :</h5>
-          <div class="triple-carousel-ctn">
-            <div class="triple-icon-carousel">
-              <div class="triple-icon">
-                <p>📈</p>
-                <p>Finance / Compta</p>
-              </div>
-              <div class="triple-icon">
-                <p>🤝🏽</p>
-                <p>RH / Legal</p>
-              </div>
-              <div class="triple-icon">
-                <p>🖥️</p>
-                <p>IT / Web / Data</p>
-              </div>
-              <div class="triple-icon">
-                <p>📢</p>
-                <p>Marketing / Com'</p>
-              </div>
-              <div class="triple-icon">
-                <p>📦</p>
-                <p>Achats / Logistique</p>
-              </div>
-            </div>
-          </div>
+      <%= image_tag('frequency_illustration.svg', class:"max-w-300 ml-50 md-resp-ml-0 right") %>
+    </div>
+  </div>
+
+
+  <div class="bg-white">
+    <%= image_tag('purple_triangle_light.svg', class: "tilted-ctn") %>
+  </div>
+
+  <div class=" flex-center flex-col bg-shade ctn-resp pt-50 pb-80">
+    <h3 class="mb-50"><span class="center-text text-main fw-7">Demain</span> vous accompagne</h3>
+    <div class="flex-stretch-center resp-card-ctn" data-controller="button-menu">
+      <div class="mr-50 sm-resp-mr-0">
+        <button class="round square-80 fs-30 fw-6 bg-shade-dark text-main btn-l" data-button-menu-target="button" data-action="click->button-menu#update" data-status="active"><i class="fa-solid fa-arrows-down-to-people pe-none"></i></button>
+        <div class="round-20 bg-white grey-border shadow-xl p-40 pt-80 max-w-400 h-100" data-button-menu-target="content" data-status="active">
+          <h5 class=" mb-40 center-text">Vous avez un besoin spécifique ?</h5>
+          <p class="mb-20">Faites-nous en part !</p>
+          <p class="mb-40">Nous pouvons relayer vos besoins auprès de notre réseau de mécènes, partenaires et bénévoles.</p>
+          <%= link_to 'https://tally.so/r/npr5Ry', target: 'blank', class: "fat-btn fat-btn-md w-100 fat-btn-main-color position-relative flex-center-between flex-shrink-0" do %>
+            <span></span>
+            <strong>J'ai un besoin</strong>
+            <i class="fa-solid fa-arrow-up-right-from-square round-button bg-white"></i>
+          <% end %>
         </div>
-        <div>
-          <h5 class="center-text mt-5">Pour vos projets structurants :</h5>
-          <div class="mono-carousel-ctn">
-            <div class="mono-card-carousel" style="height: 100px;">
-              <div class="mono-card mono-card-sm">
-                <p>Améliorer l'expérience de vos bénéficiaires</p>
-              </div>
-              <div class="mono-card mono-card-sm">
-                <p>Digitaliser vos processes internes</p>
-              </div>
-              <div class="mono-card mono-card-sm">
-                <p>Maximiser le résultat de votre campagne de fundraising</p>
-              </div>
-              <div class="mono-card mono-card-sm">
-                <p>Optimiser le parcours de vos bénevoles</p>
-              </div>
-              <div class="mono-card mono-card-sm">
-                <p>Diversifier vos sources de financement</p>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="mr-50 sm-resp-mr-0">
+        <button class="round square-80 fs-30 fw-6 bg-shade-dark text-main btn-r" data-button-menu-target="button" data-action="click->button-menu#update" data-status=""><i class="fa-solid fa-users-viewfinder pe-none"></i></button>
+        <div class="round-20 bg-white grey-border shadow-xl p-40 pt-80 max-w-400 h-100" data-button-menu-target="content" data-status="">
+          <h5 class=" mb-40 center-text">Toute aide peut être bienvenue ?</h5>
+          <p class="mb-20">On est d’accord 😊</p>
+          <p class="mb-40">Restez informé.e régulièrement de nos opportunités de bénévolat & mécénat de compétences.</p>
+          <%= link_to '', class: "fat-btn fat-btn-md w-100 fat-btn-main-color position-relative flex-center-between flex-shrink-0", data: {action: "click->contact#popup", type: "Association"} do %>
+            <span></span>
+            <strong>Ça m'intéresse</strong>
+            <i class="fa-regular fa-envelope round-button bg-white"></i>
+          <% end %>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class=" mt-5 pt-5 pb-5" data-controller="contact">
-      <div class="d-flex justify-content-center">
-        <%= link_to '', class: "fat-btn fat-btn-main-color position-relative d-flex justify-content-between align-items-center", data: {action: "click->contact#popup", type: "Association"} do %>
-          <span></span>
-          <strong>Discutons-en !</strong>
-          <i class="fa-solid fa-phone round-button bg-white"></i>
+  <div class="ctn-resp bg-white pt-80 position-relative">
+    <h3 class="round bg-white testimony-title">ils nous font confiance</h3>
+    <div class="flex-between sm-resp-flex-col">
+
+      <blockquote class="testimony mb-40">
+        <div class="flex-center-left mb-20">
+          <div class="round-10 square-80 shadow-md flex-center mr-20 position-relative p-10 flex-shrink-0">
+            <%= image_tag("mavoie_logo.png", class: "w-100") %>
+            <%= image_tag("mavoie_photo.jpg", class: "round testimony-avatar") %>
+          </div>
+          <div>
+            <cite class="fw-6">Philippe Du Payrat</cite>
+            <cite>Délégué Général</cite>
+          </div>
+        </div>
+        <div class="position-relative pl-10 pt-10 w-100">
+          <%= image_tag('quote_sign.svg') %>
+          <p class="mr-20 sm-resp-mr-0">La collaboration avec Chafia s'est super bien passée. L'ADN de MaVoie est d'aider les jeunes dans leurs évolutions et choix professionnels pour construire le futur qu'ils souhaitent : nous avons pu mettre en pratique dans notre équipe ces principes et Chafia est désormais une Product Owner passionnée et confiante.</p>
+        </div>
+      </blockquote>
+
+      <blockquote class="testimony mb-40">
+        <div class="flex-center-left mb-20">
+          <div class="round-10 square-80 shadow-md flex-center mr-20 position-relative p-10 flex-shrink-0">
+            <%= image_tag("causons_logo.png", class: "w-100") %>
+            <%= image_tag("causons_photo.jpg", class: "round testimony-avatar") %>
+          </div>
+          <div>
+            <cite class="fw-6">Océane Gangand</cite>
+            <cite>Co-Directrice</cite>
+          </div>
+        </div>
+        <div class="position-relative pl-10 pt-10 w-100">
+          <%= image_tag('quote_sign.svg') %>
+          <p class="mr-20 sm-resp-mr-0">Nous avons pu bénéficier de l'aide de Claire, qui nous a accompagnées pour refaire totalement notre site sur Wordpress. Elle est très pédagogue et sympathique, grâce à elle, nous avons enfin un site qui fonctionne ! Merci pour cette mise relation !</p>
+        </div>
+      </blockquote>
+
+      <blockquote class="testimony mb-40">
+        <div class="flex-center-left mb-20">
+          <div class="round-10 square-80 shadow-md flex-center mr-20 position-relative p-10 flex-shrink-0">
+            <%= image_tag("cameleon_logo.png", class: "w-100") %>
+            <%= image_tag("cameleon_photo.jpg", class: "round testimony-avatar") %>
+          </div>
+          <div>
+            <cite class="fw-6">Charlotte Pietri</cite>
+            <cite>Directrice des Opérations</cite>
+          </div>
+        </div>
+        <div class="position-relative pl-10 pt-10 w-100">
+          <%= image_tag('quote_sign.svg') %>
+          <p class="mr-20 sm-resp-mr-0">Grâce à Demain, nous avons eu la chance de rencontrer et de collaborer avec Audrey, DRH. La mission d'Audrey s'est très bien déroulée et elle a pu nous apporter toute son aide et son expertise. Sans Demain, nous n'aurions pas pu être mis en relation avec un profil si compétent et expérimenté.</p>
+        </div>
+      </blockquote>
+
+    </div>
+  </div>
+
+  <div class="ctn-resp bg-white pt-30 pb-50">
+    <div class="row align-items-center justify-content-center">
+      <% @beneficiaries.each do |b| %>
+        <% if b.logo.attached? %>
+          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 partner-logo-ctn">
+            <%= link_to b.home_url(beneficiary_path(b)), target: (b.home_url(beneficiary_path(b)) == b.web_url && b.web_url.present? ? "_blank" : "_self"), class: "d-flex align-items-center full-width" do %>
+              <%= cl_image_tag(b.logo.key, class: "full-width p-3", alt: "Logo de l'association #{b.name}") %>
+            <% end %>
+          </div>
         <% end %>
-      </div>
-      <%= render partial: "pages/contact" %>
+      <% end %>
     </div>
-
-
-
   </div>
+
+  <%= render partial: "pages/contact" %>
 </div>

@@ -1,39 +1,41 @@
 <div data-controller="menu">
   <i class="fa-solid fa-bars burger-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
 
-  <nav class= "menu ctn-resp" data-menu-target="nav">
-    <div class="flex-center-between md-resp-flex-col", data-turbo="false">
+  <nav class="menu ctn-resp" data-menu-target="nav">
+    <div class="h-100 flex-center-between md-resp-flex-col", data-turbo="false">
       <%= link_to root_path do %>
         <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
         <%= image_tag("logo_white.svg", class: "xl-logo", alt: "Logo Demain") %>
       <% end %>
 
       <div class="flex-center-between md-resp-flex-col">
-        <div class="d-flex md-resp-flex-col">
-          <%= link_to root_path, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
-            <i class="fa-solid fa-house-chimney">
-              <span></span>
-            </i>
-          <% end %>
-          <%= link_to offers_path do %>
-            <div class="tab flex-center p-10" data-active-tab=<%= controller_name == 'offers' || controller_name == 'candidacies' %>>
-              Je m'engage
-              <span></span>
-            </div>
-          <% end %>
-          <%= link_to companies_path do %>
-            <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'companies' %>>
-              Entreprises
-              <span></span>
-            </div>
-          <% end %>
-          <%= link_to nonprofits_path do %>
-            <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'nonprofits' %>>
-              Associations
-              <span></span>
-            </div>
-          <% end %>
-        </div>
+        <% if request.subdomain.blank? %>
+          <div class="d-flex md-resp-flex-col">
+            <%= link_to root_path, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
+              <i class="fa-solid fa-house-chimney">
+                <span></span>
+              </i>
+            <% end %>
+            <%= link_to offers_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= controller_name == 'offers' || controller_name == 'candidacies' %>>
+                Je m'engage
+                <span></span>
+              </div>
+            <% end %>
+            <%= link_to companies_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'companies' %>>
+                Entreprises
+                <span></span>
+              </div>
+            <% end %>
+            <%= link_to nonprofits_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'nonprofits' %>>
+                Associations
+                <span></span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 
         <% if user_signed_in? %>
           <div class="d-flex align-items-center">
@@ -75,6 +77,7 @@
         <% end %>
 
       </div>
+
 
     </div>
   </nav>

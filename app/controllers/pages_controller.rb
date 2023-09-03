@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_action :new
   skip_before_action :authenticate_user!
+  skip_before_action :subdomain_authentication!
 
   def home
     @beneficiaries = Beneficiary.where(publish_logo: true)
@@ -13,6 +14,7 @@ class PagesController < ApplicationController
   end
 
   def nonprofits
+    @beneficiaries = Beneficiary.where(publish_logo: true)
     add_breadcrumb "Associations", nonprofits_path
   end
 

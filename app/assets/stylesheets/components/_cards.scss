@@ -24,10 +24,18 @@
 
 .card-logo-offset{
   position: absolute;
-  bottom: -30px;
-  left: -30px;
+  bottom: -10px;
+  left: -10px;
   box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
   z-index: 2;
+}
+
+.testimony-avatar{
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  bottom: -25px;
+  right: -25px;
 }
 
 .job-card{
@@ -293,19 +301,6 @@
     font-style: italic;
     height: 450px;
     overflow: hidden;
-  }
-}
-
-.big-title-resp{
-  margin: 0 100px 0 0;
-  >h2{
-    font-size: 4em;
-  }
-}
-
-@media(max-width: 720px) {
-  .big-title-resp{
-    margin: 0 0 30px 0;
   }
 }
 
