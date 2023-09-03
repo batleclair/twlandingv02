@@ -92,7 +92,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-
+  config.session_store :cookie_store, key: "_twlandingv02_session", domain: :all, tld_length: 5
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
