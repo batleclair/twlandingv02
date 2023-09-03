@@ -82,6 +82,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Making subdomains work via lvh.me
+  config.session_store :cookie_store, key: "_twlandingv02_session", domain: :all, tld_length: 2
+
   # By default, Rails set the top-level domain length to 1, but we want to use localhost to set this setting to 0
   # config.action_dispatch.tld_length = 0
 
