@@ -46,11 +46,11 @@ class ApplicationController < ActionController::Base
   end
 
   def subdomain_authentication!
-    authenticate_user! if request.subdomain.present?
+    authenticate_user! if Subdomain.new("tenant").matches?(request)
   end
 
   def subdomain_redirection!
-    user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && request.subdomain.blank? )
+    user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && Subdomain.new("generic").matches?(request) )
   end
 
   private

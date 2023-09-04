@@ -9,7 +9,7 @@
       <% end %>
 
       <div class="flex-center-between md-resp-flex-col">
-        <% if request.subdomain.blank? %>
+        <% if Subdomain.new("generic").matches?(request) %>
           <div class="d-flex md-resp-flex-col">
             <%= link_to root_path, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
               <i class="fa-solid fa-house-chimney">

@@ -8,7 +8,7 @@
 
     <div class="flex-resp full-width max-w-500 footer-flex", data-turbo="false">
 
-      <% if request.subdomain.blank? %>
+      <% if Subdomain.new("generic").matches?(request) %>
         <div class="mg-resp-l mg-resp-r mb-4 full-width">
           <h6 class="text-white mb-4">NOS SERVICES</h6>
           <div class="d-flex flex-column">
