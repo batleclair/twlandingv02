@@ -13,4 +13,12 @@ class Subdomain
       super
     end
   end
+
+  def self.generic
+    if Rails.env.production?
+      "www"
+    else
+      ""
+    end
+  end
 end
