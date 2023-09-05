@@ -11,7 +11,7 @@ class Users::SessionsController < Devise::SessionsController
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
-    if request.subdomain == resource.subdomain
+    if request.subdomain == resource.subdomain || (Subdomain.new('generic').matches?(request) && resource.subdomain.blank?)
       respond_with resource, location: after_sign_in_path_for(resource)
     else
       redirect_to custom_after_sign_in_path_for(resource), allow_other_host: true

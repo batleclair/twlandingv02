@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validate :not_blacklisted
   acts_as_token_authenticatable
 
-  enum :company_role, { user: "utilisateur", admin: "administrateur" }, suffix: true, default: :user
+  enum :company_role, { user: "utilisateur", admin: "administrateur" }
 
   def send_welcome_mail
     UserMailer.new_user_email(self).deliver
