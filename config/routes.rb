@@ -19,9 +19,15 @@ Rails.application.routes.draw do
         end
         resources :demandes, controller: 'employee_applications', as: :company_admin_employee_applications, only: %i[index show update]
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[index update]
+        resources :missions, as: :company_admin_missions, only: %i[show index update]
+          get "missions/:id/contreparties", to: "missions#counterparts", as: :company_admin_mission_couterparts
+          get "missions/:id/modalites", to: "missions#terms", as: :company_admin_mission_terms
+          get "missions/:id/documents", to: "missions#documents", as: :company_admin_mission_documents
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[show] do
           resources :missions, only: %i[new create]
         end
+        resources :contracts, as: :company_admin_contracts, only: %i[destroy]
+        resources :candidates, as: :company_admin_candidates, only: %i[update]
       end
     end
 
@@ -36,6 +42,10 @@ Rails.application.routes.draw do
       get "selections", to: "candidacies#index_selection"
       get "selections/:id", to: "candidacies#show_selection", as: :user_selections
       resources :candidacies, as: :user_candidacies, only: %i[index show update]
+      resources :missions, as: :user_missions, only: %i[index edit update]
+      resources :missions, as: :user_missions, only: %i[show] do
+        resources :timesheets
+      end
     end
 
   end

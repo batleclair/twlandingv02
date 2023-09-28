@@ -7,8 +7,20 @@
 </div>
 
 <div class="company-menu">
+  <div class="w-100 position-relative flex-center mb-10">
+    <% if current_user.company.logo.attached? %>
+      <div class="logo-box downsize90 round-20">
+        <%= cl_image_tag(current_user.company.logo.key) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="w-100 flex-center mb-40">
+    <h6 class="button-round bg-flag-1 text-white">Admin</h6>
+  </div>
+
   <%= link_to "Accueil", company_admin_path %>
   <%= link_to "Recherche", company_admin_offers_path %>
   <%= link_to "Utilisateurs", company_admin_users_path %>
-  <%= link_to "Demandes", company_admin_employee_applications_path %>
+  <%= link_to "Candidatures", company_admin_candidacies_path %>
+  <%= link_to "Missions", company_admin_missions_path %>
 </div>

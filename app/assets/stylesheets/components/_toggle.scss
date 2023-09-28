@@ -39,6 +39,7 @@
   }
 }
 
+
 .toggle:checked + label {
   &::before{
     background-color: $first-light-color;
@@ -47,5 +48,20 @@
   &::after{
     background-color: $first-main-color;
     right: 3px;
+  }
+}
+
+.toggle.r-30 + label {
+  &::before{
+    right: 30px;
+  }
+  &::after{
+    right: 57px;
+  }
+}
+
+.toggle:checked.r-30 + label {
+  &::after{
+    right: 33px;
   }
 }

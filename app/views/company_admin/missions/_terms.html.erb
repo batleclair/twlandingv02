@@ -1,0 +1,173 @@
+<div class="mb-40" data-controller="hidden-form">
+
+
+
+
+
+
+
+  <div class="flex-center-between mb-20">
+    <p></p>
+    <h5 class="w-100 text-center text-main">Mission</h5>
+    <div>
+      <% if mission.beneficiary_approval_not_submitted? %>
+        <%= link_to "", data: {action: "click->hidden-form#edit", hidden_form_target: "output"} do %>
+          <i class="fa-solid fa-pen-to-square round-button btn-round-cta"></i>
+        <% end %>
+        <%= link_to "", data: {action: "click->hidden-form#cancel", hidden_form_target: "input"}, class: "d-none" do %>
+          <i class="fa-solid fa-xmark round-button btn-round-cta"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div data-hidden-form-target="output">
+
+    <div class="mb-10">
+      <h6>Intitulé :</h6>
+      <p><%= mission.title %></p>
+    </div>
+
+    <div class="mb-10">
+      <h6>Description :</h6>
+      <p><%= mission.description %></p>
+    </div>
+
+    <div class="mb-10">
+      <h6>Dates :</h6>
+      <div class="d-flex" data-controller="flatpickr">
+        <p class="mr-10 no-wrap">Début :</p>
+        <p><%= mission.start_date&.strftime("%d/%m/%Y") %></p>
+      </div>
+      <div class="d-flex" data-controller="flatpickr">
+        <p class="mr-10 no-wrap">Fin :</p>
+        <p><%= mission.end_date&.strftime("%d/%m/%Y") %></p>
+      </div>
+    </div>
+
+    <div class="mb-10">
+      <h6>Périodicité :</h6>
+      <p><%= mission.periodicity %></p>
+    </div>
+
+    <div class="mb-10">
+      <h6>Type :</h6>
+      <p><%= mission.mission_type %></p>
+    </div>
+
+    <div class="mb-10">
+      <p>Feedbacks : <%= mission.feedback_on ? "Yes" : "No" %></p>
+    </div>
+
+    <div class="mb-10">
+      <h6>Collecte des feedbacks :</h6>
+      <p>Tous/toutes les
+        <%= mission.feedback_step.nil? ? "..." : mission.feedback_step %>
+        <%= mission.feedback_unit.nil? ? "jours/semaines" : mission.feedback_unit %>
+        à partir du
+        <%= mission.feedback_start&.strftime("%d/%m/%Y") %>
+      </p>
+    </div>
+
+    <div class="mb-10">
+      <p>Validé par le management : <%= mission.manager_approval_approved? ? "Yes" : "No" %></p>
+    </div>
+
+  </div>
+
+  <% if mission.beneficiary_approval_not_submitted? %>
+    <div data-hidden-form-target="input" class="d-none">
+      <%= simple_form_for(mission, url: company_admin_mission_path(mission), html: {data: {hidden_form_target: "form"}}) do |f| %>
+
+        <div class="mb-10">
+          <h6>Intitulé :</h6>
+          <p ><%= f.input :title, wrapper: false, label: false, input_html: {class: "embedded"} %></p>
+        </div>
+
+        <div class="mb-10">
+          <h6>Description :</h6>
+          <p><%= f.input :description, wrapper: false, label: false, input_html: {class: "embedded"} %></p>
+        </div>
+
+        <div class="mb-10">
+          <h6>Dates :</h6>
+          <div class="d-flex" data-controller="flatpickr">
+            <p class="mr-10 no-wrap">Début :</p>
+            <p><%= f.input :start_date, as: :string, input_html: { value: mission.start_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "embedded" }, wrapper: false, label: false %></p>
+          </div>
+          <div class="d-flex" data-controller="flatpickr">
+            <p class="mr-10 no-wrap">Fin :</p>
+            <p><%= f.input :end_date, as: :string, input_html: { value: mission.end_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "embedded" }, wrapper: false, label: false %></p>
+          </div>
+        </div>
+
+        <div class="mb-10">
+          <h6>Périodicité :</h6>
+          <p><%= f.input :periodicity, wrapper: false, label: false, input_html: {class: "embedded"} %></p>
+        </div>
+
+        <div class="mb-10">
+          <h6>Type :</h6>
+          <p><%= f.input :mission_type, collection: Mission.mission_types.keys, selected: mission.mission_type, include_blank: "sélectionner", wrapper: false, label: false, input_html: {class: "embedded"} %></p>
+        </div>
+
+        <div class="mb-10" data-action="click->hidden-form#keep">
+          <%= f.input :feedback_on, label: "Feedbacks", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" } %>
+        </div>
+
+        <div class="mb-10">
+          <h6>Collecte des feedbacks :</h6>
+          <p data-controller="flatpickr">Tous/toutes les
+            <%= f.input :feedback_step, wrapper: false, label: false, input_html: {class: "embedded"} %>
+            <%= f.input :feedback_unit, collection: Mission.feedback_units.keys, selected: mission.feedback_unit, wrapper: false, label: false, input_html: {class: "embedded"} %>
+            à partir du
+            <%= f.input :feedback_start, as: :string, input_html: { value: mission.feedback_start&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "embedded" }, wrapper: false, label: false %>
+          </p>
+        </div>
+
+        <div class="mb-10" data-action="click->hidden-form#keep">
+          <%= f.input :manager_approval, as: :boolean, label: "Validé par le management", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" }, default: mission.manager_approval_approved?, checked_value: "approved", unchecked_value: "not_submitted" %>
+        </div>
+
+        <div class="w-100 d-flex">
+          <%= link_to "Annuler", "", class: "button btn-light-color w-100", data: {action: "click->hidden-form#cancel"} %>
+          <%= f.submit "Enregistrer", class: "button btn-main-color w-100" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+<% if mission.sendable_to_beneficiary? %>
+  <div data-controller="dynamic-form">
+    <div class="mb-10">
+      <h6>Informations complétées</h6>
+      <p>Les modalités sont renseignées, et approuvées par le management</p>
+      <p>Elles doivent désormais être validées par l'association à travers la signature d'une convention de mécénat</p>
+    </div>
+
+
+    <%= simple_form_for(mission, url: company_admin_mission_path(mission), html: {data: {controller: "hidden-form", hidden_form_target: "form"}}) do |f| %>
+      <%= f.input :beneficiary_approval, as: :boolean, label: "Demander la validation de l'asso", input_html: { class: "toggle", data: {id: "1", action: "change->dynamic-form#display"} }, wrapper_html: { class: "div-align position-relative" }, checked_value: "submitted", unchecked_value: "not_submitted" %>
+
+      <% if mission.no_doc_upload?(1) %>
+        <div data-id="1" data-dynamic-form-target="output" class="d-none mt-10 mb-10 flex-center-between">
+            <p class="text-flag-1 fs-25 ml-20 mr-20"><i class="fa-solid fa-triangle-exclamation"></i></p>
+            <p>Vous n'avez pas uploadé de convention. En cliquant ci-dessous, Demain en pré-remplira une sur la base des modalités et de la convention type.</p>
+        </div>
+      <% end %>
+
+      <%= f.submit "Envoyer !", class: "button btn-main-color w-100" %>
+    <% end %>
+  </div>
+<% else %>
+  <% case %>
+  <% when mission.beneficiary_approval_submitted? %>
+    <h5 class="center-text w-100">En cours de relecture par l'association</h5>
+  <% when mission.beneficiary_approval_approved? %>
+    <h5 class="center-text w-100">Validé par l'association </h5>
+  <% when mission.beneficiary_approval_rejected? %>
+    <h5 class="center-text w-100">Refus de l'association</h5>
+  <% end %>
+<% end %>

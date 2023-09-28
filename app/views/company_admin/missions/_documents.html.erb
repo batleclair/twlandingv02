@@ -1,0 +1,35 @@
+<div class="mb-40">
+  <div class="mb-40">
+    <h5 class="mb-20 w-100 text-center text-main">Documents</h5>
+    <%= simple_form_for(mission, url: company_admin_mission_path(mission), html: {data: {controller: "hidden-form", hidden_form_target: "form"}}) do |f| %>
+      <div class="flex-center w-100" data-hidden-form-target="output">
+        <button class="button btn-main-color" data-action="click->hidden-form#edit">Ajouter un document</button>
+      </div>
+      <div data-hidden-form-target="input" class="d-none">
+        <%= f.simple_fields_for :contracts, contract do |c| %>
+          <%= c.input :title, label: "Titre", wrapper_html: {class: "position-relative"} %>
+          <%= c.input :contract_type, collection: Contract.contract_types.keys, label: "Type", wrapper_html: {class: "position-relative"} %>
+          <%= c.input :document, as: :file, label: "Document", wrapper_html: {class: "position-relative"} %>
+        <% end %>
+        <div class="d-flex">
+          <%= link_to "Annuler", "", class: "button btn-light-color w-100", data: {action: "click->hidden-form#cancel"} %>
+          <%= f.submit "Enregistrer", class: "button btn-main-color w-100" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <% mission.contracts.each do |contract| %>
+      <div class="w-100 bg-light flex-center-between p-20 mb-10">
+        <div>
+          <p><%= contract.title %></p>
+          <p class=""><%= contract.contract_type %></p>
+        </div>
+        <%= link_to company_admin_contract_path(contract), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+          <i class="fa-solid fa-trash text-main"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

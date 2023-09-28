@@ -37,7 +37,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
     @user = User.find(params[:id])
     authorize @user
     @user.update(user_params)
-    @user.candidate.admin_bypass_validation = true if @user.candidate.present?
+    # @user.candidate.admin_bypass_validation = true if @user.candidate.present?
     if @user.save
       redirect_to company_admin_users_path
     else

@@ -1,8 +1,4 @@
-<div class="d-flex mb-40">
-  <%= link_to "Demandes", company_admin_employee_applications_path, class: "button" %>
-  <%= link_to "Missions", company_admin_candidacies_path, class: "button" %>
-  <%= link_to "Contrats", "", class: "button" %>
-</div>
+<%= render partial: "company_admin/shared/users_nav" %>
 
 <div class="d-flex">
   <%= render partial: "list", locals: {employee_applications: @employee_applications} %>

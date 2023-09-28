@@ -1,0 +1,4 @@
+<div class="d-flex">
+  <%= render partial: "list", locals: {missions: @missions, candidacies: @candidacies} %>
+  <div><%= render partial: "summary", locals: {mission: @mission, contract: @contract} %></div>
+</div>

@@ -31,11 +31,17 @@ application.register("experience", ExperienceController)
 import FaqController from "./faq_controller"
 application.register("faq", FaqController)
 
+import FlatpickrController from "./flatpickr_controller"
+application.register("flatpickr", FlatpickrController)
+
 import FormSubmitterController from "./form_submitter_controller"
 application.register("form-submitter", FormSubmitterController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import HiddenFormController from "./hidden_form_controller"
+application.register("hidden-form", HiddenFormController)
 
 import LegendController from "./legend_controller"
 application.register("legend", LegendController)
@@ -72,6 +78,9 @@ application.register("slider", SliderController)
 
 import SwipeController from "./swipe_controller"
 application.register("swipe", SwipeController)
+
+import TimesheetController from "./timesheet_controller"
+application.register("timesheet", TimesheetController)
 
 import TomSelectController from "./tom_select_controller"
 application.register("tom-select", TomSelectController)

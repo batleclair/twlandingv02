@@ -1,15 +1,28 @@
 <div class="company-navbar ctn-resp-tight">
   <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
-  <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
-    <i class="fa-solid fa-right-from-bracket"></i>
-    déconnexion
-  <% end %>
+  <div class="flex-center-between">
+    <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
+      <i class="fa-solid fa-right-from-bracket"></i>
+      déconnexion
+    <% end %>
+    <a href="" class="round-button downsize90 fs-20 fw-7 bg-flag-1"><%= current_user.initials %></a>
+  </div>
 </div>
 
 <div class="company-menu">
+  <div class="w-100 position-relative flex-center mb-10">
+    <% if current_user.company.logo.attached? %>
+      <div class="logo-box downsize90 round-20">
+        <%= cl_image_tag(current_user.company.logo.key) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="w-100 flex-center mb-40">
+    <h6 class="button-round bg-flag-3 text-white">User</h6>
+  </div>
   <%= link_to "Accueil", root_path %>
   <%= link_to "Recherche", user_offers_path %>
   <%= link_to "Mes sélections", selections_path %>
   <%= link_to "Mes candidatures", user_candidacies_path %>
-  <p>Ma mission en cours</p>
+  <%= link_to "Mes missions", user_missions_path %>
 </div>

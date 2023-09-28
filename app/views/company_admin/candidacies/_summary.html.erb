@@ -39,7 +39,11 @@
         <h6>Cette mission a été validée !</h6>
         <p class="mb-20">Message : <%= @candidacy.admin_validation_message %></p>
         <h6 class="mb-10">Retrouvez les informations relatives à la mission ici :</h6>
-        <%= link_to "Contrats", new_company_admin_candidacy_mission_path(@candidacy), class:"button btn-main-color" %>
+        <% if @candidacy.mission.present? %>
+          <%= link_to "Editer", company_admin_mission_path(@candidacy.mission), class:"button btn-main-color" %>
+        <% else %>
+          <%= link_to "Créer", new_company_admin_candidacy_mission_path(@candidacy), class:"button btn-main-color" %>
+        <% end %>
       </div>
     <% end %>
 

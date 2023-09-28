@@ -1,11 +1,4 @@
-<div class="max-w-400">
-  <%= simple_form_for([@candidacy, @mission], url: company_admin_candidacy_missions_path) do |f| %>
-    <%= f.input :title, input_html: {value: "#{@mission.beneficiary.name} - #{@mission.offer.title}"}%>
-    <%= f.input :start_date, input_html: {value: @candidacy.req_start_date}%>
-    <%= f.input :periodicity, input_html: {value: @candidacy.req_periodicity}%>
-    <%= f.input :days_count, input_html: {value: @candidacy.req_days}%>
-    <%= f.input :end_date %>
-    <%= f.input :referent_name %>
-    <%= f.input :referent_email %>
-  <% end %>
+<div class="d-flex">
+  <%= render partial: "list", locals: {missions: @missions, candidacies: @candidacies} %>
+  <div><%= render partial: "form", locals: {mission: @mission, candidacy: @candidacy} %></div>
 </div>

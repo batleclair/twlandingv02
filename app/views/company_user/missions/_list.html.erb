@@ -1,0 +1,25 @@
+<div class="w-100 max-w-300">
+
+  <div class="mb-40">
+    <h5 class="mb-20">⏳ en cours</h5>
+    <% missions.where(last_active_status: "validated").each do |mission| %>
+      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
+        <%= link_to user_mission_path(mission), class: "w-100 h-100" do %>
+          <div class="pe-none">
+            <h6><%= mission.candidacy.offer.beneficiary.name %></h6>
+            <p><%= mission.candidacy.offer.title %></p>
+          </div>
+          <div class="flex-center">
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-pen-to-square text-main"></i>
+            <% end %>
+            <%= link_to root_path do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

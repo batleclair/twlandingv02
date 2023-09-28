@@ -6,7 +6,7 @@
 @import "config/tom-select";
 
 // External libraries
-@import "flatpickr/dist/flatpickr";
+@import "flatpickr/dist/themes/airbnb";
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 @import "trix";
@@ -25,7 +25,7 @@ body{
   background-color: white;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, td {
   cursor: default;
 }
 

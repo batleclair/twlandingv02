@@ -1,9 +1,3 @@
-<div class="d-flex mb-40">
-  <%= link_to "Demandes", company_admin_employee_applications_path, class: "button" %>
-  <%= link_to "Missions", company_admin_candidacies_path, class: "button" %>
-  <%= link_to "Contrats", "", class: "button" %>
-</div>
-
 <div class="d-flex" data-controller="display">
   <%= render partial: "list", locals: {candidacies: @candidacies} %>
   <div data-display-target="output"></div>

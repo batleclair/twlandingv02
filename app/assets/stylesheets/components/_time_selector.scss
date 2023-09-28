@@ -1,0 +1,38 @@
+.time-slider-ctn{
+  width: fit-content;
+}
+
+.main-time-slider-table{
+  border-top: 1px lightgrey solid;
+  border-bottom: 1px lightgrey solid;
+  >tbody>tr{
+    border-bottom: 1px lightgrey solid;
+  }
+  >tbody>tr:first-child{
+    border-top: 1px lightgrey solid;
+  }
+  pointer-events: none;
+  th {
+    pointer-events: none;
+  }
+}
+
+.time-slider-table{
+  tr{
+    box-sizing: border-box;
+  }
+  tr:first-child{
+    border-bottom: 1px lightgrey solid;
+  }
+  td{
+    width: 250px;
+    height: 15px;
+    box-sizing: border-box;
+    pointer-events: all;
+  }
+  td[data-selected="true"]{
+    background-color: $first-light-color;
+    border-left: $first-main-color solid 1px;
+    border-right: $first-main-color solid 1px;
+  }
+}

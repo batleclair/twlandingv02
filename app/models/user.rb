@@ -60,6 +60,10 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def initials
+    "#{first_name.first}#{last_name.first}"
+  end
+
   # def approved?
   #   employee_applications.where(status: "true").any?
   # end

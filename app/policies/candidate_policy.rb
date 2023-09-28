@@ -49,7 +49,7 @@ class CandidatePolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user || user.user_type == 'admin'
+    record.user == user || user.admin? || (user.company_admin? && record.user.company_id == user.company_id)
   end
 
   def destroy?

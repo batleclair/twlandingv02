@@ -1,7 +1,7 @@
 <div class="w-100 max-w-300">
 
   <div class="mb-40">
-    <h5 class="mb-20">⏳ demandes en attente</h5>
+    <h5 class="mb-20">⏳ candidatures en attente</h5>
     <% candidacies.where(active: true, last_active_status: "user_validation").each do |candidacy| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
         <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
@@ -23,7 +23,7 @@
   </div>
 
   <div class="mb-40">
-    <h5 class="mb-20">✔️ demandes acceptées</h5>
+    <h5 class="mb-20">✔️ candidatures acceptées</h5>
     <% candidacies.where(active: true, last_active_status: "mission").each do |candidacy| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
         <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>

@@ -79,6 +79,21 @@
 }
 }
 
+.input-form.embedded{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  background-color: $first-light-lighter;
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+  border: 1px white solid;
+  &:focus{
+    padding-left: 5px;
+    border: 1px $first-main-color solid;
+    background-color: $first-light-color;
+  }
+}
+
 .input-with-icon{
   position: relative;
   i{

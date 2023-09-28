@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -129,6 +129,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
     t.text "comment"
     t.integer "availability"
     t.string "airtable_id"
+    t.string "referent_name"
+    t.string "referent_email"
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
@@ -161,6 +163,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone_num"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.string "title"
+    t.string "contractable_type", null: false
+    t.bigint "contractable_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "contract_type"
+    t.index ["company_id"], name: "index_contracts_on_company_id"
+    t.index ["contractable_type", "contractable_id"], name: "index_contracts_on_contractable"
   end
 
   create_table "employee_applications", force: :cascade do |t|
@@ -198,6 +212,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
     t.string "last_active_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "mission_type"
+    t.boolean "feedback_on"
+    t.integer "feedback_step"
+    t.integer "feedback_unit"
+    t.date "feedback_start"
+    t.integer "beneficiary_approval", default: 0
+    t.integer "manager_approval", default: 0
+    t.boolean "employee_approval"
     t.index ["candidacy_id"], name: "index_missions_on_candidacy_id"
   end
 
@@ -280,6 +302,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "timesheets", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text "comment"
+    t.bigint "mission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id"], name: "index_timesheets_on_mission_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -306,6 +338,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
   add_foreign_key "candidacies", "offers"
   add_foreign_key "candidates", "users"
   add_foreign_key "comments", "users"
+  add_foreign_key "contracts", "companies"
   add_foreign_key "employee_applications", "users"
   add_foreign_key "experiences", "candidates"
   add_foreign_key "missions", "candidacies"
@@ -313,5 +346,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_094801) do
   add_foreign_key "offer_bookmarks", "offers"
   add_foreign_key "offers", "beneficiaries"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "timesheets", "missions"
   add_foreign_key "users", "companies"
 end

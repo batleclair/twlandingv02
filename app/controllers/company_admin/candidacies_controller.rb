@@ -36,7 +36,7 @@ before_action :set_candidacy, only: [:show, :update]
     # raise
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable
-      redirect_back(fallback_location: company_admin_candidacies_path)
+      @candidacy.validated? ? redirect_to(new_company_admin_candidacy_mission_path(@candidacy)) : redirect_back(fallback_location: company_admin_candidacies_path)
       flash[:notice] = "Enregistré !"
     else
       set_candidacies_and_interractions

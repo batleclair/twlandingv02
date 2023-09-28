@@ -9,7 +9,7 @@ class Comment < ApplicationRecord
   }, if: :candidacy
 
   def candidacy_exceptions
-    commentable_type == "Candidacy" && (
+    candidacy && (
       commentable.last_active_status == "selection" ||
       commentable.last_active_status == "user_application" ||
       commentable.last_active_status == "in_discussions"

@@ -2,6 +2,7 @@ class Candidacy < ApplicationRecord
   belongs_to :candidate
   belongs_to :offer
   has_one :beneficiary, through: :offer
+  has_one :mission
   has_one :user, through: :candidate
   has_many :comments, as: :commentable, dependent: :destroy
 
