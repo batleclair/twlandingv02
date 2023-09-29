@@ -1,0 +1,25 @@
+<div class="max-w-400">
+  <%= simple_form_for(@mission, url: user_mission_path(@mission, step:1)) do |f| %>
+    <div class="w-100 flex-center-between mb-40">
+      <%= link_to "<", user_mission_confirmation_path, class: "round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20" %>
+      <button type="submit" class="round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20">></button>
+    </div>
+
+    <div class="mb-20">
+      <h5>Indiquez la raison 😶</h5>
+    </div>
+
+    <div class="form-wrapper radio-box align-items-start">
+      <%= f.input :termination_cause,
+                  label: false,
+                  as: :radio_buttons,
+                  collection: Mission.termination_causes.keys,
+                  input_html: {data: {"radio-target": "input", "action": "input->radio#update"}},
+                  error: false,
+                  item_wrapper_class: "radio-button-ctn" %>
+    </div>
+    <%= f.input :termination_comment, label: "Commentaires" %>
+  <% end %>
+
+
+</div>

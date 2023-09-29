@@ -2,6 +2,8 @@ class Mission < ApplicationRecord
   belongs_to :candidacy
   has_one :offer, through: :candidacy
   has_one :candidate, through: :candidacy
+  has_one :beneficiary, through: :candidacy
+  has_one :feedback
   has_many :contracts, as: :contractable, dependent: :destroy
   has_many :timesheets, dependent: :destroy
   validates :candidacy_id, uniqueness: { message: "Une mission a déjà été créée pour cette candidature" }
@@ -11,6 +13,7 @@ class Mission < ApplicationRecord
   enum :feedback_unit, { "jours": 0, "semaines": 1 }
   enum :manager_approval, {not_submitted: 0, submitted: 1, approved: 2, rejected: 3}, prefix: true
   enum :beneficiary_approval, {not_submitted: 0, submitted: 1, approved: 2, rejected: 3}, prefix: true
+  enum :termination_cause, {"la mission touche à sa fin": 0, "la mission ne se passe pas comme prévu": 1}, prefix: true
 
 
   def feedback_info_valid?

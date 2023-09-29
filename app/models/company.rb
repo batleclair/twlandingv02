@@ -3,4 +3,5 @@ class Company < ApplicationRecord
   has_many :users
   has_many :contracts
   has_one_attached :logo
+  has_many :questions
 end

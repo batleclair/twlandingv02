@@ -14,6 +14,10 @@ class MissionPolicy < ApplicationPolicy
     (user.company_user? && record.candidate == user.candidate)
   end
 
+  def confirm?
+    show?
+  end
+
   def edit?
     show?
   end

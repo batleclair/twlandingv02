@@ -6,8 +6,9 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
   <div class="navpan-white-ctn">
-    <div class="d-flex">
+    <div class="flex-center-between">
       <%= link_to "Retour", admin_companies_path, class:"button btn-light-main mb-2 me-2" %>
+      <%= link_to "Questionnaire Fin de Mission", admin_company_questions_path(company_id: @company.id) %>
     </div>
     <%= simple_form_for(@company, url: admin_company_path(@company), action: :create) do |f| %>
       <div class="position-relative">

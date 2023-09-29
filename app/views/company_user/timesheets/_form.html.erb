@@ -24,7 +24,7 @@
         <%= f.input :end_time, as: :string, input_html: {"data-timesheet-target": "inputmax"} %>
         <%= f.input :comment %>
         <%= f.submit %>
-        <%= link_to "Annuler", user_mission_timesheets_path %>
+        <%= link_to "Annuler", :back %>
       <% end %>
       <% if deletable %>
         <div class="w-100 flex-center mt-40">

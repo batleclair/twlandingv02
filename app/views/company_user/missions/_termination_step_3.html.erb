@@ -1,0 +1,18 @@
+<div class="max-w-400">
+  <%= simple_form_for(@mission, url: user_mission_path(@mission, step:3)) do |f| %>
+    <div class="w-100 flex-center-between mb-40">
+      <%= link_to "<", edit_user_mission_feedback_path(user_mission_id: @mission.id, id:@mission.feedback.id), class: "round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20" %>
+      <button type="submit" class="round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20">></button>
+    </div>
+
+    <div class="mb-20">
+      <h5>Confirmer ✔️</h5>
+      <p>Promis c'est la dernière étape !</p>
+    </div>
+
+    <div class="mt-20 w-100 position-relative">
+      <%= f.input :termination_confirmation, label: "Je confirme vouloir clôturer la mission", input_html: {class: "toggle"} %>
+    </div>
+
+  <% end %>
+</div>

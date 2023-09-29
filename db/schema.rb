@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "feedback_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "boolean_answer"
+    t.integer "integer_answer"
+    t.text "text_answer"
+    t.index ["feedback_id"], name: "index_answers_on_feedback_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "beneficiaries", force: :cascade do |t|
@@ -198,6 +210,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
     t.index ["candidate_id"], name: "index_experiences_on_candidate_id"
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.bigint "mission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id"], name: "index_feedbacks_on_mission_id"
+  end
+
   create_table "missions", force: :cascade do |t|
     t.bigint "candidacy_id", null: false
     t.date "start_date"
@@ -220,6 +239,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
     t.integer "beneficiary_approval", default: 0
     t.integer "manager_approval", default: 0
     t.boolean "employee_approval"
+    t.integer "termination_cause"
+    t.text "termination_comment"
+    t.boolean "time_confirmation", default: false
+    t.boolean "termination_confirmation", default: false
     t.index ["candidacy_id"], name: "index_missions_on_candidacy_id"
   end
 
@@ -269,6 +292,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
     t.datetime "updated_at", null: false
     t.boolean "publish", default: false
     t.string "slug"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.integer "input_type"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_questions_on_company_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -334,6 +366,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "feedbacks"
+  add_foreign_key "answers", "questions"
   add_foreign_key "candidacies", "candidates"
   add_foreign_key "candidacies", "offers"
   add_foreign_key "candidates", "users"
@@ -341,10 +375,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_065854) do
   add_foreign_key "contracts", "companies"
   add_foreign_key "employee_applications", "users"
   add_foreign_key "experiences", "candidates"
+  add_foreign_key "feedbacks", "missions"
   add_foreign_key "missions", "candidacies"
   add_foreign_key "offer_bookmarks", "offer_lists"
   add_foreign_key "offer_bookmarks", "offers"
   add_foreign_key "offers", "beneficiaries"
+  add_foreign_key "questions", "companies"
   add_foreign_key "taggings", "tags"
   add_foreign_key "timesheets", "missions"
   add_foreign_key "users", "companies"

@@ -21,4 +21,9 @@ export default class extends Controller {
         this.outputTarget.innerHTML = data["content"]
       })
   }
+
+  unhide() {
+    event.preventDefault()
+    this.outputTarget.classList.remove('d-none')
+  }
 }

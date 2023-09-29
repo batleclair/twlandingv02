@@ -1,7 +1,7 @@
 <div class="ml-40 flex-center">
   <%= link_to "Infos", user_mission_path(@mission), class: "button" %>
   <%= link_to "Reporting", user_mission_timesheets_path(@mission), class: "button" %>
-  <%= link_to "Fin de mission", edit_user_mission_path(@mission), class: "button text-flag-2 fw-6" %>
+  <%= link_to "Fin de mission", user_mission_confirmation_path, class: "button text-flag-2 fw-6" %>
 </div>
 
 <div class="mb-20">

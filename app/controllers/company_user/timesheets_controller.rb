@@ -5,6 +5,7 @@ class CompanyUser::TimesheetsController < CompanyUserController
 
   def index
     @mission = Mission.find(params[:user_mission_id])
+    session.delete(:proceed_with_ending)
   end
 
   def new
@@ -14,6 +15,7 @@ class CompanyUser::TimesheetsController < CompanyUserController
   end
 
   def show
+    session.delete(:proceed_with_ending)
     respond_to do |format|
       format.html
       format.json
@@ -38,7 +40,9 @@ class CompanyUser::TimesheetsController < CompanyUserController
   def update
     @timesheet.assign_attributes(timesheet_params)
     if @timesheet.save
-      redirect_to user_mission_timesheets_path(@mission)
+      path = session[:proceed_with_ending].nil? ? user_mission_timesheets_path(@mission) : session[:proceed_with_ending]
+      # session[:proceed_with_ending] = nil
+      redirect_to path
     else
       render :edit, status: :unprocessable_entity
     end

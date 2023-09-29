@@ -1,0 +1,17 @@
+<div class="ml-40 max-w-500">
+  <div class="mb-40">
+    <h4 class="text-main fw-7 mb-20">Vous souhaitez clôturer cette mission</h4>
+    <h6><%= @mission.beneficiary.name %></h6>
+    <p><%= @mission.title %></p>
+  </div>
+
+  <% if !params[:step] %>
+    <div class="w-100 flex-center mb-40">
+      <%= link_to "Annuler", user_mission_timesheets_path, class: "button btn-light-main mr-10" %>
+      <%= link_to "Démarrer", user_mission_confirmation_path(step: 1), class: "button btn-main-color" %>
+    </div>
+  <% else %>
+    <%= render partial: "termination_step_#{params[:step]}" %>
+  <% end %>
+
+</div>

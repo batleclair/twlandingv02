@@ -44,7 +44,9 @@ Rails.application.routes.draw do
       resources :candidacies, as: :user_candidacies, only: %i[index show update]
       resources :missions, as: :user_missions, only: %i[index edit update]
       resources :missions, as: :user_missions, only: %i[show] do
+        get "confirmation", to: "missions#confirm"
         resources :timesheets
+        resources :feedbacks, only: %i[new edit create update]
       end
     end
 
@@ -140,7 +142,9 @@ Rails.application.routes.draw do
       resources :candidates, only: %i[index show destroy]
       resources :offer_lists, only: %i[index new edit]
       resources :users, only: %i[new edit create update index destroy]
-      resources :companies
+      resources :companies do
+        resources :questions
+      end
       resources :employee_applications, only: %i[edit update index destroy]
     end
 
