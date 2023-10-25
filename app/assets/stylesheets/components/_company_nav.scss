@@ -37,3 +37,10 @@
     padding-right: 2vw;
     }
 }
+
+.company-sub-menu{
+  [data-active="true"]{
+    font-weight: 700;
+    color: $first-main-color;
+  }
+}

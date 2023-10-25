@@ -13,8 +13,8 @@ $light-grey: #FFFBFE;
 $dark-grey: #2A2D34;
 $second-flag-color: #6EEB83;
 
-$first-flag-color: #CD5D67;
-$first-flag-darker: #bb3a44;
+$first-flag-color: hsl(355, 53%, 58%);
+$first-flag-darker: hsl(355, 53%, 48%);
 
 $first-main-color: #531cb3;
 $first-main-darker: #3e1584;
@@ -25,7 +25,11 @@ $first-light-lighter: #f5f1fb;
 
 
 $flag-color-1: #FFC83D;
+$flag-color-1-light: hsl(43, 100%, 80%);
 $flag-color-1-dark: #d69a00;
-
 $flag-color-2: #FB4D3D;
+$flag-color-2-light: hsl(5, 96%, 80%);
 $flag-color-3: #81D2C7;
+$flag-color-3-light: hsl(172, 47%, 80%);
+
+$light-colors: ($flag-color-1: $flag-color-1-light, $flag-color-2: $flag-color-2-light, $flag-color-3: $flag-color-3-light);

@@ -1,0 +1,11 @@
+<div class="w-100 bg-white p-20">
+  <div class="flex-center-left">
+    <%= link_to "Entreprise", edit_admin_company_path(@company), class:"button" %>
+    |
+    <%= link_to "Questionnaire", admin_company_questions_path(company_id: @company.id), class:"button" %>
+    |
+    <%= link_to "Whitelist", admin_company_whitelists_path(company_id: @company.id), class:"button" %>
+    |
+    <%= link_to "Périodes", admin_company_eligibility_periods_path(company_id: @company.id), class:"button" %>
+  </div>
+</div>

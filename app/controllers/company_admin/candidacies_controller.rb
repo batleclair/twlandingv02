@@ -2,16 +2,12 @@ class CompanyAdmin::CandidaciesController < CompanyAdminController
 before_action :set_candidacy, only: [:show, :update]
 
   def index
-    @candidacies = policy_scope(Candidacy).where(last_active_status: ["user_validation", "admin_validation", "mission"])
+    set_candidacies
   end
 
   def show
-    set_candidacies_and_interractions
-    @candidacy_on_record = Candidacy.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    set_comment
+    render_show_view
   end
 
   def create
@@ -30,18 +26,17 @@ before_action :set_candidacy, only: [:show, :update]
   end
 
   def update
-    @candidacy_on_record = Candidacy.find(params[:id])
-    @candidacy.assign_attributes(full_candidacy_params)
-    @candidacy.active = true if @candidacy.last_active_status == "mission" && @candidacy_on_record.last_active_status == "user_validation"
-    # raise
+    @candidacy.assign_attributes(candidacy_params)
+    assign_user_to_comment
+    @candidacy.active = true if @candidacy.status == "mission" && @candidacy_on_record.status == "user_validation"
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable
       @candidacy.validated? ? redirect_to(new_company_admin_candidacy_mission_path(@candidacy)) : redirect_back(fallback_location: company_admin_candidacies_path)
       flash[:notice] = "Enregistré !"
     else
-      set_candidacies_and_interractions
+      set_comment
       flash[:alert] = "Un problème est survenu"
-      render :show, status: :unprocessable_entity
+      render_show_view
     end
   end
 
@@ -50,17 +45,45 @@ before_action :set_candidacy, only: [:show, :update]
   def set_candidacy
     @candidacy = Candidacy.find(params[:id])
     authorize @candidacy
+    @candidacy_on_record = Candidacy.find(params[:id])
   end
 
-  def set_candidacies_and_interractions
-    @candidacies = policy_scope(Candidacy).where(last_active_status: ["user_validation", "admin_validation", "mission"])
+  def set_candidacies
+    case params[:status]
+    when "pending"
+      @candidacies = policy_scope(Candidacy).where(status: "user_validation").select{|c| c.submitted_for_approval?}
+    when "rejected"
+      @candidacies = policy_scope(Candidacy).where(status: "admin_validation").select{|c| c.abandonned?}
+    else
+      @candidacies = policy_scope(Candidacy).where(status: ["user_validation", "admin_validation", "mission"])
+    end
+  end
+
+  def set_comment
     @comment = @candidacy.new_comment? ? @candidacy.comments.last : Comment.new
+  end
+
+  def assign_user_to_comment
+    @candidacy.comments.last.user_id = current_user.id if @candidacy.new_comment?
+  end
+
+  def render_show_view
+    case
+    when @candidacy_on_record.submitted_for_approval?
+      render :show_pending
+    when @candidacy_on_record.abandonned?
+      render :show_rejected
+    when @candidacy_on_record.validated?
+      redirect_to company_admin_mission_path(@candidacy.mission)
+    else
+      raise
+    end
   end
 
   def candidacy_params
     params.require(:candidacy).permit(:offer_id,
     :candidate_id,
-    :last_active_status,
+    :status,
     :active,
     :manager_validation,
     :admin_validation_date,
@@ -68,11 +91,11 @@ before_action :set_candidacy, only: [:show, :update]
     comments_attributes: [:content])
   end
 
-  def full_candidacy_params
-    if params.require(:candidacy)[:comments_attributes].present?
-      candidacy_params.to_h.deep_merge({comments_attributes: {"0": {user_id: current_user.id}}})
-    else
-      candidacy_params
-    end
-  end
+  # def full_candidacy_params
+  #   if params.require(:candidacy)[:comments_attributes].present?
+  #     candidacy_params.to_h.deep_merge({comments_attributes: {"0": {user_id: current_user.id}}})
+  #   else
+  #     candidacy_params
+  #   end
+  # end
 end

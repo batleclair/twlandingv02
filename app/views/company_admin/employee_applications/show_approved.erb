@@ -1,0 +1,29 @@
+<div class="mb-20">
+  <%= render partial: "tabs", locals: {employee_applications: @employee_applications, active: 0} %>
+</div>
+
+<div class="d-flex">
+  <%= render partial: "list", locals: {employee_applications: @employee_applications} %>
+  <div>
+    <div class="pl-40 w-100">
+      <h5 class="text-main mb-20 fw-6">Eligibilité accordée</h5>
+
+      <%= render partial: "summary", locals: {employee_application: @employee_application}  %>
+
+      <div class="max-w-400 w-100">
+      <h6>Votre réponse :</h6>
+      <p class="mb-40"><i>"<%= @employee_application.response_msg %>"</i></p>
+      <h6>Ce n'est plus d'actualité ?</h6>
+        <p>Si cette autorisation n'a plus lieu d'être, vous pouvez la révoquer en cliquant sur le lien ci-dessous</p>
+        <p class="mb-20"><i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10"></i>Vous ne pourrez pas revenir en arrière</p>
+        <%= simple_form_for(@employee_application, url: company_admin_employee_application_path(@employee_application), action: :update, data: {turbo_method: :update, turbo_confirm: "Etes-vous sûr.e de vouloir révoquer cette demande ? Vous ne pourrez pas revenir en arrière."}) do |f| %>
+
+            <%= f.input :status, as: :hidden, input_html: {value: "revoked"} %>
+            <button type="submit" class="button text-white bg-flag-2 bn-none center-margin">Révoquer</button>
+        <% end %>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>

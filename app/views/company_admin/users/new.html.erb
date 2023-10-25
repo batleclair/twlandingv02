@@ -1,32 +1,79 @@
+<%= render partial: "company_admin/shared/users_nav", locals: {active: 3} %>
+
+<div class="max-w-400">
+  <div class="mb-20">
+    <h5 class="text-main fw-7 mb-10">Créer un utilisateur manuellement</h5>
+    <p>Un nouveau compte utilisateur sera créé, et un email envoyé à l'adresse utilisée afin de réinitialiser le mot de passe.</p>
+    <p class="fw-5"><i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10"></i>La connexion SSO ne sera pas permise ainsi.</p>
+  </div>
+
+  <div class="bg-shade pt-20 pb-20 mb-20">
     <%= simple_form_for(@user, url: company_admin_users_path, action: :create, data: {turbo: false}) do |f| %>
 
-      <div class="d-flex justify-content-between">
-        <%= link_to "Retour", company_admin_users_path, class:"button btn-light-main mb-2 me-2" %>
-        <button type="submit" class="button btn-main-color">Enregistrer</button>
-      </div>
-
-      <div class="position-relative">
+      <div class="flex-center-between position-relative ml-20 mr-20 mb-15">
         <%= f.input :email,
-                    label: "Email" %>
+                    label: "Email",
+                    collection: @emails,
+                    label_html: {class: "min-w-80 mr-20"},
+                    wrapper: false,
+                    input_html: {class: "embedded bg-white"} %>
       </div>
-      <div class="position-relative">
+      <div class="flex-center-between position-relative ml-20 mr-20 mb-15">
         <%= f.input :first_name,
-                    label: "Prénom" %>
+                    label: "Prénom",
+                    label_html: {class: "min-w-80 mr-20"},
+                    wrapper: false,
+                    input_html: {class: "embedded bg-white"} %>
       </div>
-      <div class="position-relative">
+      <div class="flex-center-between position-relative ml-20 mr-20 mb-15">
         <%= f.input :last_name,
-                    label: "Nom" %>
+                    label: "Nom",
+                    label_html: {class: "min-w-80 mr-20"},
+                    wrapper: false,
+                    input_html: {class: "embedded bg-white"} %>
       </div>
 
       <%= f.simple_fields_for :candidate, @candidate do |c| %>
-        <%= c.input :function, collection: Offer::FUNCTIONS %>
-        <%= c.input :title %>
-        <%= c.input :status, as: :hidden, input_html: {value: Candidate::STATUSES[0]} %>
-        <%= c.input :employer_name, as: :hidden, input_html: {value: current_user.company.name} %>
+        <div class="flex-center-between position-relative ml-20 mr-20 mb-15">
+          <%= c.input :function,
+                      label: "Domaine",
+                      label_html: {class: "min-w-80 mr-20"},
+                      wrapper: false,
+                      input_html: {class: "embedded bg-white"},
+                      collection: Offer::FUNCTIONS %>
+        </div>
+        <div class="flex-center-between position-relative ml-20 mr-20 mb-15">
+          <%= c.input :title,
+                      label: "Fonction",
+                      label_html: {class: "min-w-80 mr-20"},
+                      wrapper: false,
+                      input_html: {class: "embedded bg-white"} %>
+        </div>
+          <%= c.input :status, as: :hidden, wrapper: false, input_html: {value: Candidate::STATUSES[0]} %>
+          <%= c.input :employer_name, wrapper: false, as: :hidden, input_html: {value: current_user.company.name} %>
       <% end %>
 
       <%= f.simple_fields_for :employee_applications, @employee_application do |e| %>
-        <%= e.input :status, as: :select, collection: [['Accepter', true]], include_blank: true %>
+        <div class="pl-20 pr-20 w-100 mb-15">
+          <div class="flex-center-between position-relative w-100">
+            <%= e.input :status,
+                        as: :boolean,
+                        label: "Pré-valider l'éligibilité",
+                        wrapper: false,
+                        label_html: {class: "w-100"},
+                        input_html: {class: "toggle"},
+                        checked_value: true,
+                        unchecked_value: nil,
+                        include_blank: true %>
+          </div>
+        </div>
       <% end %>
+    </div>
 
-    <% end %>
+    <div class="d-flex justify-content-between">
+      <%= link_to "Annuler", company_admin_users_path, class:"button btn-light-main mb-2 me-2" %>
+      <button type="submit" class="button btn-main-color">Enregistrer</button>
+    </div>
+
+  <% end %>
+</div>

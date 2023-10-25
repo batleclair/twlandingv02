@@ -12,7 +12,7 @@ class CandidacyPolicy < ApplicationPolicy
   end
 
   def index?
-    user.user_type == 'admin'
+    user.company_admin? || user.company_user? || user.admin?
   end
 
   def edit_comments?
@@ -36,6 +36,10 @@ class CandidacyPolicy < ApplicationPolicy
     record.user == user ||
     (user.company_admin? && record.user.company_id == user.company_id) ||
     user.user_type == 'admin'
+  end
+
+  def submit?
+    user.company_user? && record.user == user
   end
 
   def destroy?

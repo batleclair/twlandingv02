@@ -65,3 +65,26 @@
     right: 33px;
   }
 }
+
+.toggle.centered + label {
+  color: transparent;
+  &::before{
+    right: 0px;
+    left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  &::after{
+    right: 23px;
+    left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.toggle:checked.centered + label {
+  &::after{
+    right: 0px;
+    left: 23px;
+  }
+}

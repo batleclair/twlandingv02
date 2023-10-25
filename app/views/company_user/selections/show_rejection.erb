@@ -1,0 +1,30 @@
+<div class="mb-20">
+  <%= render partial: "company_user/selections/tabs", locals: {selection: @selection_on_record} %>
+</div>
+
+<div class="d-flex">
+  <%= render partial: "summary" %>
+  <div class="ml-40 w-100 max-w-400">
+    <div class="w-100">
+      <div class="mb-20">
+        <h5 class="text-main">Refus</h5>
+        <p>Vous n'avez pas souhaité candidater</p>
+        <% if current_user.eligibility_on_going? %>
+          <p class="mb-20">Vous pouvez changer d'avis :</p>
+          <%= render partial: "company_user/selections/candidacy_form" %>
+        <% end %>
+      </div>
+      <% if @selection_on_record.company_user_origin? %>
+        <div class="w-100">
+          <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+            <%= f.input :active, as: :hidden, input_html: {value: true} %>
+            <button type="submit" class="flex-center button bn-none bg-white center-margin">
+              <i class="fa-solid fa-heart mr-10 text-flag-2"></i>
+              Remettre dans mes coups de coeur
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

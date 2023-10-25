@@ -2,35 +2,33 @@
 
 <div class="navpan-mg-ctn">
   <div class="navpan-transp-ctn">
-  <h3>Questionnaire fin de mission</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+    <h3>Questionnaire fin de mission</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
   </div>
+
+  <%= render partial: "admin/company_edit_menu" %>
   <div class="navpan-white-ctn">
-
     <div>
-      <div class="sticky-admin-nav bg-white pt-3 pb-3 flex-center-between">
-        <%= link_to "...", "", class:"button btn-main-color" %>
-        <%= link_to "Retour", admin_companies_path, class:"button btn-light-main" %>
-      </div>
-
-      <div>
-        <% @questions.each do |q| %>
-          <div class="max-w-400 w-100 bg-shade mb-10 p-10 flex-center-between">
-            <div>
-              <p><%= q.title %></p>
-              <p>(<%= q.input_type %>)</p>
+      <div class="d-flex">
+        <div class="mr-40">
+          <% @questions.each do |q| %>
+            <div class="max-w-400 w-100 bg-shade mb-10 p-10 flex-center-between">
+              <div>
+                <p><%= q.title %></p>
+                <p>(<%= q.input_type %>)</p>
+              </div>
+              <%= link_to admin_company_question_path(company_id: q.company_id, id: q.id), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                <i class="fa-solid fa-trash text-main ms-3 me-1"></i>
+              <% end %>
             </div>
-            <%= link_to admin_company_question_path(company_id: q.company_id, id: q.id), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-              <i class="fa-solid fa-trash text-main ms-3 me-1"></i>
-            <% end %>
-          </div>
+          <% end %>
+        </div>
+        <%= simple_form_for([@company, @question], url: admin_company_questions_path) do |f| %>
+          <%= f.input :title %>
+          <%= f.input :input_type, collection: Question.input_types.keys %>
+          <%= f.submit %>
         <% end %>
       </div>
-      <%= simple_form_for([@company, @question], url: admin_company_questions_path) do |f| %>
-        <%= f.input :title %>
-        <%= f.input :input_type, collection: Question.input_types.keys %>
-        <%= f.submit %>
-      <% end %>
     </div>
 
   </div>

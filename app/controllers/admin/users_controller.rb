@@ -16,11 +16,9 @@ class Admin::UsersController < AdminController
     @user = User.new(user_params)
     authorize @user
     @user.candidate.admin_bypass_validation = true if @user.candidate.present?
-    password = Devise.friendly_token
-    @user.password = password
-    @user.password_confirmation = password
+    @user.set_temp_password
     if @user.save
-      @token = password_invite_token
+      @token = @user.password_invite_token
       @user.send_invite_email(@token)
       redirect_to admin_users_path
     else
@@ -59,14 +57,6 @@ class Admin::UsersController < AdminController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :company_id, :company_role, candidate_attributes: [:status, :employer_name])
-  end
-
-  def password_invite_token
-    raw, enc = Devise.token_generator.generate(User, :reset_password_token)
-    @user.reset_password_token   = enc
-    @user.reset_password_sent_at = Time.now.utc + 30.days
-    @user.save(validate: false)
-    raw
   end
 
   def set_company_list

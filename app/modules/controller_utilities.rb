@@ -7,4 +7,16 @@ module ControllerUtilities
         return false
     end
   end
+
+  def legit?(path)
+    [
+      "company_user/selections/show_suggestion",
+      "company_user/selections/show_selection",
+      "company_user/selections/show_rejection",
+      "company_user/offers/show",
+      "company_user/candidacies/show_abandonned",
+      "company_user/candidacies/show_assessing",
+      "company_user/candidacies/show_validating"
+    ].include?(path)
+  end
 end

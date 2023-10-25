@@ -17,7 +17,8 @@ class EmployeeApplicationPolicy < ApplicationPolicy
     def resolve
       case
       when user.company_admin?
-        scope.joins(:user).where(user: {company_id: user.company_id})
+        scope.joins(:candidate, :user, :company).where(company: {id: user.company})
+        # scope.joins(candidate: :user).where(user: {company_id: user.company_id})
       when user.company_user?
         scope.where(user: user)
       when user.admin?

@@ -1,4 +1,7 @@
-<div class="d-flex" data-controller="display">
+<div class="mb-20">
+  <%= render partial: "tabs", locals: {candidacy: nil} %>
+</div>
+<div class="d-flex">
   <%= render partial: "list", locals: {candidacies: @candidacies} %>
-  <div data-display-target="output"></div>
+  <div></div>
 </div>

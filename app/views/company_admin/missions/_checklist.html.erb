@@ -56,7 +56,7 @@
     </div>
 
     <% if mission.ready_to_go? %>
-      <%= f.input :last_active_status, as: :hidden, input_html: {value: "validated"} %>
+      <%= f.input :status, as: :hidden, input_html: {value: "validated"} %>
       <%= f.submit "Démarrer la mission !" %>
     <% end %>
 

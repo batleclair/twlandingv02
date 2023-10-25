@@ -1,69 +1,26 @@
 <div class="w-100 max-w-300">
-
   <div class="mb-40">
-    <h5 class="mb-20">⏳ candidatures en attente</h5>
-    <% candidacies.where(active: true, last_active_status: "user_validation").each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+    <div class="flex-center-between mb-20">
+      <h5>Demandes de missions :</h5>
+      <h5 class="text-main fw-7"><%= candidacies.count %></h5>
+    </div>
+    <% candidacies.each do |candidacy| %>
+      <div class="mb-10 w-100 flex-center-between">
+        <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: candidacy == @candidacy} do %>
           <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
+            <h6><%= candidacy.user.full_name %></h6>
+            <p><%= candidacy.created_at.strftime("%d/%m/%Y") %></p>
           </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
+          <% case  %>
+          <% when candidacy.submitted_for_approval? %>
+            <i class="fa-regular fa-hourglass-half text-flag-1 "></i>
+          <% when candidacy.abandonned? %>
+            <i class="fa-solid fa-circle-xmark text-flag-2"></i>
+          <% when candidacy.validated? %>
+            <i class="fa-solid fa-circle-check text-flag-3"></i>
+          <% end %>
         <% end %>
       </div>
     <% end %>
   </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">✔️ candidatures acceptées</h5>
-    <% candidacies.where(active: true, last_active_status: "mission").each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">⛔ demandes refusées</h5>
-    <% candidacies.where(active: false, last_active_status: "admin_validation").each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
 </div>

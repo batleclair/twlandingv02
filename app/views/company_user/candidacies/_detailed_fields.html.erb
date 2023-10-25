@@ -1,0 +1,14 @@
+<div data-dynamic-form-target="output" class="d-none">
+  <p class="mt-20 mb-10">Afin d'accélérer la décision de vos RH, nous vous invitons à renseigner un maximum d'informations sur le contenu et les modalités envisagées pour cette mission </p>
+  <div class="flex-center-between" data-controller="flatpickr">
+    <p class="mr-10 no-wrap w-100 fw-5 fs-15">Date de début envisagée :</p>
+    <p><%= f.input :req_start_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+  </div>
+  <%= f.input :req_days %>
+  <%= f.input :req_periodicity, collection: Candidacy::PERIODICITY,
+              input_html: {data: {action: "change->dynamic-form#custom"}} %>
+  <div data-dynamic-form-target="customctn" class="d-none">
+    <%= f.input :custom_periodicity, input_html: {value: nil}, label: false, placeholder: 'Indiquez les modalités' %>
+  </div>
+  <%= f.input :req_description, input_html: {value: @candidacy.offer.summary.to_plain_text} %>
+</div>

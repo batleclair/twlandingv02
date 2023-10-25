@@ -29,4 +29,12 @@ export default class extends Controller {
       this.customctnTarget.classList.add("d-none")
     }
   }
+
+  toggle() {
+    if (event.target.value === "true") {
+      this.outputTarget.classList.remove("d-none")
+    } else {
+      this.outputTarget.classList.add("d-none")
+    }
+  }
 }

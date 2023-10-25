@@ -1,0 +1,9 @@
+<div class="flex-center-left mb-40 company-sub-menu">
+  <%= link_to "Toutes", user_candidacies_path, class: "button", data: {turbo: false, active: params[:phase].nil? && candidacy.nil?}  %>
+  |
+  <%= link_to "En Cours", user_candidacies_path(phase: :assessing), class: "button", data: {turbo: false, active: params[:phase] == "assessing" || candidacy&.being_assessed?} %>
+  |
+  <%= link_to "Confirmations", user_candidacies_path(phase: :validating), class: "button", data: {turbo: false, active: params[:phase] == "validating" || candidacy&.being_validated?} %>
+  |
+  <%= link_to "Refus", user_candidacies_path(phase: :abandonned), class: "button", data: {turbo: false, active: params[:phase] == "abandonned" || candidacy&.abandonned?} %>
+</div>

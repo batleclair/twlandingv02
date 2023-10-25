@@ -59,7 +59,7 @@
 
             <div class="position-relative mb-40">
               <%= f.input :active, as: :boolean, default: @candidacy.active %>
-              <%= f.input :last_active_status,
+              <%= f.input :status,
                           include_blank: true,
                           collection: [['Sélection', "selection"], ['Intérêt candidat', "user_application"], ['Intérêt asso', "beneficiary_application"], ['Mise en relation', "in_discussions"], ['Validation asso', "beneficiary_validation"], ['Validation candidat', "user_validation"], ['Validation RH', "admin_validation"], ['Mission', "mission"]] %>
               <%= f.simple_fields_for :comments, @comment do |c| %>

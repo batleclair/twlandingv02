@@ -18,9 +18,14 @@
     <h6 class="button-round bg-flag-1 text-white">Admin</h6>
   </div>
 
-  <%= link_to "Accueil", company_admin_path %>
-  <%= link_to "Recherche", company_admin_offers_path %>
-  <%= link_to "Utilisateurs", company_admin_users_path %>
-  <%= link_to "Candidatures", company_admin_candidacies_path %>
-  <%= link_to "Missions", company_admin_missions_path %>
+  <div class="mb-20">
+    <%= link_to "Accueil", company_admin_path %>
+    <%= link_to "Recherche", company_admin_offers_path %>
+  </div>
+  <div>
+    <%= link_to "Utilisateurs", company_admin_whitelists_path, data: {turbo: false} %>
+    <%= link_to "Eligibilité", company_admin_employee_applications_path %>
+    <%= link_to "Candidatures", company_admin_candidacies_path %>
+    <%= link_to "Missions", company_admin_missions_path %>
+  </div>
 </div>

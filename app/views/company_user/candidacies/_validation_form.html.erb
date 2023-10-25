@@ -1,0 +1,27 @@
+<div data-controller="dynamic-form">
+  <%= simple_form_for(@candidacy, data: {turbo: false}) do |f| %>
+
+
+    <div class="flex-center">
+      <div class="w-100 xl-radio-btns position-relative max-w-200 center-margin">
+        <%= f.collection_radio_buttons :active, [["Oui", true], ["Non", false]], :last, :first do |b|
+          b.radio_button(checked: false, class: (b.value ? 'flag-3-radio' : 'flag-1-radio' ), "data-action": "change->dynamic-form#toggle" ) + b.label()
+        end %>
+        <%= f.error :active, class: "invalid-msg" %>
+      </div>
+    </div>
+
+    <%= f.input :status, as: :hidden, input_html: {value: "user_validation"} %>
+
+    <%= f.simple_fields_for :comments, @comment do |c| %>
+      <%= c.input :content, label: "Message", wrapper_html: {class: "position-relative"} %>
+    <% end %>
+
+    <%# <%= render partial: "detailed_fields" %> %>
+
+    <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">
+      <i class="fa-regular fa-paper-plane mr-10"></i>
+      Envoyer ma réponse
+    </button>
+  <% end %>
+</div>

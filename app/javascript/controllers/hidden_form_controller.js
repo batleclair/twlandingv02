@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ["input", "output", "form"]
 
   connect() {
+    console.log("yo bitch")
   }
 
   edit() {
@@ -33,7 +34,8 @@ export default class extends Controller {
   }
 
   submit() {
+    event.preventDefault()
+    console.log("submit")
     this.formTarget.submit()
   }
-
 }

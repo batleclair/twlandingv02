@@ -1,0 +1,10 @@
+<div class="mb-20">
+  <%= render partial: "tabs", locals: {selection: nil} %>
+</div>
+
+<div class="d-flex">
+  <%= render partial: "list", locals: {candidacies: @candidacies} %>
+  <div class="w-100 max-w-400 ml-40 p-60">
+    <%= image_tag("search_illustration.svg", class:"w-100 max-w-200") %>
+  </div>
+</div>

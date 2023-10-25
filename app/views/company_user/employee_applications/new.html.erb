@@ -2,8 +2,12 @@
 <div class="max-w-500">
   <%= simple_form_for(@employee_application, url: user_employee_applications_path) do |f| %>
     <div class="position-relative">
-      <%= f.input :motivation_msg,
-                  label: "Message" %>
+      <%= f.input :eligibility_period_id, collection: @eligibility_periods %>
+      <div class="position-relative">
+        <%= f.input :motivation_msg,
+                    label: "Message" %>
+      </div>
+      <%= f.error :candidate_id, id: "candidate_id_error", class:"invalid-msg" %>
     </div>
 
     <div class="flex-center-between">

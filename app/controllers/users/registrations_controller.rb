@@ -11,9 +11,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    return if daily_limit?
-    super
-    resource.send_welcome_mail if resource.persisted?
+    build_resource(sign_up_params)
+    resource.attach_company(request)
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+    # resource.send_welcome_mail if resource.persisted?
   end
 
   def edit
@@ -41,13 +58,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update_resource(resource, params)
+    if resource.provider == 'google_oauth2'
+      params.delete('current_password')
+      resource.password = params['password']
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
+  end
+
   protected
 
   def after_sign_up_path_for(resource)
     if stored_location_for(resource).include?("missions")
       stored_location_for(resource) || new_candidate_path
     else
-      new_candidate_path
+      Subdomain.new("tenant").matches?(request) ? root_path : new_candidate_path
     end
   end
 
@@ -96,6 +123,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def custom_spam_callback
-    session[:invisible_captcha_timestamp] = 2.seconds.from_now(Time.zone.now).iso8601
+    session[:invisible_captcha_timestamp] = 5.seconds.from_now(Time.zone.now).iso8601
   end
 end

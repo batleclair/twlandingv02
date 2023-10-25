@@ -1,66 +1,26 @@
 <div class="w-100 max-w-300">
-
   <div class="mb-40">
-    <h5 class="mb-20">⏳ Demandes en attente :</h5>
-    <% employee_applications.where(status: nil).each do |demand| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_employee_application_path(demand), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
+    <div class="flex-center-between mb-20">
+      <h5>Liste des demandes :</h5>
+      <h5 class="text-main fw-7"><%= employee_applications.count %></h5>
+    </div>
+    <% employee_applications.each do |demand| %>
+      <div class="mb-10 w-100 flex-center-between">
+        <%= link_to company_admin_employee_application_path(demand, status: params[:status]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: demand == @employee_application} do %>
           <div class="pe-none">
             <h6><%= "#{demand.user.first_name} #{demand.user.last_name}" %></h6>
-            <p><%= demand.motivation_msg %></p>
+            <p><%= demand.created_at.strftime("%d/%m/%Y") %></p>
           </div>
-          <div class="flex-center">
-            <%= link_to admin_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to admin_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">✔️ Demandes acceptées :</h5>
-    <% employee_applications.where(status: 'true').each do |demand| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_employee_application_path(demand), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= "#{demand.user.first_name} #{demand.user.last_name}" %></h6>
-            <p><%= demand.motivation_msg %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to admin_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to admin_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">⛔ Demandes refusées :</h5>
-    <% employee_applications.where(status: 'false').each do |demand| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_employee_application_path(demand), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= "#{demand.user.first_name} #{demand.user.last_name}" %></h6>
-            <p><%= demand.motivation_msg %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to admin_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to admin_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
+          <% case  %>
+          <% when demand.revoked_status? %>
+            <i class="fa-solid fa-circle-minus text-grey-light"></i>
+          <% when demand.rejected_status? %>
+            <i class="fa-solid fa-circle-xmark text-flag-2"></i>
+          <% when demand.approved_status? %>
+            <i class="fa-solid fa-circle-check text-flag-3"></i>
+          <% when demand.pending_status? %>
+            <i class="fa-solid fa-circle-question text-flag-1"></i>
+          <% end %>
         <% end %>
       </div>
     <% end %>

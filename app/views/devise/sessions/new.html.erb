@@ -10,6 +10,20 @@
           <%= link_to "Créer un compte", new_registration_path(resource_name), class:"text-main fw-7" %>
         </div>
       </div>
+
+      <div class="w-100 flex-center">
+        <%- if devise_mapping.omniauthable? %>
+          <%- resource_class.omniauth_providers.each do |provider| %>
+            <%= form_for "Login",
+              url: omniauth_authorize_path(resource_name, provider),
+              method: :post,
+              data: {turbo: "false"} do |f| %>
+                <%= f.submit "Login", type: "image", src: url_for("/assets/google_sign_in_btn.png") %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
         <%= f.error_notification %>
         <div class="input-with-icon mb-10 position-relative">

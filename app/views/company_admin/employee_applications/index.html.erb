@@ -1,5 +1,6 @@
-<%= render partial: "company_admin/shared/users_nav" %>
-
+<div class="mb-20">
+  <%= render partial: "tabs", locals: {employee_applications: @employee_applications, active: 0} %>
+</div>
 <div class="d-flex" data-controller="display">
   <%= render partial: "list", locals: {employee_applications: @employee_applications} %>
   <div data-display-target="output"></div>

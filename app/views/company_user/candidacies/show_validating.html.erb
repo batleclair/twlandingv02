@@ -1,0 +1,57 @@
+<div class="mb-20">
+  <%= render partial: "tabs", locals: {candidacy: @candidacy} %>
+</div>
+
+<div class="d-flex">
+  <%= render partial: "summary" %>
+  <div class="ml-40 w-100 max-w-400">
+    <div class="w-100">
+      <div class="mb-20">
+        <h5 class="text-main">Phase de validation</h5>
+
+        <% case @candidacy_on_record.status %>
+            <% when "beneficiary_validation" %>
+              <p>Félicitations ! L'association compte sur vous :)</p>
+
+              <% if @candidacy_on_record.current_comment.present? %>
+                <table class="max-w-400 mb-40">
+                  <tbody class="va-top">
+                    <tr>
+                      <th class="pr-10">💬</th>
+                      <th class="pr-10 no-wrap">Message :</th>
+                      <td><i>"<%= @candidacy_on_record.current_comment.content %></i> "</td>
+                    </tr>
+                  </tbody>
+                </table>
+              <% end %>
+
+              <h5>Acceptez-vous la mission ?</h5>
+              <p class="mb-20">Elle devra être validée par vos managers</p>
+
+              <%= render partial: "validation_form" %>
+
+            <% when "user_validation" %>
+              <p>Merci de votre engagement !</p>
+              <p class="mb-20">Votre demande va être évaluée par l'équipe RH et votre manager afin de s'assurer qu'elle satisfait les conditons d'éligibilité.</p>
+              <p>Silence radio ? Contactez-nous !</p>
+
+            <% when "admin_validation" %>
+              <div class="mb-10">
+                <p>Ouaaaaaaaaaais les RH ont validé !</p>
+                <% if @candidacy.admin_validation_message.present? %>
+                  <p>Voici leur réponse :</p>
+                  <p><%= @candidacy.admin_validation_message %></p>
+                <% end %>
+              </div>
+              <h5>Attention ! Il reste encore une étape :</h5>
+              <p>La formalisation de la mission entre votre entreprise, l'association et vous.</p>
+              <p>Nous sommes sur le coup avec votre équipe RH</p>
+              <p>Silence radio ? Contactez-nous !</p>
+
+          <% end %>
+      </div>
+
+
+    </div>
+  </div>
+</div>

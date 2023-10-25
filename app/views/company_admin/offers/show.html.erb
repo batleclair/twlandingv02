@@ -58,7 +58,7 @@
             <h4 class="ms-3 me-3 title-separator">|</h4>
             <h5><em><%= @offer.beneficiary.name %></em></h5>
           </div>
-          <%= link_to offers_path, class: "round-button btn-light-main downsize90 flex-shrink-0 ml-10" do %>
+          <%= link_to :back, class: "round-button btn-light-main downsize90 flex-shrink-0 ml-10" do %>
             <i class="fa-solid fa-arrow-left text-main"></i>
           <% end %>
         </div>
@@ -138,7 +138,7 @@
 
             <%= simple_form_for([@offer, @candidacy], url: company_admin_offer_candidacies_path(@offer), action: :create, data: {turbo: false}) do |f| %>
               <%= f.association :candidate, collection: @candidates - @selected_candidates, label_method: lambda { |candidate| candidate.full_name } %>
-              <%= f.input :last_active_status, as: :hidden, input_html: {value: "selection"} %>
+              <%= f.input :status, as: :hidden, input_html: {value: "selection"} %>
               <%= f.submit %>
             <% end %>
           </div>

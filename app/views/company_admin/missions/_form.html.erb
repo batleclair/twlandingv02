@@ -39,7 +39,7 @@
         <%= f.input :days_count, input_html: {value: candidacy.req_days}%>
         <%= f.input :referent_name %>
         <%= f.input :referent_email %>
-        <%= f.input :last_active_status, as: :hidden, input_html: {value: "draft"} %>
+        <%= f.input :status, as: :hidden, input_html: {value: "draft"} %>
         <%= f.submit %>
       <% end %>
     </div>

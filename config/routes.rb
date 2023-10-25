@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords" }
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions: "users/sessions",
+    passwords: "users/passwords",
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
 
   devise_scope :user do
     get 'users/info', to: "users/registrations#info"
@@ -13,6 +18,7 @@ Rails.application.routes.draw do
       scope path: "/admin" do
         get "/", to: "pages#dashboard", as: :company_admin
         resources :users, except: %i[show], as: :company_admin_users
+        resources :whitelists, only: %i[index create destroy], as: :company_admin_whitelists
         resources :recherches, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[index]
         resources :recherches, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[show] do
           resources :candidacies, only: %i[create]
@@ -33,15 +39,19 @@ Rails.application.routes.draw do
 
     scope module: "company_user" do
       get "/", to: "pages#dashboard"
+      get "/on-boarding", to: "pages#on_boarding", as: :user_onboarding
+      patch "/book-call", as: :user_booked_call, to: "pages#book_call", defaults: { format: :json }
       resources :candidates, only: %i[update]
       get "/mon_profil", to: "candidates#profile", as: :user_profile
       resources :ma_demande, controller: 'employee_applications', as: :user_employee_applications, only: %i[new create]
       resources :recherches, controller: 'offers', as: :user_offers, param: :slug, only: %i[index show] do
-        resources :candidacies, only: %i[create]
+        resources :candidacies, only: %i[create update]
+        resources :selections, only: %i[create]
       end
-      get "selections", to: "candidacies#index_selection"
-      get "selections/:id", to: "candidacies#show_selection", as: :user_selections
+        get "recherches/:slug/candidacies", to: redirect("recherches/%{slug}")
+        get "recherches/:slug/candidacies/:id", to: redirect("recherches/%{slug}")
       resources :candidacies, as: :user_candidacies, only: %i[index show update]
+      resources :selections, as: :user_selections, only: %i[index show update]
       resources :missions, as: :user_missions, only: %i[index edit update]
       resources :missions, as: :user_missions, only: %i[show] do
         get "confirmation", to: "missions#confirm"
@@ -144,6 +154,8 @@ Rails.application.routes.draw do
       resources :users, only: %i[new edit create update index destroy]
       resources :companies do
         resources :questions
+        resources :whitelists
+        resources :eligibility_periods
       end
       resources :employee_applications, only: %i[edit update index destroy]
     end

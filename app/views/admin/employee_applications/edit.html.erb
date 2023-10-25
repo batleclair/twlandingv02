@@ -28,7 +28,7 @@
                     as: :radio_buttons,
                     legend_tag: false,
                     label: false,
-                    collection: [['Accepter', true], ['Refuser', false]],
+                    collection: EmployeeApplication.statuses.keys,
                     required: true %>
         <%= f.input :response_msg,
                     label: "Votre message de réponse" %>

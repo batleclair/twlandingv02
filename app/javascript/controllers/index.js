@@ -10,6 +10,9 @@ application.register("account", AccountController)
 import ButtonMenuController from "./button_menu_controller"
 application.register("button-menu", ButtonMenuController)
 
+import CalendlyController from "./calendly_controller"
+application.register("calendly", CalendlyController)
+
 import CandidacyController from "./candidacy_controller"
 application.register("candidacy", CandidacyController)
 

@@ -7,7 +7,7 @@ class CompanyAdmin::OffersController < CompanyAdminController
   def show
     @offer = Offer.find_by(slug: params[:slug])
     @candidacy = Candidacy.new
-    @candidates = policy_scope(Candidate).select{|c| c.user.last_employee_application&.approved?}
+    @candidates = policy_scope(Candidate).select{|c| c.user.last_employee_application&.approved_status?}
     @selected_candidates = @candidates.select{|c| c.candidacies.find_by(offer_id: @offer.id).present?}
   end
 end

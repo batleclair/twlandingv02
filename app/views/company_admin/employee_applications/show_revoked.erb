@@ -1,0 +1,24 @@
+<div class="mb-20">
+  <%= render partial: "tabs", locals: {employee_applications: @employee_applications, active: 0} %>
+</div>
+
+<div class="d-flex mb-40">
+  <%= render partial: "list", locals: {employee_applications: @employee_applications} %>
+  <div>
+    <div class="pl-40 w-100">
+      <h5 class="text-main mb-20 fw-6">Eligibilité révoquée</h5>
+
+      <%= render partial: "summary", locals: {employee_application: @employee_application}  %>
+
+
+      <div class="max-w-400 w-100">
+        <h6>Votre réponse :</h6>
+        <p class="mb-40"><i>"<%= @employee_application.response_msg %>"</i></p>
+        <h6>C'est de l'histoire ancienne</h6>
+        <p>Cette demande a été révoquée</p>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>

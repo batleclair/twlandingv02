@@ -3,8 +3,8 @@ class AdminController < ApplicationController
   # before_action :verify_admin
   before_action :admin_authenticate
 
-  def dashboard
-    authorize :dashboard, :super_admin?
+  def dashboard?
+    authorize :admin_page
   end
 
   # def verify_admin

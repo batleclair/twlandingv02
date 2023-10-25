@@ -1,5 +1,13 @@
 // Margin utilities
 
+.mb-05{
+  margin-bottom: 5px;
+}
+.mr-05{
+  margin-right: 5px;
+}
+
+
 @each $size in $sizes {
   .ml-#{$size}{
     margin-left: #{$size}px;
@@ -78,4 +86,9 @@
       }
     }
   }
+}
+
+.center-margin{
+  margin-left: auto;
+  margin-right: auto;
 }

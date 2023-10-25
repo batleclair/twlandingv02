@@ -20,6 +20,7 @@
             <th>Email</th>
             <th>Client</th>
             <th>Type</th>
+            <th>custom id</th>
             <th class="center-text">Candidat ?</th>
             <th class="center-text">Actions</th>
           </tr>
@@ -33,6 +34,7 @@
               <td><%= user.email %></td>
               <td><%= user.company&.name %></td>
               <td><%= user.role %></td>
+              <td><%= user.custom_input %></td>
               <td class="center-text">
                 <% if user.candidate.present? %>
                   <i class="fa-solid fa-circle-check green-color"></i>

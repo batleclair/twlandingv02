@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_11_094848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,8 +100,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.text "motivation_msg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "origin"
-    t.string "last_active_status"
     t.string "airtable_id"
     t.date "req_start_date"
     t.integer "req_days"
@@ -114,6 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.boolean "manager_validation"
     t.date "admin_validation_date"
     t.text "admin_validation_message"
+    t.integer "status", default: 0
+    t.integer "origin"
     t.index ["candidate_id"], name: "index_candidacies_on_candidate_id"
     t.index ["offer_id"], name: "index_candidacies_on_offer_id"
   end
@@ -143,6 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.string "airtable_id"
     t.string "referent_name"
     t.string "referent_email"
+    t.integer "call_status", default: 0
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
@@ -189,14 +190,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.index ["contractable_type", "contractable_id"], name: "index_contracts_on_contractable"
   end
 
+  create_table "eligibility_periods", force: :cascade do |t|
+    t.string "title"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "comment"
+    t.integer "status"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_eligibility_periods_on_company_id"
+  end
+
   create_table "employee_applications", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.text "motivation_msg"
-    t.string "status"
     t.text "response_msg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_employee_applications_on_user_id"
+    t.bigint "candidate_id", null: false
+    t.integer "status", default: 0
+    t.bigint "eligibility_period_id"
+    t.index ["candidate_id"], name: "index_employee_applications_on_candidate_id"
+    t.index ["eligibility_period_id"], name: "index_employee_applications_on_eligibility_period_id"
   end
 
   create_table "experiences", force: :cascade do |t|
@@ -228,7 +243,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.string "referent_name"
     t.string "referent_email"
     t.boolean "active"
-    t.string "last_active_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "mission_type"
@@ -243,6 +257,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.text "termination_comment"
     t.boolean "time_confirmation", default: false
     t.boolean "termination_confirmation", default: false
+    t.integer "status", default: 0
     t.index ["candidacy_id"], name: "index_missions_on_candidacy_id"
   end
 
@@ -358,10 +373,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
     t.bigint "company_id"
     t.string "company_role"
     t.string "authentication_token", limit: 30
+    t.string "uid"
+    t.string "provider"
+    t.string "custom_input"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "whitelists", force: :cascade do |t|
+    t.integer "input_type"
+    t.string "input_format"
+    t.string "input_custom"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "catch_all"
+    t.boolean "pre_approval"
+    t.index ["company_id"], name: "index_whitelists_on_company_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -373,7 +403,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
   add_foreign_key "candidates", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "contracts", "companies"
-  add_foreign_key "employee_applications", "users"
+  add_foreign_key "eligibility_periods", "companies"
+  add_foreign_key "employee_applications", "candidates"
+  add_foreign_key "employee_applications", "eligibility_periods"
   add_foreign_key "experiences", "candidates"
   add_foreign_key "feedbacks", "missions"
   add_foreign_key "missions", "candidacies"
@@ -384,4 +416,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_133602) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "timesheets", "missions"
   add_foreign_key "users", "companies"
+  add_foreign_key "whitelists", "companies"
 end

@@ -49,7 +49,7 @@ before_action :set_missions_and_candidacies, only: [:index, :show, :new, :update
 
   def set_missions_and_candidacies
     @missions = policy_scope(Mission)
-    @candidacies = policy_scope(Candidacy).where(active: true, last_active_status: "mission").select{|c| !c.mission.present?}
+    @candidacies = policy_scope(Candidacy).where(active: true, status: "mission").select{|c| !c.mission.present?}
   end
 
   def mission_params
@@ -70,7 +70,7 @@ before_action :set_missions_and_candidacies, only: [:index, :show, :new, :update
       :manager_approval,
       :beneficiary_approval,
       :employee_approval,
-      :last_active_status,
+      :status,
       contracts_attributes: [:title, :contract_type, :document]
     )
   end

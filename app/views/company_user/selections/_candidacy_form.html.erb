@@ -1,0 +1,15 @@
+<%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+  <div >
+    <div class="w-100 mr-20">
+      <%= f.input :status, as: :hidden, input_html: {value: "user_application"}, wrapper: false %>
+      <%= f.input :active, as: :hidden, input_html: {value: false}, wrapper: false %>
+      <div class="position-relative mb-20">
+        <%= f.input :motivation_msg, label: false, wrapper: false, input_html: {class: "min-h-100"}, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}" %>
+      </div>
+    </div>
+    <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">
+      <i class="fa-regular fa-paper-plane mr-10"></i>
+      Envoyer
+    </button>
+  </div>
+<% end %>

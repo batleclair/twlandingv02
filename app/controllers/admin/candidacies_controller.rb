@@ -8,17 +8,17 @@ before_action :set_comments, except: [:new, :create, :index]
 
   def new
     @candidacy = Candidacy.new
-    @candidates = policy_scope(Candidate).select{|c| c.user.last_employee_application&.approved?}
+    @candidates = policy_scope(Candidate).select{|c| c.user.last_employee_application&.approved_status?}
     @offers = Offer.all
   end
 
   def create
     @candidacy = Candidacy.new(candidacy_params)
-    @candidacy.assign_attributes(last_active_status: "selection", origin: "admin", active: true)
+    @candidacy.assign_attributes(status: "selection", origin: "admin", active: true)
     if @candidacy.save
       redirect_to admin_candidacies_path
     else
-      @candidates = policy_scope(Candidate).select{|c| c.user.last_employee_application&.approved?}
+      @candidates = policy_scope(Candidate).select{|c| c.user.last_employee_application&.approved_status?}
       @offers = Offer.all
       render :new, status: :unprocessable_entity
     end
@@ -61,7 +61,7 @@ before_action :set_comments, except: [:new, :create, :index]
   def candidacy_params
     params.require(:candidacy).permit(
       :active,
-      :last_active_status,
+      :status,
       :offer_id,
       :candidate_id,
       comments_attributes: [:content, :id, :_destroy, :user_id]

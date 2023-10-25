@@ -32,10 +32,22 @@
   justify-content: center;
 }
 
+.flex-stretch-left{
+  display: flex;
+  align-items: stretch;
+  justify-content: start;
+}
+
 .flex-stretch-between{
   display: flex;
   align-items: stretch;
   justify-content: space-between;
+}
+
+.flex-stretch-evenly{
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
 }
 
 .flex-center-right{
@@ -54,6 +66,10 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.flex-equally{
+  flex: 1 1 auto;
 }
 
 @each $id, $bp in $breakpoints {

@@ -1,34 +1,29 @@
-<div class="pl-40 w-100">
-  <h5><%= "#{employee_application.user.first_name} #{employee_application.user.last_name}" %></h5>
-  <h6><%= employee_application.user.candidate.title %></h6>
-  <h6><%= employee_application.created_at %></h6>
-  <p><%= employee_application.motivation_msg %></p>
-
-  <% if employee_application.rejected? || employee_application.approved? %>
-    <div class="mt-40">
-      <h5>Cette employee_applicatione a été traitée.</h5>
-      <h6>Réponse envoyée à <%= employee_application.user.first_name %> : </h6>
-      <p><%= employee_application.response_msg %></p>
-    </div>
-  <% end %>
-
-  <% if employee_application.approved? %>
-    <%= button_to 'Révoquer', company_admin_employee_application_path(employee_application), method: :patch, params: {employee_application: {status: "false"}} %>
-  <% end %>
-
-  <% if employee_application.pending? %>
-    <div class="max-w-300">
-      <%= simple_form_for(employee_application, url: company_admin_employee_application_path(employee_application), action: :update, data: {turbo: false}) do |f| %>
-        <%= f.input :status,
-                    as: :radio_buttons,
-                    legend_tag: false,
-                    label: false,
-                    collection: [['Accepter', true], ['Refuser', false]],
-                    required: true %>
-        <%= f.input :response_msg,
-                    label: "Votre message de réponse" %>
-        <button type="submit" class="button btn-main-color">Enregistrer</button>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<table class="max-w-400 mb-40">
+  <tbody class="va-top">
+    <tr>
+      <th class="pr-10">👩‍💼</th>
+      <th class="pr-10 no-wrap">Salarié.e :</th>
+      <td><%= employee_application.user.full_name %></td>
+    </tr>
+    <tr>
+      <th class="pr-10">💼</th>
+      <th class="pr-10 no-wrap">Poste :</th>
+      <td><%= employee_application.candidate.title %></td>
+    </tr>
+    <tr>
+      <th class="pr-10">⏰</th>
+      <th class="pr-10 no-wrap">Date de la demande :</th>
+      <td><%= employee_application.created_at.strftime("%d/%m/%Y") %></td>
+    </tr>
+    <tr>
+      <th class="pr-10">🗓</th>
+      <th class="pr-10 no-wrap">Fenêtre demandée :</th>
+      <td><%= employee_application.eligibility_period.title_and_dates %></td>
+    </tr>
+    <tr>
+      <th class="pr-10">💬</th>
+      <th class="pr-10 no-wrap">Message :</th>
+      <td><%= employee_application.motivation_msg %></td>
+    </tr>
+  </tbody>
+</table>

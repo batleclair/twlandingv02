@@ -3,12 +3,13 @@ class Mission < ApplicationRecord
   has_one :offer, through: :candidacy
   has_one :candidate, through: :candidacy
   has_one :beneficiary, through: :candidacy
-  has_one :feedback
+  has_one :feedback, dependent: :destroy
   has_many :contracts, as: :contractable, dependent: :destroy
   has_many :timesheets, dependent: :destroy
   validates :candidacy_id, uniqueness: { message: "Une mission a déjà été créée pour cette candidature" }
   accepts_nested_attributes_for :contracts, allow_destroy: true
 
+  enum :status, { draft: 0, abandonned: 1, validated: 2, terminated: 3 }
   enum :mission_type, { "prestation de service": 0, "mise à disposition de personnel": 1 }
   enum :feedback_unit, { "jours": 0, "semaines": 1 }
   enum :manager_approval, {not_submitted: 0, submitted: 1, approved: 2, rejected: 3}, prefix: true
@@ -55,7 +56,7 @@ class Mission < ApplicationRecord
   end
 
   def draft?
-    last_active_status == "draft"
+    status == "draft"
   end
 
   def total_hours

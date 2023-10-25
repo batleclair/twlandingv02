@@ -1,0 +1,30 @@
+
+<div class="w-100 max-w-600">
+  <% @selections.each do |s| %>
+    <div class="w-100 p-10 bg-shade mb-10">
+      <% path = s.in_progress? || s.abandonned? ? user_candidacy_path(s) : user_selection_path(s) %>
+      <%= link_to path, class: "flex-center-top w-100 h-100" do %>
+        <div class="flex-center-left w-100">
+          <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+            <%= cl_image_tag(s.beneficiary.logo.key) %>
+          </div>
+          <div class="pe-none w-100">
+            <h6><%= s.offer.beneficiary.name %></h6>
+            <p><%= s.offer.title %></p>
+            <% case %>
+            <% when s.selection? %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-heart text-flag-2 mr-10"></i>Coup de coeur</p>
+            <% when s.suggestion? %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-fire text-flag-1 mr-10"></i>Proposition</p>
+            <% when s.disliked? %>
+              <p class="fw-4 fs-13"><i class="fa-regular fa-heart text-grey-light mr-10"></i>Refus</p>
+            <% when s.in_progress? || s.abandonned? %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-thumbs-up text-main mr-10"></i>Candidature</p>
+            <% end %>
+          </div>
+        </div>
+        <i class="fs-12 text-grey-light no-wrap"><%= s.created_ago %></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>

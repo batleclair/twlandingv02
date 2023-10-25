@@ -1,22 +1,87 @@
-<%= render partial: "company_admin/shared/users_nav" %>
+<%= render partial: "company_admin/shared/users_nav", locals: {active: 2} %>
 
-<div class="mb-20">
-  <%= link_to "Ajouter", new_company_admin_user_path, class:"button btn-main-color" %>
+<div class="mb-40">
+  <h5 class="mb-10">Comptes utilisateur activés</h5>
+
+  <table class="list-table w-100 max-w-1000">
+    <thead>
+      <th></th>
+      <th class="pb-10">Prénom et Nom</th>
+      <th class="pb-10">Email</th>
+      <th class="pb-10">Créé le</th>
+      <th class="no-wrap pb-10">ID Custom</th>
+      <th class="text-center pb-10">Eligibilité</th>
+      <th class="text-center pb-10"></th>
+    </thead>
+    <tbody>
+      <% @users.where(company_role: "user").each do |user| %>
+        <tr data-controller="hidden-form">
+          <th class="pr-10">></th>
+          <td class="fw-5 text-main no-wrap pr-10"><%= user.full_name %></td>
+          <td class="pr-10"><%= user.email %></td>
+          <td class="pr-10"><%= user.created_at.strftime("%d/%m/%y") %></td>
+          <td class="w-100">
+            <div data-hidden-form-target="output"><%= user.custom_input %></div>
+            <div class="d-none" data-hidden-form-target="input"><%= render partial: "custom_id", locals: {user: user} %></div>
+          </td>
+          <td class="text-center">
+            <% case user.eligibility %>
+            <% when "none" %>
+              <i class="fa-solid fa-circle-minus text-grey-light"></i>
+            <% when "out" %>
+              <i class="fa-solid fa-circle-xmark text-flag-2"></i>
+            <% when "on-going" %>
+              <i class="fa-solid fa-circle-check text-flag-3"></i>
+            <% when "pending" %>
+              <i class="fa-solid fa-circle-question text-flag-1"></i>
+            <% end %>
+          </td>
+          <td class="pl-10 pr-10">
+
+            <div class="flex-center d-none" data-hidden-form-target="input">
+              <%= link_to "", data: {action: "click->hidden-form#submit"} do %>
+                <i class="fa-solid fa-floppy-disk text-main mr-05"></i>
+              <% end %>
+              <%= link_to "", data: {action: "click->hidden-form#cancel"} do %>
+                <i class="fa-solid fa-circle-xmark text-main"></i>
+              <% end %>
+            </div>
+
+            <div class="flex-center" data-hidden-form-target="output">
+              <%= link_to edit_company_admin_user_path(user), data: {action: "click->hidden-form#edit"}  do %>
+                <i class="fa-solid fa-pen-to-square text-main mr-05"></i>
+              <% end %>
+              <%= link_to company_admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                <i class="fa-solid fa-trash text-main"></i>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<% @users.each do |user| %>
-  <div class="mb-20 w-100 max-w-300 bg-shade p-10 flex-center-between">
-    <div>
-      <h6><%= "#{user.first_name} #{user.last_name}" %></h6>
-      <p><%= user.company_role %></p>
-    </div>
-    <div class="flex-center">
-      <%= link_to edit_company_admin_user_path(user) do %>
-        <i class="fa-solid fa-pen-to-square text-main"></i>
+<div class="mb-40">
+  <h5 class="mb-10">Comptes administrateur actifs</h5>
+
+  <table class="list-table w-100 max-w-500">
+    <thead>
+      <th></th>
+      <th class="pb-10">Prénom et Nom</th>
+      <th class="pb-10">Email</th>
+      <th class="pb-10">Créé le</th>
+    </thead>
+    <tbody>
+      <% @users.where(company_role: "admin").each do |user| %>
+        <tr>
+          <th class="pr-10">></th>
+          <td class="fw-5 text-main no-wrap pr-10 bg-white"><%= user.full_name %></td>
+          <td class="pr-10 bg-white"><%= user.email %></td>
+          <td class="pr-10 bg-white"><%= user.created_at.strftime("%d/%m/%y") %></td>
+        </tr>
       <% end %>
-      <%= link_to company_admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
-        <i class="fa-solid fa-trash text-main"></i>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,3 @@
+<%= simple_form_for(user, url: company_admin_user_path(user), action: :update, data: {turbo: false, hidden_form_target: "form"}) do |f| %>
+  <%= f.input :custom_input, label: false, wrapper: false, input_html: {class: "embedded bg-white"} %>
+<% end %>

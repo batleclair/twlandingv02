@@ -1,0 +1,9 @@
+<div class="flex-center-left mb-40 company-sub-menu">
+  <%= link_to "Toutes", company_admin_candidacies_path, class: "button", data: {turbo: false, active: params[:status].nil? && candidacy.nil?} %>
+  |
+  <%= link_to "A traîter", company_admin_candidacies_path(status: :pending), class: "button", data: {turbo: false, active: params[:status] == "pending" || candidacy&.submitted_for_approval?} %>
+  |
+  <%= link_to "Refusées", company_admin_candidacies_path(status: :rejected), class: "button", data: {turbo: false, active: params[:status] == "rejected" || candidacy&.abandonned?} %>
+  |
+  <%= link_to "Validées", company_admin_missions_path, class: "button", data: {turbo: false} %>
+</div>

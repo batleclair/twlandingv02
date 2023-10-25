@@ -1,14 +1,7 @@
-class DashboardPolicy < ApplicationPolicy
-  def super_admin?
-    user.admin?
-  end
+class CompanyAdminPagePolicy < ApplicationPolicy
 
-  def company_admin?
+  def dashboard?
     user.company_admin?
-  end
-
-  def company_user?
-    user.company_user?
   end
 
   class Scope < Scope

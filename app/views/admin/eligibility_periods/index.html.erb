@@ -1,0 +1,51 @@
+<%= render partial: "shared/navpan", locals: {active: 9} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <h3>Périodes d'éligibilité</h3>
+    <p>Liste des périodes d'éligibilité proposées aux salariés</p>
+  </div>
+
+  <%= render partial: "admin/company_edit_menu" %>
+
+  <div class="navpan-white-ctn">
+    <div class="d-flex">
+      <div class="max-w-400 w-100">
+        <h5 class="text-main mb-20">Périodes</h5>
+        <% @periods.each do |period| %>
+          <div class="bg-shade p-10 mb-10 w-100">
+            <h5><%= period.title %></h5>
+            <h6><%= "#{period.start_date.strftime("%m/%Y")} -> #{period.end_date.strftime("%m/%Y")}" %></h6>
+            <p><%= period.comment %></p>
+          </div>
+        <% end %>
+      </div>
+      <div class="ml-40">
+        <h5 class="mb-20">Ajouter une période</h5>
+        <%= simple_form_for([@company, @period], url: admin_company_eligibility_periods_path) do |f| %>
+
+
+          <div class="mb-10">
+            <%= f.input :title %>
+          </div>
+
+          <div class="mb-10">
+            <h6>Dates :</h6>
+            <div class="flex-center-between mb-10" data-controller="flatpickr">
+              <p class="mr-10 no-wrap w-100">Début :</p>
+              <p><%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+            </div>
+            <div class="flex-center-between" data-controller="flatpickr">
+              <p class="mr-10 no-wrap w-100">Fin :</p>
+              <p><%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+            </div>
+          </div>
+
+          <%= f.submit "Ajouter", class: "button btn-main-color" %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

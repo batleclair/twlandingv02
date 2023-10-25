@@ -8,7 +8,7 @@
     </div>
   <% end %>
 
-  <% case mission.last_active_status %>
+  <% case mission.status %>
   <% when "draft" %>
     <div class="max-w-500">
       <% case params[:view] %>

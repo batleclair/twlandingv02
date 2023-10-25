@@ -54,6 +54,16 @@ en:
         skill_list: ""
         volunteering_aknowledged: ""
         status: ""
+      whitelist:
+        input_format: ""
+      employee_application:
+        motivation_msg: ""
+        response_msg: ""
+        status: ""
+      candidacy:
+        motivation_msg: ""
+        status: ""
+        manager_validation: ""
     errors:
       models:
         user:

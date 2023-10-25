@@ -1,0 +1,28 @@
+<% args = @selection.id.nil? ? [@offer, @selection] : @selection %>
+<% method = @selection.id.nil? ? :post : :patch %>
+<% status = @selection.id.nil? ? true : !@selection.active %>
+
+<% if @selection.suggestion? %>
+  <h5>Cette mission vous a été recommandée !</h5>
+<% else %>
+  <% url = @selection.id.nil? ? user_offer_selections_path(@offer) : user_selection_path(@selection) %>
+  <% label = @selection.id.nil? || !@selection.active ? "Ajouter aux <3" : "Retirer des <3" %>
+
+  <%= simple_form_for(args, url: url, method: method, data: {turbo: false}) do |f| %>
+    <%= f.input :active, as: :hidden, input_html: {value: status} %>
+    <%= f.submit label %>
+  <% end %>
+<% end %>
+
+
+<% if current_user.eligibility_on_going? %>
+  <% url = @selection.id.nil? ? user_offer_candidacies_path(@offer) : user_offer_candidacy_path(@offer, @selection) %>
+  <%= simple_form_for(args, url: url, data: {turbo: false}) do |f| %>
+    <div class="position-relative">
+      <%= f.input :motivation_msg, wrapper: false %>
+    </div>
+    <%= f.input :status, as: :hidden, input_html: {value: "user_application"} %>
+    <%= f.submit %>
+  <% end %>
+
+<% end %>

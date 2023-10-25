@@ -2,15 +2,28 @@ class Candidacy < ApplicationRecord
   belongs_to :candidate
   belongs_to :offer
   has_one :beneficiary, through: :offer
-  has_one :mission
+  has_one :mission, dependent: :destroy
   has_one :user, through: :candidate
   has_many :comments, as: :commentable, dependent: :destroy
 
   before_validation :assign_status_to_comment, if: :new_comment?
   validates :candidate_id, uniqueness: { scope: :offer_id, message: "Existe déjà !" }
-  # validates :consent, acceptance: { message: "Veuillez accepter les conditions" }
-  validates :motivation_msg, presence: { message: "Veuillez indiquer la raison de votre refus" }, if: -> { active == false && origin != "company_user" && last_active_status == "selection" }
-  validates :last_active_status, presence: {message: "Votre réponse est requise"}, on: :validation_step
+  validates :motivation_msg, length: { minimum: 1, message: "Veuillez indiquer la raison de votre refus" }, if: -> { active == false && origin != "company_user" && status == "selection" }, on: :validation_step
+  validates :motivation_msg, length: { minimum: 1, message: "Veuillez indiquer vos motivations" }, if: -> { active == true && status == "user_application" }, on: :validation_step
+  validates :status, presence: {message: "Votre réponse est requise"}, on: :validation_step
+  validates :active, length: { minimum: 1, message: "Votre réponse est requise"}
+  validates :manager_validation, acceptance: { message: 'Double-validation requise' }, if: :mission_status?, on: :validation_step
+
+  enum :origin, {company_admin: 0, company_user: 1, admin: 2}, suffix: true
+  enum :status, { selection: 0,
+    user_application: 1, #candidacy submitted to beneficiary
+    beneficiary_application: 2, #beneficiary confirmed interest
+    in_discussions: 3, #cross-intro done
+    beneficiary_validation: 4, #beneficiary confirmed interest, candidate needs to refuse or accept+submit request for company_admin approval
+    user_validation: 5, #request submited awaiting company_admin validation
+    admin_validation: 6,  #request accepted, awaiting mission creation
+    mission: 7 #mission created
+    }, suffix: true
 
   accepts_nested_attributes_for :candidate
   accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: :no_comment_needed
@@ -33,7 +46,7 @@ class Candidacy < ApplicationRecord
   end
 
   def sanitized_status  # à harmoniser avec Paul sur Airtable
-    case last_active_status
+    case status
     when "user_application"
       "7. Intérêt asso"
     when "user_validation"
@@ -50,31 +63,51 @@ class Candidacy < ApplicationRecord
   end
 
   def suggestion?
-    active && last_active_status == "selection" && (origin == "company_admin" || origin == "admin")
+    active && selection_status? && ( company_admin_origin? || admin_origin? )
   end
 
   def selection?
-    active && last_active_status == "selection" && origin == "company_user"
+    active && selection_status? && company_user_origin?
   end
 
   def disliked?
-    !active && last_active_status == "selection"
+    !active && status == "selection"
   end
 
   def abandonned?
-    active == false && last_active_status != "selection"
+    !active && status != "selection"
   end
 
   def in_progress?
-    active && last_active_status != "selection"
+    active && status != "selection"
+  end
+
+  def being_assessed?
+    active && (
+      user_application_status? ||
+      beneficiary_application_status? ||
+      in_discussions_status?
+    )
+  end
+
+  def being_validated?
+    active && (
+      beneficiary_validation_status? ||
+      user_validation_status? ||
+      admin_validation_status?
+    )
+  end
+
+  def submitted_for_approval?
+    active && user_validation_status?
   end
 
   def validated?
-    active && last_active_status == "mission"
+    active && mission_status?
   end
 
   def current_comment
-    comments.find_by(status: last_active_status)
+    comments.find_by(status: status)
   end
 
   def new_comment?
@@ -82,14 +115,45 @@ class Candidacy < ApplicationRecord
   end
 
   def assign_status_to_comment
-    comments.last.status = last_active_status
+    comments.last.status = status
   end
 
   def no_comment_needed(attributes)
     attributes['content'].blank? && (
-      ["user_application", "in_discussions"].include?(last_active_status) ||
       !current_comment.nil? ||
-      (last_active_status == "selection" && origin == "company_user")
+      (user_application_status? || in_discussions_status?) ||
+      (selection_status? && (company_user_origin? || admin_origin?))
     )
+  end
+
+  def self.previous_status(candidacy)
+    if statuses[candidacy.status] == 0
+      return nil
+    else
+      return statuses.key(statuses[candidacy.status] -1)
+    end
+  end
+
+  def self.next_status(candidacy)
+    return statuses.key(statuses[candidacy.status] +1)
+  end
+
+  def created_ago
+    e = (Date.today - Date.parse(created_at.to_s)).to_i
+    if e == 0
+      "aujourd'hui"
+    elsif e == 1
+      "hier"
+    elsif e > 1 && e < 7
+      "#{e} jours"
+    elsif e >= 7 && e < 14
+      "#{e.fdiv(7).floor} semaine"
+    elsif e >= 7 && e < 30
+      "#{e.fdiv(7).floor} semaines"
+    elsif e >= 30 && e <= 365
+      "#{e.fdiv(30).floor} mois"
+    else
+      "+ d'1 an"
+    end
   end
 end

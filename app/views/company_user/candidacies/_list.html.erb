@@ -1,67 +1,25 @@
-<div class="w-100 max-w-300">
-  <div class="mb-40">
-    <h5 class="mb-20">⏳ candidature en cours</h5>
-    <% candidacies.select{|c| c.in_progress? && !c.validated?}.each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
+<div class="w-100 max-w-400">
+  <% @candidacies.each do |c| %>
+    <div class="w-100 p-10 bg-shade mb-10">
+      <%= link_to user_candidacy_path(c), class: "w-100 h-100" do %>
+        <div class="flex-center-left w-100">
+          <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+            <%= cl_image_tag(c.beneficiary.logo.key) %>
           </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">✔️ demandes acceptées</h5>
-    <% candidacies.select{|c| c.validated?}.each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
+          <div class="pe-none w-100">
+            <h6><%= c.offer.beneficiary.name %></h6>
+            <p><%= c.offer.title %></p>
+            <% case %>
+            <% when c.being_assessed? %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-forward-step text-main-light mr-10"></i>En phase de discussions</p>
+            <% when c.being_validated? %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-forward-fast text-main mr-10"></i>En phase de validation</p>
+            <% when c.validated? %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-circle-check text-flag-3 mr-10"></i>Mission validée</p>
             <% end %>
           </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">😥 ça n'est pas allé au bout</h5>
-    <% candidacies.select{|c| c.abandonned?}.each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to candidacy_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

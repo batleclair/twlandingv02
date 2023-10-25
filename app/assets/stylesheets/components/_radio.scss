@@ -154,3 +154,79 @@
 .inline-radio-btns + .invalid-msg{
   bottom: -38px;
 }
+
+
+
+.xl-radio-btns{
+  display: flex;
+  justify-content: space-evenly;
+  .form-check{
+    padding: 0;
+    margin: 0;
+  }
+  input{
+    display: none;
+  }
+  input + label{
+    width: 80px;
+    height: 80px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $first-main-color;
+    color: $first-main-color;
+    transition: 0.2s ease-in-out;
+    background-color: white;
+    outline: solid 3px white;
+    &:hover{
+      transition: 0.2s ease-in-out;
+      cursor: pointer;
+      outline: solid 3px $first-light-color;
+      outline: $first-main-color solid 3px;
+    }
+  }
+  input:checked + label{
+    background-color: $first-main-color;
+    color: white;
+    transform: scale(110%);
+    font-weight: 600;
+  }
+
+  .flag-1-radio + label{
+    border: 1px solid $flag-color-1;
+    color: $flag-color-1;
+    &:hover{
+      outline: $flag-color-1-light solid 3px;
+    }
+  }
+  .flag-1-radio:checked + label{
+    background-color: $flag-color-1;
+    color: white;
+  }
+
+  .flag-2-radio + label{
+    border: 1px solid $flag-color-2;
+    color: $flag-color-2;
+    &:hover{
+      outline: $flag-color-2-light solid 3px;
+    }
+  }
+  .flag-2-radio:checked + label{
+    background-color: $flag-color-2;
+    color: white;
+  }
+
+  .flag-3-radio + label{
+    border: 1px solid $flag-color-3;
+    color: $flag-color-3;
+    &:hover{
+      outline: $flag-color-3-light solid 3px;
+    }
+  }
+  .flag-3-radio:checked + label{
+    background-color: $flag-color-3;
+    color: white;
+  }
+
+}

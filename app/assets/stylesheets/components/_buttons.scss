@@ -146,6 +146,9 @@
   }
 }
 
+.bn-none{
+  border-style: none;
+}
 
 .round-button-sm{
   width: 20px;
@@ -230,4 +233,21 @@
 
 button.fat-btn{
   border: none;
+}
+
+.close-btn-alt{
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+  border-radius: 50em;
+  transition: ease-in-out 0.2s;
+  background-color: rgba(255,255,255,0.2);
+  color: white;
+  transition: ease-in-out 0.2s;
+  &:hover{
+    transition: ease-in-out 0.2s;
+    background-color: rgba(255,255,255,1);
+    color: $first-main-darker;
+  }
 }

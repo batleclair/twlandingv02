@@ -24,7 +24,7 @@
 
   <div class="mb-40">
     <h5 class="mb-20">⏳ à valider</h5>
-    <% missions.where(last_active_status: "draft").each do |mission| %>
+    <% missions.where(status: "draft").each do |mission| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
         <%= link_to company_admin_mission_path(mission), class: "w-100 h-100" do %>
           <div class="pe-none">
@@ -46,7 +46,7 @@
 
   <div class="mb-40">
     <h5 class="mb-20">✔️ validées</h5>
-    <% missions.where(last_active_status: "validated").each do |mission| %>
+    <% missions.where(status: "validated").each do |mission| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
         <%= link_to company_admin_mission_path(mission), class: "w-100 h-100" do %>
           <div class="pe-none">
@@ -68,7 +68,7 @@
 
   <div class="mb-40">
     <h5 class="mb-20">❌ abandonnées</h5>
-    <% missions.where(last_active_status: "abandonned").each do |mission| %>
+    <% missions.where(status: "abandonned").each do |mission| %>
       <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
         <%= link_to company_admin_mission_path(mission), class: "w-100 h-100" do %>
           <div class="pe-none">

@@ -57,6 +57,11 @@ gem "sassc-rails"
 # Use devise for authentication
 gem "devise"
 
+# Ominauth log-in
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
 # Cloudinary for digital asset management
 gem "cloudinary"
 

@@ -2,7 +2,7 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
-  validates :content, presence: true, unless: [:candidacy_exceptions, :mission]
+  validates :content, presence: {message: "Un commentaire est requis"}, unless: [:candidacy_exceptions, :mission]
   validates :commentable_type, uniqueness: {
     scope: [ :commentable_id, :status ],
     message: "Un commentaire a déjà été attribué à ce statut"
@@ -10,9 +10,9 @@ class Comment < ApplicationRecord
 
   def candidacy_exceptions
     candidacy && (
-      commentable.last_active_status == "selection" ||
-      commentable.last_active_status == "user_application" ||
-      commentable.last_active_status == "in_discussions"
+      commentable.selection_status? ||
+      commentable.user_application_status? ||
+      commentable.in_discussions_status?
     )
   end
 

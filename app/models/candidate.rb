@@ -4,8 +4,10 @@ class Candidate < ApplicationRecord
   attr_accessor :volunteering_aknowledged
 
   belongs_to :user
+  has_many :employee_applications, dependent: :destroy
   has_many :candidacies, dependent: :destroy
   has_many :experiences, dependent: :destroy
+  has_many :missions, through: :candidacies, dependent: :destroy
   has_one :company, through: :user
   has_one_attached :cv
   has_one_attached :photo
@@ -16,7 +18,7 @@ class Candidate < ApplicationRecord
   validates :status, presence: { message: "Sélectionnez parmi les options" }, on: [:apply, :profile]
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, on: [:apply, :profile], if: :employed?
   validate :basics, on: [:apply, :profile]
-  validate :cv_file_type
+  validate :cv_file_type, on: [:apply, :profile]
 
   validates :description, presence: { message: "Présentez-vous en quelques mots" }, on: :profile
   validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, on: :profile
@@ -32,6 +34,8 @@ class Candidate < ApplicationRecord
   #   save_to_airtable if first_completion?
   # end
   # after_update :save_to_airtable, if: :first_completion?
+
+  enum :call_status, { pending: 0, booked: 1, done: 3 }, prefix: true
 
   FUNCTIONS = Offer::FUNCTIONS
 

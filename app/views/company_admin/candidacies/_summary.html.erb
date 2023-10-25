@@ -1,58 +1,53 @@
-<div class="pl-40 w-100">
-  <div class="mb-40">
-    <h5>Demande de Mission</h5>
-    <h6>Salarié : <%= @candidacy.candidate.full_name %></h6>
-    <h6>Association : <%= @candidacy.beneficiary.name %></h6>
-    <h6>Message du candidat :</h6>
-    <p><%= @candidacy_on_record.current_comment.content if @candidacy_on_record.current_comment.present? %></p>
-  </div>
+<% bg_img = @candidacy.beneficiary.photo.attached? ? cl_image_path(@candidacy.beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
+<% b_logo = @candidacy.beneficiary.logo.attached? ? cl_image_tag(@candidacy.beneficiary.logo.key, alt:"logo de l'association #{@candidacy.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
 
-  <div class="mb-40">
-    <h5>Mission :</h5>
-    <p>Date de démarrage envisagée : <%= @candidacy.req_start_date %></p>
-    <p>Estimation du nombre de jours requis : <%= @candidacy.req_days %> jours</p>
-    <p>Périodicité envisagée : <%= @candidacy.req_periodicity %></p>
-    <p>Contenu de la mission : <%= @candidacy.req_description %></p>
-  </div>
+<div class="mb-40 w-100 max-w-400">
 
-  <% if @candidacy_on_record.active %>
-
-    <% case @candidacy_on_record.last_active_status %>
-    <% when "user_validation" %>
-      <%= simple_form_for(@candidacy, url: company_admin_candidacy_path(@candidacy), action: :update, data: {turbo: false}) do |f| %>
-        <%= f.input :manager_validation, as: :boolean %>
-        <%= f.input :last_active_status,
-              as: :radio_buttons,
-              legend_tag: false,
-              label: false,
-              collection: [['Valider', "mission"], ['Refuser', "admin_validation"]],
-              required: true %>
-        <%= f.input :admin_validation_date, as: :hidden, input_html: {value: Date.today} %>
-        <%= f.input :active, as: :hidden, input_html: {value: false} %>
-        <%= f.simple_fields_for :comments, @comment do |c| %>
-          <%= c.input :content, label: "Message", wrapper_html: {class: "position-relative"} %>
-        <% end %>
-        <%= f.submit %>
-      <% end %>
-    <% when "mission" %>
-      <div class="mb-40">
-        <h6>Cette mission a été validée !</h6>
-        <p class="mb-20">Message : <%= @candidacy.admin_validation_message %></p>
-        <h6 class="mb-10">Retrouvez les informations relatives à la mission ici :</h6>
-        <% if @candidacy.mission.present? %>
-          <%= link_to "Editer", company_admin_mission_path(@candidacy.mission), class:"button btn-main-color" %>
-        <% else %>
-          <%= link_to "Créer", new_company_admin_candidacy_mission_path(@candidacy), class:"button btn-main-color" %>
-        <% end %>
-      </div>
+  <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="pt-40 pb-40 pl-20 pr-20 banner-bg position-relative">
+    <%= link_to :back do %>
+      <i class="fa-solid fa-xmark close-btn-alt square-30 flex-center"></i>
     <% end %>
-
-  <% else %>
-    <div class="mb-40">
-      <h6>Cette mission a été refusée à votre salarié pour la raison suivante :</h6>
-      <p><%= @candidacy_on_record.current_comment.content if @candidacy_on_record.current_comment.present? %></p>
+    <div class="flex-center-left">
+      <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+        <%= cl_image_tag(@candidacy.beneficiary.logo.key) %>
+      </div>
+      <div class="text-white">
+        <h5><%= @candidacy.offer.beneficiary.name %></h5>
+        <h6><%= @candidacy.offer.title %></h6>
+        <p class="fw-3 fs-13 text-white"><i class="fa-solid fa-hand-holding-heart mr-10"></i><%= @candidacy.beneficiary.cause %></p>
+      </div>
     </div>
-    <p>Veuillez nous contacter si vous souhaitez réévaluer la demande</p>
-  <% end %>
+    <p class="bottom-right text-white fs-12 mr-10 mb-10">Demande du <%= @candidacy.created_at.strftime("%d/%m/%Y") %></p>
+  </div>
+
+  <div class="bg-grey p-20">
+    <table class="max-w-400">
+      <tbody class="va-top">
+        <tr>
+          <th class="pr-10">👩‍💼</th>
+          <th class="pr-10 no-wrap">Salarié.e :</th>
+          <td><%= @candidacy.candidate.full_name %></td>
+        </tr>
+        <tr>
+          <th class="pr-10">💼</th>
+          <th class="pr-10 no-wrap">Poste :</th>
+          <td><%= @candidacy.candidate.title %></td>
+        </tr>
+        <tr>
+          <th class="pr-10">💬</th>
+          <th class="pr-10 no-wrap">Message :</th>
+          <td><%= @candidacy_on_record.current_comment&.content %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-shade p-20">
+    <%= @candidacy.offer.summary %>
+  </div>
+
+  <div class="bg-shade p-20 w-100 mb-40">
+    <%= link_to "Voir les infos", company_admin_offer_path(@candidacy.offer), class: "button-round btn-light-main center-margin" %>
+  </div>
 
 </div>

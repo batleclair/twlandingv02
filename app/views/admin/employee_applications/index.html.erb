@@ -35,9 +35,9 @@
               <td><%= e.motivation_msg %></td>
               <td>
                 <div class="d-flex justify-content-center">
-                  <% if e.approved? %>
+                  <% if e.approved_status? %>
                     <i class="fa-solid fa-circle-check green-color"></i>
-                  <% elsif e.pending? %>
+                  <% elsif e.pending_status? %>
                     <i class="fa-solid fa-circle-question red-color"></i>
                   <% else %>
                     <i class="fa-sharp fa-solid fa-circle-xmark grey-color"></i>
