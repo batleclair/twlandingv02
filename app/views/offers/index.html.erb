@@ -94,23 +94,19 @@
         </div>
         <% @offers.each do |offer| %>
           <%= link_to offers_path(@params.merge!(id: offer.id)), data: {"search-form-target": "card", active: offer == @offer, id: offer.id, action: "click->search-form#preview", destination: (offer.active? ? offer_path(offer) : '')}, class:"flat-card-bg" do %>
-            <div class="p-3 d-flex mt-2 mb-2 pe-none">
-              <div class="logo-box square-80 flex-shrink-0">
-                <%= offer.beneficiary.logo.attached? && offer.active? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
-              </div>
-              <div class="ps-3 flat-card-text full-width">
-                <div class="d-flex justify-content-between full-width">
+            <div class="flex-between mt-2 mb-2 p-3 pe-none">
+              <div class="flex-center-left">
+                <div class="logo-box square-80 flex-shrink-0">
+                  <%= offer.beneficiary.logo.attached? && offer.active? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
+                </div>
+                <div class="ps-3 flat-card-text w-100">
                   <h5><%= offer.title %></h5>
-                  <% if offer.active? %>
-                    <h5 class="text-main fw-7 when-active">+</h5>
-                  <% end %>
-                </div>
-                <p class="text-main">💜 <%= offer.beneficiary.cause %></p>
-                <div class="flex-resp">
-                  <p><%= offer.commitment_output %></p>
-                  <p class="mg-resp-l">📍 <%= offer.location %></p>
+                  <p class="text-main"><%= offer.beneficiary.cause %></p>
                 </div>
               </div>
+              <% if offer.active? %>
+                <h5 class="text-main fw-7 when-active">+</h5>
+              <% end %>
             </div>
           <% end %>
         <% end %>

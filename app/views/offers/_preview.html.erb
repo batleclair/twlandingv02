@@ -14,7 +14,7 @@
       <h5 class="mb-5 text-main">Laissez-nous trouver pour vous !</h5>
       <p class="mb-3">Nos associations partenaires ont régulièrement de nouveaux besoins.</p>
       <p class="mb-40">Faites nous part de vos compétences et de vos aspirations en matière d'engagement. Nous pourrons ainsi vous proposer des missions adaptées dès qu'elles sont disponibles !</p>
-      <%= render partial: "apply", locals: {offer: offer} %>
+      <%= render partial: "offers/apply", locals: {offer: offer} %>
     </div>
   <% else %>
     <a class="close-btn btn-round-cta mobile-only" href=<%= offers_path(request.query_parameters.except(:id)) %> data-search-form-target="close" data-action="click->search-form#close"><i class="fa-solid fa-xmark"></i></a>
@@ -26,7 +26,7 @@
         <h6 class="text-main me-1">Engagement</h6>
         <p>⏲️ <%= offer.frequency_output %>  📅 <%= offer.duration_output %></p>
       </div>
-      <%= render partial: "apply", locals: {offer: offer} %>
+      <%= render partial: "offers/apply", locals: {offer: offer} %>
     </div>
 
     <% if offer.active? %>

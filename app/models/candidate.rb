@@ -36,6 +36,8 @@ class Candidate < ApplicationRecord
   # after_update :save_to_airtable, if: :first_completion?
 
   enum :call_status, { pending: 0, booked: 1, done: 3 }, prefix: true
+  accepts_nested_attributes_for :candidacies
+
 
   FUNCTIONS = Offer::FUNCTIONS
 

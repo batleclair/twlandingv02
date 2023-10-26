@@ -104,6 +104,22 @@ class CandidatesController < ApplicationController
     end
   end
 
+  def apply
+    @candidate = current_user.candidate.nil? ? Candidate.new : current_user.candidate
+    authorize @candidate
+    @candidate.assign_attributes(candidate_params)
+    @offer = Offer.find_by(slug: params[:slug])
+    @candidacy = @candidate.candidacies.last
+    @candidacy.offer = @offer
+    if @candidate.save
+      redirect_to candidacy_path(@candidacy)
+    else
+      set_index
+      @modal_open = true
+      render "offers/index"
+    end
+  end
+
   def destroy
     @candidate = Candidate.find(params[:id])
     @candidate.destroy
@@ -148,7 +164,7 @@ class CandidatesController < ApplicationController
       :volunteering_aknowledged,
       primary_cause: [],
       secondary_cause: [],
-      candidacy_attributes: [:motivation_msg]
+      candidacies_attributes: [:motivation_msg]
     )
   end
 

@@ -34,16 +34,6 @@
   }
 }
 
-.btn-flag-color {
-  background-color: $first-flag-color;
-  border: solid 1px $first-flag-color;
-  color: white;
-  &:hover {
-    color: white;
-    background-color: $first-flag-darker;
-  }
-}
-
 .btn-light-main{
   background-color: white;
   border: solid 1px $first-main-color;
@@ -54,14 +44,6 @@
   }
 }
 
-.btn-light-flag{
-  background-color: white;
-  border: solid 1px $first-flag-color;
-  color: $first-flag-color;
-  &:hover {
-    color: $first-flag-darker;
-  }
-}
 
 @media(max-width: 720px) {
   .button {
@@ -69,15 +51,6 @@
   }
 }
 
-.btn-white-on-main {
-  background-color: $first-main-color;
-  border: solid 2px white;
-  color: white;
-  &:hover {
-    color: $first-main-color;
-    background-color: white;
-  }
-}
 
 .button-round{
   border-radius: 50px;
@@ -249,5 +222,12 @@ button.fat-btn{
     transition: ease-in-out 0.2s;
     background-color: rgba(255,255,255,1);
     color: $first-main-darker;
+  }
+}
+
+.white-to-shade-bg{
+  background-color: white;
+  &:hover{
+    background-color: $first-light-lighter;
   }
 }

@@ -24,6 +24,10 @@ class CandidatePolicy < ApplicationPolicy
     create?
   end
 
+  def apply?
+    user.candidate.blank? || record.user == user
+  end
+
   def completed?
     record.user == user && record.profile_completed
   end

@@ -1,20 +1,23 @@
 <%= f.error_notification %>
 <div class="mb-10 position-relative">
   <%= f.input :first_name,
-              label: "Prénom",
+              placeholder: "Prénom",
+              label: false,
               wrapper: false,
               required: true %>
 </div>
 <div class="mb-10 position-relative">
   <%= f.input :last_name,
-              label: "Nom",
+              placeholder: "Nom",
+              label: false,
               wrapper: false,
               required: true %>
 </div>
 <div class="input-with-icon mb-10 position-relative">
   <%= f.input :email,
               required: true,
-              label: "Adresse mail",
+              placeholder: "Adresse mail",
+              label: false,
               wrapper: false,
               input_html: { autocomplete: "email" } %>
     <i class="fa-regular fa-envelope"></i>
@@ -23,7 +26,8 @@
   <%= f.input :password,
               required: true,
               wrapper: false,
-              label: "Mot de passe",
+              placeholder: "Mot de passe",
+              label: false,
               input_html: { autocomplete: "new-password", data: {"password-target": "input"} } %>
   <i class="fa-solid fa-lock"></i>
   <i class="fa-regular fa-eye-slash min-w-20 text-center" data-action="click->password#toggle"></i>
@@ -32,7 +36,8 @@
   <%= f.input :password_confirmation,
               required: true,
               wrapper: false,
-              label: "Confirmation",
+              placeholder: "Confirmation",
+              label: false,
               input_html: { autocomplete: "new-password", data: {"password-target": "input"} } %>
   <i class="fa-solid fa-lock"></i>
   <i class="fa-regular fa-eye-slash min-w-20 text-center" data-action="click->password#toggle"></i>

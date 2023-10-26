@@ -1,4 +1,4 @@
-<div class="modal" data-modal-target="window" data-candidacy-target="window" data-action="click->modal#close" data-open=<%= true %>>
+<div class="modal" data-modal-target="window" data-candidacy-target="window" data-action="click->modal#close" data-open=<%= !@modal_open.nil? %>>
   <div>
     <div class="max-w-400 bg-white round-10 shadow-xl p-20" data-action="click->modal#keep">
       <div class="flex-center-between mb-20">
@@ -6,9 +6,7 @@
         <i class="fa-solid fa-xmark text-main square-30 first-main-border round flex-shrink-0 flex-center" data-modal-target="close" data-action="click->modal#close"></i>
       </div>
 
-      <% method = user_signed_in? && current_user&.candidate&.present? ? :patch : :post %>
-      <% url = user_signed_in? && current_user&.candidate&.present? ? candidates_synch_update_path(@candidate) : candidates_synch_create_path %>
-      <%= simple_form_for(@candidate, method: method, url: url, data: {offer: offer.slug, "candidacy-target": "form"}) do |f| %>
+      <%= simple_form_for(@candidate, url: candidate_apply_path(@offer), method: :post, data: {turbo: false}) do |f| %>
 
         <%= render partial: "candidates/min_info", locals: {f: f, candidate: @candidate} %>
 
@@ -19,12 +17,13 @@
           <i class="fa-solid fa-phone"></i>
         </div>
 
-        <%= f.simple_fields_for([offer, candidacy]) do |c| %>
-          <%  c.input :motivation_msg,
+        <%= f.simple_fields_for :candidacies, @candidacy do |c| %>
+          <%=  c.input :motivation_msg,
                       label: "Mes motivations" %>
         <% end %>
 
-        <button type="submit" class="fat-btn fat-btn-md fat-btn-main-color position-relative d-flex justify-content-between align-items-center w-100 mt-20" data-action="click->candidacy#submit">
+        <%# <button type="submit" class="fat-btn fat-btn-md fat-btn-main-color position-relative d-flex justify-content-between align-items-center w-100 mt-20" data-action="click->candidacy#submit"> %>
+        <button type="submit" class="fat-btn fat-btn-md fat-btn-main-color position-relative d-flex justify-content-between align-items-center w-100 mt-20">
           <span></span>
           <strong class="fw-5">Envoyer</strong>
           <i class="fa-regular fa-paper-plane round-button bg-white"></i>

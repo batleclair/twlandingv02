@@ -93,6 +93,7 @@ Rails.application.routes.draw do
     post "candidates/synch", to: "candidates#synch_create", as: :candidates_synch_create
     patch "candidates/:id/synch", to: "candidates#synch_update", as: :candidates_synch_update
     # patch "candidates/:id/synch_min", to: "candidates#synch_update_min"
+    # post "offers/:slug/candidates", to: "candidates#apply", as: :candidate_apply
     get "users/situation", to: "candidates#edit"
     get "users/skills", to: "candidates#skillset"
     get "users/wishes", to: "candidates#wishes"
@@ -112,7 +113,7 @@ Rails.application.routes.draw do
       resources :candidacies, only: :create
     end
     resources :candidacies, only: :show
-    post "offers/:id/check", to: "candidacies#check", as: :candidacy_check
+    # post "offers/:id/check", to: "candidacies#check", as: :candidacy_check
     get '/offers', to: redirect('/missions')
     get '/offers/:slug', to: redirect('/missions/%{slug}')
 

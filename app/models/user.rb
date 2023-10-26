@@ -81,7 +81,7 @@ class User < ApplicationRecord
   end
 
   def pre_approved?
-    company.whitelists.find_by(input_type: :email, input_format: email)&.pre_approval
+    company&.whitelists&.find_by(input_type: :email, input_format: email)&.pre_approval
   end
 
   def create_pre_approved_candidate
