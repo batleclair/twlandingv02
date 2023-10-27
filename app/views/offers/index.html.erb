@@ -95,7 +95,7 @@
         <% @offers.each do |offer| %>
           <%= link_to offers_path(@params.merge!(id: offer.id)), data: {"search-form-target": "card", active: offer == @offer, id: offer.id, action: "click->search-form#preview", destination: (offer.active? ? offer_path(offer) : '')}, class:"flat-card-bg" do %>
             <div class="flex-between mt-2 mb-2 p-3 pe-none">
-              <div class="flex-center-left">
+              <div class="flex-center-left w-100">
                 <div class="logo-box square-80 flex-shrink-0">
                   <%= offer.beneficiary.logo.attached? && offer.active? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
                 </div>

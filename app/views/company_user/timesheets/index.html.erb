@@ -3,3 +3,5 @@
 </div>
 
 <%= render partial: "calendar" %>
+
+<p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>

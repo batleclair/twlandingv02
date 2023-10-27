@@ -231,3 +231,9 @@ button.fat-btn{
     background-color: $first-light-lighter;
   }
 }
+
+.white-to-shade-bg.text-main{
+  &:hover{
+    color: $first-main-color;
+  }
+}

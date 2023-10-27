@@ -25,6 +25,9 @@ application.register("contact", ContactController)
 import DisplayController from "./display_controller"
 application.register("display", DisplayController)
 
+import DualSliderController from "./dual_slider_controller"
+application.register("dual-slider", DualSliderController)
+
 import DynamicFormController from "./dynamic_form_controller"
 application.register("dynamic-form", DynamicFormController)
 

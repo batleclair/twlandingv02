@@ -1,38 +1,26 @@
-<div class="d-flex" data-controller="display">
-  <%= render partial: "company_user/missions/list", locals: {missions: @missions} %>
-
-  <div class="ml-40 d-flex" data-controller="timesheet" data-timesheet-date-value=<%= date %> data-drawable="false">
-    <div class="position-relative time-slider-ctn mb-40">
-      <table cellpadding=0 class="w-50 main-time-slider-table">
-        <% for i in 8..20 do %>
-          <tr>
-            <th class="pr-10"><%= "#{i}H" %></th>
-            <td>
-              <table cellpadding=0 class="time-slider-table">
-                <tr data-action="mouseover->timesheet#select"><td data-timesheet-target="slot" data-time=<%="#{i}:00"%> data-action="click->timesheet#set" data-selectable=<%="#{(i-8)*2}"%> data-selected=""></td></tr>
-                <tr data-action="mouseover->timesheet#select"><td data-timesheet-target="slot" data-time=<%="#{i}:30"%> data-action="click->timesheet#set" data-selectable=<%="#{(i-8)*2+1}"%> data-selected=""></td></tr>
-              </table>
-            </td>
-          </tr>
-        <% end %>
-      </table>
+<%= simple_form_for([@mission, @timesheet], url: url) do |f| %>
+  <div data-controller="dual-slider" data-dual-slider-date-value=<%= date %>>
+    <div class="dual-slider mb-20">
+      <%= range_field_tag :start, 9, min: 8, max: 20, step: 0.5, data: {dual_slider_target: "start", action: "input->dual-slider#update"}  %>
+      <%= range_field_tag :end, 18, min: 8, max: 20, step: 0.5, data: {dual_slider_target: "end", action: "input->dual-slider#update"}  %>
     </div>
 
     <div>
-      <%= simple_form_for([@mission, @timesheet], url: url) do |f| %>
-        <%= f.input :start_time, as: :string, input_html: {"data-timesheet-target": "inputmin"} %>
-        <%= f.input :end_time, as: :string, input_html: {"data-timesheet-target": "inputmax"} %>
+        <%= f.input :start_time, as: :string, input_html: {data: {dual_slider_target: "startinput"}} %>
+        <%= f.input :end_time, as: :string, input_html: {data: {dual_slider_target: "endinput"}} %>
         <%= f.input :comment %>
-        <%= f.submit %>
-        <%= link_to "Annuler", :back %>
-      <% end %>
-      <% if deletable %>
-        <div class="w-100 flex-center mt-40">
-          <%= link_to "Suppr ?", user_mission_timesheet_path(id: @timesheet.id), class: "button bg-flag-2 text-white", data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} %>
-        </div>
-      <% end %>
+
     </div>
 
   </div>
+  <button type="submit", class="w-100 button round first-main-border white-to-shade-bg text-main">
+    <i class="fa-solid fa-floppy-disk mr-10"></i>
+    Enregistrer les informations saisies
+  </button>
+<% end %>
 
-</div>
+<% if deletable %>
+  <div class="w-100 flex-center mt-60 mb-40">
+    <%= link_to "Supprimer ces temps ?", user_mission_timesheet_path(id: @timesheet.id), class: "button text-flag-2 fw-6", data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} %>
+  </div>
+<% end %>

@@ -1,13 +1,8 @@
-<div class="mb-20">
-  <h6>Bravo 👏</h6>
-  <p>Vous avez déclaré <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>
-</div>
-
 <div class="mb-20 fit-content">
   <%= month_calendar(events: @timesheets, end_attribute: :end_time) do |date, timesheets| %>
     <div class="w-100 h-100" class=<%= date.month %>>
       <% if timesheets.empty? %>
-        <%= link_to date.day, new_user_mission_timesheet_path(start_date: date) %>
+        <%= link_to date.day, new_user_mission_timesheet_path(start_date: date), data: {selected: @timesheet&.start_time&.to_date == date} %>
       <% else %>
         <% timesheets.each do |timesheet| %>
           <%= link_to date.day, user_mission_timesheet_path(id: timesheet.id, start_date: timesheet.start_time.to_date), data: { present: "true", selected: @timesheet == timesheet } %>

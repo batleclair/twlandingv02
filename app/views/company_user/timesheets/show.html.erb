@@ -1,18 +1,35 @@
-<div class="d-flex" data-controller="display">
-  <%= render partial: "company_user/missions/list", locals: {missions: @missions} %>
-  <div class="ml-40">
-    <%= render partial: "calendar" %>
-    <div class="flex-center-between">
-      <div>
-        <h6><%= @timesheet.start_time.strftime("%d-%m-%Y") %></h6>
-        <p><%= @timesheet.start_time.strftime("%H:%M") %> -> <%= @timesheet.end_time.strftime("%H:%M") %> (<%= @timesheet.reported_hours %> heures)</p>
-        <p>Commentaire : <%= @timesheet.comment.blank? ? "Aucun commentaire" : @timesheet.comment %></p>
-      </div>
-      <div>
-        <%= link_to edit_user_mission_timesheet_path(id: @timesheet.id) do %>
-          <i class="fa-solid fa-pen-to-square round-button btn-round-cta"></i>
-        <% end %>
-      </div>
+<div class="mb-20">
+  <%= render partial: "company_user/missions/tabs" %>
+</div>
+
+
+<div class="d-flex">
+  <%= render partial: "calendar" %>
+  <div class="max-w-400 ml-40">
+    <div class="mb-30">
+      <h4 class="text-main fw-7 mb-10">Bravo 👏</h5>
+      <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @timesheet.reported_hours %> heures</span> ce jour là.</p>
     </div>
+    <table class="mb-30">
+      <tbody class="va-top">
+        <tr>
+          <th class="pr-10">📅</th>
+          <td class="fw-6 text-main"><%= @timesheet.start_time.strftime("%d-%m-%Y") %></td>
+        </tr>
+        <tr>
+          <th class="pr-10">⏲️</th>
+          <td class="fw-3"><%= @timesheet.start_time.strftime("%Hh%M") %> -> <%= @timesheet.end_time.strftime("%Hh%M") %></td>
+        </tr>
+        <tr>
+          <th class="pr-10">💬</th>
+          <td class="fw-3"><%= @timesheet.comment.blank? ? "Aucun commentaire" : @timesheet.comment %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <%= link_to edit_user_mission_timesheet_path(id: @timesheet.id), class: "w-100 button round first-main-border white-to-shade-bg text-main" do %>
+      <i class="fa-solid fa-pen-to-square"></i>
+      Modifier les informations saisies
+    <% end %>
   </div>
 </div>
