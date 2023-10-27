@@ -20,9 +20,9 @@
   <div class="w-100 flex-center mb-40">
     <h6 class="button-round bg-flag-3 text-white">User</h6>
   </div>
-  <%= link_to "Accueil", root_path %>
-  <%= link_to "Recherche", user_offers_path %>
-  <%= link_to "Mes sélections", user_selections_path %>
-  <%= link_to "Mes candidatures", user_candidacies_path %>
-  <%= link_to "Ma mission", user_mission_path(current_user.missions.last) %>
+  <%= link_to "Accueil", root_path, data: {active: @tab == 0} %>
+  <%= link_to "Recherche", user_offers_path, data: {active: @tab == 1}  %>
+  <%= link_to "Mes sélections", user_selections_path, data: {active: @tab == 2}  %>
+  <%= link_to "Mes candidatures", user_candidacies_path, data: {active: @tab == 3}  %>
+  <%= link_to "Ma mission", user_mission_path(current_user.missions.last), data: {active: @tab == 4} %>
 </div>

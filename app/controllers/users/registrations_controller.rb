@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # prepend_before_action :check_captcha, only: :create
   # after_action :log_event, only: :create
   prepend_before_action :authenticate_scope!, only: [:info, :edit]
-  invisible_captcha only: [:create], on_timestamp_spam: :custom_spam_callback
+  invisible_captcha only: [:create], honeypot: :secret_question
 
 
   def new
@@ -120,9 +120,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def daily_limit?
     count = User.where(created_at: (Time.now - 1.day)..).length
     return count > 50
-  end
-
-  def custom_spam_callback
-    session[:invisible_captcha_timestamp] = 5.seconds.from_now(Time.zone.now).iso8601
   end
 end

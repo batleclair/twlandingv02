@@ -5,6 +5,7 @@
 class CompanyUser::CandidaciesController < CompanyUserController
   include ControllerUtilities
   before_action :set_candidacy, except: [:index, :index_selection, :create]
+  before_action :set_tab, only: [:show, :index]
 
   def index
     set_candidacies
@@ -56,6 +57,10 @@ class CompanyUser::CandidaciesController < CompanyUserController
   def set_candidacy
     @candidacy = Candidacy.find(params[:id])
     authorize @candidacy
+  end
+
+  def set_tab
+    @tab = 3
   end
 
   def set_candidacies

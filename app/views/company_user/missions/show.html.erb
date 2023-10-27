@@ -1,4 +1,5 @@
-<div class="d-flex">
-  <%= render partial: "list", locals: {missions: @missions} %>
-  <div><%= render partial: "summary", locals: {mission: @mission} %></div>
+<div class="mb-20">
+  <%= render partial: "company_user/missions/tabs" %>
 </div>
+
+<%= render partial: "summary", locals: {mission: @mission} %>

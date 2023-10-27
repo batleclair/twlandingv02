@@ -29,7 +29,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= user.created_at.strftime("%d/%m/Y - (%H:%M)") %></td>
+              <td><%= user.created_at.strftime("%d/%m/%Y - (%H:%M)") %></td>
               <td><%= user.id %></td>
               <td><%= user.first_name %></td>
               <td><%= user.last_name %></td>

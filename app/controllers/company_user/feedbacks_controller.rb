@@ -1,5 +1,7 @@
 class CompanyUser::FeedbacksController < CompanyUserController
   before_action :set_feedback_and_mission, only: [:new, :create]
+  before_action :set_tab, only: [:new, :edit]
+
 
   def new
     @answer = Answer.new
@@ -42,6 +44,10 @@ class CompanyUser::FeedbacksController < CompanyUserController
     @mission = Mission.find(params[:user_mission_id])
     @feedback.mission = @mission
     authorize @feedback
+  end
+
+  def set_tab
+    @tab = 4
   end
 
   def feedback_params

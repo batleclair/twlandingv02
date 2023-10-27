@@ -1,6 +1,5 @@
-<div class="d-flex" data-controller="display">
-  <%= render partial: "company_user/missions/list", locals: {missions: @missions} %>
-  <div class="ml-40">
-    <%= render partial: "calendar" %>
-  </div>
+<div class="mb-20">
+  <%= render partial: "company_user/missions/tabs" %>
 </div>
+
+<%= render partial: "calendar" %>

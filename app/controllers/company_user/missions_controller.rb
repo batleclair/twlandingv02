@@ -1,6 +1,7 @@
 class CompanyUser::MissionsController < CompanyUserController
   before_action :set_missions, only: [:index, :show, :new]
   before_action :set_mission, only: [:show, :edit, :update]
+  before_action :set_tab, only: [:show, :index, :confirm]
 
   def index
   end
@@ -9,6 +10,7 @@ class CompanyUser::MissionsController < CompanyUserController
   end
 
   def show
+    @sub_tab = 0
   end
 
   def update
@@ -19,6 +21,7 @@ class CompanyUser::MissionsController < CompanyUserController
   end
 
   def confirm
+    @sub_tab = 2
     @mission = Mission.find(params[:user_mission_id])
     session[:proceed_with_ending] = user_mission_confirmation_path(step: 2)
     authorize @mission
@@ -33,6 +36,10 @@ class CompanyUser::MissionsController < CompanyUserController
 
   def set_missions
     @missions = policy_scope(Mission)
+  end
+
+  def set_tab
+    @tab = 4
   end
 
   def mission_params

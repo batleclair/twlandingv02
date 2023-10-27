@@ -2,10 +2,12 @@ class CompanyUser::TimesheetsController < CompanyUserController
   before_action :set_missions, only: [:index, :new, :show, :edit]
   before_action :set_timesheet, only: [:show, :edit, :update, :destroy]
   before_action :set_calendar, only: [:index, :show]
+  before_action :set_tab, only: [:index, :new, :show, :edit]
 
   def index
     @mission = Mission.find(params[:user_mission_id])
     session.delete(:proceed_with_ending)
+    @sub_tab = 1
   end
 
   def new
@@ -71,6 +73,10 @@ class CompanyUser::TimesheetsController < CompanyUserController
   def set_calendar
     start_date = params.fetch(:start_date, Date.today).to_date
     @timesheets = policy_scope(Timesheet).where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+  end
+
+  def set_tab
+    @tab = 4
   end
 
   def timesheet_params

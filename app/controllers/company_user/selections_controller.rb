@@ -2,6 +2,7 @@ class CompanyUser::SelectionsController < CompanyUserController
   include ControllerUtilities
   before_action :set_selection, only: [:show, :update]
   before_action :set_selections, only: [:show, :index]
+  before_action :set_tab, only: [:show, :index]
 
   def index
   end
@@ -54,6 +55,10 @@ class CompanyUser::SelectionsController < CompanyUserController
 
   def set_active_upon_application
     @selection.active = true if @selection.status == "user_application" && @selection_on_record.status == "selection"
+  end
+
+  def set_tab
+    @tab = 2
   end
 
   def set_selections

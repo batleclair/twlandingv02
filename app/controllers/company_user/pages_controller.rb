@@ -1,4 +1,5 @@
 class CompanyUser::PagesController < CompanyUserController
+before_action :set_tab, except: :book_call
 
   def dashboard
     authorize :company_user_page
@@ -7,7 +8,6 @@ class CompanyUser::PagesController < CompanyUserController
     else
       redirect_to user_onboarding_path
     end
-
   end
 
   def on_boarding
@@ -26,6 +26,10 @@ class CompanyUser::PagesController < CompanyUserController
   end
 
   private
+
+  def set_tab
+    @tab = 0
+  end
 
   def on_boarding_completed?
     !current_user.never_applied? &&

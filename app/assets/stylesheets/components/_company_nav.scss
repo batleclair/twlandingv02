@@ -25,6 +25,16 @@
     padding-left: 2vw;
     padding-right: 2vw;
     }
+  [data-active="true"]{
+    font-weight: 700;
+    color: $first-main-color;
+    position: relative;
+    &::before{
+      content: "▌";
+      position: absolute;
+      left: -15px;
+    }
+  }
 }
 
 .company-content-ctn{

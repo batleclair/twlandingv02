@@ -1,0 +1,7 @@
+<div class="flex-center-left mb-40 company-sub-menu">
+  <%= link_to "Infos", user_mission_path(@mission), class: "button", data: {turbo: false, active: @sub_tab == 0} %>
+  |
+  <%= link_to "Reporting", user_mission_timesheets_path(@mission), class: "button", data: {turbo: false, active: @sub_tab == 1 } %>
+  |
+  <%= link_to "Fin de Mission", user_mission_confirmation_path(@mission), class: "button", data: {turbo: false, active: @sub_tab == 2 } %>
+</div>
