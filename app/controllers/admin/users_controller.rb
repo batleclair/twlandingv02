@@ -15,7 +15,6 @@ class Admin::UsersController < AdminController
   def create
     @user = User.new(user_params)
     authorize @user
-    @user.candidate.admin_bypass_validation = true if @user.candidate.present?
     @user.set_temp_password
     if @user.save
       @token = @user.password_invite_token
@@ -31,7 +30,6 @@ class Admin::UsersController < AdminController
     @user = User.find(params[:id])
     authorize @user
     @user.update(user_params)
-    @user.candidate.admin_bypass_validation = true if @user.candidate.present?
     if @user.save
       redirect_to admin_users_path
     else
