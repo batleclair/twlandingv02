@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <% if Rails.env = "development" %>
+      <% if Rails.env == "development" %>
         <%= render partial: "devise/shared/google_sso" %>
 
         <div class="separator w-50 center-margin center-text mb-15">
