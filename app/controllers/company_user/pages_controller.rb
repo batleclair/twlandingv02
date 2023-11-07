@@ -1,5 +1,5 @@
 class CompanyUser::PagesController < CompanyUserController
-before_action :set_tab, except: :book_call
+before_action :set_tab, except: [:book_call, :no_mission]
 
   def dashboard
     authorize :company_user_page
@@ -23,6 +23,15 @@ before_action :set_tab, except: :book_call
   def book_call
     authorize :company_user_page
     current_user.candidate.call_status_booked!
+  end
+
+  def no_mission
+    authorize :company_user_page
+    if current_user.candidate.active_mission
+      redirect_to user_mission_path(@active_engagement)
+    else
+      @tab = 4
+    end
   end
 
   private

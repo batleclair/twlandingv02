@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_11_094848) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_01_104010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -255,8 +255,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_094848) do
     t.boolean "employee_approval"
     t.integer "termination_cause"
     t.text "termination_comment"
-    t.boolean "time_confirmation", default: false
-    t.boolean "termination_confirmation", default: false
+    t.boolean "time_confirmation"
+    t.boolean "termination_confirmation"
     t.integer "status", default: 0
     t.index ["candidacy_id"], name: "index_missions_on_candidacy_id"
   end

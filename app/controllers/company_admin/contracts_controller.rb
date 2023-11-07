@@ -13,7 +13,7 @@ private
 def after_destroy_path
   case @contract.contractable_type
   when "Mission"
-    company_admin_mission_path(@contract.contractable, view: "documents")
+    company_admin_mission_documents_path(@contract.contractable, view: params[:view])
   else
     root_path
   end

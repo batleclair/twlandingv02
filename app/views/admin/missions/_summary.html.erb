@@ -1,0 +1,18 @@
+<%= render partial: "shared/navpan", locals: {active: 10} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <div>
+      <h3>Mission</h3>
+      <p>💜 <%= @mission.beneficiary.name %> - <%= @mission.title %></p>
+      <p>🧒 <%= @mission.candidate.full_name %> (<%= @mission.candidate.company.name %>)</p>
+    </div>
+    <div class="flex-center-left company-sub-menu">
+      <%= link_to "Général", edit_admin_mission_path(@mission), class: "button", data: {active: params[:view].nil?, turbo: false } %>
+      |
+      <%= link_to "Termes", edit_admin_mission_path(@mission, view: "terms"), class: "button", data: {active: params[:view] == "terms", turbo: false } %>
+      |
+      <%= link_to "Feedbacks", edit_admin_mission_path(@mission, view: "feedbacks"), class: "button", data: {active: params[:view] == "feedbacks", turbo: false } %>
+    </div>
+  </div>
+</div>

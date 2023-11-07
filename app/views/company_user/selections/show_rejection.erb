@@ -9,22 +9,28 @@
       <div class="mb-20">
         <h5 class="text-main">Refus</h5>
         <p>Vous n'avez pas souhaité candidater</p>
-        <% if current_user.eligibility_on_going? %>
-          <p class="mb-20">Vous pouvez changer d'avis :</p>
-          <%= render partial: "company_user/selections/candidacy_form" %>
+        <% if @selection.motivation_msg.present? %>
+          <h6 class="mt-10 fw-6">Votre commentaire:</h6>
+          <table class="max-w-400 mb-20">
+            <tbody class="va-top">
+              <tr>
+                <th class="pr-10">💬</th>
+                <th class="pr-10 no-wrap">Votre messsage :</th>
+                <td><i>"<%= @selection.motivation_msg %></i> "</td>
+              </tr>
+            </tbody>
+          </table>
         <% end %>
       </div>
-      <% if @selection_on_record.company_user_origin? %>
-        <div class="w-100">
-          <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
-            <%= f.input :active, as: :hidden, input_html: {value: true} %>
-            <button type="submit" class="flex-center button bn-none bg-white center-margin">
-              <i class="fa-solid fa-heart mr-10 text-flag-2"></i>
-              Remettre dans mes coups de coeur
-            </button>
-          <% end %>
-        </div>
-      <% end %>
+      <div class="w-100">
+        <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+          <%= f.input :active, as: :hidden, input_html: {value: true} %>
+          <button type="submit" class="w-100 button round bg-white-to-shade first-main-border text-main bn-none">
+            <i class="fa-solid fa-heart mr-10 text-flag-2"></i>
+            Vous avez changé d'avis ?
+          </button>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

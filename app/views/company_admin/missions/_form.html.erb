@@ -1,10 +1,11 @@
 <div class="pl-40 w-100">
   <div class="mb-40">
-    <h5 class="mb-20">💜 Nouvelle mission</h5>
 
     <div class="max-w-400">
+    <h5 class="mb-10 fw-7 text-main">Nouvelle mission</h5>
+    <p class="mb-20">Compléter les informations ci-dessous pour créer la mission associée à la candidature validée</p>
 
-      <div class="bg-light round-10 p-10 grey-border mb-40">
+      <div class="bg-light round-10 p-10 grey-border mb-20">
         <table>
           <tr>
             <td class="pr-20 fw-6">Salarié :</td>
@@ -14,33 +15,39 @@
             <td class="pr-20 fw-6">Association :</td>
             <td><%= candidacy.beneficiary.name %></td>
           </tr>
-
         </table>
       </div>
 
       <%= simple_form_for([candidacy, mission], url: company_admin_candidacy_missions_path) do |f| %>
-        <%= f.input :title, input_html: {value: "#{mission.candidacy.beneficiary.name} - #{mission.offer.title}"}%>
-
-        <div class="mb-10">
-          <h6>Dates :</h6>
-          <div class="flex-center-between mb-10" data-controller="flatpickr">
-            <p class="mr-10 no-wrap w-100">Début :</p>
-            <p><%= f.input :start_date, as: :string, input_html: { value: candidacy.req_start_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
-          </div>
-          <div class="flex-center-between" data-controller="flatpickr">
-            <p class="mr-10 no-wrap w-100">Fin :</p>
-            <p><%= f.input :end_date, as: :string, input_html: { value: candidacy.req_start_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
-          </div>
-        </div>
-
-
-
-        <%= f.input :periodicity, input_html: {value: candidacy.req_periodicity}%>
-        <%= f.input :days_count, input_html: {value: candidacy.req_days}%>
-        <%= f.input :referent_name %>
-        <%= f.input :referent_email %>
-        <%= f.input :status, as: :hidden, input_html: {value: "draft"} %>
-        <%= f.submit %>
+        <table class="w-100 mb-20">
+          <tbody>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20">Titre</th>
+              <td><%= f.input :title, input_html: {value: "#{mission.candidacy.beneficiary.name} - #{mission.offer.title}"}, wrapper: false, label: false %></td>
+            </tr>
+            <tr class="position-relative" data-controller="flatpickr">
+              <th class="fw-5 pr-20 pt-15">Début</th>
+              <td class="pt-15"><%= f.input :start_date, as: :string, input_html: { value: candidacy.req_start_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></td>
+            </tr>
+            <tr class="position-relative" data-controller="flatpickr">
+              <th class="fw-5 pr-20 pt-15">Fin</th>
+              <td class="pt-15"><%= f.input :end_date, as: :string, placeholder: candidacy.req_start_date&.strftime("%d/%m/%Y"), input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></td>
+            </tr>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20 pt-15">Fréquence</th>
+              <td class="pt-15"><%= f.input :periodicity, input_html: {value: candidacy.req_periodicity}, label: false, wrapper: false %></td>
+            </tr>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20 pt-15">Total jours</th>
+              <td class="pt-15"><%= f.input :days_count, input_html: {value: candidacy.req_days}, label: false, wrapper: false %></td>
+            </tr>
+          </tbody>
+        </table>
+        <%= f.input :status, as: :hidden, input_html: {value: "draft"}, wrapper: false %>
+        <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+          <i class="fa-solid fa-floppy-disk mr-10"></i>
+          Enregistrer la mission
+        </button>
       <% end %>
     </div>
 

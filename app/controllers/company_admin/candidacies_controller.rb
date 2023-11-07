@@ -1,5 +1,6 @@
 class CompanyAdmin::CandidaciesController < CompanyAdminController
 before_action :set_candidacy, only: [:show, :update]
+before_action :set_tab, only: [:index, :show]
 
   def index
     set_candidacies
@@ -21,6 +22,7 @@ before_action :set_candidacy, only: [:show, :update]
       redirect_back(fallback_location: company_admin_offers_path)
     else
       flash[:alert] = "Un problème est survenu"
+      @tab = 1
       render 'offers/show', status: :unprocessable_entity
     end
   end
@@ -35,6 +37,7 @@ before_action :set_candidacy, only: [:show, :update]
       flash[:notice] = "Enregistré !"
     else
       set_comment
+      set_tab
       flash[:alert] = "Un problème est survenu"
       render_show_view
     end
@@ -54,6 +57,8 @@ before_action :set_candidacy, only: [:show, :update]
       @candidacies = policy_scope(Candidacy).where(status: "user_validation").select{|c| c.submitted_for_approval?}
     when "rejected"
       @candidacies = policy_scope(Candidacy).where(status: "admin_validation").select{|c| c.abandonned?}
+    when "approved"
+      @candidacies = policy_scope(Candidacy).where(status: "mission").select{|c| c.validated?}
     else
       @candidacies = policy_scope(Candidacy).where(status: ["user_validation", "admin_validation", "mission"])
     end
@@ -61,6 +66,10 @@ before_action :set_candidacy, only: [:show, :update]
 
   def set_comment
     @comment = @candidacy.new_comment? ? @candidacy.comments.last : Comment.new
+  end
+
+  def set_tab
+    @tab = 4
   end
 
   def assign_user_to_comment
@@ -74,9 +83,10 @@ before_action :set_candidacy, only: [:show, :update]
     when @candidacy_on_record.abandonned?
       render :show_rejected
     when @candidacy_on_record.validated?
-      redirect_to company_admin_mission_path(@candidacy.mission)
+      @path = @candidacy.mission.nil? ? new_company_admin_candidacy_mission_path(@candidacy) : company_admin_mission_path(@candidacy.mission)
+      render :show_approved
     else
-      raise
+      redirect_to company_admin_candidacies_path
     end
   end
 

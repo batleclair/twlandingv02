@@ -4,7 +4,7 @@
       <%= f.input :status, as: :hidden, input_html: {value: "user_application"}, wrapper: false %>
       <%= f.input :active, as: :hidden, input_html: {value: false}, wrapper: false %>
       <div class="position-relative mb-20">
-        <%= f.input :motivation_msg, label: false, wrapper: false, input_html: {class: "min-h-100"}, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}" %>
+        <%= f.input :motivation_msg, label: false, wrapper: false, input_html: {class: "min-h-100", value: ""}, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}" %>
       </div>
     </div>
     <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">

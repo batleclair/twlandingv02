@@ -1,11 +1,12 @@
+<% check = @candidacy_on_record.active == @candidacy.active ? "" : @candidacy.active %>
+
 <div data-controller="dynamic-form">
   <%= simple_form_for(@candidacy, data: {turbo: false}) do |f| %>
 
-
     <div class="flex-center">
       <div class="w-100 xl-radio-btns position-relative max-w-200 center-margin">
-        <%= f.collection_radio_buttons :active, [["Oui", true], ["Non", false]], :last, :first do |b|
-          b.radio_button(checked: false, class: (b.value ? 'flag-3-radio' : 'flag-1-radio' ), "data-action": "change->dynamic-form#toggle" ) + b.label()
+        <%= f.collection_radio_buttons :active, [["Oui", true], ["Non", false]], :last, :first, checked: check do |b|
+          b.radio_button(class: (b.value ? 'flag-3-radio' : 'flag-1-radio' ), data: {"dynamic-form-target": (b.value ? "" : "trigger" ), action: "change->dynamic-form#toggle"}) + b.label()
         end %>
         <%= f.error :active, class: "invalid-msg" %>
       </div>
@@ -13,15 +14,31 @@
 
     <%= f.input :status, as: :hidden, input_html: {value: "user_validation"} %>
 
-    <%= f.simple_fields_for :comments, @comment do |c| %>
-      <%= c.input :content, label: "Message", wrapper_html: {class: "position-relative"} %>
-    <% end %>
+    <div data-dynamic-form-target="input">
+      <p class="mt-20 mb-10">Afin d'accélérer la décision de vos RH, nous vous invitons à renseigner un maximum d'informations sur le contenu et les modalités envisagées pour cette mission </p>
+      <div class="flex-center-between" data-controller="flatpickr">
+        <p class="mr-10 no-wrap w-100 fw-5 fs-15">Date de début envisagée :</p>
+        <p><%= f.input :req_start_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+      </div>
+      <%= f.input :req_days %>
+      <%= f.input :req_periodicity, collection: Candidacy::PERIODICITY, selected: @selected_periodicity,
+                  input_html: {data: {dynamic_form_target: "customTrigger", action: "change->dynamic-form#customToggle"}} %>
+      <div data-dynamic-form-target="customOutput" class="d-none">
+        <%= f.input :custom_periodicity, input_html: {value: @candidacy.req_periodicity}, label: false, placeholder: 'Indiquez les modalités' %>
+      </div>
+      <%= f.input :req_description, input_html: {value: @candidacy.offer.summary.to_plain_text} %>
+    </div>
 
-    <%# <%= render partial: "detailed_fields" %> %>
+    <div class="position-relative d-none" data-dynamic-form-target="output">
+      <%= f.simple_fields_for :comments, @comment do |c| %>
+        <%= c.input :content, label: "Votre réponse à l'association", wrapper_html: {class: "position-relative"} %>
+      <% end %>
+    </div>
 
     <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">
       <i class="fa-regular fa-paper-plane mr-10"></i>
-      Envoyer ma réponse
+      <span data-dynamic-form-target="input">Envoyer ma demande</span>
+      <span data-dynamic-form-target="output" class="d-none">Envoyer ma réponse</span>
     </button>
   <% end %>
 </div>

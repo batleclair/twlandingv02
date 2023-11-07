@@ -10,20 +10,14 @@ before_action :set_candidate
     authorize @candidate
     @candidate_on_record = @candidate
     source = params[:source]
-    context = source == "profile" ? :profile : :apply
     @candidate.assign_attributes(candidate_params)
-    saved = @candidate.save(context: context)
-    if saved
-      if source == "profile"
+    @candidate.status = "Salarié·e"
+    @candidate.employer_name = @candidate.user.company.name
+    if @candidate.save(context: :profile)
         process_profile_completion
         redirect_to root_path
-      else
-        process_profile_completion if @candidate.first_completion?
-        flash[:notice] = "Vos informations ont bien été enregistrées"
-        render params[:source].to_sym, status: :see_other
-      end
     else
-      render params[:source].to_sym, status: :unprocessable_entity
+      render :profile, status: :unprocessable_entity
     end
   end
 
@@ -61,8 +55,8 @@ before_action :set_candidate
   end
 
   def process_profile_completion
-    @candidate.save_to_airtable
+    # @candidate.save_to_airtable
     @candidate.profile_completed = true
-    @candidate.save
+    @candidate.save(context: :profile)
   end
 end

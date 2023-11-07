@@ -1,9 +1,11 @@
 <div class="flex-center-left mb-40 company-sub-menu">
-  <%= link_to "Toutes", user_selections_path, class: "button", data: {turbo: false, active: params[:type].nil? && selection.nil?} %>
+  <%= link_to "Toutes", user_selections_path, class: "button", data: {turbo: false, active: @subtab == 0} %>
   |
-  <%= link_to "Propositions", user_selections_path(type: :suggestions), class: "button", data: {turbo: false, active: params[:type] == "suggestions" || selection&.suggestion? } %>
+  <%= link_to "Propositions", user_selections_path(type: :suggestions), class: "button", data: {turbo: false, active: @subtab == 1 } %>
   |
-  <%= link_to "Coups de Coeur", user_selections_path(type: :selections), class: "button", data: {turbo: false, active: params[:type] == "selections" || selection&.selection? } %>
+  <%= link_to "Favoris", user_selections_path(type: :selections), class: "button", data: {turbo: false, active: @subtab == 2 } %>
   |
-  <%= link_to "Refus", user_selections_path(type: :rejections), class: "button", data: {turbo: false, active: params[:type] == "rejections" || selection&.abandonned? || selection&.disliked? } %>
+  <%= link_to "Candidatures", user_selections_path(type: :approved), class: "button", data: {turbo: false, active: @subtab == 3 } %>
+  |
+  <%= link_to "Refus", user_selections_path(type: :rejections), class: "button", data: {turbo: false, active: @subtab == 4 } %>
 </div>

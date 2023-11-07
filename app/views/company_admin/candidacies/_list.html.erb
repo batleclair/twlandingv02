@@ -9,7 +9,7 @@
         <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: candidacy == @candidacy} do %>
           <div class="pe-none">
             <h6><%= candidacy.user.full_name %></h6>
-            <p><%= candidacy.created_at.strftime("%d/%m/%Y") %></p>
+            <p><%= candidacy.offer.beneficiary.name %></p>
           </div>
           <% case  %>
           <% when candidacy.submitted_for_approval? %>

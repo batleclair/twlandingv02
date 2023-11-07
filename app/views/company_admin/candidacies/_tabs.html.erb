@@ -5,5 +5,5 @@
   |
   <%= link_to "Refusées", company_admin_candidacies_path(status: :rejected), class: "button", data: {turbo: false, active: params[:status] == "rejected" || candidacy&.abandonned?} %>
   |
-  <%= link_to "Validées", company_admin_missions_path, class: "button", data: {turbo: false} %>
+  <%= link_to "Validées", company_admin_candidacies_path(status: :approved), class: "button", data: {turbo: false, active: params[:status] == "approved" || candidacy&.validated?} %>
 </div>

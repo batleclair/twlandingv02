@@ -12,7 +12,8 @@ class Comment < ApplicationRecord
     candidacy && (
       commentable.selection_status? ||
       commentable.user_application_status? ||
-      commentable.in_discussions_status?
+      commentable.in_discussions_status? ||
+      (commentable.user_validation_status? && commentable.active)
     )
   end
 

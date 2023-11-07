@@ -1,0 +1,86 @@
+<div class="mb-20">
+  <%= render partial: "tabs" %>
+</div>
+
+<div class="d-flex">
+  <%= render partial: "list" %>
+
+  <div class="ml-40">
+    <%= render partial: "subtabs" %>
+
+    <div class="mb-40 w-100 max-w-500 ">
+      <h5 class="mb-20 w-100 text-main fw-6">Checklist</h5>
+
+      <div class="flex-center-between mb-20">
+        <h6>Informations mission complétées :</h6>
+        <h6 class="fs-25">
+          <% if @mission.info_completed? %>
+            <i class="fa-solid fa-circle-check text-flag-3 flex-center"></i>
+          <% else %>
+            <i class="fa-solid fa-circle-xmark text-flag-2 flex-center"></i>
+          <% end %>
+        </h6>
+      </div>
+
+      <%= simple_form_for(@mission, url: company_admin_mission_path(@mission), html: {data: {controller: "hidden-form", hidden_form_target: "form"}}) do |f| %>
+
+        <div class="flex-center-between position-relative mb-20">
+          <h6>Validation management :</h6>
+          <%= f.input :manager_approval, as: :boolean, label: "-", label_html: {class: "text-white"}, input_html: { class: "toggle r-30", data: {action: "change->hidden-form#submit"} }, wrapper: false, checked_value: "approved", unchecked_value: "not_submitted" %>
+          <h6 class="fs-25">
+            <% if @mission.manager_approval_approved? %>
+              <i class="fa-solid fa-circle-check text-flag-3 flex-center"></i>
+            <% else %>
+              <i class="fa-solid fa-circle-xmark text-flag-2 flex-center"></i>
+            <% end %>
+          </h6>
+        </div>
+
+        <% if @mission.employee_based? %>
+          <div class="flex-center-between position-relative mb-20">
+            <div>
+            <h6>Avenant contrat de travail :</h6>
+            <% if @mission.employee_approval && @mission.no_doc_upload?(2) %>
+              <p class="fs-13">Le document correspondant n'a pas été uploadé</p>
+            <% end %>
+            </div>
+            <%= f.input :employee_approval, as: :boolean, label: "-", label_html: {class: "text-white"}, input_html: { class: "toggle r-30", data: {action: "change->hidden-form#submit"} }, wrapper: false %>
+            <h6 class="fs-25">
+              <% if @mission.employee_approval && @mission.no_doc_upload?(2) %>
+                <i class="fa-solid fa-triangle-exclamation text-flag-1 flex-center"></i>
+              <% elsif @mission.employee_approval %>
+                <i class="fa-solid fa-circle-check text-flag-3 flex-center"></i>
+              <% else %>
+                <i class="fa-solid fa-circle-xmark text-flag-2 flex-center"></i>
+              <% end %>
+            </h6>
+          </div>
+        <% end %>
+
+        <div class="flex-center-between position-relative mb-20">
+          <h6>Validation association :</h6>
+          <h6 class="fs-25">
+            <% if @mission.beneficiary_approval_not_submitted? %>
+              <i class="fa-solid fa-circle-xmark text-flag-2 flex-center"></i>
+            <% elsif @mission.beneficiary_approval_submitted? %>
+              <i class="fa-solid fa-clock text-grey flex-center"></i>
+            <% elsif @mission.beneficiary_approval_approved? %>
+              <i class="fa-solid fa-circle-check text-flag-3 flex-center"></i>
+            <% end %>
+          </h6>
+        </div>
+
+        <% if @mission.ready_to_go? %>
+          <%= f.input :status, as: :hidden, input_html: {value: "activated"} %>
+          <button type="submit", class="w-100 button round bg-white-to-shade first-main-border text-main bn-none">
+            <i class="fa-regular fa-circle-play mr-10"></i>
+            Activer la mission
+          </button>
+        <% end %>
+
+      <% end %>
+    </div>
+
+
+  </div>
+</div>

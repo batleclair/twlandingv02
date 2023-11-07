@@ -10,17 +10,54 @@
 
       <%= render partial: "summary", locals: {employee_application: @employee_application}  %>
 
-      <div class="max-w-400 w-100">
-      <h6>Votre réponse :</h6>
-      <p class="mb-40"><i>"<%= @employee_application.response_msg %>"</i></p>
-      <h6>Ce n'est plus d'actualité ?</h6>
-        <p>Si cette autorisation n'a plus lieu d'être, vous pouvez la révoquer en cliquant sur le lien ci-dessous</p>
-        <p class="mb-20"><i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10"></i>Vous ne pourrez pas revenir en arrière</p>
-        <%= simple_form_for(@employee_application, url: company_admin_employee_application_path(@employee_application), action: :update, data: {turbo_method: :update, turbo_confirm: "Etes-vous sûr.e de vouloir révoquer cette demande ? Vous ne pourrez pas revenir en arrière."}) do |f| %>
+      <div class="max-w-400 w-100 mb-20">
+        <h6>Votre réponse :</h6>
+        <p class="mb-20"><i>"<%= @employee_application.response_msg %>"</i></p>
 
-            <%= f.input :status, as: :hidden, input_html: {value: "revoked"} %>
-            <button type="submit" class="button text-white bg-flag-2 bn-none center-margin">Révoquer</button>
-        <% end %>
+        <div class="mb-40">
+          <h6 class="mb-10">Candidatures :</h6>
+          <% if @employee_application.candidate.candidacies.empty? %>
+            <p><%= @employee_application.user.first_name %> n'a pas encore de mission en vue</p>
+          <% else %>
+            <table class="list-table fs-14">
+              <tbody>
+                <% @employee_application.candidate.candidacies.each do |candidacy| %>
+                  <% if candidacy == candidacy.candidate.active_engagement %>
+                    <tr class="overflow-hidden">
+                      <th class="min-w-30">
+                        <%= link_to company_admin_candidacy_path(candidacy) do %>
+                          <i class="fa-solid fa-eye text-main"></i>
+                        <% end %>
+                      </th>
+                  <% else %>
+                    <tr class="overflow-hidden bg-white">
+                      <th></th>
+                  <% end %>
+                    <td class="text-ellipsis max-w-100"><%= candidacy.beneficiary.name %></td>
+                    <td class="w-100"><%= candidacy.status %></td>
+                    <td class="w-100 pr-10"><%= candidacy.created_at.strftime("%m/%Y") %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+
+        <div data-controller="hidden-form">
+          <%= link_to "Révoquer ?", "", class: "button round w-100 flag-2-border text-flag-2 fw-5", data: {hidden_form_target: "output", action: "click->hidden-form#edit"} %>
+          <div class="d-none" data-hidden-form-target="input">
+            <h6>Ce n'est plus d'actualité ?</h6>
+              <p>Si cette autorisation n'a plus lieu d'être, vous pouvez la révoquer en cliquant sur le lien ci-dessous</p>
+            <p class="mb-20"><i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10"></i>Vous ne pourrez pas revenir en arrière</p>
+            <%= simple_form_for(@employee_application, url: company_admin_employee_application_path(@employee_application), action: :update, data: {turbo_method: :update, turbo_confirm: "Etes-vous sûr.e de vouloir révoquer cette demande ? Vous ne pourrez pas revenir en arrière."}) do |f| %>
+                <%= f.input :status, as: :hidden, input_html: {value: "revoked"} %>
+                <div class="flex-center fw-5">
+                  <%= link_to "Annuler", "", class: "button round w-100 text-flag-2", data: {action: "click->hidden-form#cancel"} %>
+                  <button type="submit" class="button text-white bg-flag-2 round w-100 bn-none center-margin">Révoquer</button>
+                </div>
+            <% end %>
+          </div>
+        </div>
       </div>
 
       </div>

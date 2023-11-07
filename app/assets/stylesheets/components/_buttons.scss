@@ -225,14 +225,28 @@ button.fat-btn{
   }
 }
 
-.white-to-shade-bg{
+.bg-white-to-shade{
   background-color: white;
   &:hover{
     background-color: $first-light-lighter;
   }
 }
 
-.white-to-shade-bg.text-main{
+.bg-main-to-dark{
+  background-color: $first-main-color;
+  &:hover{
+    background-color: $first-main-darker;
+  }
+}
+
+.bg-shade-to-dark{
+  background-color: $first-light-color;
+  &:hover{
+    background-color: $first-light-darker;
+  }
+}
+
+.bg-white-to-shade.text-main, .bg-shade-to-dark.text-main{
   &:hover{
     color: $first-main-color;
   }

@@ -1,92 +1,67 @@
 <div class="w-100 max-w-300">
 
-  <div class="mb-40">
-    <h5 class="mb-20">👉 à créer</h5>
-    <% candidacies.each do |candidacy| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to new_company_admin_candidacy_mission_path(candidacy), class: "w-100 h-100", data: {"action": "click->display#update"} do %>
-          <div class="pe-none">
-            <h6><%= candidacy.offer.beneficiary.name %></h6>
-            <p><%= candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">⏳ à valider</h5>
-    <% missions.where(status: "draft").each do |mission| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_mission_path(mission), class: "w-100 h-100" do %>
-          <div class="pe-none">
-            <h6><%= mission.candidacy.offer.beneficiary.name %></h6>
-            <p><%= mission.candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
+  <% if params[:view] == "new" || !params[:view] %>
+    <div class="mb-40">
+      <% if @candidacies.nil? %>
+        <h5>Pas de nouvelle mission</h5>
+        <p>Une nouvelle mission doit d'abord être acceptée depuis l'espace <%= link_to "Candidatures", company_admin_candidacies_path(status: "pending"), class: "text-main fw-6" %></p>
+      <% else %>
+        <div class="flex-center-between mb-10">
+          <h5>Créer une nouvelle mission</h5>
+          <h5 class="text-main fw-7"><%= @candidacies.count %></h5>
+        </div>
+        <% @candidacies.each do |candidacy| %>
+          <div class="mb-10 w-100 flex-center-between">
+            <%= link_to new_company_admin_candidacy_mission_path(candidacy, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: candidacy == @candidacy} do %>
+              <div class="pe-none overflow-hidden">
+                <h6><%= candidacy.offer.beneficiary.name %></h6>
+                <p class="text-ellipsis"><%= candidacy.offer.title %></p>
+              </div>
+              <i class="fa-solid fa-circle-plus text-flag-1"></i>
             <% end %>
           </div>
         <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if params[:view] == "in_progress" || !params[:view] %>
+    <div class="mb-40">
+      <div class="flex-center-between mb-10">
+        <h5>Editer et valider une mission</h5>
+        <h5 class="text-main fw-7"><%= @missions&.where(status: "draft")&.count %></h5>
       </div>
-    <% end %>
-  </div>
+      <% @missions&.where(status: "draft")&.each do |mission| %>
+        <div class="mb-10 w-100 flex-center-between">
+          <%= link_to company_admin_mission_checklist_path(mission, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: mission == @mission} do %>
+            <div class="pe-none overflow-hidden">
+              <h6><%= mission.offer.beneficiary.name %></h6>
+              <p class="text-ellipsis"><%= mission.offer.title %></p>
+            </div>
+            <i class="fa-solid fa-pen-to-square text-main"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
-  <div class="mb-40">
-    <h5 class="mb-20">✔️ validées</h5>
-    <% missions.where(status: "validated").each do |mission| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_mission_path(mission), class: "w-100 h-100" do %>
-          <div class="pe-none">
-            <h6><%= mission.candidacy.offer.beneficiary.name %></h6>
-            <p><%= mission.candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
+  <% if params[:view] == "validated" || !params[:view] %>
+    <div class="mb-40">
+      <div class="flex-center-between mb-10">
+        <h5>Missions activées</h5>
+        <h5 class="text-main fw-7"><%= @missions&.where(status: "activated")&.count %></h5>
       </div>
-    <% end %>
-  </div>
-
-  <div class="mb-40">
-    <h5 class="mb-20">❌ abandonnées</h5>
-    <% missions.where(status: "abandonned").each do |mission| %>
-      <div class="mb-20 w-100 bg-shade p-10 flex-center-between">
-        <%= link_to company_admin_mission_path(mission), class: "w-100 h-100" do %>
-          <div class="pe-none">
-            <h6><%= mission.candidacy.offer.beneficiary.name %></h6>
-            <p><%= mission.candidacy.offer.title %></p>
-          </div>
-          <div class="flex-center">
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-pen-to-square text-main"></i>
-            <% end %>
-            <%= link_to root_path do %>
-              <i class="fa-solid fa-trash text-main"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-
+      <% @missions&.where(status: "activated")&.each do |mission| %>
+        <div class="mb-10 w-100 flex-center-between">
+          <%= link_to company_admin_mission_path(mission, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: mission == @mission} do %>
+            <div class="pe-none overflow-hidden">
+              <h6><%= mission.offer.beneficiary.name %></h6>
+              <p class="text-ellipsis"><%= mission.offer.title %></p>
+            </div>
+            <i class="fa-solid fa-circle-check text-flag-3"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

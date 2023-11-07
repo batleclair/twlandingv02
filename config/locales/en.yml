@@ -31,7 +31,7 @@
 
 en:
   hello: "Hello world"
-  activerecord:
+  activemodel:
     attributes:
       user:
         first_name: ""
@@ -64,6 +64,9 @@ en:
         motivation_msg: ""
         status: ""
         manager_validation: ""
+      mission:
+        time_confirmation: ""
+        termination_confirmation: ""
     errors:
       models:
         user:

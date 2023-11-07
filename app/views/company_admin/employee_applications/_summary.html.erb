@@ -1,4 +1,4 @@
-<table class="max-w-400 mb-40">
+<table class="max-w-400 mb-20">
   <tbody class="va-top">
     <tr>
       <th class="pr-10">👩‍💼</th>
@@ -12,13 +12,13 @@
     </tr>
     <tr>
       <th class="pr-10">⏰</th>
-      <th class="pr-10 no-wrap">Date de la demande :</th>
+      <th class="pr-10 no-wrap">Date :</th>
       <td><%= employee_application.created_at.strftime("%d/%m/%Y") %></td>
     </tr>
     <tr>
       <th class="pr-10">🗓</th>
-      <th class="pr-10 no-wrap">Fenêtre demandée :</th>
-      <td><%= employee_application.eligibility_period.title_and_dates %></td>
+      <th class="pr-10 no-wrap">Fenêtre :</th>
+      <td><%= employee_application.eligibility_period&.title_and_dates %></td>
     </tr>
     <tr>
       <th class="pr-10">💬</th>

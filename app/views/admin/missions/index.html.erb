@@ -1,0 +1,50 @@
+<%= render partial: "shared/navpan", locals: {active: 10} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <div class="mb-20">
+      <h3>Missions</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ex qui sapiente doloremque</p>
+    </div>
+  </div>
+
+  <div class="navpan-white-ctn">
+    <div>
+      <table class="tw-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Created_at</th>
+            <th>Association</th>
+            <th>Candidat</th>
+            <th>Entreprise</th>
+            <th>Titre</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @missions.each do |mission| %>
+            <tr>
+              <td>
+                <div class="d-flex justify-content-evenly">
+                  <%= link_to(edit_admin_mission_path(mission)) do %>
+                    <i class="fa-solid fa-pen-to-square text-main"></i>
+                  <% end %>
+                  <%= link_to admin_mission_path(mission), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                    <i class="fa-solid fa-trash text-main"></i>
+                  <% end %>
+                </div>
+              </td>              <td class="no-wrap"><%= mission.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= mission.beneficiary.name %></td>
+              <td><%= mission.candidate.full_name %></td>
+              <td><%= mission.candidate.company.name %></td>
+              <td><%= mission.title %></td>
+              <td><%= mission.status %></td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -1,4 +1,4 @@
 class Question < ApplicationRecord
   belongs_to :company
-  enum :input_type, {integer: 0, text: 1, boolean: 2}
+  enum :input_type, {rating: 0, comment: 1, checkbox: 2}
 end

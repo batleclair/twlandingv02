@@ -1,0 +1,17 @@
+<%= render partial: "summary" %>
+
+<div class="navpan-mg-ctn navpan-white-ctn">
+
+  <div class="max-w-400">
+    <%= simple_form_for(@mission, url: admin_mission_path(@mission)) do |f| %>
+      <%= f.input :feedback_on, label: "Feedbacks", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" } %>
+      <%= f.input :feedback_step %>
+      <%= f.input :feedback_unit, collection: Mission.feedback_units.keys, selected: @mission.feedback_unit %>
+      <div data-controller="flatpickr">
+        <%= f.input :feedback_start, as: :string, input_html: { value: @mission.feedback_start&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }} %>
+      </div>
+      <%= f.submit "Enregister", class: "button btn-main-color" %>
+    <% end %>
+  </div>
+
+</div>

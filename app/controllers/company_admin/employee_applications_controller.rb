@@ -1,6 +1,8 @@
 # require 'airrecords/aircandidate'
 
 class CompanyAdmin::EmployeeApplicationsController < CompanyAdminController
+  before_action :set_tab, only: [:index, :show]
+
   def index
     @employee_applications = policy_scope(EmployeeApplication).status_as(EmployeeApplication.statuses[params[:status]])
     authorize @employee_applications
@@ -34,6 +36,7 @@ class CompanyAdmin::EmployeeApplicationsController < CompanyAdminController
       redirect_to company_admin_employee_applications_path
     else
       @employee_applications = policy_scope(EmployeeApplication).status_as(EmployeeApplication.statuses[params[:status]])
+      set_tab
       render view_for(status)
     end
   end
@@ -51,6 +54,10 @@ class CompanyAdmin::EmployeeApplicationsController < CompanyAdminController
     when @employee_application.revoked_status?
       "Eligibilité révoquée"
     end
+  end
+
+  def set_tab
+    @tab = 3
   end
 
   def employee_application_params

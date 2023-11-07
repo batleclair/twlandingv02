@@ -1,9 +1,14 @@
 <div class="company-navbar ctn-resp-tight">
   <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
-  <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
-    <i class="fa-solid fa-right-from-bracket"></i>
-    déconnexion
-  <% end %>
+  <div class="flex-center-between">
+    <%= link_to "", class: "fs-18 ml-20" do %>
+      <i class="fa-solid fa-gear"></i>
+    <% end %>
+    <%= link_to destroy_user_session_path, method: :delete, class: "fs-18 ml-20" do %>
+      <i class="fa-solid fa-right-from-bracket"></i>
+    <% end %>
+    <a href="" class="ml-10 round-button downsize90 fs-18 fw-6 bg-flag-3 text-white"><%= current_user.initials %></a>
+  </div>
 </div>
 
 <div class="company-menu">
@@ -19,13 +24,13 @@
   </div>
 
   <div class="mb-20">
-    <%= link_to "Accueil", company_admin_path %>
-    <%= link_to "Recherche", company_admin_offers_path %>
+    <%= link_to "Accueil", company_admin_path, data: {active: @tab == 0} %>
+    <%= link_to "Recherche", company_admin_offers_path, data: {active: @tab == 1} %>
   </div>
   <div>
-    <%= link_to "Utilisateurs", company_admin_whitelists_path, data: {turbo: false} %>
-    <%= link_to "Eligibilité", company_admin_employee_applications_path %>
-    <%= link_to "Candidatures", company_admin_candidacies_path %>
-    <%= link_to "Missions", company_admin_missions_path %>
+    <%= link_to "Utilisateurs", company_admin_whitelists_path, data: {turbo: false, active: @tab == 2} %>
+    <%= link_to "Eligibilité", company_admin_employee_applications_path, data: {active: @tab == 3} %>
+    <%= link_to "Candidatures", company_admin_candidacies_path, data: {active: @tab == 4} %>
+    <%= link_to "Missions", company_admin_missions_path, data: {active: @tab == 5} %>
   </div>
 </div>

@@ -3,7 +3,7 @@
 # require 'airrecords/aircandidate'
 
 class CompanyUser::CandidaciesController < CompanyUserController
-  include ControllerUtilities
+  # include ControllerUtilities
   before_action :set_candidacy, except: [:index, :index_selection, :create]
   before_action :set_tab, only: [:show, :index]
 
@@ -24,20 +24,24 @@ class CompanyUser::CandidaciesController < CompanyUserController
       redirect_back(fallback_location: user_offers_path)
       flash[:notice] = "Enregistré, nous informons l'association"
     else
-      fallback_action
+      @tab = 1
+      @selection = @candidacy
+      render show_view, status: :unprocessable_entity
       flash[:alert] = "Un problème est survenu"
     end
   end
 
   def show
-    @candidacy_on_record = Candidacy.find(params[:id])
+    session.delete(:selection_error)
     set_comment
-    render_show_view
+    set_selected_periodicity
+    render show_view
   end
 
   def update
-    @candidacy_on_record = Candidacy.find(params[:id])
+    @candidacy_on_record = policy_scope(Candidacy).find(params[:id])
     @candidacy.assign_attributes(candidacy_params)
+    @offer = @candidacy.offer
     assign_user_to_comment
     set_custom_periodicity
     set_active_upon_application
@@ -47,15 +51,19 @@ class CompanyUser::CandidaciesController < CompanyUserController
       flash[:notice] = "Enregistré !"
     else
       set_comment
-      fallback_action
+      @tab = 1 if session[:selection_error]
+      @selection = @candidacy
+      render show_view, status: :unprocessable_entity
       flash[:alert] = "Veuillez vérifier les informations saisies"
+      # raise
     end
   end
 
   private
 
   def set_candidacy
-    @candidacy = Candidacy.find(params[:id])
+    @candidacy = policy_scope(Candidacy).find(params[:id])
+    @candidacy_on_record = policy_scope(Candidacy).find(params[:id])
     authorize @candidacy
   end
 
@@ -63,16 +71,27 @@ class CompanyUser::CandidaciesController < CompanyUserController
     @tab = 3
   end
 
-  def set_candidacies
-    case params[:phase]
-    when "assessing"
-      @candidacies = policy_scope(Candidacy).where.not(status: "selection").select{|c| c.being_assessed?}
-    when "validating"
-      @candidacies = policy_scope(Candidacy).where.not(status: "selection").select{|c| c.being_validated?}
-    when "abandonned"
-      @candidacies = policy_scope(Candidacy).where.not(status: "selection").select{|c| c.abandonned?}
+  def set_selected_periodicity
+    if @candidacy.req_periodicity.nil?
+      @selected_periodicity = false
+    elsif Candidacy::PERIODICITY.include?(@candidacy.req_periodicity)
+      @selected_periodicity = @candidacy.req_periodicity
     else
-      @candidacies = policy_scope(Candidacy).where.not(status: "selection")
+      @selected_periodicity = Candidacy::PERIODICITY.last
+    end
+  end
+
+  def set_candidacies
+    scope = policy_scope(Candidacy).where.not(id: @active_engagement&.id).where.not(status: "selection")
+    @candidacies = case params[:phase]
+    when "assessing"
+      scope.select{|c| c.being_assessed?}
+    when "validating"
+      scope.select{|c| c.being_validated? || c.validated? }
+    when "abandonned"
+      scope.select{|c| c.abandonned?}
+    else
+      scope
     end
   end
 
@@ -106,34 +125,49 @@ class CompanyUser::CandidaciesController < CompanyUserController
     @candidacy.comments.last.user_id = current_user.id if @candidacy.new_comment?
   end
 
-  def render_show_view
-    case
-    when @candidacy.being_assessed?
-      session[:failed_candidacy_path] = "company_user/candidacies/show_assessing"
-      render :show_assessing
-    when @candidacy.being_validated?
-      session[:failed_candidacy_path] = "company_user/candidacies/show_validating"
-      render :show_validating
-    when @candidacy.abandonned?
-      session[:failed_candidacy_path] = "company_user/candidacies/show_abandonned"
-      render :show_abandonned
-    when @candidacy.validated?
-      redirect_to user_mission_path(@candidacy.mission)
-    else
-      return
-    end
+  # def render_show_view
+  #   case
+  #   when @candidacy.being_assessed?
+  #     session[:selection_error] = "company_user/candidacies/show_assessing"
+  #     render :show_assessing
+  #   when @candidacy.being_validated?
+  #     session[:selection_error] = "company_user/candidacies/show_validating"
+  #     render :show_validating
+  #   when @candidacy.abandonned?
+  #     session[:selection_error] = "company_user/candidacies/show_abandonned"
+  #     render :show_abandonned
+  #   when @candidacy.validated?
+  #     if @candidacy.mission.nil?
+  #       render :show_validating
+  #     else
+  #       redirect_to user_mission_path(@candidacy.mission)
+  #     end
+  #   else
+  #     return
+  #   end
+  # end
+
+  def show_view
+    validation_views = {
+      assessing: :show_assessing,
+      validating: :show_validating,
+      abandonned: :show_abandonned,
+      approved: :show_approved
+    }
+    status = @candidacy_on_record&.validation_status
+    return session[:selection_error] ? "company_user/offers/show" : validation_views[status]
   end
 
-  def fallback_action
-    path = session[:failed_candidacy_path]
-    if legit?(path)
-      @offer = @candidacy.offer
-      @selection = @candidacy
-      render path, status: :unprocessable_entity
-    else
-      redirect_back(fallback_location: root_path)
-    end
-  end
+  # def fallback_action
+  #   path = session[:selection_error]
+  #   if legit?(path)
+  #     @offer = @candidacy.offer
+  #     @selection = @candidacy
+  #     render path, status: :unprocessable_entity
+  #   else
+  #     redirect_back(fallback_location: root_path)
+  #   end
+  # end
 
   def set_active_upon_application
     @candidacy.active = true if @candidacy.status == "user_application" && @candidacy_on_record.status == "selection"

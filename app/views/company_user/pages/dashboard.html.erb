@@ -16,19 +16,25 @@
     </div>
   </div>
 
-  <div class="ml-20 first-main-border round-20 center-text p-20 flex-center-col max-w-100">
+  <div class="ml-20 first-main-border round-20 center-text p-20 flex-center-col max-w-200">
     <h4 class="fw-7 text-main"><%= current_user.candidate.candidacies.count %></h4>
     <p>Candidatures et sélections à retrouver</p>
   </div>
 </div>
 
-<% if current_user.eligibility == "on-going" %>
-  <h5 class="mb-10">Vous pouvez candidater aux <%= link_to "Offres", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
-<% else %>
-  <h5 class="mb-10">Vous pouvez parcourir les <%= link_to "Offres", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+<% if current_user.candidate.call_status_booked? %>
+  <div class="mb-40">
+    <p>Un call est programmé avec votre conseiller pour définir ensemble le type de mission et d'association qui peut vous correspondre</p>
+  </div>
 <% end %>
 
-
-<% if current_user.candidate.call_status_booked? %>
-  <p>Un call est programmé avec votre conseiller pour définir ensemble le type de mission et d'association qui peut vous correspondre</p>
+<% if @active_engagement %>
+  <h5 class="mb-10">Votre engagement en cours :</h5>
+  <%= render partial: "company_user/shared/engagement_card" %>
+<% else %>
+  <% if current_user.eligibility == "on-going" %>
+    <h5 class="mb-10">Vous pouvez candidater aux <%= link_to "Offres", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+  <% else %>
+    <h5 class="mb-10">Vous pouvez parcourir les <%= link_to "Offres", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+  <% end %>
 <% end %>

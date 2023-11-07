@@ -1,0 +1,12 @@
+<h5 class="mb-20">Vous n'avez pas pour l'heure de mission en cours</h5>
+
+<% if @active_engagement %>
+  <h6 class="mb-10 fw-7 text-main">En revanche vous avez une candidature active :</h5>
+  <%= render partial: "company_user/shared/engagement_card" %>
+<% else %>
+  <% if current_user.eligibility == "on-going" %>
+    <h5 class="mb-10">Vous pouvez candidater aux <%= link_to "Offres", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+  <% else %>
+    <h5 class="mb-10">Vous pouvez parcourir les <%= link_to "Offres", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+  <% end %>
+<% end %>

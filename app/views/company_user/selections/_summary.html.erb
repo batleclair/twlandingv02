@@ -1,7 +1,7 @@
 <% bg_img = @selection.beneficiary.photo.attached? ? cl_image_path(@selection.beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
 <% b_logo = @selection.beneficiary.logo.attached? ? cl_image_tag(@selection.beneficiary.logo.key, alt:"logo de l'association #{@selection.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
 
-<div class="mb-40 w-100 max-w-600">
+<div class="mb-40 w-100 max-w-400">
 
   <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="pt-40 pb-40 pl-20 pr-20 banner-bg position-relative">
     <%= link_to :back do %>

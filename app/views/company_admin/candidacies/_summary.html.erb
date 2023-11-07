@@ -36,7 +36,7 @@
         <tr>
           <th class="pr-10">💬</th>
           <th class="pr-10 no-wrap">Message :</th>
-          <td><%= @candidacy_on_record.current_comment&.content %></td>
+          <td><%= @candidacy_on_record.comments&.find_by(status: :user_validation)&.content %></td>
         </tr>
       </tbody>
     </table>

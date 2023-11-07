@@ -1,4 +1,5 @@
 class CompanyAdmin::UsersController < CompanyAdminController
+  before_action :set_tab, only: [:index, :new, :edit]
 
   def index
     set_users
@@ -31,6 +32,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
       @candidate = Candidate.new
       @employee_application = EmployeeApplication.new
       set_emails
+      set_tab
       render :new, status: :unprocessable_entity
     end
   end
@@ -44,6 +46,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
       redirect_to company_admin_users_path
     else
       set_users
+      set_tab
       render :index, status: :unprocessable_entity
     end
   end
@@ -66,6 +69,10 @@ class CompanyAdmin::UsersController < CompanyAdminController
 
   def set_users
     @users = policy_scope(User).order(created_at: :desc)
+  end
+
+  def set_tab
+    @tab = 2
   end
 
   def user_params

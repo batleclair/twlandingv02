@@ -1,0 +1,6 @@
+  <div class="d-flex mb-10 company-sub-menu">
+    <%= link_to "Checklist", company_admin_mission_checklist_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 0} %>
+    <%= link_to "Contreparties", company_admin_mission_counterparts_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 1} %>
+    <%= link_to "Modalités", company_admin_mission_terms_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 2} %>
+    <%= link_to "Documents", company_admin_mission_documents_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 3} %>
+  </div>

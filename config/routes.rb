@@ -26,7 +26,8 @@ Rails.application.routes.draw do
         resources :demandes, controller: 'employee_applications', as: :company_admin_employee_applications, only: %i[index show update]
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[index update]
         resources :missions, as: :company_admin_missions, only: %i[show index update]
-          get "missions/:id/contreparties", to: "missions#counterparts", as: :company_admin_mission_couterparts
+          get "missions/:id/checklist", to: "missions#checklist", as: :company_admin_mission_checklist
+          get "missions/:id/contreparties", to: "missions#counterparts", as: :company_admin_mission_counterparts
           get "missions/:id/modalites", to: "missions#terms", as: :company_admin_mission_terms
           get "missions/:id/documents", to: "missions#documents", as: :company_admin_mission_documents
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[show] do
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
     scope module: "company_user" do
       get "/", to: "pages#dashboard"
       get "/on-boarding", to: "pages#on_boarding", as: :user_onboarding
+      get "/mission", to: "pages#no_mission", as: :user_no_mission
       patch "/book-call", as: :user_booked_call, to: "pages#book_call", defaults: { format: :json }
       resources :candidates, only: %i[update]
       get "/mon_profil", to: "candidates#profile", as: :user_profile
@@ -55,6 +57,7 @@ Rails.application.routes.draw do
       resources :missions, as: :user_missions, only: %i[index edit update]
       resources :missions, as: :user_missions, only: %i[show] do
         get "confirmation", to: "missions#confirm"
+        get "terminated", to: "missions#terminated"
         resources :timesheets
         resources :feedbacks, only: %i[new edit create update]
       end
@@ -159,6 +162,7 @@ Rails.application.routes.draw do
         resources :eligibility_periods
       end
       resources :employee_applications, only: %i[edit update index destroy]
+      resources :missions, only: %i[edit index update destroy]
     end
 
     # sitemap

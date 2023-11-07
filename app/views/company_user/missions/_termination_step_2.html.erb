@@ -1,32 +1,37 @@
 <div class="max-w-400">
   <%= simple_form_for(@mission, url: user_mission_path(@mission, step:2)) do |f| %>
-    <div class="w-100 flex-center-between mb-40">
-      <%= link_to "<", user_mission_confirmation_path(step: 1), class: "round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20" %>
-      <button type="submit" class="round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20">></button>
-    </div>
 
     <div class="mb-20">
       <h5>Confirmez vos temps ⏲️</h5>
-      <p>Avant de déclarer la fin de cette mission auprès de votre équipe RH, il est important de confirmer les temps travaillés pour <%= @mission.beneficiary.name %></p>
+      <% if @mission.total_hours == 0 %>
+        <p>Vous n'avez pas encore déclaré de temps pour cette mission</p>
+      <% else %>
+        <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jour(s) pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures.</p>
+      <% end %>
+      <%= link_to user_mission_timesheets_path(@mission), class: "w-100 button round first-main-border bg-white-to-shade text-main mt-20" do %>
+        <i class="fa-solid fa-pen-to-square"></i>
+        Compléter les informations saisies
+      <% end %>
     </div>
 
+
     <% @mission.timesheets.each do |timesheet| %>
-      <div class="max-w-300 p-10 bg-shade mb-10 flex-center-between">
+      <div class="w-100 p-10 bg-shade mb-10 flex-center-between">
         <div>
           <h6><%= timesheet.start_time.strftime("%d/%m/%Y") %></h6>
           <p><%= timesheet.start_time.strftime("%H:%M") %> -> <%= timesheet.end_time.strftime("%H:%M") %> (<%= timesheet.reported_hours %> h)</p>
         </div>
-        <%= link_to edit_user_mission_timesheet_path(id: timesheet.id) do %>
-          <i class="fa-solid fa-pen-to-square text-main"></i>
-        <% end %>
+        <%= link_to "Modifier", edit_user_mission_timesheet_path(@mission, timesheet), class: "text-main fw-7 fs-13" %>
       </div>
     <% end %>
-
-    <%= link_to "Compléter", user_mission_timesheets_path, class: "button" %>
 
     <div class="mt-20 w-100 position-relative">
       <%= f.input :time_confirmation, label: "Je confirme les éléments c-dessus", input_html: {class: "toggle"} %>
     </div>
 
+    <div class="w-100 flex-center-between mb-40">
+      <%= link_to "Retour", user_mission_confirmation_path(@mission, step: 1), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+      <button type="submit" class="round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2">Continuer</button>
+    </div>
   <% end %>
 </div>

@@ -7,23 +7,30 @@
   <div class="ml-40 w-100 max-w-400">
     <div class="w-100">
       <div class="mb-20">
-        <h5 class="text-main">Coup de coeur</h5>
+        <h5 class="text-main">Favorite</h5>
         <p>Vous avez eu un coup de coeur pour cette mission.</p>
-        <% if current_user.eligibility_on_going? %>
+        <% if current_user.eligibility_on_going? && !@active_engagement %>
           <p class="mb-20">Vous pouvez y candidater dès à présent :</p>
           <%= render partial: "company_user/selections/candidacy_form" %>
         <% else %>
-        <p>Vous ne pouvez pas y candidater actuellement</p>
+          <% if @active_engagement %>
+            <p class="mt-20 mb-20">Vous ne pouvez pas y candidater actuellement en raison de votre engagement en cours sur la mission suivante :</p>
+            <div class="w-100 flex-center">
+              <%= render partial: "company_user/shared/engagement_card" %>
+            </div>
+          <% else %>
+            <p class=" mt-20 mb-10">Vous ne pouvez pas y candidater actuellement.</p>
+          <% end %>
         <% end %>
-      </div>
-      <div class="w-100">
-        <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
-          <%= f.input :active, as: :hidden, input_html: {value: false} %>
-          <button type="submit" class="flex-center button bn-none bg-white center-margin">
-            <i class="fa-regular fa-heart mr-10 text-flag-2"></i>
-            Retirer de mes coups de coeur
-          </button>
-        <% end %>
+        <div class="w-100">
+          <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+            <%= f.input :active, as: :hidden, input_html: {value: false} %>
+            <button type="submit" class="flex-center button bn-none bg-white center-margin">
+              <i class="fa-regular fa-heart mr-10 text-flag-2"></i>
+              Retirer de mes favoris
+            </button>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

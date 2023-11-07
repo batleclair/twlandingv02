@@ -8,8 +8,8 @@
     <div class="w-100">
       <div class="mb-20">
         <h5 class="text-main">Proposition</h5>
-        <p>Un mission vous a été suggérée par <span class="text-main fw-5"><%= @selection.company_admin_origin? ? "votre entreprise" : "Demain" %></span>.</p>
-        <% if current_user.eligibility_on_going? %>
+        <p>Une mission vous a été suggérée par <span class="text-main fw-5"><%= @selection.company_admin_origin? ? "votre entreprise" : "Demain" %></span>.</p>
+        <% if current_user.eligibility_on_going? && !@active_engagement %>
           <p class="mb-20">Vous êtes invité.e à y répondre</p>
           <h5 class="center-text text-main mb-20">Souhaitez-vous candidater ?</h5>
           <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
@@ -32,7 +32,14 @@
             </button>
           <% end %>
         <% else %>
-        <p>Vous ne pouvez pas y candidater actuellement</p>
+          <% if @active_engagement %>
+            <p class="mt-20 mb-20">Vous ne pouvez pas y candidater actuellement en raison de votre engagement en cours sur la mission suivante :</p>
+            <div class="w-100 flex-center">
+              <%= render partial: "company_user/shared/engagement_card" %>
+            </div>
+          <% else %>
+            <p class=" mt-20 mb-10">Vous ne pouvez pas y candidater actuellement.</p>
+          <% end %>
         <% end %>
       </div>
     </div>

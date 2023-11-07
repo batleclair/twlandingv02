@@ -1,11 +1,13 @@
 <div class="company-navbar ctn-resp-tight">
   <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
   <div class="flex-center-between">
-    <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
-      <i class="fa-solid fa-right-from-bracket"></i>
-      déconnexion
+    <%= link_to "", class: "fs-18 ml-20" do %>
+      <i class="fa-solid fa-gear"></i>
     <% end %>
-    <a href="" class="round-button downsize90 fs-20 fw-7 bg-flag-1"><%= current_user.initials %></a>
+    <%= link_to destroy_user_session_path, method: :delete, class: "fs-18 ml-20" do %>
+      <i class="fa-solid fa-right-from-bracket"></i>
+    <% end %>
+    <a href="" class="ml-10 round-button downsize90 fs-18 fw-6 bg-flag-1 text-white"><%= current_user.initials %></a>
   </div>
 </div>
 
@@ -20,9 +22,15 @@
   <div class="w-100 flex-center mb-40">
     <h6 class="button-round bg-flag-3 text-white">User</h6>
   </div>
-  <%= link_to "Accueil", root_path, data: {active: @tab == 0} %>
-  <%= link_to "Recherche", user_offers_path, data: {active: @tab == 1}  %>
+  <div class="mb-20">
+    <%= link_to "Accueil", root_path, data: {active: @tab == 0} %>
+    <%= link_to "Recherche", user_offers_path, data: {active: @tab == 1}  %>
+  </div>
   <%= link_to "Mes sélections", user_selections_path, data: {active: @tab == 2}  %>
   <%= link_to "Mes candidatures", user_candidacies_path, data: {active: @tab == 3}  %>
-  <%= link_to "Ma mission", user_mission_path(current_user.missions.last), data: {active: @tab == 4} %>
+  <% if current_user.missions&.last.present? %>
+    <%= link_to "Ma mission", user_mission_path(current_user.missions.last), data: {active: @tab == 4} %>
+  <% else %>
+    <%= link_to "Ma mission", user_no_mission_path, data: {active: @tab == 4} %>
+  <% end %>
 </div>

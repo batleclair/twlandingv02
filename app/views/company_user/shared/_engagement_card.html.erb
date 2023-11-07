@@ -1,0 +1,14 @@
+<div class="max-w-400">
+  <% path = @active_engagement.class == Mission ? user_mission_path(@active_engagement) : user_candidacy_path(@active_engagement) %>
+  <%= link_to path do %>
+    <div class="flex-center-left w-100 bg-shade p-10" data-active-engagement="true">
+      <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+        <%= cl_image_tag(@active_engagement.beneficiary.logo.key) %>
+      </div>
+      <div class="pe-none w-100">
+        <h6><%= @active_engagement.offer.beneficiary.name %></h6>
+        <p><%= @active_engagement.offer.title %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

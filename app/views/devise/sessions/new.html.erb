@@ -11,15 +11,19 @@
         </div>
       </div>
 
-      <%# <%= render partial: "devise/shared/google_sso" %>
+      <% if Rails.env = "development" %>
+        <%= render partial: "devise/shared/google_sso" %>
 
-      <%# <div class="separator w-50 center-margin center-text mb-15">
-        ou
-      </div> %>
+        <div class="separator w-50 center-margin center-text mb-15">
+          ou
+        </div>
+      <% end %>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
         <%= f.error_notification %>
-        <%# <h6 class="center-text mb-10">Avec mes identifiants Demain</h6> %>
+        <% if Rails.env = "development" %>
+          <h6 class="center-text mb-10">Avec mes identifiants Demain</h6>
+        <% end %>
         <div class="input-with-icon mb-10 position-relative">
           <%= f.input :email,
                       required: true,

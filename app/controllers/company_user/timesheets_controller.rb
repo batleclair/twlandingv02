@@ -7,6 +7,7 @@ class CompanyUser::TimesheetsController < CompanyUserController
   def index
     @mission = Mission.find(params[:user_mission_id])
     session.delete(:proceed_with_ending)
+    redirect_to user_mission_path(@mission) if !@mission.activated_status?
   end
 
   def new

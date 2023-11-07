@@ -25,6 +25,7 @@ class Candidate < ApplicationRecord
   validates :location, presence: { message: "Indiquez votre ville de résidence" }, on: :profile
   validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, on: :profile
   validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, on: :profile
+  validates :referent_email, format: {with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse mail invalide"}, allow_blank: true
   # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && !status.blank?}, on: :profile
   # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, on: :profile
   # validate :skill_present, on: :profile
@@ -107,6 +108,22 @@ class Candidate < ApplicationRecord
     a << "Environnementale" if primary_cause.include?(Beneficiary::GOALS[0])
     a << "Sociale" if primary_cause.include?(Beneficiary::GOALS[1])
     return a
+  end
+
+  def active_mission
+    missions&.find_by(status: ["draft", "activated"])
+  end
+
+  def active_candidacy
+    candidacies&.find_by(active: true, status: ["user_validation", "admin_validation", "mission"])
+  end
+
+  def engaged?
+    !active_candidacy.nil? || !active_mission.nil?
+  end
+
+  def active_engagement
+    !active_mission.nil? ? active_mission : active_candidacy
   end
 
   def clip_to_airtable

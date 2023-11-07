@@ -484,3 +484,19 @@
   outline: $first-light-darker 1px solid;
   box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 }
+
+[data-active-engagement="true"]{
+  outline: 4px solid $first-light-darker;
+  border-radius: 5px;
+  .text-main-light{
+    color: $first-main-color;
+  }
+  .engagement{
+    font-weight: 700;
+    color: $first-main-color;
+  }
+}
+
+[data-active-engagement="true"].bg-shade{
+  background-color: $first-light-color;
+}

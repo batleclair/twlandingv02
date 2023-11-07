@@ -13,11 +13,7 @@ class EmployeeApplication < ApplicationRecord
 
 
   def eligibility_on_going?
-    approved_status? &&
-    if eligibility_period.present?
-      eligibility_period.start_date <= Date.today &&
-      eligibility_period.end_date > Date.today
-    end
+    approved_status? && (eligibility_period.nil? || eligibility_period.start_date <= Date.today && eligibility_period.end_date > Date.today)
   end
 
   def last?

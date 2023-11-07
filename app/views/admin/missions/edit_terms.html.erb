@@ -1,0 +1,26 @@
+<%= render partial: "summary" %>
+
+<div class="navpan-mg-ctn navpan-white-ctn">
+
+  <div class="max-w-400">
+    <%= simple_form_for(@mission, url: admin_mission_path(@mission), data: {turbo: false}) do |f| %>
+      <div class="mb-10">
+        <h6>Dates :</h6>
+        <div class="flex-center-between mb-10" data-controller="flatpickr">
+          <p class="mr-10 no-wrap w-100">Début :</p>
+          <p><%= f.input :start_date, as: :string, input_html: {value: @mission.start_date.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+        </div>
+        <div class="flex-center-between" data-controller="flatpickr">
+          <p class="mr-10 no-wrap w-100">Fin :</p>
+          <p><%= f.input :end_date, as: :string, input_html: {value: @mission.end_date.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+        </div>
+      </div>
+      <%= f.input :periodicity %>
+      <%= f.input :days_count %>
+      <%= f.input :referent_name %>
+      <%= f.input :referent_email %>
+      <%= f.submit "Enregister", class: "button btn-main-color" %>
+    <% end %>
+  </div>
+
+</div>

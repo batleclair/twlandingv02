@@ -3,12 +3,12 @@
 </div>
 
 
-<div class="d-flex">
+<div class="d-flex mb-40">
   <%= render partial: "calendar" %>
   <div class="max-w-400 ml-40">
     <div class="mb-30 flex-between">
       <div>
-        <h4 class="text-main fw-7 mb-10">Nouveau temps</h5>
+        <h4 class="text-main fw-7 mb-10">Nouveau temps</h4>
         <p>Veuillez renseigner les heures consacrées à <%= @mission.beneficiary.name %> ce jour-là.</p>
       </div>
       <%= link_to :back do %>

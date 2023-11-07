@@ -2,8 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="dynamic-form"
 export default class extends Controller {
-  static targets = ['output', 'customctn']
+  static targets = ['output', 'input', 'trigger', 'customOutput', 'customTrigger']
+
   connect() {
+    this.toggle()
+    this.customToggle()
   }
 
   display() {
@@ -18,23 +21,26 @@ export default class extends Controller {
     });
   }
 
-  custom() {
-    if (event.target.value === "Autre (préciser)") {
-      // event.target.disabled = true
-      // this.customfieldTarget.disabled = false
-      this.customctnTarget.classList.remove("d-none")
-    } else {
-      // event.target.disabled = false
-      // this.customfieldTarget.disabled = true
-      this.customctnTarget.classList.add("d-none")
+  customToggle() {
+    if (this.hasCustomTriggerTarget) {
+      if (this.customTriggerTarget.value === "Autre (préciser)") {
+        this.customOutputTarget.classList.remove("d-none")
+      } else {
+        this.customOutputTarget.classList.add("d-none")
+      }
     }
   }
 
   toggle() {
-    if (event.target.value === "true") {
-      this.outputTarget.classList.remove("d-none")
-    } else {
-      this.outputTarget.classList.add("d-none")
+    if (this.hasTriggerTarget) {
+      this.inputTargets.forEach(t => {
+        this.triggerTarget.checked ? t.classList.add("d-none") : t.classList.remove("d-none")
+      });
+      this.outputTargets.forEach(t => {
+        this.triggerTarget.checked ? t.classList.remove("d-none") : t.classList.add("d-none")
+      });
     }
   }
+
+
 }

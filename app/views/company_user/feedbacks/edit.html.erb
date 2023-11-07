@@ -1,40 +1,28 @@
-<div class="mb-20">
-  <%= render partial: "company_user/missions/tabs" %>
-</div>
+<%= render partial: "company_user/missions/tabs" %>
+<%= render partial: "company_user/missions/confirm_heading" %>
 
-<div class="max-w-500">
-  <div class="mb-40">
-    <h4 class="text-main fw-7 mb-20">Vous souhaitez clôturer cette mission</h4>
-    <h6><%= @mission.beneficiary.name %></h6>
-    <p><%= @mission.title %></p>
-  </div>
+<div class="max-w-400">
+  <%= simple_form_for([@mission, @feedback], url: user_mission_feedback_path(mission_id: @mission.id, id: @feedback.id)) do |f| %>
 
-  <div class="max-w-400">
-    <%= simple_form_for([@mission, @feedback], url: user_mission_feedback_path(mission_id: @mission.id, id: @feedback.id)) do |f| %>
-      <div class="w-100 flex-center-between mb-40">
-        <%= link_to "<", user_mission_confirmation_path(step: 2), class: "round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20" %>
-        <button type="submit" class="round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20">></button>
-      </div>
+    <h5>Faites nous part de vos retours 😊</h5>
 
-      <h5>Faites nous part de vos retours 😊</h5>
-
-      <% @feedback.answers.each do |answer| %>
-        <%= f.simple_fields_for :answers, answer do |a| %>
-          <% case answer.question.input_type %>
-          <% when "integer" %>
-            <%= a.input :integer_answer, label: answer.question.title %>
-          <% when "text" %>
-            <%= a.input :text_answer, label: answer.question.title %>
-          <% when "boolean" %>
-            <%= a.input :boolean_answer, label: answer.question.title %>
-          <% end %>
+    <% @feedback.answers.each do |answer| %>
+      <%= f.simple_fields_for :answers, answer do |a| %>
+        <% case answer.question.input_type %>
+        <% when "rating" %>
+          <%= a.input :integer_answer, label: answer.question.title %>
+        <% when "comment" %>
+          <%= a.input :text_answer, label: answer.question.title %>
+        <% when "checkbox" %>
+          <%= a.input :boolean_answer, label: answer.question.title, input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" }  %>
         <% end %>
       <% end %>
-
-
-
-
     <% end %>
-  </div>
 
+    <div class="w-100 flex-center-between mb-40">
+      <%= link_to "Retour", user_mission_confirmation_path(step: 2), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+      <button type="submit" class="round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2">Continuer</button>
+    </div>
+
+  <% end %>
 </div>

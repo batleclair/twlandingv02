@@ -1,9 +1,5 @@
 <div class="max-w-400">
   <%= simple_form_for(@mission, url: user_mission_path(@mission, step:1)) do |f| %>
-    <div class="w-100 flex-center-between mb-40">
-      <%= link_to "<", user_mission_confirmation_path, class: "round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20" %>
-      <button type="submit" class="round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20">></button>
-    </div>
 
     <div class="mb-20">
       <h5>Indiquez la raison 😶</h5>
@@ -19,6 +15,10 @@
                   item_wrapper_class: "radio-button-ctn" %>
     </div>
     <%= f.input :termination_comment, label: "Commentaires" %>
+
+    <div class="w-100 flex-center-right mb-40">
+      <button type="submit" class="round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2">Continuer</button>
+    </div>
   <% end %>
 
 

@@ -7,16 +7,33 @@
   <div class="ml-40 w-100 max-w-500">
     <div class="w-100">
       <div class="mb-20">
-        <h5 class="text-main">Demande de Mission</h5>
-        <p>Date de démarrage envisagée : <%= @candidacy.req_start_date %></p>
-        <p>Estimation du nombre de jours requis : <%= @candidacy.req_days %> jours</p>
-        <p>Périodicité envisagée : <%= @candidacy.req_periodicity %></p>
-        <p>Contenu de la mission : <%= @candidacy.req_description %></p>
+        <h5 class="text-main mb-10">Demande réfusée</h5>
+
+        <table>
+          <tbody>
+            <tr>
+              <th class="pr-20">Début</th>
+              <td><%= @candidacy.req_start_date.strftime("%d/%m/%Y") %></td>
+            </tr>
+            <tr>
+              <th class="pr-20">Durée</th>
+              <td><%= @candidacy.req_days %> jours</td>
+            </tr>
+            <tr>
+              <th class="pr-20">Périodicité</th>
+              <td><%= @candidacy.req_periodicity %></td>
+            </tr>
+            <tr>
+              <th class="pr-20">Objet</th>
+              <td><%= @candidacy.req_description %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
         <div class="mb-40">
-          <h6>Cette mission a été refusée à votre salarié pour la raison suivante :</h6>
-          <p><%= @candidacy_on_record.current_comment.content if @candidacy_on_record.current_comment.present? %></p>
+          <h6>Motif du refus :</h6>
+          <p><i>"<%= @candidacy_on_record.current_comment.content if @candidacy_on_record.current_comment.present? %>"</i></p>
         </div>
         <p>Veuillez nous contacter si vous souhaitez réévaluer la demande</p>
     </div>

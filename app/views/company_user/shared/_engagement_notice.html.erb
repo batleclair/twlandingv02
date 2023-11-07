@@ -1,0 +1,10 @@
+<div class="p-20 mb-40 bg-grey center-text">
+  <h6 class="fw-5 mb-10"><i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10"></i>Candidature suspendue</h6>
+  <% if !current_user.eligibility_on_going? && @active_engagement.nil? %>
+    <p>Vous n'êtes actuellement pas autorisé.e par votre entreprise à candidater à cette mission</p>
+  <% else %>
+    <p>Vous avez actuellement un autre engagement en cours auprès de</p>
+    <p class="fw-6 text-main mb-10"><%= @active_engagement.beneficiary.name %></p>
+    <p>Vous pourrez reprendre le cours de votre candidature lorsque votre engagement actuel se terminera, ou s'il n'aboutit pas</p>
+  <% end %>
+</div>

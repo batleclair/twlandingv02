@@ -1,7 +1,7 @@
 class CompanyUser::MissionsController < CompanyUserController
   before_action :set_missions, only: [:index, :show, :new]
   before_action :set_mission, only: [:show, :edit, :update]
-  before_action :set_tab, only: [:show, :index, :confirm]
+  before_action :set_tab, only: [:show, :index, :confirm, :terminated]
 
   def index
   end
@@ -17,20 +17,30 @@ class CompanyUser::MissionsController < CompanyUserController
     @mission.assign_attributes(mission_params)
     if @mission.save
       redirect_to after_update_path
+    else
+      set_tab
+      @sub_tab = 2
+      render :confirm, status: :unprocessable_entity
     end
   end
 
   def confirm
     @sub_tab = 2
-    @mission = Mission.find(params[:user_mission_id])
+    @mission = policy_scope(Mission).find(params[:user_mission_id])
     session[:proceed_with_ending] = user_mission_confirmation_path(step: 2)
+    authorize @mission
+    redirect_to user_mission_path(@mission) if !@mission.activated_status?
+  end
+
+  def terminated
+    @mission = policy_scope(Mission).find(params[:user_mission_id])
     authorize @mission
   end
 
   private
 
   def set_mission
-    @mission = Mission.find(params[:id])
+    @mission = policy_scope(Mission).find(params[:id])
     authorize @mission
   end
 
@@ -43,7 +53,7 @@ class CompanyUser::MissionsController < CompanyUserController
   end
 
   def mission_params
-    params.require(:mission).permit(:termination_cause, :termination_comment, :time_confirmation, :termination_confirmation)
+    params.require(:mission).permit(:termination_cause, :termination_comment, :time_confirmation, :termination_confirmation, :status)
   end
 
   def after_update_path
@@ -53,7 +63,7 @@ class CompanyUser::MissionsController < CompanyUserController
     when 2
       @mission.feedback.present? ? edit_user_mission_feedback_path(user_mission_id: @mission.id, id:@mission.feedback.id) : new_user_mission_feedback_path(@mission)
     when 3
-      user_missions_path
+      user_mission_terminated_path(@mission)
     else
       root_path
     end

@@ -5,7 +5,9 @@ export default class extends Controller {
   static targets = ["input", "output", "form"]
 
   connect() {
-    console.log("yo bitch")
+    this.inputTargets.forEach(input => {
+      input.classList.add("d-none")
+    });
   }
 
   edit() {
@@ -20,6 +22,7 @@ export default class extends Controller {
 
   cancel() {
     event.preventDefault()
+    console.log("coucou?")
     this.inputTargets.forEach(input => {
       input.classList.add("d-none")
     });

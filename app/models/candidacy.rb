@@ -21,11 +21,11 @@ class Candidacy < ApplicationRecord
     in_discussions: 3, #cross-intro done
     beneficiary_validation: 4, #beneficiary confirmed interest, candidate needs to refuse or accept+submit request for company_admin approval
     user_validation: 5, #request submited awaiting company_admin validation
-    admin_validation: 6,  #request accepted, awaiting mission creation
+    admin_validation: 6,  #request declined
     mission: 7 #mission created
     }, suffix: true
 
-  # accepts_nested_attributes_for :candidate
+  accepts_nested_attributes_for :candidate
   accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: :no_comment_needed
 
   PERIODICITY = [
@@ -71,15 +71,28 @@ class Candidacy < ApplicationRecord
   end
 
   def disliked?
-    !active && status == "selection"
+    !active && selection_status?
   end
 
   def abandonned?
-    !active && status != "selection"
+    !active && !selection_status?
   end
 
   def in_progress?
-    active && status != "selection"
+    active && !selection_status?
+  end
+
+  def selection_status
+    case
+    when selection?
+      :selection
+    when suggestion?
+      :suggestion
+    when disliked?
+      :rejection
+    when !selection_status?
+      :candidacy
+    end
   end
 
   def being_assessed?
@@ -106,6 +119,19 @@ class Candidacy < ApplicationRecord
     active && mission_status?
   end
 
+  def validation_status
+    case
+    when being_assessed?
+      :assessing
+    when being_validated?
+      :validating
+    when abandonned?
+      :abandonned
+    when validated?
+      :approved
+    end
+  end
+
   def current_comment
     comments.find_by(status: status)
   end
@@ -122,7 +148,8 @@ class Candidacy < ApplicationRecord
     attributes['content'].blank? && (
       !current_comment.nil? ||
       (user_application_status? || in_discussions_status?) ||
-      (selection_status? && (company_user_origin? || admin_origin?))
+      (selection_status? && (company_user_origin? || admin_origin?)) ||
+      (user_validation_status? && active)
     )
   end
 

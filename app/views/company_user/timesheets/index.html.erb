@@ -2,6 +2,17 @@
   <%= render partial: "company_user/missions/tabs" %>
 </div>
 
-<%= render partial: "calendar" %>
 
-<p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>
+<div class="d-flex mb-40">
+  <%= render partial: "calendar" %>
+  <div class="max-w-400 ml-40">
+    <div class="mb-30">
+      <h4 class="text-main fw-7 mb-10">Vos temps</h4>
+      <% if @mission.total_hours == 0 %>
+        <p>Vous n'avez pas encore déclaré de temps pour cette mission</p>
+      <% else %>
+        <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>
+      <% end %>
+    </div>
+  </div>
+</div>

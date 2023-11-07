@@ -2,38 +2,31 @@
   <%= render partial: "company_user/missions/tabs" %>
 </div>
 
-<div class="max-w-500">
-  <div class="mb-40">
-    <h4 class="text-main fw-7 mb-20">Vous souhaitez clôturer cette mission</h4>
-    <h6><%= @mission.beneficiary.name %></h6>
-    <p><%= @mission.title %></p>
-  </div>
+<div class="max-w-400">
+  <%= simple_form_for([@mission, @feedback], url: user_mission_feedbacks_path) do |f| %>
 
-  <div class="max-w-400">
-    <%= simple_form_for([@mission, @feedback], url: user_mission_feedbacks_path) do |f| %>
-      <div class="w-100 flex-center-between mb-40">
-        <%= link_to "<", user_mission_confirmation_path(step: 2), class: "round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20" %>
-        <button type="submit" class="round-button-sm bg-shade-dark text-main fw-7 p-20 fs-20">></button>
-      </div>
+    <h5>Faites nous part de vos retours 😊</h5>
 
-      <h5>Faites nous part de vos retours 😊</h5>
+    <% current_user.company.questions.each do |q| %>
+      <%= f.simple_fields_for :answers, @answer do |a| %>
+        <%= a.input :question_id, as: :hidden, input_html: {value: q.id} %>
 
-      <% current_user.company.questions.each do |q| %>
-        <%= f.simple_fields_for :answers, @answer do |a| %>
-          <%= a.input :question_id, as: :hidden, input_html: {value: q.id} %>
-
-          <% case q.input_type %>
-          <% when "integer" %>
-            <%= a.input :integer_answer, label: q.title %>
-          <% when "text" %>
-            <%= a.input :text_answer, label: q.title %>
-          <% when "boolean" %>
-            <%= a.input :boolean_answer, label: q.title %>
-          <% end %>
-
+        <% case q.input_type %>
+        <% when "rating" %>
+          <%= a.input :integer_answer, label: q.title %>
+        <% when "comment" %>
+          <%= a.input :text_answer, label: q.title %>
+        <% when "checkbox" %>
+          <%= a.input :boolean_answer, label: q.title %>
         <% end %>
+
       <% end %>
     <% end %>
+
+  <div class="w-100 flex-center-between mb-40">
+    <%= link_to "Retour", user_mission_confirmation_path(step: 2), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+    <button type="submit" class="round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2">Continuer</button>
   </div>
 
+  <% end %>
 </div>

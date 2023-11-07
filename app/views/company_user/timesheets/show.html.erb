@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="d-flex">
+<div class="d-flex mb-40">
   <%= render partial: "calendar" %>
   <div class="max-w-400 ml-40">
     <div class="mb-30">
@@ -27,7 +27,7 @@
       </tbody>
     </table>
 
-    <%= link_to edit_user_mission_timesheet_path(id: @timesheet.id), class: "w-100 button round first-main-border white-to-shade-bg text-main" do %>
+    <%= link_to edit_user_mission_timesheet_path(id: @timesheet.id), class: "w-100 button round first-main-border bg-white-to-shade text-main" do %>
       <i class="fa-solid fa-pen-to-square"></i>
       Modifier les informations saisies
     <% end %>

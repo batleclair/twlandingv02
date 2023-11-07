@@ -6,8 +6,7 @@
         method: :post,
         class: "w-100",
         data: {turbo: "false"} do |f| %>
-          <%# <%= f.submit "Login", type: "image", src: url_for("/assets/google_sign_in_btn.png") %>
-          <button type="submit" class="grey-border round text-grey white-to-shade-bg square-40 w-100 flex-center button">
+          <button type="submit" class="grey-border round text-grey bg-white-to-shade square-40 w-100 flex-center button">
             <%= image_tag("google_logo.png", class: "h-100 mr-20") %>
             Avec mon compte Google
           </button>

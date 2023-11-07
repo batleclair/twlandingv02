@@ -1,5 +1,4 @@
 class CompanyUser::SelectionsController < CompanyUserController
-  include ControllerUtilities
   before_action :set_selection, only: [:show, :update]
   before_action :set_selections, only: [:show, :index]
   before_action :set_tab, only: [:show, :index]
@@ -8,7 +7,8 @@ class CompanyUser::SelectionsController < CompanyUserController
   end
 
   def show
-    render_show_view
+    session.delete(:selection_error)
+    render show_view
   end
 
   def create
@@ -22,7 +22,7 @@ class CompanyUser::SelectionsController < CompanyUserController
     @selection.status = "selection"
     if @selection.save
       redirect_back(fallback_location: user_offers_path)
-      flash[:notice] = "Ajouté à vos coups de 💜"
+      flash[:notice] = "Ajouté à vos favoris"
     else
       redirect_back(fallback_location: user_offers_path)
       flash[:alert] = "Une erreur s'est produite"
@@ -36,11 +36,7 @@ class CompanyUser::SelectionsController < CompanyUserController
       redirect_back(fallback_location: user_selection_path(@selection))
       flash[:notice] = "Enregistré !"
     else
-      path = session[:failed_candidacy_path]
-      if legit?(path)
-        @offer = @selection.offer
-        render path, status: :unprocessable_entity
-      end
+      render show_view, status: :unprocessable_entity
       flash[:alert] = "Une erreur s'est produite"
     end
   end
@@ -62,37 +58,50 @@ class CompanyUser::SelectionsController < CompanyUserController
   end
 
   def set_selections
+    scope = policy_scope(Candidacy)
     case params[:type]
     when "suggestions"
-      @selections = policy_scope(Candidacy).select{|s| s.suggestion?}
+      scope = scope.where(origin: ["company_admin", "admin"])
+      @subtab = 1
     when "selections"
-      @selections = policy_scope(Candidacy).select{|s| s.selection?}
+      scope = scope.where(origin: "company_user")
+      @subtab = 2
+    when "approved"
+      scope = scope.where.not(status: "selection")
+      @subtab = 3
     when "rejections"
-      @selections = policy_scope(Candidacy).select{|s| s.disliked?}
+      scope = scope.where(active: false, status: "selection")
+      @subtab = 4
     else
-      @selections = policy_scope(Candidacy)
+      @subtab = @selection_on_record.nil? ? 0 : set_subtab
     end
+    @selections = scope.where(status: "selection")
+    @candidacies = scope.where.not(status: "selection")
   end
 
   def selection_params
     params.require(:candidacy).permit(:status, :active, :motivation_msg)
   end
 
-  def render_show_view
-    case
-    when @selection.suggestion?
-      session[:failed_candidacy_path] = "company_user/selections/show_suggestion"
-      render :show_suggestion
-    when @selection.selection?
-      session[:failed_candidacy_path] = "company_user/selections/show_selection"
-      render :show_selection
-    when @selection.abandonned? || @selection.disliked?
-      session[:failed_candidacy_path] = "company_user/selections/show_rejection"
-      render :show_rejection
-    when @selection.in_progress?
-      redirect_to user_candidacy_path(@selection)
-    else
-      return
-    end
+  def set_subtab
+    selection_tabs = {
+      suggestion: 1,
+      selection: 2,
+      candidacy: 3,
+      rejection: 4
+    }
+    status = @selection_on_record.selection_status
+    @subtab = @selection_on_record.nil? ? 0 : selection_tabs[status]
+  end
+
+  def show_view
+    selection_views = {
+      suggestion: :show_suggestion,
+      selection: :show_selection,
+      candidacy: :show_approved,
+      rejection: :show_rejection
+    }
+    status = @selection_on_record.selection_status
+    return session[:selection_error] ? "company_user/offers/show" : selection_views[status]
   end
 end

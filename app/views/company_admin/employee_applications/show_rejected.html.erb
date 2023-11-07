@@ -5,7 +5,7 @@
 <div class="d-flex">
   <%= render partial: "list", locals: {employee_applications: @employee_applications} %>
   <div>
-    <div class="pl-40 w-100">
+    <div class="pl-40 w-100 max-w-400">
       <h5 class="text-main mb-20 fw-6">Demande d'éligibilité refusée</h5>
 
       <%= render partial: "summary", locals: {employee_application: @employee_application}  %>
@@ -18,23 +18,19 @@
         <p class="mb-20">Vous pouvez encore revenir en arrière</p>
         <div class="max-w-300 w-100 center-margin">
           <%= simple_form_for(@employee_application, url: company_admin_employee_application_path(@employee_application), action: :update, data: {turbo: false}) do |f| %>
-              <div class="xl-radio-btns position-relative mb-20">
-                <%= f.input :status,
-                            as: :radio_buttons,
-                            legend_tag: false,
-                            label: false,
-                            item_wrapper_html: {data: {status: 'youhou'}},
-                            collection: EmployeeApplication.statuses.keys[0..1].reverse,
-                            wrapper: false,
-                            required: true %>
-              </div>
-              <div class="position-relative mb-30">
-                <%= f.input :response_msg,
-                            label: false,
-                            wrapper: false,
-                            placeholder: "Votre message de réponse" %>
-              </div>
-              <button type="submit" class="button btn-main-color center-margin">Enregistrer</button>
+            <div class="xl-radio-btns position-relative mb-20">
+              <%= f.collection_radio_buttons :status, [["accepter", "approved"], ["en attente", "pending"]], :last, :first do |b|
+                b.radio_button(class: (b.value == "approved" ? 'flag-3-radio' : 'flag-1-radio' ))  + b.label
+              end %>
+              <%= f.error :status, class: "invalid-msg" %>
+            </div>
+            <div class="position-relative mb-30">
+              <%= f.input :response_msg,
+                          label: false,
+                          wrapper: false,
+                          placeholder: "Votre message de réponse" %>
+            </div>
+            <button type="submit" class="button btn-main-color center-margin">Enregistrer</button>
           <% end %>
         </div>
       <% else %>
