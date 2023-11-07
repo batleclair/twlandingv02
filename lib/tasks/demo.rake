@@ -61,6 +61,7 @@ task reset_demo: :environment do
   def add_candidate_eligibility(user)
     candidate = Candidate.create(user: user)
     if user.company_user? && user.first_name != USERS[0][:first_name]
+      candidate.update(profile_completed: true, call_status: "done")
       EmployeeApplication.create(
         candidate_id: candidate.id,
         motivation_msg: punchline(user),
@@ -88,10 +89,11 @@ task reset_demo: :environment do
 
   eligible_users = User.where(company_id: company.id, company_role: "user").where.not(first_name: USERS[0][:first_name]).select{|u| u.eligibility_on_going?}
   admin_user = User.find_by(company_id: company.id, company_role: "admin")
+  offers_scope = Offer.where(status: "active", publish: true).where.not(title: "no_offer")
 
   eligible_users.each do |user|
     candidacy = Candidacy.new(
-      offer_id: Offer.where.not(title: "no_offer").sample.id,
+      offer_id: offers_scope.sample.id,
       candidate_id: user.candidate.id,
       active: true,
       motivation_msg: "Je souhaite candidater à cette mission",
