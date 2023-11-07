@@ -105,6 +105,9 @@
       background-color: $first-main-color;
       border: solid white 1px;
     }
+    .flex-center-between{
+      justify-content: start !important;
+    }
     >div{
       a, i{
         color: white !important;

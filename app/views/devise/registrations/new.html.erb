@@ -11,13 +11,11 @@
         </div>
       </div>
 
-      <% if Rails.env == "development" %>
-        <%= render partial: "devise/shared/google_sso" %>
+        <%# <%= render partial: "devise/shared/google_sso" %>
 
-        <div class="separator w-50 center-margin center-text mb-15">
+        <%# <div class="separator w-50 center-margin center-text mb-15">
           ou
-        </div>
-      <% end %>
+        </div> %>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
 
