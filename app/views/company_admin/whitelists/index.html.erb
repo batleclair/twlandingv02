@@ -80,7 +80,7 @@
             </td>
             <td>
               <% if !w.user_attached? %>
-                <%= link_to company_admin_whitelist_path(w), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                <%= link_to company_admin_whitelist_path(w), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
                   <i class="fa-solid fa-trash text-main ms-3 me-1"></i>
                 <% end %>
               <% end %>

@@ -12,6 +12,9 @@
         <div class="mb-10" data-action="click->hidden-form#keep">
           <%= f.input :manager_approval, as: :boolean, label: "Validé par le management", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" }, default: @mission.manager_approval_approved?, checked_value: "approved", unchecked_value: "not_submitted" %>
         </div>
+        <div class="mb-10">
+          <p><%= f.input :draft_step, collection: Mission.draft_steps.keys, selected: @mission.draft_step, include_blank: "sélectionner" %></p>
+        </div>
         <div>
           <%= f.input :beneficiary_approval, collection: Mission.beneficiary_approvals.keys, selected: @mission.beneficiary_approval %>
         </div>

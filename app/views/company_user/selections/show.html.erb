@@ -1,0 +1,33 @@
+<h5 class="fw-7 text-main mb-40">Suggestions</h5>
+
+<div class="d-flex">
+  <%= render partial: "company_user/selections/summary" %>
+  <div class="ml-40 w-100 max-w-400">
+    <div class="w-100">
+      <div class="mb-20" data-controller="popup">
+        <h5 class="text-main">Suggestion</h5>
+        <p>Cette mission vous a été suggérée par <span class="text-main fw-5"><%= @selection.company_admin_origin? ? "votre entreprise" : "Demain" %></span>.</p>
+        <% if current_user.eligibility_on_going? && !@active_engagement %>
+
+          <div class="w-100 mt-20 flex-center-between">
+            <%= link_to "Candidater","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
+            <%= link_to "Décliner","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
+          </div>
+
+          <%= render partial: "accept" %>
+          <%= render partial: "reject" %>
+
+        <% else %>
+          <% if @active_engagement %>
+            <p class="mt-20 mb-20">Vous ne pouvez pas y candidater actuellement en raison de votre engagement en cours sur la mission suivante :</p>
+            <div class="w-100 flex-center">
+              <%= render partial: "company_user/shared/engagement_card" %>
+            </div>
+          <% else %>
+            <p class=" mt-20 mb-10">Vous ne pouvez pas y candidater actuellement.</p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

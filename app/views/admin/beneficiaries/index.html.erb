@@ -39,7 +39,7 @@
                 <%= link_to edit_admin_beneficiary_path(b) do %>
                   <i class="fa-solid fa-pen-to-square text-main"></i>
                 <% end %>
-                <%= link_to beneficiary_path(b), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                <%= link_to beneficiary_path(b), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
                   <i class="fa-solid fa-trash text-main"></i>
                 <% end %>
                 </div>

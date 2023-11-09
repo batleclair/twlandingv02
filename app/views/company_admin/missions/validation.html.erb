@@ -1,0 +1,36 @@
+<div class="mb-20">
+  <%= render partial: "tabs" %>
+</div>
+
+<div class="d-flex">
+  <%= render partial: "list" %>
+
+  <div class="ml-40 max-w-400">
+    <div class="mb-20">
+      <h5 class="text-main fw-6 pb-20">Echanges en cours avec l'association</h5>
+      <% if @mission.beneficiary_approval_submitted? %>
+        <div class="w-100 flex-center-left">
+          <i class="fa-solid fa-clock text-grey min-w-20"></i>
+          <h6>Validation asso en attente</h6>
+        </div>
+        <p>Les informations suivantes ont été transmises à l'association pour validation</p>
+      <% else %>
+        <div class="w-100 flex-center-left">
+          <i class="fa-solid fa-circle-check text-flag-3 min-w-20"></i>
+          <h6>Convention signée par l'association</h6>
+        </div>
+        <p>La mission peut être activée dès à présent</p>
+        <%= simple_form_for(@mission, url: company_admin_mission_path(@mission), html: {data: {controller: "hidden-form", hidden_form_target: "form"}}) do |f| %>
+          <%= f.input :status, as: :hidden, input_html: {value: "activated"} %>
+          <button type="submit", class="w-100 button round bg-white-to-shade first-main-border text-main bn-none">
+            <i class="fa-regular fa-circle-play mr-10"></i>
+            Activer la mission
+          </button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= render partial: "summary" %>
+
+  </div>
+</div>

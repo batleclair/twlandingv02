@@ -36,7 +36,7 @@
               <td><%= c.message %></td>
               <td>
                 <div class="d-flex justify-content-center">
-                  <%= link_to contact_path(c), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+                  <%= link_to contact_path(c), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
                     <i class="fa-solid fa-trash text-main"></i>
                   <% end %>
                 </div>

@@ -22,10 +22,13 @@
 
 <body>
 
-  <%= render partial: "shared/admin_menu" %>
+  <%= render partial: "shared/admin_navbar" %>
 
-  <div class="company-content-ctn">
-    <%= yield %>
+  <div class="d-flex">
+    <%= render partial: "shared/admin_menu" %>
+    <div class="company-content-ctn">
+      <%= yield %>
+    </div>
   </div>
 
   <% if flash.any? %>

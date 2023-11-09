@@ -1,0 +1,29 @@
+<div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="2" data-active=<%=@error = true && !@candidacy.active%>>
+  <div>
+    <div class="p-20 shadow-md" data-action="click->popup#keep">
+      <div class="flex-center-between w-100">
+        <h5 class="text-main fw-7">Décliner</h5>
+        <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+          <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+        <% end %>
+      </div>
+      <h6 class="mb-20">Refuser la mission suggérer par <%= @candidacy.company_admin_origin? ? "votre entreprise" : "Demain" %></h6>
+
+      <%= simple_form_for(@candidacy, data: {turbo: false}) do |f| %>
+
+        <%= f.input :active, as: :hidden, input_html: {value: false} %>
+        <%= f.input :status, as: :hidden, input_html: {value: :user_validation} %>
+
+        <%= f.simple_fields_for :comments, @comment do |c| %>
+          <%= c.input :content, label: false, placeholder: "Indiquer les raisons de votre refus", wrapper_html: {class: "position-relative"} %>
+        <% end %>
+
+        <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+          <i class="fa-regular fa-thumbs-down mr-10"></i>
+          Refuser la mission
+        </button>
+      <% end %>
+
+    </div>
+  </div>
+</div>

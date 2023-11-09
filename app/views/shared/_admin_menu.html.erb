@@ -1,36 +1,31 @@
-<div class="company-navbar ctn-resp-tight">
-  <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
-  <div class="flex-center-between">
-    <%= link_to "", class: "fs-18 ml-20" do %>
-      <i class="fa-solid fa-gear"></i>
-    <% end %>
-    <%= link_to destroy_user_session_path, method: :delete, class: "fs-18 ml-20" do %>
-      <i class="fa-solid fa-right-from-bracket"></i>
-    <% end %>
-    <a href="" class="ml-10 round-button downsize90 fs-18 fw-6 bg-flag-3 text-white"><%= current_user.initials %></a>
-  </div>
-</div>
-
-<div class="company-menu">
-  <div class="w-100 position-relative flex-center mb-10">
-    <% if current_user.company.logo.attached? %>
-      <div class="logo-box downsize90 round-20">
-        <%= cl_image_tag(current_user.company.logo.key) %>
-      </div>
-    <% end %>
-  </div>
-  <div class="w-100 flex-center mb-40">
-    <h6 class="button-round bg-flag-1 text-white">Admin</h6>
-  </div>
-
-  <div class="mb-20">
-    <%= link_to "Accueil", company_admin_path, data: {active: @tab == 0} %>
-    <%= link_to "Recherche", company_admin_offers_path, data: {active: @tab == 1} %>
-  </div>
+<div class="company-menu fs-15">
   <div>
-    <%= link_to "Utilisateurs", company_admin_whitelists_path, data: {turbo: false, active: @tab == 2} %>
-    <%= link_to "Eligibilité", company_admin_employee_applications_path, data: {active: @tab == 3} %>
-    <%= link_to "Candidatures", company_admin_candidacies_path, data: {active: @tab == 4} %>
-    <%= link_to "Missions", company_admin_missions_path, data: {active: @tab == 5} %>
+    <div class="w-100 position-relative flex-center mb-10">
+      <% if current_user.company.logo.attached? %>
+        <div class="bg-white round-20 square-100 flex-center shadow-sm p-10">
+          <%= cl_image_tag(current_user.company.logo.key, class:"w-100") %>
+        </div>
+
+      <% end %>
+    </div>
+    <div class="w-100 flex-center mb-40">
+      <h6 class="button-round bg-flag-1 text-white">Admin</h6>
+    </div>
+
+    <div class="mb-20">
+      <%= link_to "Accueil", company_admin_path, data: {active: @tab == 0} %>
+      <%= link_to "Parcourir les missions", company_admin_offers_path, data: {active: @tab == 1} %>
+      <%= link_to "Gérer les accès", company_admin_whitelists_path, data: {turbo: false, active: @tab == 2} %>
+    </div>
+    <div class="mb-20">
+      <h6 class="fw-6 no-wrap">Approbations</h6>
+      <%= link_to "Demandes d'éligibilité", company_admin_employee_applications_path, data: {active: @tab == 3} %>
+      <%= link_to "Candidatures missions", company_admin_candidacies_path, data: {active: @tab == 4} %>
+    </div>
+    <div class="mb-20">
+      <h6 class="fw-6 no-wrap">Suivi des missions</h6>
+      <%= link_to "Contractualisation", company_admin_missions_path, data: {active: @tab == 5} %>
+      <%= link_to "Reporting", "", data: {active: @tab == 10} %>
+    </div>
   </div>
 </div>

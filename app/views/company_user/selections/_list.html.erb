@@ -1,8 +1,12 @@
 <div class="w-100 max-w-400">
 
+  <% if @selections.blank? && @candidacies.blank? && @rejections.blank? %>
+    <h6 class="mb-10 text-grey">Aucune nouvelle mission ne vous a encore été suggérée</h6>
+  <% end %>
+
   <% if !@selections.blank? %>
     <div class="w-100 mb-30">
-      <h6 class="mb-10 text-grey">Vous n'avez pas candidaté</h6>
+      <h6 class="mb-10 text-grey">Vos dernières suggestions de missions</h6>
       <% @selections.each do |s| %>
         <div class="w-100 p-10 bg-shade mb-10">
           <%= link_to user_selection_path(s), class: "flex-center-top w-100 h-100" do %>
@@ -13,14 +17,7 @@
               <div class="pe-none w-100">
                 <h6><%= s.offer.beneficiary.name %></h6>
                 <p class=""><%= s.offer.title %></p>
-                <% case %>
-                <% when s.selection? %>
-                  <p class="fw-4 fs-13"><i class="fa-solid fa-heart text-flag-2 mr-10"></i>Favori</p>
-                <% when s.suggestion? %>
-                  <p class="fw-4 fs-13"><i class="fa-solid fa-fire text-flag-1 mr-10"></i>Proposition</p>
-                <% when s.disliked? %>
-                  <p class="fw-4 fs-13"><i class="fa-regular fa-heart text-grey-light mr-10"></i>Refus</p>
-                <% end %>
+                <p class="fw-4 fs-13"><i class="fa-solid fa-fire text-flag-1 mr-10"></i>Suggestion</p>
               </div>
             </div>
             <i class="fs-12 text-grey-light no-wrap"><%= s.created_ago %></i>
@@ -32,7 +29,7 @@
 
   <% if !@candidacies.blank? %>
     <div class="w-100">
-      <h6 class="mb-10 text-grey">Vous avez candidaté</h6>
+      <h6 class="mb-10 text-grey">Les suggestions auxquelles vous avez candidaté</h6>
       <% @candidacies.each do |s| %>
         <div class="w-100 p-10 bg-shade mb-10" data-active-engagement=<%= s == @active_engagement%>>
           <%= link_to user_selection_path(s), class: "flex-center-top w-100 h-100" do %>
@@ -58,4 +55,26 @@
     </div>
   <% end %>
 
+  <% if !@rejections.blank? %>
+    <div class="w-100 mb-30">
+      <h6 class="mb-10 text-grey">Les suggestions de missions que vous avez écartées</h6>
+      <% @rejections.each do |s| %>
+        <div class="w-100 p-10 bg-shade mb-10">
+          <%= link_to user_selection_path(s), class: "flex-center-top w-100 h-100" do %>
+            <div class="flex-center-left w-100">
+              <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+                <%= cl_image_tag(s.beneficiary.logo.key) %>
+              </div>
+              <div class="pe-none w-100">
+                <h6><%= s.offer.beneficiary.name %></h6>
+                <p class=""><%= s.offer.title %></p>
+                <p class="fw-4 fs-13"><i class="fa-solid fa-fire text-grey-light mr-10"></i>Suggestion refusée</p>
+              </div>
+            </div>
+            <i class="fs-12 text-grey-light no-wrap"><%= s.created_ago %></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

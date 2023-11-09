@@ -26,10 +26,6 @@ Rails.application.routes.draw do
         resources :demandes, controller: 'employee_applications', as: :company_admin_employee_applications, only: %i[index show update]
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[index update]
         resources :missions, as: :company_admin_missions, only: %i[show index update]
-          get "missions/:id/checklist", to: "missions#checklist", as: :company_admin_mission_checklist
-          get "missions/:id/contreparties", to: "missions#counterparts", as: :company_admin_mission_counterparts
-          get "missions/:id/modalites", to: "missions#terms", as: :company_admin_mission_terms
-          get "missions/:id/documents", to: "missions#documents", as: :company_admin_mission_documents
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[show] do
           resources :missions, only: %i[new create]
         end
@@ -46,15 +42,18 @@ Rails.application.routes.draw do
       resources :candidates, only: %i[update]
       get "/mon_profil", to: "candidates#profile", as: :user_profile
       resources :ma_demande, controller: 'employee_applications', as: :user_employee_applications, only: %i[new create]
-      resources :recherches, controller: 'offers', as: :user_offers, param: :slug, only: %i[index show] do
+      resources :recherche, controller: 'offers', as: :user_offers, param: :slug, only: %i[index show] do
         resources :candidacies, only: %i[create update]
-        resources :selections, only: %i[create]
+        # resources :selections, only: %i[create]
+        resources :favoris, as: :bookmarks, controller: 'bookmarks', only: %i[create]
       end
-        get "recherches/:slug/candidacies", to: redirect("recherches/%{slug}")
-        get "recherches/:slug/candidacies/:id", to: redirect("recherches/%{slug}")
+        get "recherche/:slug/candidacies", to: redirect("recherche/%{slug}")
+        get "recherche/:slug/candidacies/:id", to: redirect("recherche/%{slug}")
       resources :candidacies, as: :user_candidacies, only: %i[index show update]
       resources :selections, as: :user_selections, only: %i[index show update]
+      resources :favoris, controller: 'bookmarks', as: :user_bookmarks, only: %i[index show update]
       resources :missions, as: :user_missions, only: %i[index edit update]
+      resources :historique, controller: "historicals", as: :user_historicals, only: %i[index show]
       resources :missions, as: :user_missions, only: %i[show] do
         get "confirmation", to: "missions#confirm"
         get "terminated", to: "missions#terminated"

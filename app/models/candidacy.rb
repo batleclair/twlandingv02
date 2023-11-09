@@ -8,11 +8,11 @@ class Candidacy < ApplicationRecord
 
   before_validation :assign_status_to_comment, if: :new_comment?
   validates :candidate_id, uniqueness: { scope: :offer_id, message: "Existe déjà !" }
-  validates :motivation_msg, length: { minimum: 1, message: "Veuillez indiquer la raison de votre refus" }, if: -> { active == false && origin != "company_user" && status == "selection" }, on: :validation_step
+  validates :motivation_msg, length: { minimum: 1, message: "Un message est requis" }, if: -> { active == false && origin != "company_user" && status == "selection" }, on: :validation_step
   validates :motivation_msg, length: { minimum: 1, message: "Veuillez indiquer vos motivations" }, if: -> { active == true && status == "user_application" }, on: :validation_step
   validates :status, presence: {message: "Votre réponse est requise"}, on: :validation_step
   validates :active, length: { minimum: 1, message: "Votre réponse est requise"}, on: :validation_step
-  validates :manager_validation, acceptance: { message: 'Double-validation requise' }, if: :mission_status?, on: :validation_step
+  # validates :manager_validation, acceptance: { message: 'Double-validation requise' }, if: :mission_status?, on: :validation_step
 
   enum :origin, {company_admin: 0, company_user: 1, admin: 2}, suffix: true
   enum :status, { selection: 0,
@@ -75,7 +75,7 @@ class Candidacy < ApplicationRecord
   end
 
   def abandonned?
-    !active && !selection_status?
+    !active && !selection_status? && !mission.present?
   end
 
   def in_progress?
@@ -127,7 +127,7 @@ class Candidacy < ApplicationRecord
       :validating
     when abandonned?
       :abandonned
-    when validated?
+    when validated? || mission.present?
       :approved
     end
   end

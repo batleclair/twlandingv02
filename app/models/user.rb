@@ -114,6 +114,10 @@ class User < ApplicationRecord
     offer.candidates.where(user_id: id).none?
   end
 
+  def engaged?
+    candidate.engaged?
+  end
+
   def send_invite_email(password_invite_token)
     UserMailer.user_invite_email(self, password_invite_token).deliver
   end

@@ -1,6 +1,30 @@
-  <div class="d-flex mb-10 company-sub-menu">
-    <%= link_to "Checklist", company_admin_mission_checklist_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 0} %>
-    <%= link_to "Contreparties", company_admin_mission_counterparts_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 1} %>
-    <%= link_to "Modalités", company_admin_mission_terms_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 2} %>
-    <%= link_to "Documents", company_admin_mission_documents_path(@mission, view: params[:view]), class: "button", data: {active: @steptab == 3} %>
-  </div>
+<h5 class="text-main fw-6">Compléter les étapes de validation</h5>
+<div class="flex-center-left mb-10 company-sub-menu progress-tabs w-100 max-w-600 bg-grey mb-40">
+  <%= link_to company_admin_mission_path(@mission, step: :counterparts, view: params[:view]), class: "button position-relative", data: {active: @steptab == 0} do %>
+    1. Infos générales
+    <span class="progress-step" data-completed=<%= Mission.draft_steps[@mission.draft_step] > 0 %>>
+      <i class="fa-solid fa-check"></i>
+    </span>
+  <% end %>
+  >
+  <%= link_to company_admin_mission_path(@mission, step: :terms, view: params[:view]), class: "button position-relative", data: {active: @steptab == 1} do %>
+    2. Modalités
+    <span class="progress-step" data-completed=<%= Mission.draft_steps[@mission.draft_step] > 1 %>>
+      <i class="fa-solid fa-check"></i>
+    </span>
+  <% end %>
+  >
+  <%= link_to company_admin_mission_path(@mission, step: :documents, view: params[:view]), class: "button position-relative", data: {active: @steptab == 2} do %>
+    3. Documents
+    <span class="progress-step" data-completed=<%= Mission.draft_steps[@mission.draft_step] > 2 %>>
+      <i class="fa-solid fa-check"></i>
+    </span>
+  <% end %>
+  >
+  <%= link_to company_admin_mission_path(@mission, step: :checklist, view: params[:view]), class: "button position-relative", data: {active: @steptab == 3 || @mission.draft_step_validation?} do %>
+    4. Validation
+    <span class="progress-step" data-completed=<%= !@mission.beneficiary_approval_not_submitted? %>>
+      <i class="fa-solid fa-check"></i>
+    </span>
+  <% end %>
+</div>

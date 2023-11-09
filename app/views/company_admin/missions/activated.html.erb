@@ -3,108 +3,11 @@
 </div>
 <div class="d-flex">
   <%= render partial: "list" %>
-  <div class="mb-40 ml-40 max-w-500">
+  <div class="mb-40 ml-40 max-w-400 w-100">
     <h5 class="mb-10 fw-7 text-main">Mission active</h5>
 
-    <div class="mb-10">
-      <table class="w-100 mb-10 fs-14 table-padding" cellpadding=0>
-        <tbody>
-
-          <tr class="text-main bg-shade">
-            <th>Association</th>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Nom</th>
-            <td class="w-100"><%= @mission.offer.beneficiary.name %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Adresse</th>
-            <td><%= @mission.offer.beneficiary.address %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">SIREN</th>
-            <td><%= @mission.offer.beneficiary.siren %></td>
-          </tr>
-            <th class="pr-10 no-wrap fw-5">Référent mission</th>
-            <td><%= @mission.referent_name %></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td><%= @mission.referent_email %></td>
-          </tr>
-
-          <tr class="text-main bg-shade">
-            <th>Salarié.e</th>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Nom</th>
-            <td class="w-100"><%= @mission.candidate.full_name %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Domaine</th>
-            <td><%= @mission.candidate.function %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Titre</th>
-            <td><%= @mission.candidate.title %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 no-wrap fw-5">Référent manager</th>
-            <td><%= @mission.candidate.referent_name %></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td><%= @mission.candidate.referent_email %></td>
-          </tr>
-
-          <tr class="text-main bg-shade">
-            <th>Mission</th>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Intitulé</th>
-            <td class="w-100"><%= @mission.title %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Description</th>
-            <td class="w-100"><%= @mission.description %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Dates</th>
-            <td class="w-100"><%= "#{@mission.start_date&.strftime("%d/%m/%Y")} > #{@mission.end_date&.strftime("%d/%m/%Y")}" %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Périodicité</th>
-            <td class="w-100"><%= @mission.periodicity %></td>
-          </tr>
-          <tr>
-            <th class="pr-10 fw-5">Type</th>
-            <td class="w-100"><%= @mission.mission_type %></td>
-          </tr>
-
-          <tr class="text-main bg-shade">
-            <th>Documents</th>
-            <td></td>
-            <td></td>
-          </tr>
-          <% @mission.contracts.each do |contract| %>
-            <tr>
-              <th class="pr-10 fw-5"><%= contract.contract_type %></th>
-              <td class="w-100"><%= contract.title %></td>
-              <td>
-                <%= link_to cl_image_path(contract.document.key), target: "_blank", class:"text-main" do %>
-                  <i class="fa-regular fa-circle-down"></i>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <div class="mb-10 w-100">
+      <%= render partial: "summary" %>
 
       <%= link_to "", class: "w-100 button round bg-main-to-dark text-white bn-none" do %>
         <i class="fa-solid fa-eye mr-10"></i>

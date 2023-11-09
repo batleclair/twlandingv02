@@ -2,33 +2,20 @@
   <%= render partial: "tabs" %>
 </div>
 
-<% input = @error ? "output" : "input" %>
-<% output = @error ? "input" : "output" %>
-
 <div class="d-flex">
   <%= render partial: "list" %>
 
-  <div class="ml-40 mb-40 w-100 max-w-500">
+  <div class="ml-40 mb-40 w-100">
     <%= render partial: "subtabs" %>
 
-    <div class="mb-50" data-controller="hidden-form">
-      <div class="flex-center-between">
-        <h5 class="fw-6 text-main">Contreparties</h5>
-        <%= link_to "", data: {action: "click->hidden-form#edit", hidden_form_target: "output"} do %>
-          <i class="downsize70 fa-solid fa-pen-to-square round-button btn-round-cta"></i>
-        <% end %>
-        <%= link_to "", data: {action: "click->hidden-form#cancel", hidden_form_target: "input"}, class: "d-none" do %>
-          <i class="downsize70 fa-solid fa-xmark round-button btn-round-cta"></i>
-        <% end %>
-      </div>
+    <div class="mb-50 max-w-400 w-100">
 
-      <%= simple_form_for(@mission, url: company_admin_mission_path(@mission), html: {data: {hidden_form_target: "form"}}) do |f| %>
-        <table class="w-100 mb-10 fs-14 table-padding" cellpadding=0>
+      <%= simple_form_for(@mission, url: company_admin_mission_path(@mission)) do |f| %>
+        <table class="w-100 mb-10 table-padding table-align-top" cellpadding=0>
           <tbody>
 
-            <tr class="text-main bg-shade">
+            <tr class="text-main bg-grey">
               <th>Association</th>
-              <td></td>
               <td></td>
             </tr>
             <tr>
@@ -44,19 +31,17 @@
               <td><%= @mission.offer.beneficiary.siren %></td>
             </tr>
               <th class="pr-10 no-wrap fw-5">Référent mission</th>
-              <td data-hidden-form-target=<%= output %>><%= @mission.referent_name %></td>
-              <td data-hidden-form-target=<%= input %> class="w-100"><%= f.input :referent_name, placeholder: "Nom", wrapper: false, label: false, input_html: {class: "embedded"} %></td>
+              <td class="w-100"><%= f.input :referent_name, placeholder: "Nom", wrapper: false, label: false, input_html: {class: "embedded"} %></td>
             </tr>
             <tr>
               <th></th>
-              <td data-hidden-form-target=<%= output %>><%= @mission.referent_email %></td>
-              <td data-hidden-form-target=<%= input %> class="w-100"><%= f.input :referent_email, placeholder: "Email", wrapper: false, label: false, input_html: {class: "embedded"} %></td>
+              <td class="w-100"><%= f.input :referent_email, placeholder: "Email", wrapper: false, label: false, input_html: {class: "embedded"} %></td>
             </tr>
+
             <tr><td class="pt-10"></td></tr>
 
-            <tr class="text-main bg-shade">
+            <tr class="text-main bg-grey">
               <th>Salarié.e</th>
-              <td></td>
               <td></td>
             </tr>
             <tr>
@@ -73,8 +58,7 @@
             </tr>
             <tr>
               <th class="pr-10 no-wrap fw-5">Référent manager</th>
-              <td data-hidden-form-target=<%= output %>><%= @mission.candidate.referent_name %></td>
-              <td data-hidden-form-target=<%= input %> class="w-100">
+              <td class="w-100">
                 <%= simple_fields_for :candidate, @mission.candidate do |c| %>
                   <%= c.input :referent_name, wrapper: false, label: false, placeholder: "Nom", input_html: {class: "embedded"} %>
                 <% end %>
@@ -82,20 +66,36 @@
             </tr>
             <tr>
               <th></th>
-              <td data-hidden-form-target=<%= output %>><%= @mission.candidate.referent_email %></td>
-              <td data-hidden-form-target=<%= input %> class="w-100 position-relative">
+              <td class="w-100 position-relative">
                 <%= simple_fields_for :candidate, @mission.candidate do |c| %>
                   <%= c.input :referent_email, wrapper: false, label: false, placeholder: "Email", input_html: {value: @mission.candidate.referent_email, class: "embedded"} %>
                 <% end %>
               </td>
             </tr>
 
+            <tr><td class="pt-10"></td></tr>
+
+            <tr class="text-main bg-grey">
+              <th>Mission</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th class="pr-10 fw-5">Intitulé</th>
+              <td class="w-100"><%= f.input :title, placeholder: @mission.beneficiary.name, wrapper: false, label: false, input_html: {class: "embedded"} %></td>
+            </tr>
+            <tr>
+              <th class="pr-10 fw-5">Description</th>
+              <td class="w-100"><%= f.input :description, placeholder: @mission.candidacy.req_description, wrapper: false, label: false, input_html: {class: "embedded"} %></td>
+            </tr>
           </tbody>
         </table>
-        <button type="submit", class="w-100 button round bg-white-to-shade first-main-border text-main bn-none" data-hidden-form-target=<%= input %>>
-          <i class="fa-solid fa-floppy-disk mr-10"></i>
-          Enregistrer les modifications
-        </button>
+
+        <%= f.input :draft_step, as: :hidden, input_html: {value: :terms} %>
+        <div class="w-100 flex-center-between mb-40">
+          <span></span>
+          <button type="submit" class="round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2">Continuer</button>
+        </div>
+
       <% end %>
     </div>
   </div>

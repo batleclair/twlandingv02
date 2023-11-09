@@ -1,8 +1,5 @@
-<div class="mb-20">
-  <%= render partial: "tabs", locals: {candidacy: nil} %>
-</div>
+<h5 class="fw-7 text-main mb-40">Candidatures</h5>
 
 <div class="d-flex" data-controller="display">
-  <%= render partial: "list", locals: {candidacies: @candidacies} %>
-  <div data-display-target="output"></div>
+  <%= render partial: "list" %>
 </div>

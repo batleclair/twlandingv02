@@ -1,0 +1,58 @@
+<div class="w-100 max-w-400">
+
+  <% if @selections.blank? && @candidacies.blank? %>
+    <h6 class="mb-10 text-grey">Vous n'avez pas encore ajouté de nouvelle mission à vos favoris</h6>
+  <% end %>
+
+  <% if !@selections.blank? %>
+    <div class="w-100 mb-30">
+      <h6 class="mb-10 text-grey">Les favoris auxquels vous n'avez pas encore candidaté</h6>
+      <% @selections.each do |s| %>
+        <div class="w-100 p-10 bg-shade mb-10">
+          <%= link_to user_bookmark_path(s), class: "flex-center-top w-100 h-100" do %>
+            <div class="flex-center-left w-100">
+              <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+                <%= cl_image_tag(s.beneficiary.logo.key) %>
+              </div>
+              <div class="pe-none w-100">
+                <h6><%= s.offer.beneficiary.name %></h6>
+                <p class=""><%= s.offer.title %></p>
+                <p class="fw-4 fs-13"><i class="fa-solid fa-heart text-flag-2 mr-10"></i>Favori</p>
+              </div>
+            </div>
+            <i class="fs-12 text-grey-light no-wrap"><%= s.created_ago %></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if !@candidacies.blank? %>
+    <div class="w-100">
+      <h6 class="mb-10 text-grey">Les favoris auxquels vous avez candidaté</h6>
+      <% @candidacies.each do |s| %>
+        <div class="w-100 p-10 bg-shade mb-10" data-active-engagement=<%= s == @active_engagement%>>
+          <%= link_to user_bookmark_path(s), class: "flex-center-top w-100 h-100" do %>
+            <div class="flex-center-left w-100">
+              <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+                <%= cl_image_tag(s.beneficiary.logo.key) %>
+              </div>
+              <div class="pe-none w-100">
+                <h6><%= s.offer.beneficiary.name %></h6>
+                <p><%= s.offer.title %></p>
+                <% case %>
+                <% when s.abandonned? %>
+                  <p class="fw-4 fs-13"><i class="fa-regular fa-star text-grey-light mr-10"></i>Abandon</p>
+                <% when s.in_progress? %>
+                  <p class="fw-4 fs-13 engagement"><i class="fa-solid fa-star text-main-light mr-10"></i><%= s == @active_engagement ? "Engagement" : "Candidature" %></p>
+                <% end %>
+              </div>
+            </div>
+            <i class="fs-12 text-grey-light no-wrap"><%= s.created_ago %></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

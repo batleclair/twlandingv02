@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_01_104010) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -258,6 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_104010) do
     t.boolean "time_confirmation"
     t.boolean "termination_confirmation"
     t.integer "status", default: 0
+    t.integer "draft_step", default: 0
     t.index ["candidacy_id"], name: "index_missions_on_candidacy_id"
   end
 

@@ -5,7 +5,7 @@
 <% if @selection.suggestion? %>
   <h5>Cette mission vous a été recommandée !</h5>
 <% else %>
-  <% url = @selection.id.nil? ? user_offer_selections_path(@offer) : user_selection_path(@selection) %>
+  <% url = @selection.id.nil? ? user_offer_bookmarks_path(@offer) : user_bookmark_path(@selection) %>
   <% label = @selection.id.nil? || !@selection.active ? "Ajouter aux <3" : "Retirer des <3" %>
 
   <%= simple_form_for(args, url: url, method: method, data: {turbo: false}) do |f| %>
@@ -25,7 +25,7 @@
     <%= f.input :status, as: :hidden, input_html: {value: "user_application"} %>
     <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">
       <i class="fa-regular fa-paper-plane mr-10"></i>
-      Envoyer ma demande
+      Envoyer à l'association
     </button>
   <% end %>
 <% end %>

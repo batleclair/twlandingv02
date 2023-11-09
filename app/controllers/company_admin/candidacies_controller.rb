@@ -30,7 +30,7 @@ before_action :set_tab, only: [:index, :show]
   def update
     @candidacy.assign_attributes(candidacy_params)
     assign_user_to_comment
-    @candidacy.active = true if @candidacy.status == "mission" && @candidacy_on_record.status == "user_validation"
+    # @candidacy.active = true if @candidacy.status == "mission" && @candidacy_on_record.status == "user_validation"
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable
       @candidacy.validated? ? redirect_to(new_company_admin_candidacy_mission_path(@candidacy)) : redirect_back(fallback_location: company_admin_candidacies_path)
@@ -38,7 +38,8 @@ before_action :set_tab, only: [:index, :show]
     else
       set_comment
       set_tab
-      flash[:alert] = "Un problème est survenu"
+      @rejection_error = true
+      flash[:alert] = "Vérfiez les informations saisies"
       render_show_view
     end
   end
@@ -52,15 +53,16 @@ before_action :set_tab, only: [:index, :show]
   end
 
   def set_candidacies
-    case params[:status]
+    scope = policy_scope(Candidacy).where(status: ["user_validation", "admin_validation", "mission"])
+    @candidacies = case params[:status]
     when "pending"
-      @candidacies = policy_scope(Candidacy).where(status: "user_validation").select{|c| c.submitted_for_approval?}
+      scope.where(status: "user_validation").select{|c| c.submitted_for_approval?}
     when "rejected"
-      @candidacies = policy_scope(Candidacy).where(status: "admin_validation").select{|c| c.abandonned?}
+      scope.where(status: "admin_validation").select{|c| c.abandonned?}
     when "approved"
-      @candidacies = policy_scope(Candidacy).where(status: "mission").select{|c| c.validated?}
+      scope.where(status: "mission").select{|c| c.validated?}
     else
-      @candidacies = policy_scope(Candidacy).where(status: ["user_validation", "admin_validation", "mission"])
+      scope.select{|c| !c.mission.present? || !c.mission&.terminated_status? }
     end
   end
 
@@ -79,6 +81,7 @@ before_action :set_tab, only: [:index, :show]
   def render_show_view
     case
     when @candidacy_on_record.submitted_for_approval?
+      @mission = Mission.new
       render :show_pending
     when @candidacy_on_record.abandonned?
       render :show_rejected

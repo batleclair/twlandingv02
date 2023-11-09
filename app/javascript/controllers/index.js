@@ -67,6 +67,9 @@ application.register("new-profile", NewProfileController)
 import PasswordController from "./password_controller"
 application.register("password", PasswordController)
 
+import PopupController from "./popup_controller"
+application.register("popup", PopupController)
+
 import ProfileFormController from "./profile_form_controller"
 application.register("profile-form", ProfileFormController)
 

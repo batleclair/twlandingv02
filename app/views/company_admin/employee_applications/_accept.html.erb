@@ -1,0 +1,27 @@
+<div class="tenant-modal" data-popup-target="window" data-action="click->popup#close"  data-pop-up-id="1" data-active=<%=@create_error%>>
+  <div>
+    <div class="p-20 shadow-md" data-action="click->popup#keep">
+      <div class="flex-center-between w-100">
+        <h5 class="text-main fw-7">Approuver</h5>
+        <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+          <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+        <% end %>
+      </div>
+      <h6 class="mb-20">Valider la demande d'éligibilité</h6>
+
+      <%= simple_form_for(@employee_application, url: company_admin_employee_application_path(@employee_application), action: :update, data: {turbo: false}) do |f| %>
+        <%= f.input :status, as: :hidden, input_html: {value: "approved"} %>
+        <div class="position-relative mb-30">
+          <%= f.input :response_msg,
+                      label: false,
+                      wrapper: false,
+                      placeholder: "Votre message de réponse" %>
+        </div>
+        <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+          <i class="fa-regular fa-thumbs-up mr-10"></i>
+          Accepter la demande
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>

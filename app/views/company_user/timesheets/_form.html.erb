@@ -21,6 +21,6 @@
 
 <% if deletable %>
   <div class="w-100 flex-center mt-60 mb-40">
-    <%= link_to "Supprimer ces temps ?", user_mission_timesheet_path(id: @timesheet.id), class: "button text-flag-2 fw-6", data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} %>
+    <%= link_to "Supprimer ces temps ?", user_mission_timesheet_path(id: @timesheet.id), class: "button text-flag-2 fw-6", data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} %>
   </div>
 <% end %>

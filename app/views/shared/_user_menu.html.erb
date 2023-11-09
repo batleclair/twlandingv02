@@ -1,36 +1,37 @@
-<div class="company-navbar ctn-resp-tight">
-  <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
-  <div class="flex-center-between">
-    <%= link_to "", class: "fs-18 ml-20" do %>
-      <i class="fa-solid fa-gear"></i>
-    <% end %>
-    <%= link_to destroy_user_session_path, method: :delete, class: "fs-18 ml-20" do %>
-      <i class="fa-solid fa-right-from-bracket"></i>
-    <% end %>
-    <a href="" class="ml-10 round-button downsize90 fs-18 fw-6 bg-flag-1 text-white"><%= current_user.initials %></a>
+<div class="company-menu fs-15">
+  <div>
+    <div class="w-100 position-relative flex-center mb-10">
+      <% if current_user.candidate.photo.attached? %>
+        <div class="logo-box downsize90 round-20">
+          <%= cl_image_tag(current_user.candidate.photo.key) %>
+        </div>
+      <% else %>
+        <div class="bg-white round-20 square-100 flex-center shadow-sm p-10">
+          <span href="" class="round downsize90 p-15 fs-30 fw-6 bg-flag-1 text-white"><%= current_user.initials %></span>
+        </div>
+      <% end %>
+    </div>
+    <div class="w-100 flex-center mb-40">
+      <h6 class="button-round bg-flag-3 text-white"><%= current_user.first_name %></h6>
+    </div>
+    <div class="mb-10">
+      <%= link_to "Accueil", root_path, data: {active: @tab == 0} %>
+    </div>
+    <div class="mb-10">
+      <h6 class="fw-6 no-wrap">Rechercher une mission</h6>
+      <%= link_to "Toutes les missions", user_offers_path, data: {active: @tab == 1}  %>
+      <%= link_to "Favoris", user_bookmarks_path, data: {active: @tab == 2} %>
+      <%= link_to "Suggestions", user_selections_path, data: {active: @tab == 3} %>
+    </div>
+    <div>
+      <h6 class="fw-6">Mes missions</h6>
+      <%= link_to "Candidatures en cours", user_candidacies_path, data: {active: @tab == 4}  %>
+      <% if current_user.missions&.last.present? %>
+        <%= link_to "Ma mission", user_mission_path(current_user.missions.last), data: {active: @tab == 5} %>
+      <% else %>
+        <%= link_to "Mission en cours", user_no_mission_path, data: {active: @tab == 5} %>
+      <% end %>
+      <%= link_to "Historique", user_historicals_path, data: {active: @tab == 6} %>
+    </div>
   </div>
-</div>
-
-<div class="company-menu">
-  <div class="w-100 position-relative flex-center mb-10">
-    <% if current_user.company.logo.attached? %>
-      <div class="logo-box downsize90 round-20">
-        <%= cl_image_tag(current_user.company.logo.key) %>
-      </div>
-    <% end %>
-  </div>
-  <div class="w-100 flex-center mb-40">
-    <h6 class="button-round bg-flag-3 text-white">User</h6>
-  </div>
-  <div class="mb-20">
-    <%= link_to "Accueil", root_path, data: {active: @tab == 0} %>
-    <%= link_to "Recherche", user_offers_path, data: {active: @tab == 1}  %>
-  </div>
-  <%= link_to "Mes sélections", user_selections_path, data: {active: @tab == 2}  %>
-  <%= link_to "Mes candidatures", user_candidacies_path, data: {active: @tab == 3}  %>
-  <% if current_user.missions&.last.present? %>
-    <%= link_to "Ma mission", user_mission_path(current_user.missions.last), data: {active: @tab == 4} %>
-  <% else %>
-    <%= link_to "Ma mission", user_no_mission_path, data: {active: @tab == 4} %>
-  <% end %>
 </div>

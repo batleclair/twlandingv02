@@ -55,7 +55,7 @@
               <%= link_to edit_company_admin_user_path(user), data: {action: "click->hidden-form#edit"}  do %>
                 <i class="fa-solid fa-pen-to-square text-main mr-05"></i>
               <% end %>
-              <%= link_to company_admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "Sûr.e de vouloir supprimer ??"} do %>
+              <%= link_to company_admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
                 <i class="fa-solid fa-trash text-main"></i>
               <% end %>
             </div>

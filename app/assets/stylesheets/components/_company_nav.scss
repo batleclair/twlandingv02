@@ -11,12 +11,19 @@
 }
 
 .company-menu{
+  position: relative;
+  >div{
+    position: sticky;
+    top: 100px;
+  }
   a{
     display: block;
+    max-width: 180px;
+    line-height: normal;
   }
-  position: fixed;
-  height: 100vh;
-  width: 250px;
+  // position: fixed;
+  min-height: 100vh;
+  min-width: 250px;
   background-color: $first_light_color;
   padding-left: 4vw;
   padding-right: 20px;
@@ -38,8 +45,8 @@
 }
 
 .company-content-ctn{
-  margin-left: 250px;
-  margin-top: 50px;
+  // margin-left: 250px;
+  width: 100%;
   padding-top: 50px;
   padding-left: 20px;
   padding-right: 4vw;

@@ -1,39 +1,14 @@
 <div class="w-100 max-w-300">
 
-  <% if params[:view] == "new" || !params[:view] %>
-    <div class="mb-40">
-      <% if @candidacies.nil? %>
-        <h5>Pas de nouvelle mission</h5>
-        <p>Une nouvelle mission doit d'abord être acceptée depuis l'espace <%= link_to "Candidatures", company_admin_candidacies_path(status: "pending"), class: "text-main fw-6" %></p>
-      <% else %>
-        <div class="flex-center-between mb-10">
-          <h5>Créer une nouvelle mission</h5>
-          <h5 class="text-main fw-7"><%= @candidacies.count %></h5>
-        </div>
-        <% @candidacies.each do |candidacy| %>
-          <div class="mb-10 w-100 flex-center-between">
-            <%= link_to new_company_admin_candidacy_mission_path(candidacy, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: candidacy == @candidacy} do %>
-              <div class="pe-none overflow-hidden">
-                <h6><%= candidacy.offer.beneficiary.name %></h6>
-                <p class="text-ellipsis"><%= candidacy.offer.title %></p>
-              </div>
-              <i class="fa-solid fa-circle-plus text-flag-1"></i>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
-
   <% if params[:view] == "in_progress" || !params[:view] %>
     <div class="mb-40">
       <div class="flex-center-between mb-10">
-        <h5>Editer et valider une mission</h5>
+        <h5>En cours de contractualisation</h5>
         <h5 class="text-main fw-7"><%= @missions&.where(status: "draft")&.count %></h5>
       </div>
       <% @missions&.where(status: "draft")&.each do |mission| %>
         <div class="mb-10 w-100 flex-center-between">
-          <%= link_to company_admin_mission_checklist_path(mission, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: mission == @mission} do %>
+          <%= link_to company_admin_mission_path(mission, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: mission == @mission} do %>
             <div class="pe-none overflow-hidden">
               <h6><%= mission.offer.beneficiary.name %></h6>
               <p class="text-ellipsis"><%= mission.offer.title %></p>

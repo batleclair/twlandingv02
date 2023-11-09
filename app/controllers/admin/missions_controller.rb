@@ -43,7 +43,8 @@ class Admin::MissionsController < ApplicationController
       :employee_approval,
       :termination_cause,
       :termination_comment,
-      :termination_confirmation
+      :termination_confirmation,
+      :draft_step
     )
   end
 

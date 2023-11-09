@@ -1,5 +1,5 @@
 class CompanyAdmin::MissionsController < CompanyAdminController
-before_action :set_missions_and_candidacies
+before_action :set_missions
 before_action :set_tab
 before_action :set_mission, only: [:show, :checklist, :terms, :counterparts, :documents]
 before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :documents]
@@ -9,31 +9,14 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
 
   def show
     if @mission.draft_status?
-      redirect_to company_admin_mission_checklist_path(@mission, view: params[:view])
+      @contract = Contract.new
+      step = params[:step]&.to_sym || @mission.draft_step.to_sym
+      session[:mission_error] = step
+      set_subtab
+      render step
     elsif @mission.activated_status?
       render :activated
     end
-  end
-
-  def checklist
-    @steptab = 0
-    session[:mission_error] = "checklist"
-  end
-
-  def counterparts
-    @steptab = 1
-    session[:mission_error] = "counterparts"
-  end
-
-  def terms
-    @steptab = 2
-    session[:mission_error] = "terms"
-  end
-
-  def documents
-    @steptab = 3
-    @contract = Contract.new
-    session[:mission_error] = "documents"
   end
 
   def new
@@ -47,11 +30,16 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
     @candidacy = Candidacy.find(params[:company_admin_candidacy_id])
     @mission.candidacy = @candidacy
     if @mission.save
+      @candidacy.update(status: "mission")
       redirect_to company_admin_mission_path(@mission)
     else
       set_tab
-      set_missions_and_candidacies
-      render :new, status: :unprocessable_entity
+      set_missions
+      set_comment
+      @candidacy_on_record = Candidacy.find(params[:company_admin_candidacy_id])
+      @create_error = true
+      render "company_admin/candidacies/show_pending", status: :unprocessable_entity
+      # raise
     end
   end
 
@@ -61,29 +49,25 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
     @mission.assign_attributes(mission_params)
     assign_company_to_contract
     if @mission.save && candidate_update
-      redirect_to company_admin_mission_path(@mission)
+      redirect_to company_admin_mission_path(@mission, step: @mission.draft_step)
     else
       set_tab
       @error = true
-      set_subtab
+      @mission_on_record = Mission.find(params[:id])
       render session[:mission_error].to_sym, status: :unprocessable_entity
     end
   end
 
   private
 
-  def set_missions_and_candidacies
+  def set_missions
     missions = policy_scope(Mission)
-    candidacies = policy_scope(Candidacy).where(active: true, status: "mission").select{|c| !c.mission.present?}
     case params[:view]
-    when "new"
-      @candidacies = candidacies
     when "in_progress"
       @missions = missions.where(status: "draft")
     when "activated"
       @missions = missions.where(status: "activated")
     else
-      @candidacies = candidacies
       @missions = missions
     end
   end
@@ -92,8 +76,12 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
     @tab = 5
   end
 
+  def set_comment
+    @comment = @candidacy.new_comment? ? @candidacy.comments.last : Comment.new
+  end
+
   def set_subtab
-    subtabs = {checklist: 0, counterparts: 1, terms: 2, documents: 3}
+    subtabs = {checklist: 3, counterparts: 0, terms: 1, documents: 2}
     view = session[:mission_error].to_sym
     @steptab = subtabs[view]
   end
@@ -101,6 +89,7 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
   def set_mission
     @mission = Mission.find(params[:id])
     authorize @mission
+    @mission_on_record = Mission.find(params[:id])
   end
 
   def redirect_if_active
@@ -128,6 +117,7 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
       :beneficiary_approval,
       :employee_approval,
       :status,
+      :draft_step,
       contracts_attributes: [:title, :contract_type, :document]
     )
   end
@@ -137,7 +127,12 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
   end
 
   def candidate_update
-    @mission.candidate.update(params.require(:candidate).permit(:referent_name, :referent_email)) if params[:candidate].present?
+    if params[:candidate].present?
+      @candidate = @mission.candidate
+      @candidate.update(params.require(:candidate).permit(:referent_name, :referent_email))
+    else
+      true
+    end
   end
 
   # def full_mission_params

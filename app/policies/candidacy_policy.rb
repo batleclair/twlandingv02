@@ -46,6 +46,10 @@ class CandidacyPolicy < ApplicationPolicy
     user.user_type == 'admin'
   end
 
+  def bookmarks?
+    index?
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve

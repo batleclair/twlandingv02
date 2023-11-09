@@ -49,7 +49,7 @@ class CompanyUser::MissionsController < CompanyUserController
   end
 
   def set_tab
-    @tab = 4
+    @tab = 5
   end
 
   def mission_params

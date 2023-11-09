@@ -1,6 +1,4 @@
-<div class="mb-20">
-  <%= render partial: "tabs", locals: {candidacy: @candidacy} %>
-</div>
+<h5 class="fw-7 text-main mb-40">Candidatures</h5>
 
 <div class="d-flex">
   <%= render partial: "summary" %>
@@ -9,8 +7,9 @@
       <% if !current_user.eligibility_on_going? || (!@active_engagement.nil? && @active_engagement != @candidacy_on_record) %>
         <%= render partial: "company_user/shared/engagement_notice" %>
       <% else %>
-        <div class="mb-20">
+        <div class="mb-20" data-controller="popup">
           <h5 class="text-main">Phase de validation</h5>
+
 
           <% case @candidacy_on_record.status %>
           <% when "beneficiary_validation" %>
@@ -31,33 +30,19 @@
             <h5>Acceptez-vous la mission ?</h5>
             <p class="mb-20">Elle devra être validée par <span class="fw-6 text-main"><%= current_user.company.name %></span></p>
 
-            <%= render partial: "validation_form" %>
+            <div class="w-100 flex-center-between">
+              <%= link_to "Accepter","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
+              <%= link_to "Rejeter","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
+            </div>
+
+            <%= render partial: "accept" %>
+            <%= render partial: "reject" %>
 
           <% when "user_validation" %>
             <p>Merci de votre engagement !</p>
             <p class="mb-20">Votre demande va être évaluée par l'équipe RH et votre manager afin de s'assurer qu'elle satisfait les conditons d'éligibilité.</p>
             <p>Silence radio ? Contactez-nous !</p>
 
-          <% when "mission" %>
-            <div class="mb-10">
-              <p>Votre candidature est validée par <%= current_user.company.name %> !</p>
-              <p>Voici leur réponse :</p>
-              <table class="max-w-400 mb-40">
-                <tbody class="va-top">
-                  <tr>
-                    <th class="pr-10">💬</th>
-                    <th class="pr-10 no-wrap">Message :</th>
-                    <td><i>"<%= @candidacy.comments.find_by(status: "mission").content %></i> "</td>
-                  </tr>
-                </tbody>
-              </table>
-              <% if @candidacy.admin_validation_message.present? %>
-                <p>Voici leur réponse :</p>
-                <p><%= @candidacy.admin_validation_message %></p>
-              <% end %>
-            </div>
-            <h6 class="text-main fw-7">Et maintenant ?</h6>
-            <p>Nous nous chargeons de formaliser la mission entre votre entreprise, l'association et vous.</p>
           <% end %>
         </div>
       <% end %>

@@ -91,26 +91,62 @@ task reset_demo: :environment do
   admin_user = User.find_by(company_id: company.id, company_role: "admin")
   offers_scope = Offer.where(status: "active", publish: true).where.not(title: "no_offer")
 
-  eligible_users.each do |user|
+  eligible_users[0..-2].each do |user|
     candidacy = Candidacy.new(
       offer_id: offers_scope.sample.id,
       candidate_id: user.candidate.id,
       active: true,
+      origin: "admin",
       motivation_msg: "Je souhaite candidater à cette mission",
-      manager_validation: true,
       status: "mission",
       comments_attributes: [user: admin_user, content: "Vous êtes autorisé à effectuer cette mission"])
-      if candidacy.save
-        p "OK : #{user.first_name} applied at #{candidacy.offer.beneficiary.name}"
-      else
-        p "ERROR : #{user.first_name} failed"
-        p candidacy
-        p candidacy.errors
-        return
-      end
+    if candidacy.save
+      p "OK : #{user.first_name} applied at #{candidacy.offer.beneficiary.name}"
+    else
+      p "ERROR : #{user.first_name} failed"
+      p candidacy
+      p candidacy.errors
+      return
+    end
+    mission = Mission.create(
+      title: "#{candidacy.beneficiary.name} - #{candidacy.offer.title}",
+      start_date: Date.today + 30,
+      end_date: Date.today + 120,
+      periodicity: "1 jour toutes les 2 semaines",
+      days_count: 10,
+      manager_approval: "approved",
+      status: "draft",
+      candidacy_id: candidacy.id)
+    if mission.save
+      p "OK : mission created for #{user.first_name}"
+    else
+      p "ERROR : #{user.first_name} failed"
+      p mission
+      p mission.errors
+    end
   end
 
-  eligible_users.last.candidate.candidacies.last.update(manager_validation: false, status: "user_validation", comments_attributes: [user_id: admin_user.id, content: "Je souhaite y aller"])
+  pending_user = eligible_users.last
+
+  bookmark = Candidacy.create(
+    offer_id: offers_scope.sample.id,
+    candidate_id: pending_user.candidate.id,
+    active: true,
+    origin: "company_user",
+    status: "selection"
+  )
+  Candidacy.create(
+    offer_id: offers_scope.where.not(id: bookmark.id).sample.id,
+    candidate_id: pending_user.candidate.id,
+    active: true,
+    origin: "admin",
+    status: "user_validation",
+    comments_attributes: [status: "user_validation", user_id: pending_user.id, content: "Je souhaite candidater"],
+    req_start_date: Date.today + 45,
+    req_days: 12,
+    req_periodicity: "1 jour par semaine",
+    req_description: "Assister l'association sur une mission en lien avec mes nombreuses compétences"
+  )
 
   questions = [
     ["Evaluer le contenu de la mission", "rating"],

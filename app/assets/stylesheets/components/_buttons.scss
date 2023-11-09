@@ -237,6 +237,9 @@ button.fat-btn{
   &:hover{
     background-color: $first-main-darker;
   }
+  &:disabled{
+    background-color: $grey-low;
+  }
 }
 
 .bg-shade-to-dark{

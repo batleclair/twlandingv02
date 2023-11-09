@@ -20,3 +20,40 @@
   animation-name: step;
   animation-duration: 1s;
 }
+
+
+.progress-step{
+  position: absolute;
+  padding: 10px;
+  color: $first-light-color;
+  background-color: $first-light-color;
+  border-radius: 50em;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-step[data-completed="true"]{
+  background-color: $flag-color-3;
+  color: white;
+}
+
+.company-sub-menu.progress-tabs{
+  border-bottom: solid 1px $first-light-darker;
+  [data-active="true"]{
+    .progress-step{
+      background-color: $first-light-darker;
+      color: $first-light-darker;
+    }
+    .progress-step[data-completed="true"]{
+      color: white;
+    }
+  }
+}

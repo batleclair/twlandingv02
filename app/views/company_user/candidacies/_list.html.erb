@@ -1,8 +1,23 @@
 <div class="w-100 max-w-400">
-  <% if @active_engagement %>
-    <div class="mb-30">
+  <% if !@active_candidacy && @candidacies.empty? %>
+    <h6 class="mb-10 text-grey">Vous n'avez pas de candidature active actuellement</h6>
+  <% end %>
+
+  <% if @active_candidacy %>
+    <div class="mb-30 w-100">
       <h6 class="mb-10 text-grey">Vous avez un engagement en cours</h6>
-      <%= render partial: "company_user/shared/engagement_card" %>
+      <%= link_to user_candidacy_path(@active_candidacy), class: "w-100 h-100" do %>
+        <div class="flex-center-left w-100 bg-shade p-10 first-main-border round-5">
+          <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+            <%= cl_image_tag(@active_candidacy.beneficiary.logo.key) %>
+          </div>
+          <div class="pe-none w-100">
+            <h6><%= @active_candidacy.offer.beneficiary.name %></h6>
+            <p><%= @active_candidacy.offer.title %></p>
+            <p class="fw-4 fs-13"><i class="fa-solid fa-play text-main mr-10"></i><%= @active_mission ? "Mission en cours" : "Candidature en cours d'évaluation" %></p>
+          </div>
+        </div>
+      <% end %>
     </div>
     <% if !@candidacies.empty? %>
       <h6 class="mb-10 text-grey">Vos autres candidatures</h6>
@@ -18,15 +33,17 @@
           <div class="pe-none w-100">
             <h6><%= c.offer.beneficiary.name %></h6>
             <p><%= c.offer.title %></p>
-            <% case %>
-            <% when c.being_assessed? %>
-              <p class="fw-4 fs-13"><i class="fa-solid fa-play text-main-light mr-10"></i>En phase de discussions</p>
-            <% when c.being_validated? %>
-              <p class="fw-4 fs-13"><i class="fa-solid fa-forward text-main mr-10"></i>En phase de validation</p>
-            <% when c.abandonned? %>
-              <p class="fw-4 fs-13"><i class="fa-solid fa-stop text-grey-light mr-10"></i>Mission abandonnée</p>
-            <% when c.validated? %>
-              <p class="fw-4 fs-13"><i class="fa-solid fa-eject text-flag-3 mr-10"></i>Mission validée</p>
+            <% if @active_engagement %>
+              <p class="fw-4 fs-13"><i class="fa-solid fa-pause text-main-light mr-10"></i>En pause (autre engagement en cours)</p>
+            <% else %>
+              <% case %>
+              <% when c.being_assessed? || c.being_validated? %>
+                <p class="fw-4 fs-13"><i class="fa-solid fa-play text-main-light mr-10"></i>Candidature active</p>
+              <% when c.abandonned? %>
+                <p class="fw-4 fs-13"><i class="fa-solid fa-stop text-grey-light mr-10"></i>Candidature écartée</p>
+              <% when c.validated? %>
+                <p class="fw-4 fs-13"><i class="fa-solid fa-eject text-flag-3 mr-10"></i>Mission validée</p>
+              <% end %>
             <% end %>
           </div>
         </div>

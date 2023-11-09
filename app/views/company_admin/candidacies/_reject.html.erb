@@ -1,0 +1,24 @@
+<div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="2" data-active=<%=@rejection_error%>>
+  <div>
+    <div class="p-20 shadow-md" data-action="click->popup#keep">
+      <div class="flex-center-between w-100">
+        <h5 class="text-main fw-7">Refuser</h5>
+        <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+          <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+        <% end %>
+      </div>
+      <h6 class="mb-20">Informer <%= @candidacy.candidate.user.first_name %> des raisons du refus</h6>
+      <%= simple_form_for(@candidacy, url: company_admin_candidacy_path(@candidacy), action: :update, data: {turbo: false}) do |f| %>
+        <%= f.input :status, as: :hidden, input_html: {value: :admin_validation} %>
+        <%= f.input :active, as: :hidden, input_html: {value: false} %>
+        <%= f.simple_fields_for :comments, @comment do |c| %>
+          <%= c.input :content, label: "Message", wrapper_html: {class: "position-relative"} %>
+        <% end %>
+        <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+          <i class="fa-regular fa-thumbs-down mr-10"></i>
+          Rejeter la candidature
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>

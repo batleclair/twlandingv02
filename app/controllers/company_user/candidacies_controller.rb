@@ -21,7 +21,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
     @candidacy.active = true
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable if @candidacy.status != "selection"
-      redirect_back(fallback_location: user_offers_path)
+      redirect_to user_candidacy_path(@candidacy)
       flash[:notice] = "Enregistré, nous informons l'association"
     else
       @tab = 1
@@ -52,6 +52,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
     else
       set_comment
       @tab = 1 if session[:selection_error]
+      @error = true
       @selection = @candidacy
       render show_view, status: :unprocessable_entity
       flash[:alert] = "Veuillez vérifier les informations saisies"
@@ -68,7 +69,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
   end
 
   def set_tab
-    @tab = 3
+    @tab = 4
   end
 
   def set_selected_periodicity
@@ -82,7 +83,9 @@ class CompanyUser::CandidaciesController < CompanyUserController
   end
 
   def set_candidacies
-    scope = policy_scope(Candidacy).where.not(id: @active_engagement&.id).where.not(status: "selection")
+    scope = policy_scope(Candidacy).where.not(status: "selection").where.not(active: "false")
+    scope = scope.where.not(id: @current_user.candidate.active_candidacy&.id) if @active_engagement
+
     @candidacies = case params[:phase]
     when "assessing"
       scope.select{|c| c.being_assessed?}
@@ -113,39 +116,10 @@ class CompanyUser::CandidaciesController < CompanyUserController
       comments_attributes: [:content])
   end
 
-  # def full_candidacy_params
-  #   if params.require(:candidacy)[:comments_attributes].present?
-  #     candidacy_params.to_h.deep_merge({comments_attributes: {"0": {user_id: current_user.id}}})
-  #   else
-  #     candidacy_params
-  #   end
-  # end
 
   def assign_user_to_comment
     @candidacy.comments.last.user_id = current_user.id if @candidacy.new_comment?
   end
-
-  # def render_show_view
-  #   case
-  #   when @candidacy.being_assessed?
-  #     session[:selection_error] = "company_user/candidacies/show_assessing"
-  #     render :show_assessing
-  #   when @candidacy.being_validated?
-  #     session[:selection_error] = "company_user/candidacies/show_validating"
-  #     render :show_validating
-  #   when @candidacy.abandonned?
-  #     session[:selection_error] = "company_user/candidacies/show_abandonned"
-  #     render :show_abandonned
-  #   when @candidacy.validated?
-  #     if @candidacy.mission.nil?
-  #       render :show_validating
-  #     else
-  #       redirect_to user_mission_path(@candidacy.mission)
-  #     end
-  #   else
-  #     return
-  #   end
-  # end
 
   def show_view
     validation_views = {
@@ -157,17 +131,6 @@ class CompanyUser::CandidaciesController < CompanyUserController
     status = @candidacy_on_record&.validation_status
     return session[:selection_error] ? "company_user/offers/show" : validation_views[status]
   end
-
-  # def fallback_action
-  #   path = session[:selection_error]
-  #   if legit?(path)
-  #     @offer = @candidacy.offer
-  #     @selection = @candidacy
-  #     render path, status: :unprocessable_entity
-  #   else
-  #     redirect_back(fallback_location: root_path)
-  #   end
-  # end
 
   def set_active_upon_application
     @candidacy.active = true if @candidacy.status == "user_application" && @candidacy_on_record.status == "selection"

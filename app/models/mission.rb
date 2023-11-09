@@ -10,9 +10,12 @@ class Mission < ApplicationRecord
   validates :candidacy_id, uniqueness: { message: "Une mission a déjà été créée pour cette candidature" }
   validates :termination_confirmation, acceptance: { message: "Confirmation requise"}, if: :terminated_status?
   validates :time_confirmation, acceptance: { message: "Confirmation requise"}, allow_nil: true
+  validates :manager_approval, acceptance: { accept: ["approved"], message: "Validation requise" }, on: :create
+  validates :beneficiary_approval, acceptance: { accept: ["submitted", "approved", "rejected"], message: "Validation requise" }, if: :draft_step_validation?
   accepts_nested_attributes_for :contracts, allow_destroy: true
 
   enum :status, { draft: 0, abandonned: 1, activated: 2, terminated: 3 }, suffix: true
+  enum :draft_step, { counterparts: 0, terms: 1, documents: 2, checklist: 3, validation: 4 }, prefix: true
   enum :mission_type, { "prestation de service": 0, "mise à disposition de personnel": 1 }
   enum :feedback_unit, { "jours": 0, "semaines": 1 }
   enum :manager_approval, {not_submitted: 0, submitted: 1, approved: 2, rejected: 3}, prefix: true

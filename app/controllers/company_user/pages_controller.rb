@@ -30,7 +30,7 @@ before_action :set_tab, except: [:book_call, :no_mission]
     if current_user.candidate.active_mission
       redirect_to user_mission_path(@active_engagement)
     else
-      @tab = 4
+      @tab = 5
     end
   end
 

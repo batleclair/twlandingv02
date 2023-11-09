@@ -1,0 +1,49 @@
+<h5 class="fw-7 text-main mb-40">Candidatures</h5>
+
+<div class="d-flex">
+  <%= render partial: "summary" %>
+  <div class="ml-40 w-100 max-w-400">
+    <div class="w-100">
+      <% if !current_user.eligibility_on_going? || (!@active_candidacy.nil? && @active_candidacy != @candidacy_on_record) %>
+        <%= render partial: "company_user/shared/engagement_notice" %>
+      <% else %>
+        <div class="mb-20">
+          <h5 class="text-main">Demande envoyée</h5>
+
+          <% case @candidacy_on_record.status %>
+
+          <% when "user_validation" %>
+            <p>Merci de votre engagement !</p>
+            <p class="mb-20">Votre demande va être évaluée par l'équipe RH et votre manager afin de s'assurer qu'elle satisfait les conditons d'éligibilité.</p>
+            <p>Silence radio ? Contactez-nous !</p>
+
+          <% when "mission" %>
+            <div class="mb-10">
+              <p>Votre candidature est validée par <%= current_user.company.name %> !</p>
+              <% if @candidacy_on_record.comments.find_by(status: :mission).present? %>
+                <p>Voici leur réponse :</p>
+                <table class="max-w-400 mb-40">
+                  <tbody class="va-top">
+                    <tr>
+                      <th class="pr-10">💬</th>
+                      <th class="pr-10 no-wrap">Message :</th>
+                      <td><i>"<%= @candidacy.comments.find_by(status: mission).content %></i> "</td>
+                    </tr>
+                  </tbody>
+                </table>
+              <% end %>
+            </div>
+            <div class="mb-20">
+              <h6 class="text-main fw-7">Et maintenant ?</h6>
+              <p>Nous nous chargeons de formaliser la mission entre votre entreprise, l'association et vous.</p>
+            </div>
+            <%= link_to user_mission_path(@candidacy.mission), class: "w-100 button round bg-main-to-dark text-white bn-none" do %>
+              <i class="fa-solid fa-eye mr-10"></i>
+              Suivre l'avancement de la mission
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
