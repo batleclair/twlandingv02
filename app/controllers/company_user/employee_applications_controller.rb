@@ -10,6 +10,7 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
     @employee_application = EmployeeApplication.new(employee_application_params)
     authorize @employee_application
     @employee_application.candidate_id = current_user.candidate.id
+    @employee_application.status = "pending"
     if @employee_application.save(context: :self_apply)
       redirect_to root_path
     else

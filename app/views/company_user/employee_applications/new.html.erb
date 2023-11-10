@@ -7,7 +7,12 @@
         <%= f.input :motivation_msg,
                     label: "Message" %>
       </div>
-      <%= f.error :candidate_id, id: "candidate_id_error", class:"invalid-msg" %>
+      <div class="position-relative">
+        <%= f.error :candidate_id, class:"invalid-msg" %>
+      </div>
+      <div class="position-relative">
+        <%= f.error :status, class:"invalid-msg" %>
+      </div>
     </div>
 
     <div class="flex-center-between">
