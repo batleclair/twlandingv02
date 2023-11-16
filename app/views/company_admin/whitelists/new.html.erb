@@ -1,0 +1,10 @@
+<div class="max-w-300">
+  <%= turbo_frame_tag "batch_list" do %>
+    <%= simple_form_for(@whitelist, url: upload_company_admin_whitelists_path) do |f| %>
+      <div class="position-relative">
+        <%= f.input :batch_file, as: :file %>
+      </div>
+      <%= f.submit %>
+    <% end %>
+  <% end %>
+</div>

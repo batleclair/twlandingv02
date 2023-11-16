@@ -1,0 +1,13 @@
+<h6><%= @saved.count %> autorisations sauvegardées</h6>
+<ul>
+  <% @saved.each do |wl| %>
+    <li><%= wl.input_format %></li>
+  <% end %>
+</ul>
+
+<h6><%= @fails.count %> autorisations ignorées</h6>
+<ul>
+  <% @fails.each do |wl| %>
+    <li><%= wl.input_format %> | <%= wl.errors %></li>
+  <% end %>
+</ul>

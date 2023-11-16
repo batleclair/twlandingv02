@@ -44,7 +44,6 @@ class CompanyUser::CandidaciesController < CompanyUserController
     @offer = @candidacy.offer
     assign_user_to_comment
     set_custom_periodicity
-    set_active_upon_application
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable if @candidacy.status != "selection"
       redirect_back(fallback_location: user_candidacies_path)
@@ -130,10 +129,6 @@ class CompanyUser::CandidaciesController < CompanyUserController
     }
     status = @candidacy_on_record&.validation_status
     return session[:selection_error] ? "company_user/offers/show" : validation_views[status]
-  end
-
-  def set_active_upon_application
-    @candidacy.active = true if @candidacy.status == "user_application" && @candidacy_on_record.status == "selection"
   end
 
   def set_custom_periodicity

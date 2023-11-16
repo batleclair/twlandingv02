@@ -1,0 +1,27 @@
+<%= turbo_stream.replace "batch_list" do %>
+  <div data-controller="dynamic-form">
+    <%= form_tag save_company_admin_whitelists_path, data: {turbo: false} do %>
+      <%= check_box_tag :headers, 1, false, data: {dynamic_form_target: "trigger", action: "change->dynamic-form#toggle"} %>
+      <%= label_tag :headers, "Les colonnes ont des titres" %>
+      <table>
+        <thead>
+          <% for i in 0..(@array.first.length - 1) do %>
+            <th><%= select_tag "column_type[#{i}]", options_for_select([ :id, :email ]), include_blank: true %></th>
+          <% end %>
+        </thead>
+        <tbody>
+          <% @array.each_with_index do |row, i| %>
+            <tr data-dynamic-form-target=<%="input" if i == 0%>>
+              <% row.each_with_index do |col| %>
+                <td><%= col %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= hidden_field_tag :batch_list_path, @path %>
+      <%= submit_tag %>
+    <% end %>
+  </div>
+<% end %>

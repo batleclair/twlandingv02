@@ -1,9 +1,13 @@
 class Whitelist < ApplicationRecord
+  attr_accessor :batch_file
+  attr_accessor :has_headers
+
   belongs_to :company
   enum :input_type, {email: 0, domain: 1}, suffix: true
-  validates :input_format, uniqueness: { message: "Existe déjà"}
+  validates :input_format, uniqueness: { message: "Existe déjà"}, if: :email_input_type?
   validates :input_format, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse invalide" }, if: :email_input_type?
   validate :domain_presence, if: :email_input_type?
+
 
   def to_domain
     input_format.slice(/@.+/)&.delete("@") if email_input_type?

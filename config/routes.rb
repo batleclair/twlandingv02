@@ -18,7 +18,9 @@ Rails.application.routes.draw do
       scope path: "/admin" do
         get "/", to: "pages#dashboard", as: :company_admin
         resources :users, except: %i[show], as: :company_admin_users
-        resources :whitelists, only: %i[index create destroy], as: :company_admin_whitelists
+        resources :whitelists, only: %i[index new create destroy], as: :company_admin_whitelists
+        post "/whitelists/upload", to: "whitelists#upload", as: :upload_company_admin_whitelists
+        post "/whitelists/save_batch", to: "whitelists#save_batch", as: :save_company_admin_whitelists
         resources :recherches, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[index]
         resources :recherches, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[show] do
           resources :candidacies, only: %i[create]
