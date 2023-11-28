@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="search-form"
 export default class extends Controller {
-  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'indication', 'card', 'preview', 'id', 'loader', 'close', 'slider']
+  static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'list', 'card', 'preview', 'id', 'loader', 'close']
 
   connect() {
     addEventListener('popstate', (event) => { });
@@ -22,7 +22,7 @@ export default class extends Controller {
     // urlParams.get('id') ? counter += -1 : this.cardTargets[0].dataset.active = "true"
     urlParams.get('id') ? counter += -1 : counter += 0
 
-    if (urlParams.get('remote_work') === '1') {
+    if (urlParams.get('full_remote') === '1') {
       this.selectTargets[1].classList.add('readonly-input')
     }
 
@@ -89,5 +89,38 @@ export default class extends Controller {
       card.dataset.active = false
     });
     this.idTarget.value = ''
+  }
+
+  toggle() {
+    this.filtersTarget.toggleAttribute("collapsed");
+    this.btnTarget.toggleAttribute("collapsed");
+  }
+
+  update(){
+    const counter = parseInt(this.listTarget.dataset.counter)
+    this.counterTarget.innerHTML = counter
+    counter === 0 ? this.counterTarget.classList.add('invisible') : this.counterTarget.classList.remove('invisible')
+
+    const form = new FormData(this.formTarget)
+    this.selectTargets.forEach(target => {
+      target.classList.remove('pill-dropdown-selected')
+      if (form.get(target.id)) {target.classList.add('pill-dropdown-selected')}
+    });
+
+    if (form.get('full_remote') === '1') {
+      this.selectTargets[1].classList.add('readonly-input')
+    } else {
+      this.selectTargets[1].classList.remove('readonly-input')
+    }
+
+    console.log(this.previewTarget.dataset.id)
+    this.setActive()
+  }
+
+  setActive(){
+    const activeId = this.hasPreviewTarget ? this.previewTarget.dataset.id : null
+    this.cardTargets.forEach((card) => {
+      card.dataset.activeCard = card.dataset.id === activeId
+    });
   }
 }

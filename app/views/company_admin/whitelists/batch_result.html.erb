@@ -6,8 +6,21 @@
 </ul>
 
 <h6><%= @fails.count %> autorisations ignorées</h6>
-<ul>
-  <% @fails.each do |wl| %>
-    <li><%= wl.input_format %> | <%= wl.errors %></li>
-  <% end %>
-</ul>
+<table>
+  <tbody>
+    <% @fails.each do |wl| %>
+      <tr>
+        <td><%= wl.input_format %></td>
+        <td>
+          <ul>
+            <% wl.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Retour", company_admin_whitelists_path, class: "button bg-main-to-dark hover-2 text-white fw-6" %>

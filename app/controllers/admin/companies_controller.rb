@@ -12,6 +12,7 @@ class Admin::CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
     if @company.save
+      OfferRule.create(company: company)
       redirect_to admin_companies_path
     else
       render :new, status: :unprocessable_entity

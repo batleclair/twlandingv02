@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_24_133758) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -279,6 +279,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
     t.text "description"
   end
 
+  create_table "offer_rules", force: :cascade do |t|
+    t.integer "commitment", default: 0
+    t.boolean "full_remote"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "half_days_max", default: 10
+    t.integer "months_max", default: 24
+    t.index ["company_id"], name: "index_offer_rules_on_company_id"
+  end
+
   create_table "offers", force: :cascade do |t|
     t.bigint "beneficiary_id", null: false
     t.string "title"
@@ -297,7 +308,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
     t.string "commitment"
     t.string "slug"
     t.string "region"
-    t.boolean "remote_work", default: false
+    t.boolean "full_remote", default: false
     t.string "airtable_id"
     t.index ["beneficiary_id"], name: "index_offers_on_beneficiary_id"
   end
@@ -376,7 +387,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
     t.string "authentication_token", limit: 30
     t.string "uid"
     t.string "provider"
-    t.string "custom_input"
+    t.string "custom_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -386,12 +397,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
   create_table "whitelists", force: :cascade do |t|
     t.integer "input_type"
     t.string "input_format"
-    t.string "input_custom"
+    t.string "custom_id"
     t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "catch_all"
     t.boolean "pre_approval"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "title"
     t.index ["company_id"], name: "index_whitelists_on_company_id"
   end
 
@@ -412,6 +426,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_162853) do
   add_foreign_key "missions", "candidacies"
   add_foreign_key "offer_bookmarks", "offer_lists"
   add_foreign_key "offer_bookmarks", "offers"
+  add_foreign_key "offer_rules", "companies"
   add_foreign_key "offers", "beneficiaries"
   add_foreign_key "questions", "companies"
   add_foreign_key "taggings", "tags"

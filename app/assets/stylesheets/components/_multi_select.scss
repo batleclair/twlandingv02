@@ -1,0 +1,8 @@
+.multiselect-delete-btn{
+  color: $grey-low;
+}
+
+.multiselect-delete-btn[data-active="true"]{
+  color: $flag-color-2;
+  cursor: pointer;
+}

@@ -7,6 +7,7 @@ class Whitelist < ApplicationRecord
   validates :input_format, uniqueness: { message: "Existe déjà"}, if: :email_input_type?
   validates :input_format, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse invalide" }, if: :email_input_type?
   validate :domain_presence, if: :email_input_type?
+  validate :no_user_attached?, on: :create
 
 
   def to_domain
@@ -21,5 +22,9 @@ class Whitelist < ApplicationRecord
 
   def user_attached?
     User.where(company_id: self.company_id).find_by(email: self.input_format).present?
+  end
+
+  def no_user_attached?
+    errors.add(:input_format, "Cette adresse est déjà utilisée") if (user_attached? && email_input_type?)
   end
 end

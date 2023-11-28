@@ -122,7 +122,7 @@ class OffersController < ApplicationController
     end
 
     @offers = @offers.where(function: params[:function]) unless params[:function].blank?
-    @offers = @offers.where(remote_work: params[:remote_work]) unless params[:remote_work].blank?
-    @offers = @offers.where(region: params[:region]) unless params[:region].blank? || params[:remote_work] == "1"
+    @offers = @offers.where(full_remote: params[:full_remote]) unless params[:full_remote].blank?
+    @offers = @offers.where(region: params[:region]) unless params[:region].blank? || params[:full_remote] == "1"
   end
 end

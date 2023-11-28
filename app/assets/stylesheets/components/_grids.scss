@@ -4,3 +4,9 @@
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
 }
+
+.offer-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}

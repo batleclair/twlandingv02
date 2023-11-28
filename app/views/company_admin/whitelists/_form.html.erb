@@ -1,0 +1,54 @@
+<div class="tenant-modal" data-popup-target="window" data-action="click->popup#close"  data-pop-up-id="1" data-active=<%=@error%>>
+  <div>
+    <div class="p-20 shadow-md" data-action="click->popup#keep">
+      <div class="flex-center-between w-100">
+        <h5 class="text-main fw-7">Ajouter</h5>
+        <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+          <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+        <% end %>
+      </div>
+      <div class="mb-20 w-100">
+        <h6 class="mb-10">Créer une autorisation individuelle</h6>
+        <%= link_to new_company_admin_whitelist_path, class: "center-text d-block border-grey text-main fw-5 w-100" do %>
+          Importer une liste<i class="fa-solid fa-file-csv ml-10"></i>
+        <% end %>
+      </div>
+
+      <%= simple_form_for(@whitelist, url: company_admin_whitelists_path) do |f| %>
+        <table class="w-100 mb-20">
+          <tbody>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20">Email</th>
+              <td><%= f.input :input_format, label: false, wrapper: false %></td>
+            </tr>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20">Prénom</th>
+              <td><%= f.input :first_name, label: false, wrapper: false %></td>
+            </tr>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20">Nom</th>
+              <td><%= f.input :last_name, label: false, wrapper: false %></td>
+            </tr>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20">Titre</th>
+              <td><%= f.input :title, label: false, placeholder: "Intitulé de poste", wrapper: false %></td>
+            </tr>
+            <tr class="position-relative">
+              <th class="fw-5 pr-20">ID Interne</th>
+              <td><%= f.input :custom_id, label: false, wrapper: false %></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="position-relative mb-20">
+          <%= f.input :pre_approval, label: "Eligibilité pré-approuvée", wrapper: false, input_html: {class: "toggle"}  %>
+        </div>
+        <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+          <i class="fa-solid fa-floppy-disk mr-10"></i>
+          Créer l'autorisation
+        </button>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>

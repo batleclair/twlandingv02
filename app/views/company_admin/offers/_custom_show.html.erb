@@ -1,0 +1,35 @@
+<div class="bg-shade p-20 w-100">
+  <% if (@candidates - @selected_candidates).empty? %>
+    <em>Aucun collaborateur à qui proposer cette mission</em>
+  <% else %>
+    <div data-controller="popup">
+      <%= link_to "#", class: "w-100 button round-20 bg-main-to-dark first-main-border text-white", data: {pop_up_id: 1, action: "click->popup#open"} do %>
+        <i class="fa-regular fa-user text-white mr-10"></i>
+        Proposer à un collaborateur
+      <% end %>
+      <%= render partial: "company_admin/offers/suggest" %>
+    </div>
+  <% end %>
+</div>
+
+<% if !@selected_candidates.empty? %>
+  <div class="p-20 w-100">
+    <h5 class="text-main fw-6 mb-10">Collaborateurs intéressés</h5>
+    <table class="w-100">
+      <thead>
+        <th></th>
+        <th class="center-text">Status</th>
+        <th class="center-text"></th>
+      </thead>
+      <tbody>
+        <% @selected_candidates.each do |candidate| %>
+        <tr>
+          <td class="w-100"><span class=<%= candidate.candidacies.find_by(offer: @offer).active ? "" : "text-grey-light" %> ><%= candidate.full_name %></span></td>
+          <td class=<%= candidate.candidacies.find_by(offer: @offer).active ? "" : "text-grey-light" %> ><%= candidate.candidacies.find_by(offer: @offer).high_level_status %></td>
+          <td class=<%= candidate.candidacies.find_by(offer: @offer).active ? "text-flag-3" : "text-grey-light" %> ><i class="ml-10 fa-solid fa-circle-dot"></i></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

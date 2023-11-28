@@ -47,7 +47,13 @@
   background-color: white;
 }
 .bg-grey{
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(245, 245, 245);
+}
+.bg-grey-low{
+  background-color: $grey-low
+}
+.bg-none{
+  background-color: transparent;
 }
 
 @each $id, $bp in $breakpoints {

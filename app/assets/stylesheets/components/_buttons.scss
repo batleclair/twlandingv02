@@ -254,3 +254,18 @@ button.fat-btn{
     color: $first-main-color;
   }
 }
+
+.hidden-btn-ctn{
+  .hidden-btn{
+    opacity: 0;
+  }
+  &:hover{
+    .hidden-btn{
+      opacity: 1;
+    }
+  }
+}
+
+button:disabled{
+  color: $grey-low;
+}

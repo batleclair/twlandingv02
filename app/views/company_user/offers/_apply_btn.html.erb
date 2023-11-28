@@ -1,0 +1,12 @@
+<% if current_user.eligibility_on_going? %>
+
+  <% if @selection_on_record&.in_progress? || @selection_on_record&.abandonned? %>
+    <h6 class="text-main fs-15 center-text">Vous avez candidaté à cette mission</h6>
+  <% else %>
+    <%= link_to "#", class: "w-100 button round-20 bg-main-to-dark first-main-border text-white", data: {pop_up_id: 1, action: "click->popup#open"} do %>
+      <i class="fa-regular fa-paper-plane text-white mr-10"></i>
+      Proposer mon aide
+    <% end %>
+  <% end %>
+
+<% end %>

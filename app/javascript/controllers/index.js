@@ -61,6 +61,9 @@ application.register("menu", MenuController)
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
+import MultiSelectController from "./multi_select_controller"
+application.register("multi-select", MultiSelectController)
+
 import NewProfileController from "./new_profile_controller"
 application.register("new-profile", NewProfileController)
 

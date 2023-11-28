@@ -23,30 +23,20 @@
         <p class="fs-13"><i class="fa-solid fa-user text-flag-1 min-w-20"></i>Email par email</p>
       </div>
     </div>
-
-    <div class="mt-50">
-      <%= link_to "Import Batch CSV", new_company_admin_whitelist_path %>
-    </div>
-
   </div>
 
-  <% input = @error ? "output" : "input" %>
-  <% output = @error ? "input" : "output" %>
-
-  <div class="max-w-750 mb-40" data-controller="hidden-form">
-    <div class="flex-center-between">
+  <div class="max-w-750 mb-40">
+    <div class="flex-center-between" data-controller="popup">
       <div>
         <h5 class="mb-10">Adresses autorisées</h5>
         <p class="mb-10">Autorisation de créer un compte accordée aux personnes dont l'adresse email professionnelle principale figure parmi :</p>
       </div>
       <div class="min-w-200 flex-center-right">
-        <%= link_to "", data: {hidden_form_target: output, action: "click->hidden-form##{@error ? "cancel" : "edit"}"} do %>
-          <i class="fa-solid fa-plus round-button btn-round-cta downsize70"></i>
-        <% end %>
-        <%= link_to "", data: {hidden_form_target: input, action: "click->hidden-form##{@error ? "edit" : "cancel"}"} do %>
-          <i class="fa-solid fa-xmark round-button btn-round-cta downsize70"></i>
+        <%= link_to "", data: {pop_up_id: 1, action: "click->popup#open"} do %>
+          <i class="fa-solid fa-plus round-button btn-round-cta downsize70 pe-none"></i>
         <% end %>
       </div>
+      <%= render partial: "form" %>
     </div>
 
     <table class="list-table w-100 max-w-750">
@@ -58,21 +48,11 @@
         <th class="text-center">inscrit.e</th>
       </thead>
       <tbody>
-        <tr data-hidden-form-target=<%= input %>>
-          <%= simple_form_for(@whitelist, url: company_admin_whitelists_path, data: {hidden_form_target: "form" }) do |f| %>
-            <th class="pr-10"></th>
-            <td class="position-relative"><%= f.input :input_format, label: false, wrapper: false, input_html: {class: "embedded bg-white"} %></td>
-            <td><%= f.input :input_custom, label: false, wrapper: false, input_html: {class: "embedded bg-white"} %></td>
-            <td><div class="position-relative"><%= f.input :pre_approval, wrapper: false, input_html: {class: "toggle centered"}  %></div></td>
-            <td></td>
-            <td><button type="submit" class="bn-none w-100 h-100" data-turbo="false"><i class="fa-solid fa-floppy-disk text-main"></i></button></td>
-          <% end %>
-        </tr>
         <% @whitelists.where(input_type: "email").each do |w| %>
           <tr>
             <th class="pr-10">></th>
             <td><%= w.input_format %></td>
-            <td><%= w.input_custom %></td>
+            <td><%= w.custom_id %></td>
             <td class="text-center">
               <% if w.pre_approval %>
                 <i class="fa-solid fa-circle-check text-flag-3"></i>

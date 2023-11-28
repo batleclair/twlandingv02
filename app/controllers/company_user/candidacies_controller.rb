@@ -26,6 +26,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
     else
       @tab = 1
       @selection = @candidacy
+      @error = true
       render show_view, status: :unprocessable_entity
       flash[:alert] = "Un problème est survenu"
     end
@@ -53,6 +54,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
       @tab = 1 if session[:selection_error]
       @error = true
       @selection = @candidacy
+      @selection_on_record = @candidacy_on_record
       render show_view, status: :unprocessable_entity
       flash[:alert] = "Veuillez vérifier les informations saisies"
       # raise
@@ -128,7 +130,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
       approved: :show_approved
     }
     status = @candidacy_on_record&.validation_status
-    return session[:selection_error] ? "company_user/offers/show" : validation_views[status]
+    return session[:selection_error] ? "shared/company_offers/offer_page" : validation_views[status]
   end
 
   def set_custom_periodicity

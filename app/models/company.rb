@@ -7,6 +7,7 @@ class Company < ApplicationRecord
   has_many :employee_applications, through: :users
   has_many :whitelists, dependent: :destroy
   has_many :eligibility_periods, dependent: :destroy
+  has_one :offer_rule, dependent: :destroy
 
   def catch_all_domains
     a = []

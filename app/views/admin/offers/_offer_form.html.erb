@@ -22,7 +22,7 @@
       <div class="d-flex">
         <%= f.input :region, collection: Offer::REGIONS, wrapper_html: {class: "me-3 full-width position-relative"}  %>
         <div class="full-width align-self-center pt-3 bg-shade">
-          <%= f.input :remote_work, as: :boolean, label: "100% remote possible ?", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3 position-relative" }, label_html: {class: "text-main fw-6"} %>
+          <%= f.input :full_remote, as: :boolean, label: "100% remote possible ?", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3 position-relative" }, label_html: {class: "text-main fw-6"} %>
         </div>
       </div>
 

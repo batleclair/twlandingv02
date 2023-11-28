@@ -73,7 +73,7 @@ class Admin::OffersController < AdminController
       :slug,
       :commitment,
       :region,
-      :remote_work
+      :full_remote
     )
   end
 end

@@ -1,20 +1,52 @@
-<%= simple_form_for(@user, url: company_admin_user_path(@user), action: :update, data: {turbo: false}) do |f| %>
+<%= turbo_frame_tag "edit" do %>
+  <div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active="true">
+    <div>
+      <div class="p-20 shadow-md" data-action="click->popup#keep">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7">Editer</h5>
+          <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+        <div class="mb-20 w-100">
+          <h6 class="mb-10">Modifier les informations de l'utilisateur</h6>
+        </div>
 
-  <div class="d-flex justify-content-between">
-    <%= link_to "Retour", company_admin_users_path, class:"button btn-light-main mb-2 me-2" %>
-    <button type="submit" class="button btn-main-color">Enregistrer</button>
-  </div>
+        <%= simple_form_for(@user, url: company_admin_user_path(@user), action: :update, data: {turbo: false}) do |f| %>
+          <table class="w-100 mb-20">
+            <tbody>
+              <tr class="position-relative">
+                <th class="fw-5 pr-20">Email</th>
+                <td><%= @user.email %></td>
+              </tr>
+              <tr class="position-relative">
+                <th class="fw-5 pr-20">Prénom</th>
+                <td><%= @user.first_name %></td>
+              </tr>
+              <tr class="position-relative">
+                <th class="fw-5 pr-20">Nom</th>
+                <td><%= @user.last_name %></td>
+              </tr>
+              <%= f.simple_fields_for :candidate, @user.candidate do |c| %>
+                <tr class="position-relative">
+                  <th class="fw-5 pr-20">Titre</th>
+                  <td><%= c.input :title, label: false, placeholder: "Intitulé de poste", wrapper: false %></td>
+                </tr>
+              <% end %>
+              <tr class="position-relative">
+                <th class="fw-5 pr-20">ID Interne</th>
+                <td><%= f.input :custom_id, label: false, wrapper: false %></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+            <i class="fa-solid fa-floppy-disk mr-10"></i>
+            Enregistrer les modifications
+          </button>
+        <% end %>
 
-  <div class="position-relative">
-    <%= f.input :first_name,
-                label: "Prénom" %>
-  </div>
-  <div class="position-relative">
-    <%= f.input :last_name,
-                label: "Nom" %>
-  </div>
-  <div class="position-relative">
-    <%= f.input :custom_input,
-                label: "ID Custom" %>
+
+      </div>
+    </div>
   </div>
 <% end %>

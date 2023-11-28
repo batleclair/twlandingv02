@@ -31,7 +31,7 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
     else
       candidate = Candidate.create(user_id: current_user.id)
       @employee_application.candidate = candidate
-      candidate.clip_to_airtable
+      # candidate.clip_to_airtable
     end
   end
 end

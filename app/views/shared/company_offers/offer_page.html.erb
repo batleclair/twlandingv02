@@ -1,0 +1,113 @@
+<% content_for :title, "#{@offer.title} pour l'association #{@offer.beneficiary.name}" %>
+<% content_for :description, "Grâce à Demain, engagez-vous auprès de l'association #{@offer.beneficiary.name} dans le cadre d'un mécénat de compétences. La mission : #{@offer.title}. L'objectif de l'association : #{@offer.beneficiary.cause}" %>
+<% canonical(offer_url(@offer)) %>
+
+<% if @offer.beneficiary.photo.attached? %>
+  <% content_for :image,
+    cl_image_path(@offer.beneficiary.photo.key, transformation: [
+      { width: 1200, height: 630, crop: :fill, color: "black", effect: "colorize:50" },
+      { overlay: "logo_white.png" },
+      { flags: "layer_apply", width: 300, gravity: "west", y: -50, x:100 , crop: :scale },
+      { overlay: "og_overlay_2.png" },
+      { flags: "layer_apply", width: 300, gravity: "south_east", crop: :scale },
+      { overlay: {font_family: "Verdana", font_size: "30px", text: "#{@offer.title} pour aider l'association #{@offer.beneficiary.name}" }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
+      ])
+  %>
+<% end %>
+
+<% b_logo_path = @offer.beneficiary.logo.attached? ? cl_image_path(@offer.beneficiary.logo.key) : cl_image_path('../default_logo.png') %>
+<% content_for :structured_data, @offer.structured_data(b_logo_path).to_json.html_safe %>
+
+<% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
+<% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key, alt:"logo de l'association #{@offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+
+<div class="d-flex mb-40">
+  <div class="mb-40 w-100 max-w-400">
+    <div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="pt-40 pb-40 pl-20 pr-20 banner-bg position-relative">
+      <%= link_to :back do %>
+        <i class="fa-solid fa-xmark close-btn-alt square-30 flex-center"></i>
+      <% end %>
+      <div class="flex-center-left">
+        <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+          <%= cl_image_tag(@offer.beneficiary.logo.key) %>
+        </div>
+        <div class="text-white">
+          <h5><%= @offer.beneficiary.name %></h5>
+          <h6><%= @offer.title %></h6>
+          <p class="fw-3 fs-13 text-white"><i class="fa-solid fa-hand-holding-heart mr-10"></i><%= @offer.beneficiary.cause %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-shade p-20 flex-center-between">
+      <% if current_user.company_user? %>
+        <em>Cette mission figure parmi vos <%= @selection.suggestion? ? "Suggestions" : "Favoris" %></em>
+        <%= render partial: "company_user/offers/selection" %>
+      <% elsif !@offer.in_rule_for?(current_user) %>
+        <em>Cette mission n'est pas visible par vos collaborateurs</em>
+      <% end %>
+    </div>
+    <div class="bg-shade p-20">
+      <%= @offer.summary %>
+    </div>
+
+    <%= render partial: "company_admin/offers/custom_show" if current_user.company_admin? %>
+    <%= render partial: "company_user/offers/custom_show" if current_user.company_user? %>
+
+  </div>
+
+  <div class="ml-40 w-100 max-w-500">
+    <div class="mb-40">
+      <h5 class="text-main fw-6 mb-10">A propos de <%= @offer.beneficiary.name %></h5>
+      <%= @offer.beneficiary.description %>
+    </div>
+
+    <div class="offer-grid w-100 mb-40 slide-up-ctn">
+      <div class="position-relative overflow-hidden">
+        <%= cl_image_tag((@offer.beneficiary.profile_pic_one.attached? ? @offer.beneficiary.profile_pic_one.key : '../placeholder_1.jpg'), class:"w-100 h-100 img-cover") %>
+        <div class="w-100 h-100 flex-center position-absolute bg-main slide-up-target hover-2">
+
+          <% if @offer.beneficiary.web_url.present? %>
+            <%= link_to @offer.beneficiary.web_url, target: "_blank", id: "beneficiary_web_url" do %>
+              <i class="fa-solid fa-globe round-button btn-round-cta me-3"><span class="cta-top-legend sm-thin-text text-white no-wrap">web</span></i>
+            <% end %>
+          <% else %>
+            <i class="fa-solid fa-globe round-button btn-round-cta inactive me-3"><span class="cta-top-legend sm-thin-text text-white no-wrap">web</span></i>
+          <% end %>
+          <% if @offer.beneficiary.li_url.present? %>
+            <%= link_to @offer.beneficiary.li_url, target: "_blank" do %>
+              <i class="fa-brands fa-linkedin-in round-button btn-round-cta"><span class="cta-top-legend sm-thin-text text-white">linkedin</span></i>
+            <% end %>
+          <% else %>
+            <i class="fa-brands fa-linkedin-in round-button btn-round-cta inactive"><span class="cta-top-legend sm-thin-text text-white">linkedin</span></i>
+          <% end %>
+
+        </div>
+      </div>
+      <div>
+        <% if @offer.beneficiary.kpi_one.present? %>
+          <div class="h-100 bg-shade p-20">
+            <h5 class="text-main fw-7 fs-30 mb-3"><%= @offer.beneficiary.kpi_one %></h5>
+            <p><%= @offer.beneficiary.kpt_one %></h5></p>
+          </div>
+        <% else %>
+          <%= cl_image_tag((@offer.beneficiary.profile_pic_two.attached? ? @offer.beneficiary.profile_pic_two.key : '../placeholder_2.jpg'), class: "w-100 h-100 img-cover") %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div>
+      <h5 class="text-main fw-6 mb-10">A propos de la mission <%= @offer.title %></h5>
+      <div class="w-100 p-10 pl-20 bg-shade flex-center-left mb-20">
+        <i class="fa-solid fa-location-dot text-main min-w-20"></i>
+        <p class="mr-20"><%= @offer.location %></p>
+        <% if @offer.full_remote %>
+          <i class="fa-solid fa-circle-check text-flag-3 min-w-20"></i>
+          <p>Télétravail possible</p>
+        <% end %>
+      </div>
+      <%= @offer.description %>
+    </div>
+  </div>
+</div>

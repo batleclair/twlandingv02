@@ -21,11 +21,13 @@ class CompanyUser::BookmarksController < CompanyUserController
     @selection.offer = @offer
     @selection.candidate = current_user.candidate
     @selection.origin = "company_user"
-    @selection.active = true
+    # @selection.active = true
     @selection.status = "selection"
     if @selection.save
-      redirect_to user_bookmark_path(@selection)
-      flash[:notice] = "Ajouté à vos favoris"
+      respond_to do |format|
+        format.turbo_stream {render "company_user/offers/selection"}
+        format.html {redirect_to user_bookmark_path(@selection)}
+      end
     else
       redirect_back(fallback_location: user_offers_path)
       flash[:alert] = "Une erreur s'est produite"
@@ -36,8 +38,10 @@ class CompanyUser::BookmarksController < CompanyUserController
     set_selection
     @selection.assign_attributes(selection_params)
     if @selection.save(context: :validation_step)
-      redirect_to user_bookmark_path(@selection)
-      flash[:notice] = "Enregistré !"
+      respond_to do |format|
+        format.turbo_stream {render "company_user/offers/selection"}
+        format.html {redirect_to user_bookmark_path(@selection)}
+      end
     else
       render :show, status: :unprocessable_entity
       flash[:alert] = "Une erreur s'est produite"
@@ -47,7 +51,7 @@ class CompanyUser::BookmarksController < CompanyUserController
   private
 
   def selection_params
-    params.require(:candidacy).permit(:status, :active)
+    params.require(:candidacy).permit(:status, :active, :motivation_msg)
   end
 
   def set_selection

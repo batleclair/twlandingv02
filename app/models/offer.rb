@@ -119,6 +119,12 @@ class Offer < ApplicationRecord
     slug
   end
 
+  def in_rule_for?(company_user)
+    self.half_days_min <= company_user.company.offer_rule.half_days_max &&
+    self.months_min <= company_user.company.offer_rule.months_max &&
+    (company_user.company.offer_rule.full_remote ? self.full_remote : true )
+  end
+
   def structured_data(img_url)
     {
       '@context': "https://schema.org/",
@@ -151,7 +157,7 @@ class Offer < ApplicationRecord
         "Association": [beneficiary.airtable_id],
         "Localisation": location,
         "[A MAJ] Lien offre": Rails.application.routes.url_helpers.offers_path(self),
-        "Télétravail": remote_work,
+        "Télétravail": full_remote,
         "Description": summary.to_plain_text,
         "Engagement": commitment_sanitized
         )

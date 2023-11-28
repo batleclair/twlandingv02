@@ -1,31 +1,23 @@
-<% args = @selection.id.nil? ? [@offer, @selection] : @selection %>
-<% method = @selection.id.nil? ? :post : :patch %>
-<% status = @selection.id.nil? ? true : !@selection.active %>
-
-<% if @selection.suggestion? %>
-  <h5>Cette mission vous a été recommandée !</h5>
-<% else %>
-  <% url = @selection.id.nil? ? user_offer_bookmarks_path(@offer) : user_bookmark_path(@selection) %>
-  <% label = @selection.id.nil? || !@selection.active ? "Ajouter aux <3" : "Retirer des <3" %>
-
-  <%= simple_form_for(args, url: url, method: method, data: {turbo: false}) do |f| %>
-    <%= f.input :active, as: :hidden, input_html: {value: status} %>
-    <%= render partial: "company_user/shared/bookmark", locals: {resource: @selection} %>
+<% case %>
+<% when @selection.suggestion? %>
+  <%= link_to user_selection_path(@selection), data: {turbo: false}, class: "upsize-120 hover-2 bg-none" do %>
+    <i class="fa-solid fa-fire text-flag-1"></i>
   <% end %>
-<% end %>
-
-
-<% if current_user.eligibility_on_going? %>
-  <% url = @selection.id.nil? ? user_offer_candidacies_path(@offer) : user_offer_candidacy_path(@offer, @selection) %>
-  <h5 class="text-main fw-6 mt-20 mb-10">Candidater</h5>
-  <%= simple_form_for(args, url: url, data: {turbo: false}) do |f| %>
-    <div class="position-relative">
-      <%= f.input :motivation_msg, wrapper: false, label: false, input_html: {value: ""}, placeholder: "Indiquez vos motivations à l'association" %>
-    </div>
-    <%= f.input :status, as: :hidden, input_html: {value: "user_application"} %>
-    <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">
-      <i class="fa-regular fa-paper-plane mr-10"></i>
-      Envoyer à l'association
-    </button>
+<% when @selection.id.nil? || @selection.company_user_origin? && @selection.selection_status? %>
+  <%= turbo_frame_tag "selection" do %>
+    <% args = @selection.id.nil? ? [@offer, @selection] : @selection %>
+    <% method = @selection.id.nil? ? :post : :patch %>
+    <% status = @selection_on_record.id.nil? ? true : !@selection_on_record.active %>
+    <% url = @selection.id.nil? ? user_offer_bookmarks_path(@offer) : user_bookmark_path(@selection) %>
+    <%= simple_form_for(args, url: url, method: method) do |f| %>
+      <%= f.input :active, as: :hidden, wrapper: false, input_html: {value: status} %>
+      <button type="submit" class="flex-center bg-none bn-none upsize-120 hover-2">
+        <% if @selection.id.nil? || !@selection_on_record.active %>
+          <i class="fa-regular fa-heart text-flag-2 fs-18"></i>
+        <% else %>
+          <i class="fa-solid fa-heart text-flag-2 fs-18"></i>
+        <% end %>
+      </button>
+    <% end %>
   <% end %>
 <% end %>

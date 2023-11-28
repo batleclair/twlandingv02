@@ -32,6 +32,7 @@ task reset_demo: :environment do
 
   if company.save
     p "#{company.name} created"
+    OfferRule.create(company: company)
   else
     p "#{company.name} failed"
     p company

@@ -1,0 +1,16 @@
+<%= turbo_stream.update "selection" do %>
+  <% args = @selection.id.nil? ? [@offer, @selection] : @selection %>
+  <% method = @selection.id.nil? ? :post : :patch %>
+  <% status = @selection.id.nil? ? true : !@selection.active %>
+  <% url = @selection.id.nil? ? user_offer_bookmarks_path(@offer) : user_bookmark_path(@selection) %>
+  <%= simple_form_for(args, url: url, method: method) do |f| %>
+    <%= f.input :active, as: :hidden, wrapper: false, input_html: {value: status} %>
+    <button type="submit" class="flex-center bg-none bn-none upsize-120 hover-2">
+      <% if @selection.id.nil? || !@selection.active %>
+        <i class="fa-regular fa-heart text-flag-2 fs-18"></i>
+      <% else %>
+        <i class="fa-solid fa-heart text-flag-2 fs-18"></i>
+      <% end %>
+    </button>
+  <% end %>
+<% end %>

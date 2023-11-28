@@ -47,7 +47,7 @@
         <%= simple_form_for([@company, @whitelist], url: admin_company_whitelists_path) do |f| %>
           <%= f.input :input_type, collection: Whitelist.input_types.keys %>
           <%= f.input :input_format %>
-          <%= f.input :input_custom %>
+          <%= f.input :custom_id %>
           <div class="position-relative mb-10">
             <%= f.input :catch_all, wrapper: false, input_html: {class: "toggle"} %>
           </div>

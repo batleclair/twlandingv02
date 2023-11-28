@@ -7,7 +7,7 @@
       <div class="mb-20">
         <h5 class="text-main">Vous avez eu un coup de coeur</h5>
 
-        <% if !@selection.selection_status? %>
+        <% if !@selection_on_record.selection_status? %>
           <p class="mt-20">Vous avez candidaté à cette mission.</p>
           <p class="mb-20">Vous pouvez retrouver le détail ici :</p>
           <%= link_to user_candidacy_path(@selection), class: "w-100 button round bg-main-to-dark text-white bn-none" do %>
@@ -18,7 +18,7 @@
           <% if current_user.eligibility_on_going? && !@active_engagement %>
             <p class="mb-20">Vous pouvez y candidater dès à présent :</p>
 
-            <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+            <%= simple_form_for(@selection, url: user_bookmark_path(@selection), data: {turbo: false}) do |f| %>
               <div >
                 <div class="w-100 mr-20">
                   <%= f.input :status, as: :hidden, input_html: {value: "user_application"}, wrapper: false %>
@@ -44,7 +44,7 @@
             <% end %>
           <% end %>
           <div class="w-100">
-            <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+            <%= simple_form_for(@selection, url: user_bookmark_path(@selection), data: {turbo: false}) do |f| %>
               <%= f.input :active, as: :hidden, input_html: {value: false} %>
               <button type="submit" class="flex-center button bn-none bg-white center-margin">
                 <i class="fa-regular fa-heart mr-10 text-flag-2"></i>

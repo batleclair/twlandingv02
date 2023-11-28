@@ -1,0 +1,46 @@
+<%= turbo_frame_tag "preview" do %>
+  <div class="w-100" data-search-form-target="preview" data-id=<%=@offer.id%>>
+    <div class="flex-between mb-20">
+      <h5 class="text-main fw-7"><%= @offer.title %></h5>
+      <%= render partial: "company_user/offers/selection" %>
+    </div>
+    <div class="w-100 p-10 pl-20 bg-shade flex-center-left mb-20">
+      <i class="fa-solid fa-location-dot text-main min-w-20"></i>
+      <p class="mr-20"><%= @offer.location %></p>
+      <% if @offer.full_remote %>
+        <i class="fa-solid fa-circle-check text-flag-3 min-w-20"></i>
+        <p>Télétravail possible</p>
+      <% end %>
+    </div>
+
+    <div class="mb-20">
+      <h6 class="mb-10">L'association</h6>
+      <div class="flex-center-left mb-10">
+        <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0 shadow-xs">
+          <%= cl_image_tag(@offer.beneficiary.logo.key) %>
+        </div>
+        <div class="pe-none w-100">
+          <h5><%= @offer.beneficiary.name %></h5>
+          <h6><%= @offer.beneficiary.cause %></h6>
+        </div>
+      </div>
+      <div><%= @offer.beneficiary.description %></div>
+    </div>
+
+    <div class="mb-20">
+      <h6>La mission</h6>
+      <p><%= @offer.summary %></p>
+    </div>
+
+    <div class="mb-20 flex-center-between pr-10 pl-10" data-controller="popup">
+      <%= link_to user_offer_path(@offer), class: "w-100 button round-20 bg-white-to-shade first-main-border text-main mr-10", data: {turbo: false} do %>
+        <i class="fa-solid fa-eye text-main mr-10"></i>
+        En savoir plus
+      <% end %>
+
+      <%= render partial: "apply_btn" %>
+      <%= render partial: "apply_form" %>
+    </div>
+
+  </div>
+<% end %>

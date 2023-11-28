@@ -1,0 +1,22 @@
+<%= render partial: "shared/navpan", locals: {active: 9} %>
+
+<div class="navpan-mg-ctn">
+  <div class="navpan-transp-ctn">
+    <h3>Paramètres entreprise</h3>
+    <p>Modifier le périmètre des offres consultables par les salariés de l'entreprise <strong class="text-main fw-6"><%= @company.name %></strong></p>
+  </div>
+
+  <%= render partial: "admin/company_edit_menu" %>
+  <div class="navpan-white-ctn">
+    <div class="max-w-500">
+      <%= simple_form_for(@offer_rule, url: admin_offer_rule_path(@offer_rule)) do |f| %>
+        <div class="position-relative">
+          <%= f.input :half_days_max, label: "Nombre max de demi-journées par semaine" %>
+          <%= f.input :months_max, label: "Durée max de la mission en mois" %>
+          <%= f.input :full_remote, as: :boolean, label: "Uniquement les missions 100% remote", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative ps-3 me-3" }, label_html: {class: "text-main fw-6"} %>
+        </div>
+        <%= f.submit "Enregistrer", class: "button btn-main-color mt-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>

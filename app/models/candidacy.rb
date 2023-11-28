@@ -183,4 +183,15 @@ class Candidacy < ApplicationRecord
       "+ d'1 an"
     end
   end
+
+  def high_level_status
+    case
+    when suggestion? || selection? || disliked?
+      "sélection"
+    when (in_progress? && !mission.present?) || abandonned?
+      "candidature"
+    when mission.present?
+      "mission"
+    end
+  end
 end

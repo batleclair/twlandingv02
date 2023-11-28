@@ -6,8 +6,8 @@
           <%= cl_image_tag(current_user.candidate.photo.key) %>
         </div>
       <% else %>
-        <div class="bg-white round-20 square-100 flex-center shadow-sm p-10">
-          <span href="" class="round downsize90 p-15 fs-30 fw-6 bg-flag-1 text-white"><%= current_user.initials %></span>
+        <div class="bg-white round-20 square-100 flex-center shadow-sm p-10 p-15">
+          <span href="" class="round h-100 w-100 flex-center fs-30 fw-6 bg-flag-1 text-white"><%= current_user.initials %></span>
         </div>
       <% end %>
     </div>

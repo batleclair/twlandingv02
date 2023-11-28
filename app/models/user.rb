@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   has_one :candidate, autosave: true, dependent: :destroy
+  has_many :comment, dependent: :destroy
   has_many :employee_applications, through: :candidate, dependent: :destroy
   has_many :missions, through: :candidate, dependent: :destroy
   accepts_nested_attributes_for :candidate
@@ -15,7 +16,10 @@ class User < ApplicationRecord
   validate :not_blacklisted
   validate :company_whitelisted
   acts_as_token_authenticatable
-  after_create :create_pre_approved_candidate, if: :pre_approved?
+  after_create do
+    initialize_profile if whitelisted?
+    pre_approve if pre_approved?
+  end
 
   enum :company_role, { user: "utilisateur", admin: "administrateur" }
 
@@ -30,7 +34,7 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
-      user.attach_custom_input if user.whitelisted?
+      # user.attach_custom_id if user.whitelisted?
       # raise
     end
   end
@@ -84,10 +88,9 @@ class User < ApplicationRecord
     company&.whitelists&.find_by(input_type: :email, input_format: email)&.pre_approval
   end
 
-  def create_pre_approved_candidate
-    candidate = Candidate.create(user_id: id)
-    candidate.clip_to_airtable
-    EmployeeApplication.create(candidate_id: candidate.id, status: "true", response_msg: "Eligibilité pré-validée par l'administrateur")
+  def pre_approve
+    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'administrateur")
+    # candidate.clip_to_airtable
   end
 
   def eligibility
@@ -99,7 +102,7 @@ class User < ApplicationRecord
   end
 
   def eligibility_on_going?
-    last_employee_application.eligibility_on_going?
+    last_employee_application&.eligibility_on_going?
   end
 
   # def pending?
@@ -114,6 +117,14 @@ class User < ApplicationRecord
     offer.candidates.where(user_id: id).none?
   end
 
+  def candidacy_for(offer)
+    candidate.candidacies&.find_by(offer: offer)
+  end
+
+  def active_candidacy?(offer)
+    candidate.candidacies.find_by(offer: offer)&.active
+  end
+
   def engaged?
     candidate.engaged?
   end
@@ -126,6 +137,10 @@ class User < ApplicationRecord
     if Subdomain.new("tenant").matches?(request)
       self.company = Company.find_by(slug: request.subdomain)
       self.company_role = 'user'
+    else
+      company_domain = Whitelist.find_by(input_type: :domain, input_format: email.slice(/@.+/)&.delete("@"))
+      self.company = company_domain&.company
+      self.company_role = 'user' if company_domain
     end
   end
 
@@ -140,14 +155,24 @@ class User < ApplicationRecord
   end
 
   def whitelisted?
+    if company
       company.catch_all_domains.include?(email.slice(/@.+/)&.delete("@")) || (
         company.single_use_domains.include?(email.slice(/@.+/)&.delete("@")) &&
         whitelist.present?
       )
+    end
   end
 
-  def attach_custom_input
-    self.custom_input = self.company.whitelists.find_by(input_type: "email", input_format: self.email)&.input_custom
+  def initialize_profile
+    Candidate.create(user_id: self.id)
+    if whitelist
+      self.first_name = whitelist.first_name if whitelist.first_name
+      self.last_name = whitelist.last_name if whitelist.last_name
+      self.custom_id = whitelist.custom_id
+      self.save
+      candidate.update(title: whitelist.title)
+      # raise
+    end
   end
 
   def not_blacklisted

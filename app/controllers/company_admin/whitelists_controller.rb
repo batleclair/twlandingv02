@@ -1,7 +1,7 @@
 class CompanyAdmin::WhitelistsController < CompanyAdminController
   include ControllerUtilities
 
-  before_action :set_tab, only: [:index]
+  before_action :set_tab, only: [:new, :index, :upload, :save_batch]
 
   def new
     @whitelist = Whitelist.new
@@ -38,7 +38,10 @@ class CompanyAdmin::WhitelistsController < CompanyAdminController
           company_id: current_user.company.id,
           input_type: :email,
           input_format: row[columns.key("email").to_i],
-          input_custom: row[columns.key("id").to_i]
+          custom_id: row[columns.key("id").to_i],
+          first_name: row[columns.key("first_name").to_i],
+          last_name: row[columns.key("last_name").to_i],
+          title: row[columns.key("title").to_i]
         )
         wl.save ? @saved << wl : @fails << wl
       end
@@ -79,7 +82,7 @@ class CompanyAdmin::WhitelistsController < CompanyAdminController
   end
 
   def whitelist_params
-    params.require(:whitelist).permit(:input_format, :input_custom, :pre_approval)
+    params.require(:whitelist).permit(:input_format, :custom_id, :first_name, :last_name, :title, :pre_approval)
   end
 
   def set_tab

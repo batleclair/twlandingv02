@@ -1,0 +1,23 @@
+<div data-search-form-target="list" data-counter=<%=@counter%>>
+  <% if @counter > 0 %>
+    <div class="flex-center-between w-100 mb-20">
+      <p class="fs-15"><span class="single-pill me-2 fw-6"><%= @offers.count %></span>missions correspondent à vos critères</p>
+      <%= link_to "suppr. filtres", user_offers_path, class: "text-main fw-5 fs-15", data: {turbo: false} %>
+    </div>
+  <% end %>
+  <% @offers.each do |o| %>
+    <div class="w-100 p-10 bg-shade mb-10" data-search-form-target="card" data-id=<%=o.id%> data-active-card=<%=params[:id].to_i == o.id %>>
+      <%= link_to user_offer_path(o), class: "w-100 h-100", data: {turbo_frame: "preview"} do %>
+        <div class="flex-center-left w-100">
+          <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+            <%= cl_image_tag(o.beneficiary.logo.key) %>
+          </div>
+          <div class="pe-none w-100">
+            <h6><%= o.beneficiary.name %></h6>
+            <p><%= o.title %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

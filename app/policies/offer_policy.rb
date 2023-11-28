@@ -1,7 +1,10 @@
 class OfferPolicy < ApplicationPolicy
   def show?
-    # record.id.nil? || record.publish || user&.user_type == 'admin'
-    true
+    if user.company_user?
+      user.active_candidacy?(record) || record.in_rule_for?(user)
+    else
+      true
+    end
   end
 
   def dead?
@@ -21,21 +24,37 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def create?
-    user.user_type == 'admin'
+    user.admin?
   end
 
   def update?
-    user.user_type == 'admin'
+    create?
   end
 
   def destroy?
-    user.user_type == 'admin'
+    create?
+  end
+
+  def preview?
+    show?
   end
 
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      (scope.where(status: "active").or(scope.where(status: "upcoming"))).and(scope.where(publish: true))
+      case
+      when user.company_user? && user.company.offer_rule.full_remote
+        scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max).and(
+          scope.where('months_min <= ?', user.company.offer_rule.months_max)).and(
+            scope.where(full_remote: user.company.offer_rule.full_remote))
+      when user.company_user? && !user.company.offer_rule.full_remote
+        offers = scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max).and(
+          scope.where('months_min <= ?', user.company.offer_rule.months_max))
+      when user.admin?
+        scope.where(publish: true)
+      else
+        (scope.where(status: "active").or(scope.where(status: "upcoming"))).and(scope.where(publish: true))
+      end
     end
   end
 end

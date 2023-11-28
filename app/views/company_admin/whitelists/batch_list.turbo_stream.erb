@@ -6,7 +6,7 @@
       <table>
         <thead>
           <% for i in 0..(@array.first.length - 1) do %>
-            <th><%= select_tag "column_type[#{i}]", options_for_select([ :id, :email ]), include_blank: true %></th>
+            <th><%= select_tag "column_type[#{i}]", options_for_select([ :id, :email, :first_name, :last_name, :title ]), include_blank: true %></th>
           <% end %>
         </thead>
         <tbody>

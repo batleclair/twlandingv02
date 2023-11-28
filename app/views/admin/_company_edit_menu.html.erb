@@ -7,5 +7,7 @@
     <%= link_to "Whitelist", admin_company_whitelists_path(company_id: @company.id), class:"button" %>
     |
     <%= link_to "Périodes", admin_company_eligibility_periods_path(company_id: @company.id), class:"button" %>
+    |
+    <%= link_to "Permissions", edit_admin_offer_rule_path(@company.offer_rule), class:"button" %>
   </div>
 </div>

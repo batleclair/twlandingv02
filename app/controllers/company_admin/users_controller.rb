@@ -42,7 +42,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
     authorize @user
     @user.update(user_params)
     if @user.save
-      @user.whitelist&.update(input_custom: @user.custom_input)
+      @user.whitelist&.update(custom_id: @user.custom_id)
       redirect_to company_admin_users_path
     else
       set_users
@@ -60,6 +60,12 @@ class CompanyAdmin::UsersController < CompanyAdminController
     end
   end
 
+  def destroy_multiple
+    @users = User.where(id: params[:destroy])
+    @users.each {|user| user.whitelist&.destroy if user.destroy}
+    redirect_to company_admin_users_path, status: :see_other
+  end
+
   private
 
   def set_emails
@@ -68,7 +74,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
   end
 
   def set_users
-    @users = policy_scope(User).order(created_at: :desc)
+    @users = policy_scope(User).order(last_name: :asc)
   end
 
   def set_tab
@@ -76,6 +82,6 @@ class CompanyAdmin::UsersController < CompanyAdminController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :custom_input, candidate_attributes: [:function, :title, :linkedin_url, :status, :employer_name], employee_applications_attributes: [:status])
+    params.require(:user).permit(:email, :first_name, :last_name, :custom_id, candidate_attributes: [:function, :title, :linkedin_url, :status, :employer_name], employee_applications_attributes: [:status])
   end
 end
