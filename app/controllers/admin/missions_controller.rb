@@ -19,6 +19,12 @@ class Admin::MissionsController < ApplicationController
     end
   end
 
+  def destroy
+    @mission = Mission.find(params[:id])
+    @mission.destroy
+    redirect_to admin_missions_path, status: :see_other
+  end
+
   private
 
   def mission_params

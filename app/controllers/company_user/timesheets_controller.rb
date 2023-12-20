@@ -7,7 +7,7 @@ class CompanyUser::TimesheetsController < CompanyUserController
   def index
     @mission = Mission.find(params[:user_mission_id])
     session.delete(:proceed_with_ending)
-    redirect_to user_mission_path(@mission) if !@mission.activated_status?
+    redirect_to user_mission_path(@mission) if @mission.draft_status?
   end
 
   def new
@@ -76,7 +76,7 @@ class CompanyUser::TimesheetsController < CompanyUserController
   end
 
   def set_tabs
-    @tab = 4
+    @tab = 5
     @sub_tab = 1
   end
 

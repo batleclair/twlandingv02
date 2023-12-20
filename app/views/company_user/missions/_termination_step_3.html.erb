@@ -1,16 +1,27 @@
 <div class="max-w-400">
   <%= simple_form_for(@mission, url: user_mission_path(@mission, step:3), data: {turbo: false}) do |f| %>
 
-    <div class="mb-20">
-      <h5>Confirmer ✔️</h5>
-      <p>Promis c'est la dernière étape !</p>
-    </div>
+    <h6 class="text-main fw-7 mb-10">Confirmer la fin de la mission.</h6>
 
     <div class="mt-20 w-100 position-relative">
-      <div class="position-relative">
-        <%= f.input :termination_confirmation, label: "Je confirme vouloir clôturer la mission", input_html: {class: "toggle"} %>
+      <div class="flex-center-left mb-20">
+        <div class="mr-10">
+          <%= f.input_field :termination_confirmation, class: "dynamic-checkbox", data: {dynamic_form_target: "trigger", action: "change->dynamic-form#enable"} %>
+          <%= f.label :termination_confirmation do %>
+            <i class="fa-solid fa-check"></i>
+            <span></span>
+          <% end %>
+          <%= f.error :termination_confirmation, class: "invalid-msg" %>
+        </div>
+        <p class="fw-5">Je confirme vouloir clôturer la mission.</p>
       </div>
-      <%= f.input :status, as: :hidden, input_html: {value: :terminated} %>
+    </div>
+
+    <%= f.input :status, as: :hidden, input_html: {value: :terminated} %>
+
+    <div class="d-flex mb-20 ">
+      <i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10 mt-05"></i>
+      <p>Attention, vous ne pourrez pas revenir en arrière une fois la mission clôturée</p>
     </div>
 
     <div class="w-100 flex-center-between mb-40">

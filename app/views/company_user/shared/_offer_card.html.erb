@@ -1,0 +1,31 @@
+<% bg_img = offer.beneficiary.photo.attached? ? cl_image_path(offer.beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
+<% b_logo = offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key, alt:"logo de l'association #{offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+
+<div style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" class="pt-40 pb-40 pl-20 pr-20 banner-bg position-relative">
+  <%= link_to :back do %>
+    <i class="fa-solid fa-xmark close-btn-alt square-30 flex-center"></i>
+  <% end %>
+  <div class="flex-center-left">
+    <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+      <%= cl_image_tag(offer.beneficiary.logo.key) %>
+    </div>
+    <div class="text-white">
+      <h5><%= offer.beneficiary.name %></h5>
+      <h6><%= offer.title %></h6>
+      <p class="fw-3 fs-13 text-white"><i class="fa-solid fa-hand-holding-heart mr-10"></i><%= offer.beneficiary.cause %></p>
+    </div>
+  </div>
+  <div class="bottom-right fs-12 flex-center mr-10 mb-10">
+    <i class="fa-solid fa-location-dot mr-05 text-white"></i>
+    <p class="text-white"><%= offer.location %></p>
+    <% if offer.full_remote %>
+      <p class="mr-05 ml-05 text-white">|</p>
+      <i class="fa-solid fa-check mr-05 text-white"></i>
+      <p class="text-white">Télétravail</p>
+    <% end %>
+  </div>
+</div>
+
+<div class="bg-shade p-20 w-100">
+  <%= link_to "Consulter l'offre", user_offer_path(offer), class: "button-round btn-light-main center-margin" %>
+</div>

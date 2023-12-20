@@ -1,13 +1,8 @@
-<div class="mb-20">
-  <%= render partial: "tabs" %>
-</div>
+<%= render partial: "header" %>
 
 <div class="d-flex">
-  <%= render partial: "list" %>
-
+  <%= render partial: "subtabs" %>
   <div class="ml-40 mb-40 w-100">
-    <%= render partial: "subtabs" %>
-
     <div class="mb-50 max-w-400 w-100" data-controller="hidden-form">
 
       <%= simple_form_for(@mission, url: company_admin_mission_path(@mission)) do |f| %>

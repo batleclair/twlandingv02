@@ -1,7 +1,0 @@
-<div class="flex-center-left mb-40 company-sub-menu">
-  <%= link_to "Toutes les missions", company_admin_missions_path, class: "button", data: {turbo: false, active: params[:view].nil?} %>
-  |
-  <%= link_to "En contractualisation", company_admin_missions_path(view: :in_progress), class: "button", data: {turbo: false, active: params[:view] == "in_progress" } %>
-  |
-  <%= link_to "Activées", company_admin_missions_path(view: :validated), class: "button", data: {turbo: false, active: params[:view] == "validated" } %>
-</div>

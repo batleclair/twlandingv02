@@ -53,17 +53,8 @@ before_action :set_tab, only: [:index, :show]
   end
 
   def set_candidacies
-    scope = policy_scope(Candidacy).where(status: ["user_validation", "admin_validation", "mission"])
-    @candidacies = case params[:status]
-    when "pending"
-      scope.where(status: "user_validation").select{|c| c.submitted_for_approval?}
-    when "rejected"
-      scope.where(status: "admin_validation").select{|c| c.abandonned?}
-    when "approved"
-      scope.where(status: "mission").select{|c| c.validated?}
-    else
-      scope.select{|c| !c.mission.present? || !c.mission&.terminated_status? }
-    end
+    scope = policy_scope(Candidacy).status_as(Candidacy.statuses[params[:status]])
+    @candidacies = scope.where(status: [:admin_validation, :mission]).or(scope.where(status: :user_validation, active: true))
   end
 
   def set_comment
@@ -71,7 +62,7 @@ before_action :set_tab, only: [:index, :show]
   end
 
   def set_tab
-    @tab = 4
+    @tab = 5
   end
 
   def assign_user_to_comment
@@ -80,13 +71,12 @@ before_action :set_tab, only: [:index, :show]
 
   def render_show_view
     case
-    when @candidacy_on_record.submitted_for_approval?
+    when @candidacy_on_record.user_validation_status?
       @mission = Mission.new
       render :show_pending
-    when @candidacy_on_record.abandonned?
+    when @candidacy_on_record.admin_validation_status?
       render :show_rejected
-    when @candidacy_on_record.validated?
-      @path = @candidacy.mission.nil? ? new_company_admin_candidacy_mission_path(@candidacy) : company_admin_mission_path(@candidacy.mission)
+    when @candidacy_on_record.mission_status?
       render :show_approved
     else
       redirect_to company_admin_candidacies_path

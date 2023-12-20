@@ -4,11 +4,18 @@
 
 class CompanyUser::CandidaciesController < CompanyUserController
   # include ControllerUtilities
-  before_action :set_candidacy, except: [:index, :index_selection, :create]
+  before_action :set_candidacy, except: [:new, :index, :create, :historicals]
   before_action :set_tab, only: [:show, :index]
 
   def index
     set_candidacies
+  end
+
+  def new
+    @offer = Offer.find_by(slug: params[:user_offer_slug])
+    candidacy = @offer.candidacies&.find_by(candidate: current_user.candidate)
+    @selection = candidacy ? candidacy : Candidacy.new(offer: @offer, candidate: current_user.candidate)
+    authorize @selection
   end
 
   def create
@@ -21,13 +28,17 @@ class CompanyUser::CandidaciesController < CompanyUserController
     @candidacy.active = true
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable if @candidacy.status != "selection"
+      # respond_to do |format|
+      #   format.turbo_stream { redirect_to user_candidacy_path(@candidacy) }
+      #   format.html { redirect_to user_candidacy_path(@candidacy) }
+      # end
       redirect_to user_candidacy_path(@candidacy)
       flash[:notice] = "Enregistré, nous informons l'association"
     else
       @tab = 1
       @selection = @candidacy
       @error = true
-      render show_view, status: :unprocessable_entity
+      render after_apply_template, status: :unprocessable_entity
       flash[:alert] = "Un problème est survenu"
     end
   end
@@ -36,6 +47,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
     session.delete(:selection_error)
     set_comment
     set_selected_periodicity
+    @selection = @candidacy
     render show_view
   end
 
@@ -55,10 +67,16 @@ class CompanyUser::CandidaciesController < CompanyUserController
       @error = true
       @selection = @candidacy
       @selection_on_record = @candidacy_on_record
-      render show_view, status: :unprocessable_entity
+      render after_apply_template, status: :unprocessable_entity
       flash[:alert] = "Veuillez vérifier les informations saisies"
       # raise
     end
+  end
+
+  def historicals
+    @candidacies = (policy_scope(Candidacy).where(active: false)).where.not(status: [:selection, :mission])
+    authorize @candidacies
+    @tab = 6
   end
 
   private
@@ -131,6 +149,10 @@ class CompanyUser::CandidaciesController < CompanyUserController
     }
     status = @candidacy_on_record&.validation_status
     return session[:selection_error] ? "shared/company_offers/offer_page" : validation_views[status]
+  end
+
+  def after_apply_template
+    turbo_frame_request? ? :new : show_view
   end
 
   def set_custom_periodicity

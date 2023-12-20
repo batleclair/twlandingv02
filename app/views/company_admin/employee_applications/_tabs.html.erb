@@ -1,9 +1,0 @@
-<div class="flex-center-left mb-40 company-sub-menu">
-  <%= link_to "Toutes", company_admin_employee_applications_path, class: "button", data: {turbo: false, active: params[:status].nil?} %>
-  |
-  <%= link_to "A traîter", company_admin_employee_applications_path(status: :pending), class: "button", data: {turbo: false, active: params[:status] == "pending"} %>
-  |
-  <%= link_to "Approuvées", company_admin_employee_applications_path(status: :approved), class: "button", data: {turbo: false, active: params[:status] == "approved"} %>
-  |
-  <%= link_to "Refusées", company_admin_employee_applications_path(status: :rejected), class: "button", data: {turbo: false, active: params[:status] == "rejected"} %>
-</div>

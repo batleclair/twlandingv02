@@ -1,22 +1,37 @@
-<div class="mb-20">
-  <%= render partial: "tabs", locals: {candidacy: @candidacy_on_record} %>
-</div>
+<%= render partial: "company_admin/shared/demands_tabs" %>
 
 <div class="d-flex">
   <%= render partial: "company_admin/candidacies/summary" %>
   <div class="ml-40 w-100 max-w-500">
     <div class="w-100" data-controller="popup">
+
       <div class="mb-20">
-        <h5 class="text-main">Demande de Mission</h5>
-        <p>Date de démarrage envisagée : <%= @candidacy.req_start_date %></p>
-        <p>Estimation du nombre de jours requis : <%= @candidacy.req_days %> jours</p>
-        <p>Périodicité envisagée : <%= @candidacy.req_periodicity %></p>
-        <p>Contenu de la mission : <%= @candidacy.req_description %></p>
+        <h5 class="text-main mb-10">Candidature à traîter</h5>
+        <table>
+          <tbody>
+            <tr>
+              <th class="pr-20">Début</th>
+              <td><%= @candidacy.req_start_date&.strftime("%d/%m/%Y") %></td>
+            </tr>
+            <tr>
+              <th class="pr-20">Durée</th>
+              <td><%= @candidacy.req_days %> jours</td>
+            </tr>
+            <tr>
+              <th class="pr-20">Périodicité</th>
+              <td><%= @candidacy.req_periodicity %></td>
+            </tr>
+            <tr>
+              <th class="pr-20">Objet</th>
+              <td><%= @candidacy.req_description %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="w-100 flex-center-between">
+      <div class="w-100 max-w-300 center-margin flex-center-between p-20">
         <%= link_to "Approuver","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
-        <%= link_to "Rejeter","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
+        <%= link_to "Refuser","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
       </div>
 
       <%= render partial: "company_admin/candidacies/accept" %>

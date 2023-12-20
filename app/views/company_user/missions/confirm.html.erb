@@ -1,11 +1,31 @@
 <%= render partial: "company_user/missions/tabs" %>
-<%= render partial: "company_user/missions/confirm_heading" %>
 
-<div class="max-w-400">
+<div class="max-w-400" data-controller ="dynamic-form">
+
   <% if !params[:step] %>
-    <div class="w-100 flex-center mb-40">
-      <%= link_to "Annuler", user_mission_timesheets_path, class: "button btn-light-main mr-10" %>
-      <%= link_to "Démarrer", user_mission_confirmation_path(step: 1), class: "button btn-main-color" %>
+    <div class="mb-20">
+      <h6 class="text-main fw-7 mb-10">Votre mission est terminée ?</h6>
+      <p class="mb-05">Vous pouvez déclarer la fin de votre mission auprès de Demain et de <%= @mission.candidate.user.company.name %></p>
+      <div class="flex-center-between">
+        <div class="mr-10">
+          <%= check_box_tag :headers, 1, false, class: "dynamic-checkbox", data: {dynamic_form_target: "trigger", action: "change->dynamic-form#enable"} %>
+          <%= label_tag :headers do %>
+            <i class="fa-solid fa-check"></i>
+            <span></span>
+          <% end %>
+        </div>
+        <p class="fw-5">Pour démarrer, veuillez confirmer que <%= @mission.beneficiary.name %> est bien informée de votre démarche.</p>
+      </div>
+    </div>
+    <div class="flex-center-between">
+      <%= link_to user_mission_timesheets_path, class: "max-w-150 w-100 button round first-main-border bg-white-to-shade text-main" do %>
+        <i class="fa-solid fa-arrow-turn-down text-main mr-05" style="transform: rotate(90deg);"></i>
+        Retour
+      <% end %>
+      <%= link_to user_mission_confirmation_path(step: 1), class: "max-w-150 w-100 button round first-main-border bg-main-to-dark text-white disabled", data: {dynamic_form_target: "input"} do %>
+        <i class="fa-regular fa-circle-play text-white mr-05"></i>
+        Démarrer
+      <% end %>
     </div>
   <% else %>
     <%= render partial: "termination_step_#{params[:step]}" %>

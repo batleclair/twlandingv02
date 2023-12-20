@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     scope module: "company_admin" do
       scope path: "/admin" do
         get "/", to: "pages#dashboard", as: :company_admin
+        get "/info", to: "pages#info", as: :company_admin_info
         resources :users, except: %i[show], as: :company_admin_users
         patch "/users", to: "users#destroy_multiple", as: :destroy_company_admin_users
         resources :whitelists, only: %i[index new create destroy], as: :company_admin_whitelists
@@ -26,9 +27,12 @@ Rails.application.routes.draw do
         resources :recherche, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[show] do
           resources :candidacies, only: %i[create]
         end
-        resources :demandes, controller: 'employee_applications', as: :company_admin_employee_applications, only: %i[index show update]
+        resources :eligibilities, controller: 'employee_applications', as: :company_admin_employee_applications, only: %i[index show update]
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[index update]
-        resources :missions, as: :company_admin_missions, only: %i[show index update]
+        resources :missions, as: :company_admin_missions, only: %i[show index update] do
+          resources :contracts, only: %i[new create]
+        end
+        resources :activated_missions, as: :company_admin_activated_missions, only: %i[show index]
         resources :candidatures, controller: 'candidacies', as: :company_admin_candidacies, only: %i[show] do
           resources :missions, only: %i[new create]
         end
@@ -42,11 +46,15 @@ Rails.application.routes.draw do
       get "/on-boarding", to: "pages#on_boarding", as: :user_onboarding
       get "/mission", to: "pages#no_mission", as: :user_no_mission
       patch "/book-call", as: :user_booked_call, to: "pages#book_call", defaults: { format: :json }
-      resources :candidates, only: %i[update]
+      resources :candidates, as: :user_candidates, only: :update
+      resources :experiences, as: :user_experiences
+      patch "/mon_profil/user", to: "candidates#set_user", as: :set_user_profile
       get "/mon_profil", to: "candidates#profile", as: :user_profile
-      resources :ma_demande, controller: 'employee_applications', as: :user_employee_applications, only: %i[new create]
+      resources :ma_demande, controller: 'employee_applications', as: :user_employee_applications, only: %i[new create show]
+      get "/ma_demande", to: redirect("/")
+      # get "/ma_demande", to: "employee_applications#renew", as: :renew_user_employee_application
       resources :recherche, controller: 'offers', as: :user_offers, param: :slug, only: %i[index show] do
-        resources :candidacies, only: %i[create update]
+        resources :candidacies, only: %i[new create update]
         # resources :selections, only: %i[create]
         resources :favoris, as: :bookmarks, controller: 'bookmarks', only: %i[create]
       end
@@ -54,9 +62,10 @@ Rails.application.routes.draw do
         get "recherche/:slug/candidacies/:id", to: redirect("recherche/%{slug}")
       resources :candidacies, as: :user_candidacies, only: %i[index show update]
       resources :selections, as: :user_selections, only: %i[index show update]
-      resources :favoris, controller: 'bookmarks', as: :user_bookmarks, only: %i[index show update]
+      resources :favoris, controller: 'bookmarks', as: :user_bookmarks, only: %i[index show update destroy]
       resources :missions, as: :user_missions, only: %i[index edit update]
-      resources :historique, controller: "historicals", as: :user_historicals, only: %i[index show]
+      get "/historique/candidatures", to: "candidacies#historicals", as: :user_past_candidacies
+      get "/historique/missions", to: "missions#historicals", as: :user_past_missions
       resources :missions, as: :user_missions, only: %i[show] do
         get "confirmation", to: "missions#confirm"
         get "terminated", to: "missions#terminated"

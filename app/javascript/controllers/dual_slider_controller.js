@@ -14,13 +14,14 @@ function toTime(num) {
 }
 
 export default class extends Controller {
-  static targets = ['start', 'end', 'startinput', 'endinput']
+  static targets = ['start', 'end', 'startinput', 'endinput', 'startoutput', 'endoutput']
   static values = {
     date: String,
   }
 
   connect() {
     this.update()
+    console.log(this.startoutputTarget)
   }
 
   update() {
@@ -46,6 +47,8 @@ export default class extends Controller {
 
     this.startinputTarget.value = startTime
     this.endinputTarget.value = endTime
+    this.startoutputTarget.innerText = toTime(low).slice(0,5)
+    this.endoutputTarget.innerText = toTime(high).slice(0,5)
   }
 
 }

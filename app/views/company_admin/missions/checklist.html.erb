@@ -1,23 +1,32 @@
-<div class="mb-20">
-  <%= render partial: "tabs" %>
-</div>
+<%= render partial: "header" %>
 
 <div class="d-flex">
-  <%= render partial: "list" %>
-
+  <%= render partial: "subtabs" %>
   <div class="ml-40">
-    <%= render partial: "subtabs" %>
-
     <div class="max-w-400">
 
       <div class="pl-10 mb-20">
         <h6 class="pt-05 fw-7 text-main">Validation pour envoi à l'association</h6>
       </div>
 
-      <%= render partial: "summary" %>
+      <%= render partial: "company_admin/shared/mission_summary" %>
 
       <%= simple_form_for(@mission, url: company_admin_mission_path(@mission)) do |f| %>
-        <%= f.input :beneficiary_approval, as: :boolean, label: "Confirmer l'envoi à l'association", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" }, checked_value: :submitted, unchecked_value: :not_submitted %>
+
+        <div class="mt-20 w-100 position-relative">
+          <div class="flex-center-between mb-20">
+            <p class="fw-5">Confirmer l'envoi à l'association.</p>
+            <div>
+              <%= f.input_field :beneficiary_approval, as: :boolean, class: "dynamic-checkbox", checked_value: :submitted, unchecked_value: :not_submitted %>
+              <%= f.label :beneficiary_approval do %>
+                <i class="fa-solid fa-check"></i>
+                <span></span>
+              <% end %>
+              <%= f.error :beneficiary_approval, class: "invalid-msg" %>
+            </div>
+          </div>
+        </div>
+
         <%= f.input :draft_step, as: :hidden, input_html: {value: :validation} %>
         <div class="w-100 flex-center-between mb-40">
           <%= link_to "Retour", company_admin_mission_path(@mission, step: :documents), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>

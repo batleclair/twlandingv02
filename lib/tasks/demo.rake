@@ -60,7 +60,7 @@ task reset_demo: :environment do
   end
 
   def add_candidate_eligibility(user)
-    candidate = Candidate.create(user: user)
+    candidate = Candidate.create(user: user, status: "Salarié.e")
     if user.company_user? && user.first_name != USERS[0][:first_name]
       candidate.update(profile_completed: true, call_status: "done")
       EmployeeApplication.create(
@@ -74,6 +74,7 @@ task reset_demo: :environment do
     user.email = auto_email(user, whitelist)
     user.password = ENV['DEMO_PASSWORD']
     user.company = company
+    user.demo = true
     if user.save
       add_candidate_eligibility(user)
       p "OK : #{user.first_name} added as #{user.role}"

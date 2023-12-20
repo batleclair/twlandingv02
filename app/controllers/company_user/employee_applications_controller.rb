@@ -4,6 +4,11 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
     @employee_application = EmployeeApplication.new
     authorize @employee_application
     @eligibility_periods = current_user.company.eligibility_periods
+    if !current_user.candidate.profile_completed
+      redirect_to user_profile_path
+      flash[:notice] = "Merci de compléter votre profil"
+    end
+    render new_or_renew
   end
 
   def create
@@ -15,8 +20,14 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
       redirect_to root_path
     else
       @eligibility_periods = current_user.company.eligibility_periods
-      render :new, status: :unprocessable_entity
+      render new_or_renew, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @employee_application = EmployeeApplication.find(params[:id])
+    authorize @employee_application
+    set_status_message
   end
 
   private
@@ -33,5 +44,20 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
       @employee_application.candidate = candidate
       # candidate.clip_to_airtable
     end
+  end
+
+  def set_status_message
+    status = @employee_application.status
+    status_messages = {
+      pending: "n'a pas encore été validée",
+      approved: "a été acceptée",
+      rejected: "a été refusée",
+      revoked: "a été révoquée"
+    }
+    @status_message = "Votre demande #{status_messages[status.to_sym]} par votre entreprise"
+  end
+
+  def new_or_renew
+    current_user.never_applied? ? :new : :renew
   end
 end

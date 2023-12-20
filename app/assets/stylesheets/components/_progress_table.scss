@@ -1,0 +1,62 @@
+.progress-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th{
+    text-align: center;
+  }
+
+  .fa-circle-check, .fa-hourglass-half, .fa-circle-minus, .fa-circle-xmark{
+    display: none;
+    font-size: 20px;
+    padding-right: 10px;
+  }
+
+  .fa-circle-check{
+    color: $flag-color-3;
+  }
+  .fa-hourglass-half{
+    color: $first-main-color;
+  }
+  .fa-circle-minus{
+    color: $grey-low;
+  }
+  .fa-circle-xmark{
+    color: $flag-color-2;
+  }
+
+  tr[candidacy-step="pass"]{
+    .fa-circle-check{
+      display: block;
+    }
+  }
+  tr[candidacy-step="fail"]{
+    background-color: $flag-color-2-light;
+    .fa-circle-xmark{
+      display: block;
+    }
+    td{
+      color: $flag-color-2;
+      font-weight: 500;
+    }
+  }
+  tr[candidacy-step="ongoing"]{
+    background-color: $first-light-color;
+    .fa-hourglass-half{
+      display: block;
+    }
+    td{
+      color: $first-main-color;
+      font-weight: 500;
+    }
+  }
+  tr[candidacy-step="pending"]{
+    .fa-circle-minus{
+      display: block;
+    }
+    td{
+      color: $grey-mid;
+    }
+  }
+
+}

@@ -1,12 +1,11 @@
-<div class="w-100 max-w-300">
+<%= turbo_frame_tag "list", class: "w-100 max-w-300" do %>
+
+  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: EmployeeApplication.clean_statuses, scope: employee_applications} %>
+
   <div class="mb-40">
-    <div class="flex-center-between mb-20">
-      <h5>Liste des demandes :</h5>
-      <h5 class="text-main fw-7"><%= employee_applications.count %></h5>
-    </div>
     <% employee_applications.each do |demand| %>
       <div class="mb-10 w-100 flex-center-between">
-        <%= link_to company_admin_employee_application_path(demand, status: params[:status]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: demand == @employee_application} do %>
+        <%= link_to company_admin_employee_application_path(demand, status: params[:status]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {turbo: false, active_card: demand == @employee_application} do %>
           <div class="pe-none">
             <h6><%= "#{demand.user.first_name} #{demand.user.last_name}" %></h6>
             <p><%= demand.created_at.strftime("%d/%m/%Y") %></p>
@@ -25,4 +24,4 @@
       </div>
     <% end %>
   </div>
-</div>
+<% end %>

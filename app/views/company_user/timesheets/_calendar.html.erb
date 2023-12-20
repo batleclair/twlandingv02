@@ -2,7 +2,7 @@
   <%= month_calendar(events: @timesheets, end_attribute: :end_time) do |date, timesheets| %>
     <div class="w-100 h-100" class=<%= date.month %>>
       <% if timesheets.empty? %>
-        <%= link_to date.day, new_user_mission_timesheet_path(start_date: date), data: {selected: @timesheet&.start_time&.to_date == date} %>
+        <%= link_to date.day, new_user_mission_timesheet_path(start_date: date), data: {selected: @timesheet&.start_time&.to_date == date}, class: ("pe-none" if !@mission.activated_status?) %>
       <% else %>
         <% timesheets.each do |timesheet| %>
           <%= link_to date.day, user_mission_timesheet_path(id: timesheet.id, start_date: timesheet.start_time.to_date), data: { present: "true", selected: @timesheet == timesheet } %>

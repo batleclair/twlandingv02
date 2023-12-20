@@ -1,0 +1,84 @@
+<div class="max-w-400">
+  <h6 class="fw-7 text-main mb-20">Informations relatives à cette mission</h6>
+  <table class="w-100 mb-10 fs-14 table-padding" cellpadding=0>
+    <tbody>
+
+      <tr class="text-main bg-shade">
+        <th>Association</th>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Nom</th>
+        <td class="w-100"><%= @mission.offer.beneficiary.name %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Adresse</th>
+        <td><%= @mission.offer.beneficiary.address %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">SIREN</th>
+        <td><%= @mission.offer.beneficiary.siren %></td>
+      </tr>
+        <th class="pr-10 no-wrap fw-5">Référent mission</th>
+        <td><%= @mission.referent_name %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><%= @mission.referent_email %></td>
+      </tr>
+
+      <tr class="text-main bg-shade">
+        <th>Salarié.e</th>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Nom</th>
+        <td class="w-100"><%= @mission.candidate.full_name %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Domaine</th>
+        <td><%= @mission.candidate.function %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Titre</th>
+        <td><%= @mission.candidate.title %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 no-wrap fw-5">Référent manager</th>
+        <td><%= @mission.candidate.referent_name %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><%= @mission.candidate.referent_email %></td>
+      </tr>
+
+      <tr class="text-main bg-shade">
+        <th>Mission</th>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Intitulé</th>
+        <td class="w-100"><%= @mission.title %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Description</th>
+        <td class="w-100"><%= @mission.description %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Dates</th>
+        <td class="w-100"><%= "#{@mission.start_date&.strftime("%d/%m/%Y")} > #{@mission.end_date&.strftime("%d/%m/%Y")}" %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Périodicité</th>
+        <td class="w-100"><%= @mission.periodicity %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 fw-5">Type</th>
+        <td class="w-100"><%= @mission.mission_type %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

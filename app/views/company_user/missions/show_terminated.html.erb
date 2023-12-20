@@ -1,0 +1,22 @@
+<% @tab = 7 %>
+<%= render partial: "company_user/missions/tabs" %>
+
+
+
+<div class="d-flex">
+  <div class="mb-40 w-100 max-w-400">
+    <%= render partial: "company_user/shared/offer_card", locals: {offer: @mission.offer} %>
+    <div class="p-20 pt-0 bg-shade">
+      <div class="flex-center-between mb-10 w-100">
+        <h6 class="text-main fw-7">Votre mission est terminée</h6>
+        <i class="fa-regular fa-circle-stop text-flag-1 min-w-20 fs-25"></i>
+      </div>
+      <p class="mb-05">Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>
+    </div>
+  </div>
+
+  <div class="ml-40">
+    <h6 class="text-main mb-10 fw-7">A propos de la mission</h6>
+    <%= render partial: "summary", locals: {mission: @mission} %>
+  </div>
+</div>

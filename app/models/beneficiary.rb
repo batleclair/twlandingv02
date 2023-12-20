@@ -26,9 +26,9 @@ class Beneficiary < ApplicationRecord
     "(Ré)insertion professionnelle",
     "Protection des personnes",
     "Protection du vivant",
+    "Lien social",
     "Protection de l'environnement",
     "Handicaps & maladies",
-    "Lien social",
     "Art, culture & patrimoine",
     "Egalité & citoyenneté"
   ]

@@ -2,6 +2,7 @@ class Candidate < ApplicationRecord
   include ControllerUtilities
 
   attr_accessor :volunteering_aknowledged
+  attr_accessor :mode
 
   belongs_to :user
   has_many :employee_applications, dependent: :destroy
@@ -14,17 +15,17 @@ class Candidate < ApplicationRecord
   acts_as_taggable_on :skills
 
   # min_info context for both profile and candidacies
-  validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, on: [:apply, :profile]
+  validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, on: [:apply, :profile], allow_nil: true
   validates :status, presence: { message: "Sélectionnez parmi les options" }, on: [:apply, :profile]
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, on: [:apply, :profile], if: :employed?
   validate :basics, on: [:apply, :profile]
   validate :cv_file_type, on: [:apply, :profile]
 
-  validates :description, presence: { message: "Présentez-vous en quelques mots" }, on: :profile
-  validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, on: :profile
-  validates :location, presence: { message: "Indiquez votre ville de résidence" }, on: :profile
-  validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, on: :profile
-  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, on: :profile
+  validates :description, presence: { message: "Présentez-vous en quelques mots" }, on: :profile, allow_nil: true
+  validates :function, inclusion: { in: Offer::FUNCTIONS, message: "Sélectionnez un domaine d'expertise" }, on: :profile, allow_nil: true
+  validates :location, presence: { message: "Indiquez votre ville de résidence" }, on: :profile, allow_nil: true
+  # validates :primary_cause, length: { minimum: 2, message: "Sélectionnez au moins une catégorie" }, on: :profile, allow_nil: true
+  validates :availability, inclusion: {in: 1..3, message: "Sélectionnez au moins 1 jour / mois"}, on: :profile, allow_nil: true
   validates :referent_email, format: {with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse mail invalide"}, allow_blank: true
   # validates :volunteering_aknowledged, acceptance: { message: 'Veuillez cocher la case' }, if: -> { !employed? && !status.blank?}, on: :profile
   # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, on: :profile
@@ -64,7 +65,7 @@ class Candidate < ApplicationRecord
 
   def min_info_present?
     if employed?
-      phone_num.present? && status.present? && employer_name.present? && (linkedin_url.present? || cv.attached?)
+      phone_num.present? && status.present? && employer_name.present? && (linkedin_url.present? || cv.attached? || !experiences.blank?)
     else
       phone_num.present? && status.present? && (linkedin_url.present? || cv.attached?)
     end
@@ -85,6 +86,15 @@ class Candidate < ApplicationRecord
     # !skill_list.empty? &&
     # volunteering.present? &&
     primary_cause != [""]
+  end
+
+  def first_user_completion?
+    profile_completed == false &&
+    min_info_present? &&
+    function.present? &&
+    location.present? &&
+    phone_num.present? &&
+    !info_missing?
   end
 
   def full_name
@@ -176,11 +186,12 @@ class Candidate < ApplicationRecord
   # end
 
   def basics
+    return unless linkedin_url || cv.attached?
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
-    if linkedin_url.blank? && !cv.attached?
-      errors.add(:linkedin_url, "Renseignez a minima votre LinkedIn OU votre CV")
+    if linkedin_url.blank? && !cv.attached? && mode != 'xp'
+      errors.add(:linkedin_url, "LinkedIn ou CV requis a minima")
     elsif linkedin_url.present? && !linkedin_url.match?(pattern)
-      errors.add(:linkedin_url, "Oh oh.. le lien indiqué semble erroné")
+      errors.add(:linkedin_url, "URL au format linkedin.com/in/... requis")
     end
   end
 

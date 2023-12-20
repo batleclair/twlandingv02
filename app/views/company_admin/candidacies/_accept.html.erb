@@ -34,7 +34,22 @@
             </tr>
           </tbody>
         </table>
-        <%= f.input :manager_approval, as: :boolean, label: "Validé par le manager", input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" }, default: false, checked_value: "approved", unchecked_value: "not_submitted" %>
+
+        <div class="mt-20 w-100 position-relative">
+          <div class="flex-center-between mb-20">
+            <p class="fw-5">Confirmer la validation du manager.</p>
+            <div>
+              <%= f.input_field :manager_approval, as: :boolean, class: "dynamic-checkbox", checked_value: :approved, unchecked_value: :not_submitted %>
+              <%= f.label :manager_approval do %>
+                <i class="fa-solid fa-check"></i>
+                <span></span>
+              <% end %>
+              <%= f.error :manager_approval, class: "invalid-msg" %>
+            </div>
+          </div>
+        </div>
+
+
         <%= f.input :status, as: :hidden, input_html: {value: "draft"}, wrapper: false %>
         <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
           <i class="fa-solid fa-floppy-disk mr-10"></i>

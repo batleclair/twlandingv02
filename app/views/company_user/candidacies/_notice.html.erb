@@ -1,0 +1,46 @@
+
+
+  <% if @candidacy_on_record.active %>
+
+    <% if !current_user.eligibility_on_going? || (!@active_engagement.nil? && @active_candidacy != @candidacy_on_record) %>
+      <%= render partial: "company_user/shared/engagement_notice" %>
+    <% else %>
+      <% case @candidacy_on_record.status %>
+      <% when "user_application" %>
+        <p class="mb-05">Votre candidature a bien été envoyée.</p>
+        <p class="fw-5"><%= @candidacy.beneficiary.name %> doit confirmer son intérêt afin d'échanger avec vous.</p>
+      <% when "beneficiary_application" %>
+        <p>L'association souhaite échanger avec vous. Nous allons vous mettre en relation.</p>
+      <% when "in_discussions" %>
+        <p class="mb-05">Vous êtes maintenant en contact avec l'association afin de préciser le périmètre et les modalités de la mission.</p>
+        <p class="fw-5"><%= @candidacy.beneficiary.name %> devra valider la mission en fonction de vos échanges</p>
+      <% when "beneficiary_validation" %>
+        <p class="mb-05">🙌 <%= @candidacy.beneficiary.name %> compte sur vous.</p>
+        <p class="fw-5">Vous pouvez maintenant transmettre votre demande de mission à <%= @candidacy.candidate.user.company.name %> pour validation</p>
+      <% when "user_validation" %>
+        <p class="mb-05">🚀 Votre candidature a bien été envoyée.</p>
+        <p class="fw-5">Elle doit désormais être approuvée par <%= @candidacy.candidate.user.company.name %></p>
+      <% when "mission" %>
+        <p class="mb-05">🥳 Votre candidature a été approuvée par votre entreprise.</p>
+        <p class="fw-5">Demain, <%= @candidacy.candidate.user.company.name %> et <%= @candidacy.beneficiary.name %> vont mettre en place une convention de mécénat de compétences pour encadrer la mission.</p>
+      <% end %>
+    <% end %>
+
+  <% else %>
+
+    <% case @candidacy_on_record.status %>
+    <% when "user_application" %>
+      <p>Malheureusement, <%= @candidacy.beneficiary.name %> n'a pas souhaité donner suite à votre candidature</p>
+    <% when "beneficiary_application" %>
+      <p>Malheureusement, <%= @candidacy.beneficiary.name %> n'a pas souhaité donner suite à votre candidature</p>
+    <% when "in_discussions" %>
+      <p>Malheureusement, <%= @candidacy.beneficiary.name %> n'a pas souhaité donner suite à vos échanges</p>
+    <% when "beneficiary_validation" %>
+      <p>Malheureusement, <%= @candidacy.beneficiary.name %> n'a pas souhaité confirmer votre candidature suite à vos échanges</p>
+    <% when "user_validation" %>
+      <p>Malheureusement, vous n'avez pas souhaité confirmer votre candidature suite suite aux échanges avec <%= @candidacy.beneficiary.name %></p>
+    <% when "admin_validation" %>
+      <p>Malheureusement, <%= @candidacy.candidate.user.company.name %> a refusé votre candidature à cette mission</p>
+    <% end %>
+
+  <% end %>

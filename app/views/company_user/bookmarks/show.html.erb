@@ -1,12 +1,18 @@
-<h5 class="fw-7 text-main mb-40">Favoris</h5>
+<h5 class="fw-7 text-main mb-30">Favoris</h5>
 
 <div class="d-flex">
   <%= render partial: "company_user/selections/summary" %>
   <div class="ml-40 w-100 max-w-400">
     <div class="w-100">
       <div class="mb-20">
-        <h5 class="text-main">Vous avez eu un coup de coeur</h5>
-
+        <div class="flex-center-between">
+          <h5 class="text-main">Vous avez eu un coup de coeur</h5>
+          <% if @selection_on_record.selection_status? %>
+            <%= button_to user_bookmark_path(@selection), method: :delete, class: "flex-center bg-none bn-none upsize-120 hover-2 p-0", data: {turbo: false} do %>
+              <i class="fa-solid fa-heart text-flag-2 fs-18"></i>
+            <% end %>
+          <% end %>
+        </div>
         <% if !@selection_on_record.selection_status? %>
           <p class="mt-20">Vous avez candidaté à cette mission.</p>
           <p class="mb-20">Vous pouvez retrouver le détail ici :</p>
@@ -43,15 +49,6 @@
               <p class=" mt-20 mb-10">Vous ne pouvez pas y candidater actuellement.</p>
             <% end %>
           <% end %>
-          <div class="w-100">
-            <%= simple_form_for(@selection, url: user_bookmark_path(@selection), data: {turbo: false}) do |f| %>
-              <%= f.input :active, as: :hidden, input_html: {value: false} %>
-              <button type="submit" class="flex-center button bn-none bg-white center-margin">
-                <i class="fa-regular fa-heart mr-10 text-flag-2"></i>
-                Retirer de mes favoris
-              </button>
-            <% end %>
-          </div>
         <% end %>
 
       </div>

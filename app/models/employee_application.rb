@@ -20,4 +20,12 @@ class EmployeeApplication < ApplicationRecord
     EmployeeApplication.where(candidate_id: candidate_id).last == self
   end
 
+  def self.clean_statuses
+    {
+      "A traîter": :pending,
+      "Validées": :approved,
+      "Refusées": :rejected,
+      "Révoquées": :revoked
+    }
+  end
 end

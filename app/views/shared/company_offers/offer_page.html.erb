@@ -41,7 +41,7 @@
 
     <div class="bg-shade p-20 flex-center-between">
       <% if current_user.company_user? %>
-        <em>Cette mission figure parmi vos <%= @selection.suggestion? ? "Suggestions" : "Favoris" %></em>
+        <span></span>
         <%= render partial: "company_user/offers/selection" %>
       <% elsif !@offer.in_rule_for?(current_user) %>
         <em>Cette mission n'est pas visible par vos collaborateurs</em>

@@ -1,51 +1,30 @@
-<h5 class="fw-7 text-main mb-40">Candidatures</h5>
+<h5 class="fw-7 text-main mb-30">Candidatures</h5>
 
 <div class="d-flex">
   <%= render partial: "summary" %>
   <div class="ml-40 w-100 max-w-400">
-    <div class="w-100">
-      <% if !current_user.eligibility_on_going? || (!@active_engagement.nil? && @active_engagement != @candidacy_on_record) %>
-        <%= render partial: "company_user/shared/engagement_notice" %>
-      <% else %>
-        <div class="mb-20" data-controller="popup">
-          <h5 class="text-main">Phase de validation</h5>
+    <div class="w-100" data-controller="popup">
 
+      <div class="mb-20">
+        <h6 class="text-main mb-10 fw-7">Vos messages</h6>
+        <%= render partial: "messages" %>
+      </div>
 
-          <% case @candidacy_on_record.status %>
-          <% when "beneficiary_validation" %>
-            <p>Félicitations ! L'association compte sur vous :)</p>
+      <div class="mb-40">
+        <h6 class="text-main mb-10 fw-7">Et maintenant ?</h6>
+        <%= render partial: "notice" %>
 
-            <% if @candidacy_on_record.current_comment.present? %>
-              <table class="max-w-400 mb-40">
-                <tbody class="va-top">
-                  <tr>
-                    <th class="pr-10">💬</th>
-                    <th class="pr-10 no-wrap">Message :</th>
-                    <td><i>"<%= @candidacy_on_record.current_comment.content %></i> "</td>
-                  </tr>
-                </tbody>
-              </table>
-            <% end %>
+        <% if @candidacy_on_record.beneficiary_validation_status? %>
+          <div class="w-100 flex-center-between pr-30 pl-30 mt-20">
+            <%= link_to "Accepter","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
+            <%= link_to "Rejeter","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
+          </div>
+          <%= render partial: "accept" %>
+          <%= render partial: "reject" %>
+        <% end %>
 
-            <h5>Acceptez-vous la mission ?</h5>
-            <p class="mb-20">Elle devra être validée par <span class="fw-6 text-main"><%= current_user.company.name %></span></p>
+      </div>
 
-            <div class="w-100 flex-center-between">
-              <%= link_to "Accepter","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
-              <%= link_to "Rejeter","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
-            </div>
-
-            <%= render partial: "accept" %>
-            <%= render partial: "reject" %>
-
-          <% when "user_validation" %>
-            <p>Merci de votre engagement !</p>
-            <p class="mb-20">Votre demande va être évaluée par l'équipe RH et votre manager afin de s'assurer qu'elle satisfait les conditons d'éligibilité.</p>
-            <p>Silence radio ? Contactez-nous !</p>
-
-          <% end %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>

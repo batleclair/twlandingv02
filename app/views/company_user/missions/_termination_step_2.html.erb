@@ -1,8 +1,8 @@
-<div class="max-w-400">
+<div class="max-w-400" data-controller="dynamic-form">
   <%= simple_form_for(@mission, url: user_mission_path(@mission, step:2)) do |f| %>
 
     <div class="mb-20">
-      <h5>Confirmez vos temps ⏲️</h5>
+      <h6 class="text-main fw-7 mb-10">Avez-vous complété vos temps ?</h6>
       <% if @mission.total_hours == 0 %>
         <p>Vous n'avez pas encore déclaré de temps pour cette mission</p>
       <% else %>
@@ -26,7 +26,17 @@
     <% end %>
 
     <div class="mt-20 w-100 position-relative">
-      <%= f.input :time_confirmation, label: "Je confirme les éléments c-dessus", input_html: {class: "toggle"} %>
+      <div class="flex-center-left mb-20">
+        <div class="mr-10">
+          <%= f.input_field :time_confirmation, class: "dynamic-checkbox", data: {dynamic_form_target: "trigger", action: "change->dynamic-form#enable"} %>
+          <%= f.label :time_confirmation do %>
+            <i class="fa-solid fa-check"></i>
+            <span></span>
+          <% end %>
+          <%= f.error :time_confirmation, class: "invalid-msg" %>
+        </div>
+        <p class="fw-5">Je confirme mes temps de travail pour cette mission.</p>
+      </div>
     </div>
 
     <div class="w-100 flex-center-between mb-40">

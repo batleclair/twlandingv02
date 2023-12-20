@@ -1,6 +1,4 @@
-<div class="mb-20">
-  <%= render partial: "tabs", locals: {employee_applications: @employee_applications, active: 0} %>
-</div>
+<%= render partial: "company_admin/shared/demands_tabs" %>
 
 <div class="d-flex">
   <%= render partial: "list", locals: {employee_applications: @employee_applications} %>
@@ -47,7 +45,7 @@
           <%= link_to "Révoquer ?", "", class: "button round w-100 flag-2-border text-flag-2 fw-5", data: {hidden_form_target: "output", action: "click->hidden-form#edit"} %>
           <div class="d-none" data-hidden-form-target="input">
             <h6>Ce n'est plus d'actualité ?</h6>
-              <p>Si cette autorisation n'a plus lieu d'être, vous pouvez la révoquer en cliquant sur le lien ci-dessous</p>
+            <p>Si cette autorisation n'a plus lieu d'être, vous pouvez la révoquer en cliquant sur le lien ci-dessous</p>
             <p class="mb-20"><i class="fa-solid fa-triangle-exclamation text-flag-1 mr-10"></i>Vous ne pourrez pas revenir en arrière</p>
             <%= simple_form_for(@employee_application, url: company_admin_employee_application_path(@employee_application), action: :update, data: {turbo_method: :update, turbo_confirm: "Etes-vous sûr.e de vouloir révoquer cette demande ? Vous ne pourrez pas revenir en arrière."}) do |f| %>
                 <%= f.input :status, as: :hidden, input_html: {value: "revoked"} %>

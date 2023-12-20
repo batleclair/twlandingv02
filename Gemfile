@@ -90,6 +90,9 @@ gem "simple_form", github: "heartcombo/simple_form"
 # simple calendar
 gem "simple_calendar", "~> 2.4"
 
+# Brevo fka SendInBlue SIB gem for transactionnal emails through their API
+gem 'sib-api-v3-sdk'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

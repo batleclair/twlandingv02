@@ -1,0 +1,32 @@
+<%= simple_form_for([current_user.candidate, @experience], url: url) do |f| %>
+  <div class="mb-10 position-relative">
+    <%= f.input :employer,
+                label: "Employeur, client ou projet",
+                wrapper: false %>
+  </div>
+  <div class="mb-10 position-relative">
+    <%= f.input :title,
+                label: "Intitulé du poste ou de la mission",
+                wrapper: false %>
+  </div>
+  <h6>Dates (mm/aaaa)</h6>
+  <div class="d-flex mb-20">
+    <div class="position-relative mr-10">
+      <%= f.input :start_date,
+                  label: "Début",
+                  input_html: {value: @experience.start_date_output, data: {"experience-target": "date"}},
+                  wrapper: false %>
+    </div>
+    <div class="position-relative">
+      <%= f.input :end_date,
+                  label: "Fin",
+                  input_html: {value: @experience.end_date_output, data: {"experience-target": "date"}},
+                  wrapper: false %>
+    </div>
+  </div>
+
+  <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+    <i class="fa-regular fa-paper-plane mr-10"></i>
+    Enregistrer
+  </button>
+<% end %>

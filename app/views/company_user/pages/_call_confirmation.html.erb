@@ -1,5 +1,12 @@
-<div class="flex-col flex-center">
-  <h5 class="text-main fw-7">Votre call est programmé !</h5>
-  <p class="mb-20">Vous avez terminé. En attendant d'échanger avec votre conseiller, n'hésitez pas à consulter les missions</p>
-  <%= link_to "Missions", user_offers_path, class:"button btn-main-color" %>
+<h5 class="fw-6 text-main mb-40">Votre call est confirmé</h5>
+
+<div class="max-w-400">
+  <h6 class="text-main mb-20 fw-6">🚀 C'est parti !</h6>
+  <p class="mb-40">Vous êtes prêt.e à vous engager. En attendant votre call avec Demain, n'hésitez pas à consulter les missions dès à présent</p>
+  <div class="w-100 flex-center">
+    <%= link_to user_offers_path, class:"w-100 button round bg-main-to-dark text-white" do %>
+      <i class="fa-solid fa-magnifying-glass mr-10"></i>
+      voir les missions
+    <% end %>
+  </div>
 </div>

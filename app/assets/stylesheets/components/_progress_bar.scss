@@ -28,11 +28,8 @@
   color: $first-light-color;
   background-color: $first-light-color;
   border-radius: 50em;
-  bottom: -10px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  top: 13px;
+  left: -10px;
   width: 10px;
   height: 10px;
   display: flex;
@@ -46,7 +43,12 @@
 }
 
 .company-sub-menu.progress-tabs{
-  border-bottom: solid 1px $first-light-darker;
+  border-left: solid 1px $first-light-darker;
+  a{
+    height: 40px;
+    padding: 10px 20px 10px 30px;
+    display: block;
+  }
   [data-active="true"]{
     .progress-step{
       background-color: $first-light-darker;
@@ -56,4 +58,33 @@
       color: white;
     }
   }
+}
+
+.progress-dots-ctn{
+  position: relative;
+  >hr{
+    position: absolute;
+    border: solid 1px $first-main-darker;
+    width: 100%;
+    z-index: -1;
+  }
+}
+.progress-dot{
+  border-radius: 100%;
+  padding: 10px;
+  font-size: 0;
+  background-color: $first-light-color;
+}
+.progress-dot[step="active"]{
+  background-color: $first-main-color;
+  transform: scale(1.25);
+  animation: dot-progression 0.2s ease-in-out;
+}
+.progress-dot[step="done"]{
+  background-color: $first-main-color;
+}
+
+@keyframes dot-progression {
+  from { transform: scale(1); }
+  to   { transform: scale(1.2); }
 }

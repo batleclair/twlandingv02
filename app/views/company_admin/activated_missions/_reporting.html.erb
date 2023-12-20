@@ -1,0 +1,19 @@
+<div class="max-w-400">
+  <div class="mb-20">
+    <h6 class="fw-7 text-main">Temps reportés par <%= @mission.candidate.full_name %></h6>
+    <% if @mission.timesheets.empty? %>
+      <p><%= @mission.candidate.user.first_name %> n'a pas encore renseigné de temps pour cette mission</p>
+    <% else %>
+      <p class="mb-05"><%= @mission.candidate.user.first_name %> a déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures.</p>
+    <% end %>
+  </div>
+
+  <% @mission.timesheets.each do |timesheet| %>
+    <div class="w-100 p-10 bg-grey-low mb-10 flex-center-between">
+      <div>
+        <h6><%= timesheet.start_time.strftime("%d/%m/%Y") %></h6>
+        <p><%= timesheet.start_time.strftime("%H:%M") %> -> <%= timesheet.end_time.strftime("%H:%M") %> (<%= timesheet.reported_hours %> h)</p>
+      </div>
+    </div>
+  <% end %>
+</div>

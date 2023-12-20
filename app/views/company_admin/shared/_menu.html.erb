@@ -1,0 +1,90 @@
+<div id="tenant-menu" class="company-menu fs-15">
+  <div data-controller="tenant-menu">
+    <div class="w-100 position-relative flex-center mb-10 company-menu-pl">
+      <% if current_user.company.logo.attached? %>
+        <div class="bg-white round-20 square-100 flex-center shadow-sm p-10">
+          <%= cl_image_tag(current_user.company.logo.key, class:"w-100") %>
+        </div>
+      <% end %>
+    </div>
+    <div class="w-100 flex-center mb-40 company-menu-pl">
+      <h6 class="button-round bg-flag-1 text-white">Admin</h6>
+    </div>
+
+    <div class="company-menu-pl overflow-hidden">
+
+      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 0%>>
+        <%= link_to "", company_admin_path, class:"w-100 h-100 position-absolute" %>
+        <div class="flex-center-left pe-none h-100">
+          <h6>Accueil</h6>
+        </div>
+      </div>
+
+      <div class="mt-05 mb-05 w-100 border-b-light-darker"></div>
+
+      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab company-menu-dropdown" data-tenant-menu-target="submenu" data-action="click->tenant-menu#expand" <%= @tab.in?(4..5) ? "expanded" : "" %> <%= @tab.in?(4..5) ? "active" : "" %>>
+        <div class="flex-center-left pe-none position-relative">
+          <h6>Demandes de collaborateurs</h6>
+          <i class="fa-solid fa-chevron-right position-absolute"></i>
+        </div>
+        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 4%> data-action="click->tenant-menu#keep">
+          <%= link_to "", company_admin_employee_applications_path(status: :pending), class:"w-100 h-100 position-absolute" %>
+          <div class="flex-center-left pe-none h-100">
+            <h6>Candidats au dispositif</h6>
+          </div>
+        </div>
+        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 5%> data-action="click->tenant-menu#keep">
+          <%= link_to "", company_admin_candidacies_path(status: :user_validation), class:"w-100 h-100 position-absolute" %>
+          <div class="flex-center-left pe-none h-100">
+            <h6>Candidats aux missions</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 6%>>
+        <%= link_to "", company_admin_missions_path, class:"w-100 h-100 position-absolute" %>
+        <div class="flex-center-left pe-none h-100">
+          <h6>Missions en attente</h6>
+        </div>
+      </div>
+
+      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 7%>>
+        <%= link_to "", company_admin_activated_missions_path, class:"w-100 h-100 position-absolute" %>
+        <div class="flex-center-left pe-none h-100">
+          <h6>Suivi des missions</h6>
+        </div>
+      </div>
+
+
+      <div class="mt-05 mb-05 w-100 border-b-light-darker"></div>
+
+
+      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab company-menu-dropdown" data-tenant-menu-target="submenu" data-action="click->tenant-menu#expand" <%= @tab.in?(2..3) ? "expanded" : "" %> <%= @tab.in?(2..3) ? "active" : "" %>>
+        <div class="flex-center-left pe-none position-relative">
+          <h6>Accès à la plateforme</h6>
+          <i class="fa-solid fa-chevron-right position-absolute"></i>
+        </div>
+        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 2%> data-action="click->tenant-menu#keep">
+          <%= link_to "", company_admin_whitelists_path, class:"w-100 h-100 position-absolute" %>
+          <div class="flex-center-left pe-none h-100">
+            <h6>Autorisations</h6>
+          </div>
+        </div>
+        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 3%> data-action="click->tenant-menu#keep">
+          <%= link_to "", company_admin_users_path, class:"w-100 h-100 position-absolute" %>
+          <div class="flex-center-left pe-none h-100">
+            <h6>Collaborateurs inscrits</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 1%>>
+        <%= link_to "", company_admin_offers_path, class:"w-100 h-100 position-absolute" %>
+        <div class="flex-center-left pe-none h-100">
+          <h6>Consulter les offres</h6>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

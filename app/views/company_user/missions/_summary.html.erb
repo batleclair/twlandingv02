@@ -1,49 +1,26 @@
-<div class="mb-10">
-  <h6>Intitulé :</h6>
-  <p><%= mission.title %></p>
-</div>
-
-<div class="mb-10">
-  <h6>Description :</h6>
-  <p><%= mission.description %></p>
-</div>
-
-<div class="mb-10">
-  <h6>Dates :</h6>
-  <div class="d-flex" data-controller="flatpickr">
-    <p class="mr-10 no-wrap">Début :</p>
-    <p><%= mission.start_date&.strftime("%d/%m/%Y") %></p>
+<div class="bg-grey p-20 mb-10 shadow-xs">
+  <table class="max-w-400  mb-20">
+    <tbody class="va-top">
+      <tr>
+        <th class="pr-10 no-wrap">Intitulé</th>
+        <td><%= mission.title %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 no-wrap">Début</th>
+        <td><%= mission.start_date.blank? ? "non-renseigné" : mission.start_date&.strftime("%d/%m/%Y") %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 no-wrap">Fin</th>
+        <td><%= mission.end_date.blank? ? "non-renseigné" : mission.end_date&.strftime("%d/%m/%Y") %></td>
+      </tr>
+      <tr>
+        <th class="pr-10 no-wrap">Modalités</th>
+        <td><%= mission.periodicity.blank? ? "non-renseigné" : mission.periodicity %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <h6 class="fw-7">Objectifs</h6>
+    <%= mission.description.blank? ? "non-renseigné" : simple_format(mission.description) %>
   </div>
-  <div class="d-flex" data-controller="flatpickr">
-    <p class="mr-10 no-wrap">Fin :</p>
-    <p><%= mission.end_date&.strftime("%d/%m/%Y") %></p>
-  </div>
-</div>
-
-<div class="mb-10">
-  <h6>Périodicité :</h6>
-  <p><%= mission.periodicity %></p>
-</div>
-
-<div class="mb-10">
-  <h6>Type :</h6>
-  <p><%= mission.mission_type %></p>
-</div>
-
-<div class="mb-10">
-  <p>Feedbacks : <%= mission.feedback_on ? "Yes" : "No" %></p>
-</div>
-
-<div class="mb-10">
-  <h6>Collecte des feedbacks :</h6>
-  <p>Tous/toutes les
-    <%= mission.feedback_step.nil? ? "..." : mission.feedback_step %>
-    <%= mission.feedback_unit.nil? ? "jours/semaines" : mission.feedback_unit %>
-    à partir du
-    <%= mission.feedback_start&.strftime("%d/%m/%Y") %>
-  </p>
-</div>
-
-<div class="mb-10">
-  <p>Validé par le management : <%= mission.manager_approval_approved? ? "Yes" : "No" %></p>
 </div>

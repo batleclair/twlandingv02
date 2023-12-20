@@ -1,13 +1,10 @@
-<div class="mb-20">
-  <%= render partial: "company_user/missions/tabs" %>
-</div>
-
+<%= render partial: "company_user/missions/tabs" %>
 
 <div class="d-flex mb-40">
   <%= render partial: "calendar" %>
   <div class="max-w-400 ml-40">
     <div class="mb-30">
-      <h4 class="text-main fw-7 mb-10">Bravo 👏</h5>
+      <h6 class="text-main fw-7 mb-10">Bravo 👏</h6>
       <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @timesheet.reported_hours %> heures</span> ce jour là.</p>
     </div>
     <table class="mb-30">
@@ -27,9 +24,13 @@
       </tbody>
     </table>
 
-    <%= link_to edit_user_mission_timesheet_path(id: @timesheet.id), class: "w-100 button round first-main-border bg-white-to-shade text-main" do %>
-      <i class="fa-solid fa-pen-to-square"></i>
-      Modifier les informations saisies
+    <% if @mission.activated_status? %>
+      <%= link_to edit_user_mission_timesheet_path(id: @timesheet.id), class: "w-100 button round first-main-border bg-white-to-shade text-main" do %>
+        <i class="fa-solid fa-pen-to-square"></i>
+        Modifier les informations saisies
+      <% end %>
+    <% else %>
+      <%= link_to "Retour", user_mission_timesheets_path, class: "button round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
     <% end %>
   </div>
 </div>

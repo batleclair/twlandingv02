@@ -1,0 +1,20 @@
+
+<div class="flex-center mb-20 bg-shade p-20">
+  <div class="w-100 position-relative flex-center">
+    <div class="bg-white round-20 square-80 flex-center shadow-xs p-10 p-15 logo-box">
+      <%= cl_image_tag( @mission.beneficiary.logo.key) %>
+    </div>
+  </div>
+  <span class="fs-30 text-grey-light fw-7">+</span>
+  <div class="w-100 position-relative flex-center">
+    <% if @mission.candidate.photo.attached? %>
+      <div class="logo-box downsize90 round-20">
+        <%= cl_image_tag( @mission.candidate.photo.key) %>
+      </div>
+    <% else %>
+      <div class="bg-white round-20 square-80 flex-center shadow-xs p-10 p-15">
+        <span href="" class="round h-100 w-100 flex-center fs-20 fw-6 bg-flag-1 text-white"><%= @mission.candidate.user.initials %></span>
+      </div>
+    <% end %>
+  </div>
+</div>

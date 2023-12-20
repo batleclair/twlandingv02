@@ -1,14 +1,11 @@
-<div class="mb-20">
-  <%= render partial: "tabs", locals: {candidacy: @candidacy_on_record} %>
-</div>
+<%= render partial: "company_admin/shared/demands_tabs" %>
 
 <div class="d-flex">
   <%= render partial: "summary" %>
   <div class="ml-40 w-100 max-w-400">
     <div class="w-100">
       <div class="mb-20">
-        <h5 class="text-main mb-10">Mission acceptée</h5>
-
+        <h5 class="text-main mb-10">Candidature approuvée</h5>
         <table>
           <tbody>
             <tr>
@@ -31,7 +28,20 @@
         </table>
       </div>
 
-      <%= link_to @path, class: "w-100 button round bg-main-to-dark text-white bn-none" do %>
+      <div class="mb-10">
+        <h6 class="fw-6">
+          <% case @candidacy.mission.status %>
+          <% when "draft" %>
+            La mission correspondante est en attente
+          <% when "activated" %>
+            La mission correspondante est en cours
+          <% when "terminated" %>
+            La mission correspondante est terminée
+          <% end %>
+        </h6>
+      </div>
+
+      <%= link_to company_admin_mission_path(@candidacy.mission), class: "w-100 button round bg-main-to-dark text-white bn-none" do %>
         <i class="fa-solid fa-eye mr-10"></i>
         Voir la mission associée
       <% end %>

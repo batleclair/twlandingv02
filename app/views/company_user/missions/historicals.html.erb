@@ -1,0 +1,27 @@
+<%= render partial: "company_user/shared/historicals_tabs" %>
+
+<div class="w-100 max-w-400">
+  <% if @missions.empty?  %>
+    <h6 class="mb-10 text-grey">Votre historique de missions est vide</h6>
+  <% end %>
+
+  <% if !@missions.empty? %>
+    <h6 class="mb-10 text-grey">Vos missions terminées</h6>
+    <% @missions.each do |m| %>
+      <div class="w-100 p-10 bg-shade-to-light hover-2 mb-10">
+        <%= link_to user_mission_path(m), class: "w-100 h-100" do %>
+          <div class="flex-center-left w-100">
+            <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+              <%= cl_image_tag(m.beneficiary.logo.key) %>
+            </div>
+            <div class="pe-none w-100">
+              <h6><%= m.offer.beneficiary.name %></h6>
+              <p><%= m.offer.title %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

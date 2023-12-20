@@ -47,7 +47,7 @@ class CompanyUser::FeedbacksController < CompanyUserController
   end
 
   def set_tab
-    @tab = 4
+    @tab = 5
     @sub_tab = 2
   end
 

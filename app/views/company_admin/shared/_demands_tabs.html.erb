@@ -1,0 +1,8 @@
+<div class="flex-center-left mb-30 max-w-1200">
+  <h5 class="fw-7 text-main no-wrap mr-30">Demandes des collaborateurs</h5>
+  <div class="sub-tabs">
+    <span></span>
+    <%= link_to "Candidats au dispositif", company_admin_employee_applications_path, class: "sub-tab", data: {turbo: false, active: @tab == 4} %>
+    <%= link_to "Candidatures aux missions", company_admin_candidacies_path, class: "sub-tab", data: {turbo: false, active: @tab == 5} %>
+  </div>
+</div>

@@ -1,6 +1,4 @@
-<div class="mb-20">
-  <%= render partial: "tabs", locals: {candidacy: @candidacy_on_record} %>
-</div>
+<%= render partial: "company_admin/shared/demands_tabs" %>
 
 <div class="d-flex">
   <%= render partial: "summary" %>
@@ -13,7 +11,7 @@
           <tbody>
             <tr>
               <th class="pr-20">Début</th>
-              <td><%= @candidacy.req_start_date.strftime("%d/%m/%Y") %></td>
+              <td><%= @candidacy.req_start_date&.strftime("%d/%m/%Y") %></td>
             </tr>
             <tr>
               <th class="pr-20">Durée</th>

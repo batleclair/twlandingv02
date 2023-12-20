@@ -1,26 +1,21 @@
-<h5 class="fw-7 text-main mb-40">Candidatures</h5>
+<% @tab = 6 %>
+<h5 class="fw-7 text-main mb-30">Candidatures</h5>
 
 <div class="d-flex">
   <%= render partial: "summary" %>
-  <div class="ml-40 w-100 max-w-500">
+  <div class="ml-40 w-100 max-w-400">
     <div class="w-100">
+
       <div class="mb-20">
-        <h5 class="text-main">Candidature abandonnée</h5>
-        <% case @candidacy.status %>
-        <% when "beneficiary_application" || "beneficiary_validation" %>
-          <p>L'association n'a pas souhaité donner suite :(</p>
-          <h6>Message :</h6>
-          <p><%= @candidacy.current_comment.content if @candidacy.current_comment.present? %></p>
-        <% when "user_validation" %>
-          <p class="mb-20">Vous avez préféré ne pas donner suite malgré l'intérêt de l'association ;(</p>
-          <h6>Votre message :</h6>
-          <p><%= @candidacy.current_comment.content if @candidacy.current_comment.present? %></p>
-        <% when "admin_validation" %>
-          <p class="mb-20">Malheureusement votre demande a été refusée par votre équipe RH ou votre manager</p>
-          <h6>Les raisons de ce refus :</h6>
-          <p><%= @candidacy.current_comment.content if @candidacy.current_comment.present? %></p>
-        <% end %>
+        <h6 class="text-main mb-10 fw-7">Vos messages</h6>
+        <%= render partial: "messages" %>
       </div>
+
+      <div class="mb-40">
+        <h6 class="text-main mb-10 fw-7">Et maintenant ?</h6>
+        <%= render partial: "notice" %>
+      </div>
+
     </div>
   </div>
 </div>

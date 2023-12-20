@@ -1,0 +1,79 @@
+<div class="messages-ctn overflow-hidden" data-controller="messages">
+  <% unless @candidacy_on_record.comments.blank? %>
+    <div class="w-100 flex-center arrow" data-action="click->messages#toggle">
+      <i class="fs-16 text-main fa-solid fa-angle-down square-30 flex-center arrow"></i>
+      <span data-messages-target="label" class="fs-13">voir tous les messages</span>
+    </div>
+  <% end %>
+
+  <div data-messages-target="ctn">
+    <% if @candidacy_on_record.comments.find_by(status: :mission) %>
+      <div class="mb-10 bg-shade text-main p-10 pl-20 pr-20 round-20 max-w-300" data-messages-target="message">
+        <h6 class="mb-05 fs-15">Réponse de <%= @candidacy.candidate.user.company.name %></h6>
+        <div class="d-flex fs-14">
+          <i class="fa-regular fa-message mr-10 mt-05"></i>
+          <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :mission).content, class: "fw-5") %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @candidacy_on_record.comments.find_by(status: :admin_validation) %>
+      <div class="mb-10 bg-shade text-main p-10 pl-20 pr-20 round-20 max-w-300" data-messages-target="message">
+        <h6 class="mb-05 fs-15">Réponse de <%= @candidacy.candidate.user.company.name %></h6>
+        <div class="d-flex fs-14">
+          <i class="fa-regular fa-message mr-10 mt-05"></i>
+          <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :admin_validation).content, class: "fw-5") %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @candidacy_on_record.comments.find_by(status: :user_validation) %>
+      <div class="mb-10 bg-grey text-grey p-10 pl-20 pr-20 round-20 max-w-300 align-right-margin" data-messages-target="message">
+        <h6 class="mb-05 fs-15">Demande envoyée à <%= @candidacy.candidate.user.company.name %></h6>
+        <div class="d-flex fs-14">
+          <i class="fa-regular fa-message mr-10 mt-05"></i>
+          <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :user_validation).content, class: "fw-5") %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @candidacy_on_record.comments.find_by(status: :beneficiary_validation) %>
+      <div class="mb-10 bg-shade text-main p-10 pl-20 pr-20 round-20 max-w-300" data-messages-target="message">
+        <h6 class="mb-05 fs-15">Message de <%= @candidacy.beneficiary.name %></h6>
+        <div class="d-flex fs-14">
+          <i class="fa-regular fa-message mr-10 mt-05"></i>
+          <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :beneficiary_validation).content, class: "fw-5") %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @candidacy_on_record.comments.find_by(status: :in_discussions) %>
+      <div class="mb-10 bg-shade text-main p-10 pl-20 pr-20 round-20 max-w-300" data-messages-target="message">
+        <h6 class="mb-05 fs-15">Information Demain</h6>
+        <div class="d-flex fs-14">
+          <i class="fa-regular fa-message mr-10 mt-05"></i>
+          <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :in_discussions).content, class: "fw-5") %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @candidacy_on_record.comments.find_by(status: :beneficiary_application) %>
+      <div class="mb-10 bg-shade text-main p-10 pl-20 pr-20 round-20 max-w-300" data-messages-target="message">
+        <h6 class="mb-05 fs-15">Réponse de <%= @candidacy.beneficiary.name %></h6>
+        <div class="d-flex fs-14">
+          <i class="fa-regular fa-message mr-10 mt-05"></i>
+          <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :beneficiary_application).content, class: "fw-5") %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="mb-10 bg-grey text-grey p-10 pl-20 pr-20 round-20 align-right-margin max-w-300" data-messages-target="message">
+      <h6 class="mb-05 fs-15">Message de candidature</h6>
+      <div class="d-flex fs-14">
+        <i class="fa-regular fa-message mr-10 mt-05"></i>
+        <div><%= simple_format(@candidacy_on_record.motivation_msg, class: "fw-5") %></div>
+      </div>
+    </div>
+  </div>
+
+</div>

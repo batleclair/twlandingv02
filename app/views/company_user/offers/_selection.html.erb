@@ -1,23 +1,26 @@
-<% case %>
-<% when @selection.suggestion? %>
-  <%= link_to user_selection_path(@selection), data: {turbo: false}, class: "upsize-120 hover-2 bg-none" do %>
-    <i class="fa-solid fa-fire text-flag-1"></i>
-  <% end %>
-<% when @selection.id.nil? || @selection.company_user_origin? && @selection.selection_status? %>
-  <%= turbo_frame_tag "selection" do %>
-    <% args = @selection.id.nil? ? [@offer, @selection] : @selection %>
-    <% method = @selection.id.nil? ? :post : :patch %>
-    <% status = @selection_on_record.id.nil? ? true : !@selection_on_record.active %>
-    <% url = @selection.id.nil? ? user_offer_bookmarks_path(@offer) : user_bookmark_path(@selection) %>
-    <%= simple_form_for(args, url: url, method: method) do |f| %>
-      <%= f.input :active, as: :hidden, wrapper: false, input_html: {value: status} %>
-      <button type="submit" class="flex-center bg-none bn-none upsize-120 hover-2">
-        <% if @selection.id.nil? || !@selection_on_record.active %>
-          <i class="fa-regular fa-heart text-flag-2 fs-18"></i>
-        <% else %>
-          <i class="fa-solid fa-heart text-flag-2 fs-18"></i>
-        <% end %>
+<%= turbo_frame_tag "selection" do %>
+  <% case %>
+  <% when @selection.id.nil? %>
+    <%= simple_form_for([@offer, @selection], url: user_offer_bookmarks_path(@offer), turbo_method: :post) do |f| %>
+      <%= f.input :active, as: :hidden, wrapper: false, input_html: {value: true} %>
+      <button type="submit" class="flex-center bg-none bn-none upsize-120 hover-2 p-0">
+        <i class="fa-regular fa-heart text-flag-2 fs-18"></i>
       </button>
+    <% end %>
+
+  <% when @selection.selection? %>
+    <%= button_to user_bookmark_path(@selection), method: :delete, class: "flex-center bg-none bn-none upsize-120 hover-2 p-0" do %>
+      <i class="fa-solid fa-heart text-flag-2 fs-18"></i>
+    <% end %>
+
+  <% when @selection.suggestion? %>
+    <%= link_to user_selection_path(@selection), data: {turbo: false}, class: "flex-center bg-none bn-none upsize-120 hover-2" do %>
+      <i class="fa-solid fa-fire text-flag-1"></i>
+    <% end %>
+
+  <% when @selection.disliked? %>
+    <%= link_to user_selection_path(@selection), data: {turbo: false}, class: "flex-center bg-none bn-none upsize-120 hover-2" do %>
+      <i class="fa-solid fa-fire text-grey-light"></i>
     <% end %>
   <% end %>
 <% end %>

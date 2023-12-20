@@ -47,6 +47,10 @@ class MissionPolicy < ApplicationPolicy
     checklist?
   end
 
+  def historicals?
+    user.company_user?
+  end
+
 
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!

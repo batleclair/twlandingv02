@@ -12,6 +12,10 @@ class EmployeeApplicationPolicy < ApplicationPolicy
     new?
   end
 
+  def show?
+    user.company_admin? || (user.company_user? && record.user == user)
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve

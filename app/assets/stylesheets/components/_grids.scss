@@ -10,3 +10,18 @@
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
+
+.on-boarding-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  grid-auto-rows: 150px;
+  position: relative;
+  span{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    border-bottom: solid 1px $first-main-color;
+    z-index: -1;
+  }
+}

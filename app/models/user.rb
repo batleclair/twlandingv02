@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :demo
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,7 +18,7 @@ class User < ApplicationRecord
   validate :company_whitelisted
   acts_as_token_authenticatable
   after_create do
-    initialize_profile if whitelisted?
+    (initialize_profile if whitelisted?) unless demo
     pre_approve if pre_approved?
   end
 
@@ -89,7 +90,7 @@ class User < ApplicationRecord
   end
 
   def pre_approve
-    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'administrateur")
+    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise")
     # candidate.clip_to_airtable
   end
 
@@ -164,7 +165,7 @@ class User < ApplicationRecord
   end
 
   def initialize_profile
-    Candidate.create(user_id: self.id)
+    Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name)
     if whitelist
       self.first_name = whitelist.first_name if whitelist.first_name
       self.last_name = whitelist.last_name if whitelist.last_name

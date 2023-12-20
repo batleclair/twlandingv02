@@ -1,0 +1,36 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active="true">
+    <div>
+      <div class="p-20 shadow-md" data-action="click->popup#keep">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7">Nouvelle demande</h5>
+          <%= link_to root_path, data: {action: "click->popup#close", popup_target: "close", turbo: false} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+        <h6 class="mb-20">Formuler une nouvelle demande auprès de votre entreprise</h6>
+
+          <%= simple_form_for(@employee_application, url: user_employee_applications_path, data: { controller: 'form-redirect', action: 'turbo:submit-end->form-redirect#next' }) do |f| %>
+            <div class="position-relative">
+              <%= f.input :eligibility_period_id, collection: @eligibility_periods, label: "Période" %>
+              <div class="position-relative">
+                <%= f.input :motivation_msg,
+                            label: "Message" %>
+              </div>
+              <div class="position-relative">
+                <%= f.error :candidate_id, class:"invalid-msg" %>
+              </div>
+              <div class="position-relative">
+                <%= f.error :status, class:"invalid-msg" %>
+              </div>
+            </div>
+
+            <div class="flex-between mt-20">
+              <%= link_to "retour", root_path, class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2", data: {turbo: false} %>
+              <%= f.submit "envoyer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active="true">
+    <div>
+      <div class="p-20 shadow-md" data-action="click->popup#keep">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7">Votre demande</h5>
+          <%= link_to root_path, data: {action: "click->popup#close", popup_target: "close", turbo: false} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+
+        <h6 class="mb-20"><%= @status_message %></h6>
+
+        <div class="p-20 mb-20 bg-shade max-w-500">
+          <table>
+            <tr>
+              <td class="pr-20">Date</td>
+              <td><%= @employee_application.created_at.strftime("%d/%m/%Y") %></td>
+            </tr>
+            <tr>
+              <td class="pr-20">Message</td>
+              <td><%= @employee_application.motivation_msg %></td>
+            </tr>
+            <tr>
+              <td class="pr-20">Période sélectionnée </td>
+              <td><%= @employee_application.eligibility_period&.title %></td>
+            </tr>
+            <% if @employee_application.rejected_status? || @employee_application.approved_status? %>
+              <tr>
+                <td class="pr-20">Réponse de votre entreprise</td>
+                <td><%= @employee_application.response_msg %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <div class="w-100 flex-center">
+          <%= link_to "retour", root_path, class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2 center-margin", data: {action: "click->popup#close", popup_target: "close", turbo: false} %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>

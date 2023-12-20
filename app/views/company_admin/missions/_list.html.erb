@@ -1,42 +1,23 @@
-<div class="w-100 max-w-300">
+<%= turbo_frame_tag "list", class: "w-100 max-w-300" do %>
 
-  <% if params[:view] == "in_progress" || !params[:view] %>
-    <div class="mb-40">
-      <div class="flex-center-between mb-10">
-        <h5>En cours de contractualisation</h5>
-        <h5 class="text-main fw-7"><%= @missions&.where(status: "draft")&.count %></h5>
-      </div>
-      <% @missions&.where(status: "draft")&.each do |mission| %>
-        <div class="mb-10 w-100 flex-center-between">
-          <%= link_to company_admin_mission_path(mission, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: mission == @mission} do %>
-            <div class="pe-none overflow-hidden">
-              <h6><%= mission.offer.beneficiary.name %></h6>
-              <p class="text-ellipsis"><%= mission.offer.title %></p>
-            </div>
-            <i class="fa-solid fa-pen-to-square text-main"></i>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: Mission.clean_beneficiary_statuses, scope: @missions} %>
 
-  <% if params[:view] == "validated" || !params[:view] %>
-    <div class="mb-40">
-      <div class="flex-center-between mb-10">
-        <h5>Missions activées</h5>
-        <h5 class="text-main fw-7"><%= @missions&.where(status: "activated")&.count %></h5>
-      </div>
-      <% @missions&.where(status: "activated")&.each do |mission| %>
-        <div class="mb-10 w-100 flex-center-between">
-          <%= link_to company_admin_mission_path(mission, view: params[:view]), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: mission == @mission} do %>
-            <div class="pe-none overflow-hidden">
-              <h6><%= mission.offer.beneficiary.name %></h6>
-              <p class="text-ellipsis"><%= mission.offer.title %></p>
+  <div class="mb-40">
+    <% @missions&.where(status: :draft)&.each do |mission| %>
+      <div class="mb-10 w-100 flex-center-between">
+        <%= link_to company_admin_mission_path(mission, status: params[:status]), class: "w-100 h-100 flex-center-between p-10 bg-shade-to-light hover-2", data: {active_card: mission == @mission, turbo: false} do %>
+          <div class="pe-none overflow-hidden">
+            <h6><%= mission.offer.beneficiary.name %></h6>
+            <p class="text-ellipsis"><%= mission.offer.title %></p>
+            <div class="fs-10 company-sub-menu">
+              <i class="fa-solid fa-circle text-main-light" data-active="true"></i>
+              <i class="fa-solid fa-circle text-main-light" data-active=<%=!mission.beneficiary_approval_not_submitted?%>></i>
+              <i class="fa-solid fa-circle text-main-light" data-active=<%=mission.beneficiary_approval_approved?%>></i>
             </div>
-            <i class="fa-solid fa-circle-check text-flag-3"></i>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+<% end %>

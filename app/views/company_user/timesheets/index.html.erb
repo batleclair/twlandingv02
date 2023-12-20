@@ -1,17 +1,32 @@
-<div class="mb-20">
-  <%= render partial: "company_user/missions/tabs" %>
-</div>
-
+<%= render partial: "company_user/missions/tabs" %>
 
 <div class="d-flex mb-40">
   <%= render partial: "calendar" %>
   <div class="max-w-400 ml-40">
     <div class="mb-30">
-      <h4 class="text-main fw-7 mb-10">Vos temps</h4>
+      <h6 class="text-main fw-7 mb-10">Temps de travail consacré à <%= @mission.beneficiary.name %></h6>
       <% if @mission.total_hours == 0 %>
-        <p>Vous n'avez pas encore déclaré de temps pour cette mission</p>
+        <p class="mb-05 fw-5">Vous n'avez pas encore déclaré de temps de travail relatif à cette mission</p>
+        <% if @mission.activated_status? %>
+          <p>Veuillez sélectionner une date pour compléter le suivi du temps de travail que vous avez consacré à cette mission.</p>
+        <% end %>
       <% else %>
-        <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>
+        <p class="mb-05">Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jours pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures !</p>
+        <% if @mission.activated_status? %>
+          <p class="fw-5">Vous pouvez modifier ou ajouter des informations de temps en sélectionnant la date correspondante.</p>
+        <% end %>
+      <% end %>
+
+      <% if @mission.terminated_status? %>
+        <% @mission.timesheets.each do |timesheet| %>
+          <div class="w-100 p-10 bg-shade-to-light hover-2 mb-10 flex-center-between position-relative">
+            <%= link_to "", user_mission_timesheet_path(id: timesheet.id, start_date: timesheet.start_time.to_date), class:"w-100 h-100 position-absolute" %>
+            <div>
+              <h6><%= timesheet.start_time.strftime("%d/%m/%Y") %></h6>
+              <p><%= timesheet.start_time.strftime("%H:%M") %> -> <%= timesheet.end_time.strftime("%H:%M") %> (<%= timesheet.reported_hours %> h)</p>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

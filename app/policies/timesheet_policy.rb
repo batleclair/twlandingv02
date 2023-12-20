@@ -1,14 +1,7 @@
 class TimesheetPolicy < ApplicationPolicy
 
   def new?
-    case
-    when user.company_admin?
-      record.company == user.company
-    when user.company_user?
-      record.candidate == user.candidate
-    when user.admin?
-      true
-    end
+    create?
   end
 
   def create?
@@ -23,7 +16,14 @@ class TimesheetPolicy < ApplicationPolicy
   end
 
   def show?
-    create?
+    case
+    when user.company_admin?
+      record.company == user.company
+    when user.company_user?
+      record.candidate == user.candidate
+    when user.admin?
+      true
+    end
   end
 
   def edit?

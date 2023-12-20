@@ -1,7 +1,7 @@
 class CompanyAdmin::MissionsController < CompanyAdminController
 before_action :set_missions
 before_action :set_tab
-before_action :set_mission, only: [:show, :checklist, :terms, :counterparts, :documents]
+before_action :set_mission, only: [:show]
 before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :documents]
 
   def index
@@ -14,15 +14,9 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
       session[:mission_error] = step
       set_subtab
       render step
-    elsif @mission.activated_status?
-      render :activated
+    else
+      redirect_to company_admin_activated_mission_path(@mission, view: "informations")
     end
-  end
-
-  def new
-    @candidacy = Candidacy.find(params[:company_admin_candidacy_id])
-    @mission = Mission.new(candidacy: @candidacy)
-    authorize @mission
   end
 
   def create
@@ -30,6 +24,7 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
     @candidacy = Candidacy.find(params[:company_admin_candidacy_id])
     @mission.candidacy = @candidacy
     if @mission.save
+      Comment.create(status: "mission", commentable_type: "Candidacy", user_id: current_user.id, commentable_id: @mission.candidacy.id, content: "Votre candidature a été approuvée")
       @candidacy.update(status: "mission")
       redirect_to company_admin_mission_path(@mission)
     else
@@ -39,7 +34,6 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
       @candidacy_on_record = Candidacy.find(params[:company_admin_candidacy_id])
       @create_error = true
       render "company_admin/candidacies/show_pending", status: :unprocessable_entity
-      # raise
     end
   end
 
@@ -61,19 +55,11 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
   private
 
   def set_missions
-    missions = policy_scope(Mission)
-    case params[:view]
-    when "in_progress"
-      @missions = missions.where(status: "draft")
-    when "activated"
-      @missions = missions.where(status: "activated")
-    else
-      @missions = missions
-    end
+    @missions = policy_scope(Mission).beneficiary_status_as(Mission.beneficiary_approvals[params[:status]])
   end
 
   def set_tab
-    @tab = 5
+    @tab = 6
   end
 
   def set_comment
@@ -134,12 +120,4 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
       true
     end
   end
-
-  # def full_mission_params
-  #   if params.require(:mission)[:contracts_attributes].present?
-  #     mission_params.to_h.deep_merge({contracts_attributes: {"0": {company_id: current_user.company_id}}})
-  #   else
-  #     mission_params
-  #   end
-  # end
 end

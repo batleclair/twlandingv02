@@ -1,26 +1,41 @@
 <%= simple_form_for([@mission, @timesheet], url: url) do |f| %>
   <div data-controller="dual-slider" data-dual-slider-date-value=<%= date %>>
-    <div class="dual-slider mb-20">
+    <div class="dual-slider">
+      <span>8h</span>
+      <span>20h</span>
       <%= range_field_tag :start, 9, min: 8, max: 20, step: 0.5, data: {dual_slider_target: "start", action: "input->dual-slider#update"}  %>
       <%= range_field_tag :end, 18, min: 8, max: 20, step: 0.5, data: {dual_slider_target: "end", action: "input->dual-slider#update"}  %>
     </div>
 
-    <div>
-        <%= f.input :start_time, as: :string, input_html: {data: {dual_slider_target: "startinput"}} %>
-        <%= f.input :end_time, as: :string, input_html: {data: {dual_slider_target: "endinput"}} %>
-        <%= f.input :comment %>
-
+    <div class="w-100 flex-center">
+      <time class="fs-20 fw-7 text-main" data-dual-slider-target="startoutput">--</time>
+      <i class="fa-solid fa-arrow-right text-grey-light mr-10 ml-10 fs-15"></i>
+      <time class="fs-20 fw-7 text-main" data-dual-slider-target="endoutput">--</time>
     </div>
 
+    <div>
+        <%= f.input :start_time, as: :hidden, input_html: {data: {dual_slider_target: "startinput"}} %>
+        <%= f.input :end_time, as: :hidden, input_html: {data: {dual_slider_target: "endinput"}} %>
+        <%= f.input :comment, label: false, placeholder: "Vous pouvez saisir des commentaires pour vous remémorer le contexte ou les tâches réalisées ce jour-là." %>
+    </div>
   </div>
-  <button type="submit", class="w-100 button round first-main-border bg-white-to-shade text-main">
-    <i class="fa-solid fa-floppy-disk mr-10"></i>
-    Enregistrer les informations saisies
-  </button>
+  <div class="flex-center-between">
+    <%= link_to user_mission_timesheets_path, class: "max-w-150 w-100 button round first-main-border bg-white-to-shade text-main" do %>
+      <i class="fa-solid fa-arrow-turn-down text-main mr-05" style="transform: rotate(90deg);"></i>
+      Retour
+    <% end %>
+    <button type="submit", class="max-w-150 w-100 button round first-main-border bg-main-to-dark text-white">
+      <i class="fa-solid fa-floppy-disk mr-05"></i>
+      Enregistrer
+    </button>
+  </div>
 <% end %>
 
 <% if deletable %>
-  <div class="w-100 flex-center mt-60 mb-40">
-    <%= link_to "Supprimer ces temps ?", user_mission_timesheet_path(id: @timesheet.id), class: "button text-flag-2 fw-6", data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} %>
+  <div class="w-100 flex-center mt-20 mb-40">
+    <%= link_to user_mission_timesheet_path(id: @timesheet.id), class: "button text-flag-2 fw-6", data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
+      <i class="fa-sharp fa-solid fa-circle-xmark"></i>
+      Supprimer ?
+    <% end %>
   </div>
 <% end %>

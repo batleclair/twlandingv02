@@ -1,7 +1,15 @@
 class ContractPolicy < ApplicationPolicy
 
-  def destroy?
+  def new?
+    user.admin? || user.company_admin?
+  end
+
+  def create?
     user.admin? || (record.company == user.company && user.company_admin?)
+  end
+
+  def destroy?
+    create?
   end
 
   class Scope < Scope

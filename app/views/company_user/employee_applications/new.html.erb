@@ -1,8 +1,14 @@
-<h2 class="mb-50">Je fais ma demande aux RH</h2>
-<div class="max-w-500">
+<div class="mb-40 max-w-400">
+  <h5 class="fw-6 text-main mb-20">2. Je formule ma demande</h5>
+  <h6>Votre profil est complété !</h6>
+  <p>Vous pouvez maintenant formuler votre demande auprès de votre entreprise</p>
+</div>
+
+<div class="max-w-300 mb-20">
   <%= simple_form_for(@employee_application, url: user_employee_applications_path) do |f| %>
+    <h6 class="text-main mb-20 fw-6">Votre demande</h6>
     <div class="position-relative">
-      <%= f.input :eligibility_period_id, collection: @eligibility_periods %>
+      <%= f.input :eligibility_period_id, collection: @eligibility_periods, label: "Période" %>
       <div class="position-relative">
         <%= f.input :motivation_msg,
                     label: "Message" %>
@@ -15,10 +21,9 @@
       </div>
     </div>
 
-    <div class="flex-center-between">
-      <%= link_to "Annuler", root_path, class:"button btn-light-main mb-2 me-2" %>
-      <button type="submit" class="button btn-main-color">Envoyer ma demande</button>
+    <div class="flex-between mt-20">
+      <%= link_to "retour", root_path, class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2", data: {turbo: false} %>
+      <%= f.submit "envoyer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
     </div>
-
   <% end %>
 </div>

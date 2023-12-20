@@ -23,7 +23,8 @@ class Mission < ApplicationRecord
   enum :termination_cause, {"la mission touche à sa fin": 0, "la mission ne se passe pas comme prévu": 1}, prefix: true
 
   after_update :deactivate_candidacy, if: :terminated_status?
-
+  scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
+  scope :beneficiary_status_as, -> (status) { status.nil? ? order(beneficiary_approval: :asc, created_at: :desc) : where(beneficiary_approval: status).order(beneficiary_approval: :asc, created_at: :desc) }
 
   def feedback_info_valid?
     !feedback_on || (
@@ -85,5 +86,20 @@ class Mission < ApplicationRecord
 
   def new_contract?
     !contracts.empty? && contracts.last.id.nil?
+  end
+
+  def self.clean_statuses
+    {
+      "En cours": :activated,
+      "Terminées": :terminated
+    }
+  end
+
+  def self.clean_beneficiary_statuses
+    {
+      "En attente de validation": :not_submitted,
+      "En attente de confirmation": :submitted,
+      "En attente d'activation": :approved
+    }
   end
 end

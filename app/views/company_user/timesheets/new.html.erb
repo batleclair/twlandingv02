@@ -1,19 +1,19 @@
-<div class="mb-20">
-  <%= render partial: "company_user/missions/tabs" %>
-</div>
-
+<%= render partial: "company_user/missions/tabs" %>
 
 <div class="d-flex mb-40">
   <%= render partial: "calendar" %>
   <div class="max-w-400 ml-40">
     <div class="mb-30 flex-between">
-      <div>
-        <h4 class="text-main fw-7 mb-10">Nouveau temps</h4>
+      <div class="mr-10">
+        <h6 class="text-main fw-7 mb-10">Créer une timesheet</h6>
         <p>Veuillez renseigner les heures consacrées à <%= @mission.beneficiary.name %> ce jour-là.</p>
       </div>
-      <%= link_to :back do %>
-        <i class="fa-solid fa-xmark close-btn-alt square-30 flex-center"></i>
-      <% end %>
+      <div class="calendar-sheet">
+        <p class="fw-7 text-main fs-25"><%= params[:start_date].to_date.strftime("%d") %></p>
+        <p class="fw-5"><%= params[:start_date].to_date.strftime("%b") %></p>
+        <p class="fw-6 text-main"><%= params[:start_date].to_date.strftime("%Y") %></p>
+        <span></span>
+      </div>
     </div>
 
     <%= render partial: "form", locals: {date: params[:start_date], url: user_mission_timesheets_path, deletable: false} %>

@@ -1,38 +1,20 @@
-<h5 class="fw-7 text-main mb-40">Candidatures</h5>
+<h5 class="fw-7 text-main mb-30">Candidatures</h5>
 
 <div class="d-flex">
   <%= render partial: "summary" %>
   <div class="ml-40 w-100 max-w-400">
     <div class="w-100">
-      <% if !current_user.eligibility_on_going? || (!@active_engagement.nil? && @active_engagement != @candidacy_on_record) %>
-        <%= render partial: "company_user/shared/engagement_notice" %>
-      <% else %>
-        <div class="mb-20">
-          <h5 class="text-main">En discussions avec l'association</h5>
-          <% case @candidacy_on_record.status %>
-          <% when "user_application" %>
-            <p class="mb-10">Votre demande a bien été transmise à l'association !</p>
-            <table class="max-w-400 mb-20">
-              <tbody class="va-top">
-                <tr>
-                  <th class="pr-10">💬</th>
-                  <th class="pr-10 no-wrap">Votre messsage :</th>
-                  <td><i>"<%= @candidacy_on_record.motivation_msg %></i> "</td>
-                </tr>
-              </tbody>
-            </table>
-            <h6 class="text-main fw-7">Et maintenant ?</h6>
-            <p>Vous devriez prochainement être mis.e en relation avec l'association</p>
-          <% when "beneficiary_application" %>
-            <p class="mb-20">L'association a confirmé vouloir échanger avec vous ! Nous allons vous mettre en relation</p>
-            <h6>Message :</h6>
-            <p><%= @candidacy_on_record.comments.find_by(status: :beneficiary_validation).content %></p>
-          <% when "in_discussions" %>
-            <p>Vous êtes maintenant en contact avec l'association</p>
-            <p class="mb-20">Si ça n'est pas déjà fait, nous vous invitons à organiser un call ou une rencontre afin de préciser le périmètre et les modalités de la mission</p>
-          <% end %>
-        </div>
-      <% end %>
+
+      <div class="mb-20">
+        <h6 class="text-main mb-10 fw-7">Vos messages</h6>
+        <%= render partial: "messages" %>
+      </div>
+
+      <div class="mb-20">
+        <h6 class="text-main mb-10 fw-7">Et maintenant ?</h6>
+        <%= render partial: "notice" %>
+      </div>
+
     </div>
   </div>
 </div>

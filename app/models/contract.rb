@@ -5,7 +5,6 @@ class Contract < ApplicationRecord
 
   enum :contract_type, {"convention de mécénat": 1, "avenant au contrat de travail": 2, "autre": 3}
   validates :title, presence: {message: "Titre requis"}
-  validates :document, presence: {message: "Titre requis"}
   validate :document_present
   validate :file_type
 

@@ -1,0 +1,18 @@
+.messages-ctn{
+  transition: 0.2s ease-in-out;
+  .arrow{
+    cursor: pointer;
+    i{
+      transition: 0.2s;
+    }
+  }
+}
+
+.messages-ctn[expanded]{
+  .arrow{
+    i{
+      transform: rotate(180deg);
+    }
+  }
+  height: 100%;
+}

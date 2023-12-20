@@ -1,6 +1,6 @@
 <div class="bg-shade p-20 w-100">
   <div data-controller="popup">
     <%= render partial: "company_user/offers/apply_btn" %>
-    <%= render partial: "company_user/offers/apply_form" %>
+    <%= turbo_frame_tag "apply" %>
   </div>
 </div>

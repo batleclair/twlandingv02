@@ -1,10 +1,9 @@
 <%= render partial: "company_user/missions/tabs" %>
-<%= render partial: "company_user/missions/confirm_heading" %>
 
 <div class="max-w-400">
   <%= simple_form_for([@mission, @feedback], url: user_mission_feedback_path(mission_id: @mission.id, id: @feedback.id)) do |f| %>
 
-    <h5>Faites nous part de vos retours 😊</h5>
+    <h6 class="text-main fw-7 mb-10">Qu'avez-vous pensé de la mission ?</h6>
 
     <% @feedback.answers.each do |answer| %>
       <%= f.simple_fields_for :answers, answer do |a| %>

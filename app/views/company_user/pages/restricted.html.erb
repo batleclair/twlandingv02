@@ -1,32 +1,19 @@
-<h5>Désolé...</h5>
+<h5 class="mb-40 fw-7 text-main">👋 Bonjour <%= current_user.first_name %></h5>
 
-<div>
+<div class="max-w-400" data-controller="popup">
   <h5 class="mb-10">Bienvenue chez Demain.</h5>
-  <p class=mb-10>Vous avez demandé à vous engager, mais votre dernière demande n'a malheureusement pas été validée par votre équipe RH :</p>
+  <p class=mb-20>Malheureusement vous n'êtes pas actuellement autorisé par votre entreprise à candidater à des missions.</p>
 
-  <div class="max-w-750 w-100">
-    <div class="p-20 mb-20 bg-shade">
-      <table width=500>
-        <tr>
-          <td>Demande envoyée le : </td>
-          <td><%= current_user.last_employee_application.created_at %></td>
-        </tr>
-        <tr>
-          <td>Votre message à l'intention des RH : </td>
-          <td><%= current_user.last_employee_application.motivation_msg %></td>
-        </tr>
-        <tr>
-          <td>Status de la demande : </td>
-          <td><%= current_user.last_employee_application.status %></td>
-        </tr>
-        <tr>
-          <td>Réponse de votre équipe RH : </td>
-          <td><%= current_user.last_employee_application.response_msg %></td>
-        </tr>
-      </table>
-    </div>
+  <div class="flex-center mb-40">
+    <%= link_to "Votre dernière demande", user_employee_application_path(current_user.last_employee_application), data: {turbo_frame: "modal"}, class: "round bg-shade-to-dark text-main max-w-300 w-100 text-center pt-05 pb-05 hover-2" %>
   </div>
 
   <p class="mb-20">Si vous le souhaitez, vous pouvez renouveller votre demande en cliquant ici :</p>
-  <%= link_to "Refaire une demande", new_user_employee_application_path, class: "button btn-main-color" %>
+
+  <div class="flex-center">
+    <%= link_to "Refaire une demande", new_user_employee_application_path, data: {turbo_frame: "modal"}, class: "round bg-main-to-dark text-white max-w-300 w-100 text-center pt-05 pb-05 hover-2" %>
+  </div>
+
+  <%= turbo_frame_tag "modal" %>
+
 </div>

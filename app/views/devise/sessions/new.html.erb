@@ -11,11 +11,11 @@
         </div>
       </div>
 
-      <%# <%= render partial: "devise/shared/google_sso" %>
+      <%= render partial: "devise/shared/google_sso" %>
 
-      <%# <div class="separator w-50 center-margin center-text mb-15">
+      <div class="separator w-50 center-margin center-text mb-15">
         ou
-      </div> %>
+      </div>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
         <%= f.error_notification %>

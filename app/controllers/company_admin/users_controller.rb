@@ -78,7 +78,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
   end
 
   def set_tab
-    @tab = 2
+    @tab = 3
   end
 
   def user_params

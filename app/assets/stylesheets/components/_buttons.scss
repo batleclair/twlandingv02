@@ -248,13 +248,24 @@ button.fat-btn{
     background-color: $first-light-darker;
   }
 }
-
+.bg-shade-to-light{
+  background-color: $first-light-lighter;
+  &:hover{
+    background-color: $first-light-color;
+  }
+}
 .bg-white-to-shade.text-main, .bg-shade-to-dark.text-main{
   &:hover{
     color: $first-main-color;
   }
 }
 
+.bg-shade-to-light{
+  background-color: $first-light-lighter;
+  &:hover{
+    background-color: $first-light-color;
+  }
+}
 .hidden-btn-ctn{
   .hidden-btn{
     opacity: 0;
@@ -268,4 +279,11 @@ button.fat-btn{
 
 button:disabled{
   color: $grey-low;
+}
+
+.button.disabled{
+  background-color: $grey-mid;
+  pointer-events: none;
+  color: white;
+  border-color: $grey-low;
 }

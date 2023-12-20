@@ -24,7 +24,7 @@
         <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
           <%= f.input :active, as: :hidden, input_html: {value: true} %>
           <button type="submit" class="w-100 button round bg-white-to-shade first-main-border text-main bn-none">
-            <i class="fa-solid fa-heart mr-10 text-flag-2"></i>
+            <i class="fa-solid fa-fire mr-10 text-flag-1"></i>
             Vous avez changé d'avis ?
           </button>
         <% end %>

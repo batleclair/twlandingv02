@@ -6,7 +6,12 @@
 .mr-05{
   margin-right: 5px;
 }
-
+.ml-05{
+  margin-left: 5px;
+}
+.mt-05{
+  margin-top: 5px;
+}
 
 @each $size in $sizes {
   .ml-#{$size}{
@@ -100,8 +105,16 @@
 .p-05{
   padding: 5px;
 }
+.pl-05{
+  padding-left: 5px;
+}
 
 .center-margin{
   margin-left: auto;
   margin-right: auto;
+}
+
+.align-right-margin{
+  margin-left: auto;
+  margin-right: 0;
 }

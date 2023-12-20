@@ -25,6 +25,9 @@ application.register("contact", ContactController)
 import DisplayController from "./display_controller"
 application.register("display", DisplayController)
 
+import TenantMenuController from "./tenant_menu_controller"
+application.register("tenant-menu", TenantMenuController)
+
 import DualSliderController from "./dual_slider_controller"
 application.register("dual-slider", DualSliderController)
 
@@ -39,6 +42,9 @@ application.register("faq", FaqController)
 
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
+
+import FormRedirectController from "./form_redirect_controller"
+application.register("form-redirect", FormRedirectController)
 
 import FormSubmitterController from "./form_submitter_controller"
 application.register("form-submitter", FormSubmitterController)
@@ -57,6 +63,9 @@ application.register("lock", LockController)
 
 import MenuController from "./menu_controller"
 application.register("menu", MenuController)
+
+import MessagesController from "./messages_controller"
+application.register("messages", MessagesController)
 
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)

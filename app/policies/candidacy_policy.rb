@@ -15,12 +15,8 @@ class CandidacyPolicy < ApplicationPolicy
     user.company_admin? || user.company_user? || user.admin?
   end
 
-  def edit_comments?
-    user.user_type == 'admin'
-  end
-
-  def index_selection?
-    true
+  def new?
+    update?
   end
 
   def show_selection?
@@ -35,7 +31,7 @@ class CandidacyPolicy < ApplicationPolicy
   def update?
     record.user == user ||
     (user.company_admin? && record.user.company_id == user.company_id) ||
-    user.user_type == 'admin'
+    user.admin?
   end
 
   def submit?
@@ -43,11 +39,22 @@ class CandidacyPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.user_type == 'admin'
+    case
+    when user.admin?
+      true
+    when user.company_user?
+      record.user == user
+    else
+      false
+    end
   end
 
   def bookmarks?
     index?
+  end
+
+  def historicals?
+    user.company_user? || user.admin?
   end
 
   class Scope < Scope

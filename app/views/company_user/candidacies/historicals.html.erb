@@ -1,0 +1,27 @@
+<%= render partial: "company_user/shared/historicals_tabs" %>
+
+<div class="w-100 max-w-400">
+  <% if @candidacies.empty?  %>
+    <h6 class="mb-10 text-grey">Votre historique de candidatures est vide</h6>
+  <% end %>
+
+  <% if !@candidacies.empty? %>
+    <h6 class="mb-10 text-grey">Vos candidatures n'ayant pas abouti</h6>
+    <% @candidacies.each do |c| %>
+      <div class="w-100 p-10 bg-shade-to-light hover-2 mb-10">
+        <%= link_to user_candidacy_path(c), class: "w-100 h-100" do %>
+          <div class="flex-center-left w-100">
+            <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+              <%= cl_image_tag(c.beneficiary.logo.key) %>
+            </div>
+            <div class="pe-none w-100">
+              <h6><%= c.offer.beneficiary.name %></h6>
+              <p><%= c.offer.title %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

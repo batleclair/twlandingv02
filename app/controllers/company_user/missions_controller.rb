@@ -11,6 +11,7 @@ class CompanyUser::MissionsController < CompanyUserController
 
   def show
     @sub_tab = 0
+    render show_view
   end
 
   def update
@@ -35,6 +36,12 @@ class CompanyUser::MissionsController < CompanyUserController
   def terminated
     @mission = policy_scope(Mission).find(params[:user_mission_id])
     authorize @mission
+  end
+
+  def historicals
+    @missions = policy_scope(Mission).where(status: :terminated)
+    authorize @missions
+    @tab = 7
   end
 
   private
@@ -63,9 +70,13 @@ class CompanyUser::MissionsController < CompanyUserController
     when 2
       @mission.feedback.present? ? edit_user_mission_feedback_path(user_mission_id: @mission.id, id:@mission.feedback.id) : new_user_mission_feedback_path(@mission)
     when 3
-      user_mission_terminated_path(@mission)
+      user_mission_path(@mission)
     else
       root_path
     end
+  end
+
+  def show_view
+    "show_#{@mission.status}".to_s
   end
 end

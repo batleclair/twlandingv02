@@ -31,42 +31,44 @@
 
 en:
   hello: "Hello world"
-  activemodel:
-    attributes:
-      user:
-        first_name: ""
-        last_name: ""
-        email: ""
-        current_password: ""
-        password: ""
-        password_confirmation: ""
-      candidate:
-        location: ""
-        description: ""
-        volunteering: ""
-        function: ""
-        birth_date: ""
-        phone_num: ""
-        cv: ""
-        linkedin_url: ""
-        availability_details: ""
-        primary_cause: ""
-        skill_list: ""
-        volunteering_aknowledged: ""
-        status: ""
-      whitelist:
-        input_format: ""
-      employee_application:
-        motivation_msg: ""
-        response_msg: ""
-        status: ""
-      candidacy:
-        motivation_msg: ""
-        status: ""
-        manager_validation: ""
-      mission:
-        time_confirmation: ""
-        termination_confirmation: ""
+  errors:
+    format: "%{message}"
+  activerecord:
+    # attributes:
+    #   user:
+    #     first_name: ""
+    #     last_name: ""
+    #     email: ""
+    #     current_password: ""
+    #     password: ""
+    #     password_confirmation: ""
+    #   candidate:
+    #     location: ""
+    #     description: ""
+    #     volunteering: ""
+    #     function: ""
+    #     birth_date: ""
+    #     phone_num: ""
+    #     cv: ""
+    #     linkedin_url: ""
+    #     availability_details: ""
+    #     primary_cause: ""
+    #     skill_list: ""
+    #     volunteering_aknowledged: ""
+    #     status: ""
+    #   whitelist:
+    #     input_format: ""
+    #   employee_application:
+    #     motivation_msg: ""
+    #     # response_msg: ""
+    #     status: ""
+    #   candidacy:
+    #     motivation_msg: ""
+    #     status: ""
+    #     manager_validation: ""
+    #   mission:
+    #     time_confirmation: ""
+    #     termination_confirmation: ""
     errors:
       models:
         user:

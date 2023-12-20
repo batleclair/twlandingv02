@@ -27,6 +27,7 @@ class Candidacy < ApplicationRecord
 
   accepts_nested_attributes_for :candidate
   accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: :no_comment_needed
+  scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
 
   PERIODICITY = [
     "1 demi-journée par semaine",
@@ -34,6 +35,18 @@ class Candidacy < ApplicationRecord
     "1 jour toutes les 2 semaines",
     "Autre (préciser)"
   ]
+
+  def readable_statuses
+    {
+      user_application: "Candidature de #{candidate.user.first_name}",
+      beneficiary_application: "Candidature acceptée par #{beneficiary.name}",
+      in_discussions: "Entretiens entre #{candidate.user.first_name} et #{beneficiary.name}",
+      beneficiary_validation: "Candidature validée par #{beneficiary.name}",
+      user_validation: "Candidature confirmée par #{candidate.user.first_name}",
+      admin_validation: "Candidature refusée par #{candidate.user.company.name}",
+      mission: "Candidature approuvée par #{candidate.user.company.name}"
+    }
+  end
 
   def clip_to_airtable
     unless offer.airtable_id.nil?
@@ -194,4 +207,35 @@ class Candidacy < ApplicationRecord
       "mission"
     end
   end
+
+  def status_of(step)
+    h_active = {
+      step_1: "pass",
+      step_2: user_application_status? ? "ongoing" : ( self.class.statuses[status] > 1 ? "pass" : "pending" ),
+      step_3: beneficiary_application_status? ? "ongoing" : ( self.class.statuses[status] > 2 ? "pass" : "pending" ),
+      step_4: in_discussions_status? ? "ongoing" : ( self.class.statuses[status] > 3 ? "pass" : "pending" ),
+      step_5: beneficiary_validation_status? ? "ongoing" : ( self.class.statuses[status] > 4 ? "pass" : "pending" ),
+      step_6: user_validation_status? ? "ongoing" : ( self.class.statuses[status] > 5 ? "pass" : "pending")
+    }
+
+    h_inactive = {
+      step_1: "pass",
+      step_2: user_application_status? || beneficiary_application_status? ? "fail" : ( self.class.statuses[status] > 2 ? "pass" : "pending" ),
+      step_3: in_discussions_status? ? "fail" : ( self.class.statuses[status] > 3 ? "pass" : "pending"),
+      step_4: beneficiary_validation_status? ? "fail" : ( self.class.statuses[status] > 4 ? "pass" : "pending"),
+      step_5: user_validation_status? ? "fail" : ( self.class.statuses[status] > 5 ? "pass" : "pending"),
+      step_6: admin_validation_status? ? "fail" : "pending"
+    }
+
+    active ? h_active[step] : h_inactive[step]
+  end
+
+  def self.approval_statuses
+    {
+      "A traîter": :user_validation,
+      "Validées": :mission,
+      "Refusées": :admin_validation,
+    }
+  end
+
 end

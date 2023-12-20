@@ -1,7 +1,11 @@
-<div class="flex-center-left mb-60 company-sub-menu">
-  <%= link_to "Infos", user_mission_path(@mission), class: "button", data: {turbo: false, active: @sub_tab == 0} %>
-  |
-  <%= link_to "Reporting", user_mission_timesheets_path(@mission), class: "button", data: {turbo: false, active: @sub_tab == 1 } %>
-  |
-  <%= link_to "Fin de Mission", user_mission_confirmation_path(@mission), class: "button", data: {turbo: false, active: @sub_tab == 2 } %>
+<div class="flex-center-left mb-30 max-w-1200">
+  <h5 class="fw-7 text-main no-wrap mr-30">Ma mission pour <%= @mission.beneficiary.name %></h5>
+  <div class="sub-tabs">
+    <span></span>
+    <%= link_to "Informations", user_mission_path(@mission), class: "sub-tab", data: {turbo: false, active: @sub_tab == 0} %>
+    <%= link_to "Timesheets", user_mission_timesheets_path(@mission), class: "sub-tab", data: {turbo: false, active: @sub_tab == 1 } %>
+    <% if @mission.activated_status? %>
+      <%= link_to "Feedbacks", user_mission_confirmation_path(@mission), class: "sub-tab", data: {turbo: false, active: @sub_tab == 2 } %>
+    <% end %>
+  </div>
 </div>

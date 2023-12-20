@@ -1,0 +1,33 @@
+<% url = !@selection.id ? user_offer_candidacies_path(@offer) : user_offer_candidacy_path(@offer, @selection) %>
+
+<%= turbo_frame_tag "apply" do %>
+  <div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active="true">
+    <div>
+      <div class="p-20 shadow-md" data-action="click->popup#keep">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7">Candidater</h5>
+          <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+        <h6 class="mb-20">Proposer mon aide à l'association</h6>
+
+        <%= simple_form_for(@selection, url: url, data: { controller: 'form-redirect', action: 'turbo:submit-end->form-redirect#next' }) do |f| %>
+
+          <%= f.input :status, as: :hidden, input_html: {value: :user_application} %>
+          <%= f.input :active, as: :hidden, input_html: {value: true} %>
+
+          <div class="position-relative mb-20">
+            <%= f.input :motivation_msg, label: false, wrapper: false, placeholder: "Votre message à l'attention de #{@offer.beneficiary.name}", input_html:{value: "", class:"min-h-100"} %>
+          </div>
+
+          <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
+            <i class="fa-regular fa-paper-plane mr-10"></i>
+            Envoyer à l'association
+          </button>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+<% end %>

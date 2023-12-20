@@ -1,0 +1,6 @@
+<div class="mb-20 progress-dots-ctn flex-center-between max-w-200">
+  <hr>
+  <% for i in 1..4 do %>
+    <span class="progress-dot" step=<%= step > i ? "done" : (step == i ? "active" : "next" ) %>></span>
+  <% end %>
+</div>

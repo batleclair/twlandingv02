@@ -1,7 +1,7 @@
 class OfferPolicy < ApplicationPolicy
   def show?
     if user.company_user?
-      user.active_candidacy?(record) || record.in_rule_for?(user)
+      user.candidate.candidacies.find_by(offer: record) || record.in_rule_for?(user)
     else
       true
     end

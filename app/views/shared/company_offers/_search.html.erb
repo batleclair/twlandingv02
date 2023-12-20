@@ -4,30 +4,27 @@
       <div class="flex-between p-20">
         <div class="w-100">
           <h6 class="fw-5 fs-15 mb-10">Missions</h6>
-          <div class="input-with-2-icons mb-10 position-relative">
+          <div class="input-with-icon mb-10 position-relative">
             <%= select_tag :function, options_for_select(@active_functions, params[:function]), include_blank: "Toutes compétences", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:function] %>
-            <i class="fa-regular fa-star"></i>
             <i class="fa-solid fa-angle-down pe-none"></i>
           </div>
           <div class="flex-center-left">
-            <p class="mr-10 resp-display">Thématique</p>
+            <%= label_tag :random, 'Thématique', class:"mr-20" %>
             <div class="pill-ctn">
               <%= check_box_tag :social, 1, params[:social], hidden: true %>
-              <%= label_tag :social, '🤝🏻 Société' %>
+              <%= label_tag :social, 'Société' %>
               <%= check_box_tag :environment, 1, params[:environment], hidden: true %>
-              <%= label_tag :environment, '🌍 Environnement' %>
+              <%= label_tag :environment, 'Environnement' %>
             </div>
           </div>
         </div>
         <div class="ml-20 mr-20 md-resp-mr-0 md-resp-ml-0 md-resp-mt-40 md-resp-mb-40 w-100">
           <h6 class="fw-5 fs-15 mb-10">Localisation</h6>
-          <div class="input-with-2-icons mb-10 position-relative">
+          <div class="input-with-icon mb-10 position-relative">
             <%= select_tag :region, options_for_select(@active_regions, params[:region]), include_blank: "Toutes régions", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:region] %>
-            <i class="fa-solid fa-location-dot"></i>
             <i class="fa-solid fa-angle-down pe-none"></i>
           </div>
           <div class="flex-center-left position-relative">
-            <i class="fa-solid fa-globe text-main"></i>
             <%= check_box_tag :full_remote, 1, params[:full_remote], class: "toggle" %>
             <%= label_tag :full_remote, '100% distanciel' %>
           </div>
@@ -37,14 +34,12 @@
             <h6 class="fw-5 fs-15 mb-10">Disponibilités</h6>
             <div class="flex-center-left slider-ctn mb-10" data-controller="slider" data-slider-type="frequency">
               <div class="flex-center-between">
-                <i class="fa-regular fa-clock text-main"></i>
                 <%= range_field_tag :frequency, nil, within: 1..3, class: 'slider', data:{'slider-target': "input", 'action': "input->slider#update", search_form_target: 'slider'}, value: params[:frequency].present? ? params[:frequency] : 3 %>
               </div>
               <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>
             </div>
             <div class="flex-center-left slider-ctn" data-controller="slider" data-slider-type="duration">
               <div class="flex-center-between">
-                <i class="fa-regular fa-calendar text-main"></i>
                 <%= range_field_tag :duration, nil, within: 1..3, class: 'slider', data:{'slider-target': "input", 'action': "input->slider#update", search_form_target: 'slider'}, value: params[:duration].present? ? params[:duration] : 3 %>
               </div>
               <p class="ml-10 text-end" ><span data-slider-target="output" class="no-wrap fw-6 text-main">-</span></p>

@@ -1,0 +1,16 @@
+<% content_for :notice do %>
+  <% case @mission.status %>
+  <% when "activated" %>
+    <div class="flex-center-between mb-10 w-100">
+      <h6 class="text-main fw-7">Mission en cours</h6>
+      <i class="fa-solid fa-circle-play text-flag-3 min-w-20 fs-25"></i>
+    </div>
+    <p>Cette mission est en cours de réalisation.</p>
+  <% when "terminated" %>
+    <div class="flex-center-between mb-10 w-100">
+      <h6 class="text-main fw-7">Mission terminée</h6>
+      <i class="fa-solid fa-circle-stop text-flag-1 min-w-20 fs-25"></i>
+    </div>
+    <p>Cette mission est désormais clôturée.</p>
+  <% end %>
+<% end %>

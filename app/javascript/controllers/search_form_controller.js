@@ -26,9 +26,11 @@ export default class extends Controller {
       this.selectTargets[1].classList.add('readonly-input')
     }
 
-    this.counterTarget.innerHTML = counter
-    if (counter !== 0) {
-      this.counterTarget.classList.remove('invisible')
+    if (this.hasCounterTarget) {
+      this.counterTarget.innerHTML = counter
+      if (counter !== 0) {
+        this.counterTarget.classList.remove('invisible')
+      }
     }
 
     this.selectTargets.forEach(target => {

@@ -1,0 +1,44 @@
+<h5 class="fw-6 text-main mb-40">1. Je complète mon profil</h5>
+
+<div class="max-w-300">
+  <%= simple_form_for(current_user, url: set_user_profile_path) do |f| %>
+    <h6 class="text-main mb-10 fw-6">Informations principales</h6>
+    <%= render partial: "progress_bar", locals: {step: 1} %>
+
+    <div class="mb-10 position-relative">
+        <%= f.input :first_name,
+                    label: "Prénom",
+                    wrapper: false %>
+    </div>
+    <div class="mb-10 position-relative">
+        <%= f.input :last_name,
+                    label: "Nom",
+                    wrapper: false %>
+    </div>
+    <%= f.simple_fields_for :candidate, @candidate do |c| %>
+      <div class="mb-10 position-relative input-with-icon">
+        <%= c.input :phone_num,
+                    label: "Téléphone",
+                    wrapper: false %>
+        <i class="fa-solid fa-phone"></i>
+      </div>
+      <div class="mb-10 position-relative">
+        <%= c.input :location,
+                    label: "Ville",
+                    wrapper: false %>
+      </div>
+      <div class="mb-10 position-relative" data-controller="flatpickr">
+        <%= c.input :birth_date,
+                    label: "Date de naissance",
+                    as: :string,
+                    input_html: { data: { flatpickr_target: "date" } },
+                    wrapper: false %>
+      </div>
+    <% end %>
+
+    <div class="flex-between mt-20">
+      <span></span>
+      <%= f.submit "continuer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+    </div>
+  <% end %>
+</div>

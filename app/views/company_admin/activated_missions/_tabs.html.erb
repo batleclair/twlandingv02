@@ -1,0 +1,13 @@
+<div class="flex-center-left mb-30 max-w-1200">
+  <div class="flex-center-left max-w-1200">
+    <%= link_to "Suivi des missions", company_admin_activated_missions_path(status: params[:status]), class:"fs-h5 fw-5 no-wrap" %>
+    <i class="fa-solid fa-chevron-right fs-15 mr-10 ml-10"></i>
+    <h5 class="fw-7 text-main no-wrap mr-30">Mission</h5>
+  </div>
+  <div class="sub-tabs">
+    <span></span>
+    <%= link_to "Reporting", company_admin_activated_mission_path(@mission), class: "sub-tab", data: {turbo: false, active: @subtab == 0} %>
+    <%= link_to "Informations", company_admin_activated_mission_path(@mission, view: "informations"), class: "sub-tab", data: {turbo: false, active: @subtab == 1} %>
+    <%= link_to "Documents", company_admin_activated_mission_path(@mission, view: "documents"), class: "sub-tab", data: {turbo: false, active: @subtab == 2} %>
+  </div>
+</div>

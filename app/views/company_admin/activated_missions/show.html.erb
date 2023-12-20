@@ -1,0 +1,15 @@
+<% content_for :view do %>
+  <%= render partial: @view %>
+<% end %>
+<%= render partial: "company_admin/activated_missions/notice" %>
+<%= render partial: "company_admin/activated_missions/tabs" %>
+
+<div class="d-flex">
+  <div class="w-100 max-w-300">
+    <%= render partial: "company_admin/shared/mission_banner" %>
+    <%= yield :notice %>
+  </div>
+  <div class="ml-40 w-100">
+    <%= yield :view %>
+  </div>
+</div>

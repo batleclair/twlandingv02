@@ -1,0 +1,19 @@
+<div class="company-navbar ctn-resp-tight">
+  <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
+  <div class="flex-center-between">
+    <%= link_to root_path, class: "fs-18 ml-20 upsize-120 hover-2", data: {active: @tab==0} do %>
+      <i class="fa-solid fa-home"></i>
+    <% end %>
+    <%= link_to "", class: "fs-18 ml-20 upsize-120 hover-2" do %>
+      <i class="fa-solid fa-circle-info"></i>
+    <% end %>
+    <%= link_to "", class: "fs-18 ml-20 text-grey-light pe-none upsize-120 hover-2" do %>
+      <i class="fa-solid fa-gear"></i>
+    <% end %>
+    <%= link_to destroy_user_session_path, method: :delete, class: "fs-18 ml-20 upsize-120 hover-2" do %>
+      <i class="fa-solid fa-right-from-bracket"></i>
+    <% end %>
+    <a href="" class="ml-10 round-button downsize90 fs-18 fw-6 bg-flag-1 text-white"><%= current_user.initials %></a>
+  </div>
+</div>
+<div class="mb-50"></div>

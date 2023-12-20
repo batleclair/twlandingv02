@@ -1,0 +1,14 @@
+  <div class="mb-20">
+    <div class="mb-40 max-w-300 flex-center-between">
+      <div data-controller="search-form" class="w-100">
+        <%= form_tag request.path, method: :get, data: {turbo_frame: "list", search_form_target: 'form', action: 'change->search-form#result' } do %>
+          <div class="input-with-icon position-relative">
+            <%= select_tag :status, options_for_select(statuses, params[:status]), include_blank: "Toutes les demandes", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:status] %>
+            <i class="fa-solid fa-angle-down pe-none"></i>
+          </div>
+          <%= submit_tag "", hidden: "true", data: { search_form_target: 'submitbtn' } %>
+        <% end %>
+      </div>
+      <span class="square-30 flex-center bg-flag-1 text-white round flex-shrink-0 ml-20 fs-14 fw-7"><%= scope.count %></span>
+    </div>
+  </div>

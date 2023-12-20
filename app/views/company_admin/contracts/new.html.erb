@@ -1,0 +1,27 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active="true">
+    <div>
+      <div class="p-20 shadow-md" data-action="click->popup#keep">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7">Nouveau document</h5>
+          <%= link_to :back, data: {action: "click->popup#close", popup_target: "close"} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+
+        <h6 class="mb-20">Enregistrer un document associé à cette mission</h6>
+
+        <%= simple_form_for([@mission, @contract], url: company_admin_mission_contracts_path, data: { controller: 'form-redirect', action: 'turbo:submit-end->form-redirect#next' }) do |f| %>
+          <%= f.input :title, label: "Titre", wrapper_html: {class: "position-relative"} %>
+          <%= f.input :contract_type, collection: Contract.contract_types.keys, label: "Type", wrapper_html: {class: "position-relative"} %>
+          <%= f.input :document, as: :file, label: "Document", wrapper_html: {class: "position-relative"} %>
+          <button type="submit", class="w-100 button round bg-white-to-shade first-main-border text-main bn-none">
+            <i class="fa-solid fa-floppy-disk mr-10"></i>
+            Enregistrer le document
+          </button>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+<% end %>

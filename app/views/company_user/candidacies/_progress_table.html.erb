@@ -1,0 +1,58 @@
+<table class="progress-table">
+  <tbody>
+    <tr candidacy-step=<%= @candidacy.status_of(:step_1) %>>
+      <th>
+        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-minus"></i>
+      </th>
+      <td>Envoyé à <%= @candidacy.beneficiary.name %></td>
+    </tr>
+    <tr candidacy-step=<%= @candidacy.status_of(:step_2) %>>
+      <th>
+        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-minus"></i>
+      </th>
+      <td>Accepté par <%= @candidacy.beneficiary.name %></td>
+    </tr>
+    <tr candidacy-step=<%= @candidacy.status_of(:step_3) %>>
+      <th>
+        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-minus"></i>
+      </th>
+      <td>Entretien <%= @candidacy.beneficiary.name %> <> <%= @candidacy.candidate.user.first_name %></td>
+    </tr>
+    <tr candidacy-step=<%= @candidacy.status_of(:step_4) %>>
+      <th>
+        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-minus"></i>
+      </th>
+      <td>Validé par <%= @candidacy.beneficiary.name %></td>
+    </tr>
+    <tr candidacy-step=<%= @candidacy.status_of(:step_5) %>>
+      <th>
+        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-minus"></i>
+      </th>
+      <td>Confirmé par <%= @candidacy.candidate.user.first_name %></td>
+    </tr>
+    <tr candidacy-step=<%= @candidacy.status_of(:step_6) %>>
+      <th>
+        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-minus"></i>
+      </th>
+      <td>Approuvé par <%= @candidacy.candidate.user.company.name %></td>
+    </tr>
+  </tbody>
+</table>

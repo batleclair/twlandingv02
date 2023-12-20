@@ -1,37 +1,50 @@
 .on-boarding-cards {
-  >div{
-    transition: 0.2s ease-in-out;
-    i{
-      transition: 0.2s ease-in-out;
-    }
-    &:hover{
-      background-color: $first-light-lighter;
-      transition: 0.2s ease-in-out;
-      i{
-        transition: 0.2s ease-in-out;
-      }
-    }
+  img{
+    top: 15px;
+    right: 15px;
   }
+
+  >div{
+    background-color: $grey-low;
+    border-radius: 40px;
+  }
+
+  h5,h6{
+    color: $grey-mid;
+  }
+
   [data-active="true"] {
     background-color: $first-light-color;
     outline: $first-light-lighter solid 10px;
+    transition: 0.3s ease-in-out;
+    h6{
+      color: $first-main-color;
+      font-weight: 600;
+    }
+    h5{
+      transition: 0.2s ease-in-out;
+      color: white;
+      background-color: $first-main-color;
+    }
     &:hover{
-      i{
-        color: white;
-        background-color: $first-main-color;
+      transition: 0.3s ease-in-out;
+      outline: $first-light-color solid 10px;
+      h5{
+        transition: 0.2s ease-in-out;
+        background-color: $first-main-darker;
       }
     }
   }
+
+
   [data-validated="true"] {
+    background-color: white;
     border: $flag-color-3 solid 3px;
-      h6 {
-        color: $flag-color-3;
-      }
-      i{
-        color: white;
-        background-color: $flag-color-3;
-      }
+    h6, h5 {
+      color: $flag-color-3;
+    }
   }
+
   [data-pending="true"] {
     border: $flag-color-1 solid 3px;
       h6 {
@@ -42,6 +55,7 @@
         background-color: $flag-color-1;
       }
   }
+
   [data-active="false"]{
     a{
       pointer-events: none;

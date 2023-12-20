@@ -1,0 +1,41 @@
+<div class="mb-40">
+  <h5>Hello <%= current_user.first_name %> !</h5>
+</div>
+
+<div class="w-100 flex-center">
+  <div class="flex-stretch-evenly w-100 max-w-900 on-boarding-cards">
+    <div class="first-main-border round-20 p-20 w-100 max-w-300 m-20" data-pending=<%=current_user.eligibility == "pending"%> data-active=<%=@active_step == 1%> data-validated=<%=@active_step > 1%>>
+      <div class="flex-center w-100 mb-20">
+        <%= link_to new_user_employee_application_path do %>
+          <i class="fa-solid fa-comment round bg-shade text-main fs-25 p-20"></i>
+        <% end %>
+      </div>
+      <h6 class="fw-6 text-main text-center mb-10">Je fais ma demande</h6>
+      <p><%= @step_1_status %></p>
+    </div>
+
+    <div class="first-main-border round-20 p-20 w-100 max-w-300 m-20" data-active=<%=@active_step == 2%> data-validated=<%=@active_step > 2%>>
+      <div class="flex-center w-100 mb-20">
+        <%= link_to user_profile_path do %>
+          <i class="fa-solid fa-user round bg-shade text-main fs-25 p-20"></i>
+        <% end %>
+      </div>
+      <h6 class="fw-6 text-main text-center mb-10">Je complète mon profil</h6>
+      <p><%= @step_2_status %></p>
+    </div>
+
+    <div class="first-main-border round-20 p-20 w-100 max-w-300 m-20" data-controller="calendly" data-active=<%=@active_step == 3 && current_user.eligibility == "approved"%> data-validated=<%=@active_step > 3%> data-calendly-email-value=<%= current_user.email %> data-calendly-name-value=<%= current_user.first_name %>>
+      <div class="flex-center w-100 mb-20">
+        <!-- Calendly link widget begin -->
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+        <a href="" data-action="click->calendly#popup">
+          <i class="fa-solid fa-phone round bg-shade text-main fs-25 p-20"></i>
+        </a>
+        <!-- Calendly link widget end -->
+      </div>
+      <h6 class="fw-6 text-main text-center mb-10">J'échange avec mon conseiller</h6>
+      <p><%= @step_3_status %></p>
+    </div>
+  </div>
+</div>

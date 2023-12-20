@@ -4,6 +4,10 @@ class CompanyAdminPagePolicy < ApplicationPolicy
     user.company_admin?
   end
 
+  def info?
+    user.company_admin?
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

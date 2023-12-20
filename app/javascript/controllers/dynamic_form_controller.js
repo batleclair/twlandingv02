@@ -42,5 +42,11 @@ export default class extends Controller {
     }
   }
 
-
+  enable(){
+    if (this.triggerTarget.checked) {
+      this.inputTarget.classList.remove("disabled")
+    } else {
+      this.inputTarget.classList.add("disabled")
+    }
+  }
 }

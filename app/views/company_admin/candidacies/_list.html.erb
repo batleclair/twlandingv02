@@ -1,26 +1,26 @@
-<div class="w-100 max-w-300">
+<%= turbo_frame_tag "list", class: "w-100 max-w-300" do %>
+
+  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: Candidacy.approval_statuses, scope: candidacies} %>
+
   <div class="mb-40">
-    <div class="flex-center-between mb-20">
-      <h5>Demandes de missions :</h5>
-      <h5 class="text-main fw-7"><%= candidacies.count %></h5>
-    </div>
     <% candidacies.each do |candidacy| %>
       <div class="mb-10 w-100 flex-center-between">
-        <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: candidacy == @candidacy} do %>
+        <%= link_to company_admin_candidacy_path(candidacy), class: "w-100 h-100 flex-center-between p-10 bg-shade", data: {active_card: candidacy == @candidacy, turbo: false} do %>
           <div class="pe-none">
             <h6><%= candidacy.user.full_name %></h6>
             <p><%= candidacy.offer.beneficiary.name %></p>
           </div>
           <% case  %>
-          <% when candidacy.submitted_for_approval? %>
+          <% when candidacy.user_validation_status? %>
             <i class="fa-regular fa-hourglass-half text-flag-1 "></i>
-          <% when candidacy.abandonned? %>
+          <% when candidacy.admin_validation_status? %>
             <i class="fa-solid fa-circle-xmark text-flag-2"></i>
-          <% when candidacy.validated? %>
+          <% when candidacy.mission_status? %>
             <i class="fa-solid fa-circle-check text-flag-3"></i>
           <% end %>
         <% end %>
       </div>
     <% end %>
   </div>
-</div>
+
+<% end %>

@@ -1,0 +1,39 @@
+<div data-controller="popup" class="max-w-400">
+  <div class="mb-20">
+    <h6 class="fw-7 text-main">Documents associés à cette mission</h6>
+    <% if @mission.contracts.empty? %>
+      <p>Aucun document n'a été associé à cette mission.</p>
+    <% end %>
+  </div>
+
+  <div class="mb-20">
+    <%= link_to new_company_admin_mission_contract_path(@mission), class:"w-100 button round bg-white-to-shade first-main-border text-main", data: {turbo_frame: "modal", action: "click->hidden-form#edit"} do %>
+      <i class="fa-solid fa-file-arrow-up mr-10"></i>
+      Ajouter un nouveau document
+    <% end %>
+  </div>
+
+
+  <div>
+    <% @mission.contracts.each do |contract| %>
+      <% if contract.valid? %>
+        <div class="w-100 bg-light flex-center-between p-20 mb-10">
+          <div>
+            <h6><%= contract.title %></h6>
+            <p class=""><%= contract.contract_type %></p>
+          </div>
+          <div class="d-flex">
+            <%= link_to cl_image_path(contract.document.key), target: "_blank", class:"text-main" do %>
+              <i class="fa-regular fa-circle-down mr-10"></i>
+            <% end %>
+            <%= link_to company_admin_contract_path(contract, view: params[:view]), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
+              <i class="fa-solid fa-trash text-main"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "modal" %>
+</div>

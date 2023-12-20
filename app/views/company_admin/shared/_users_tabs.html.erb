@@ -1,0 +1,9 @@
+<div class="flex-center-left mb-30 max-w-1200">
+  <h5 class="fw-7 text-main no-wrap mr-30">Accès à la plateforme</h5>
+  <div class="sub-tabs">
+    <span></span>
+    <%= link_to "Autorisations", company_admin_whitelists_path, class: "sub-tab", data: {turbo: false, active: active == 1} %>
+    <%= link_to "Inscriptions", company_admin_users_path, class: "sub-tab", data: {turbo: false, active: active == 2} %>
+    <%= link_to "Créer", new_company_admin_user_path, class: "sub-tab", data: {turbo: false, active: active == 3} %>
+  </div>
+</div>
