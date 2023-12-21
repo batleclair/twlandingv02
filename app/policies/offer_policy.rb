@@ -42,22 +42,23 @@ class OfferPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
+      min_scope = scope.where(status: ["active", "upcoming"], publish: true)
       if user
         case
         when user.company_user? && user.company.offer_rule.full_remote
-          scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max)&.and(
-            scope&.where('months_min <= ?', user.company.offer_rule.months_max))&.and(
-              scope&.where(full_remote: user.company.offer_rule.full_remote))
+          min_scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max)&.and(
+            min_scope&.where('months_min <= ?', user.company.offer_rule.months_max))&.and(
+              min_scope&.where(full_remote: user.company.offer_rule.full_remote))
         when user.company_user? && !user.company.offer_rule.full_remote
-          offers = scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max)&.and(
-            scope&.where('months_min <= ?', user.company.offer_rule.months_max))
+          offers = min_scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max)&.and(
+            min_scope&.where('months_min <= ?', user.company.offer_rule.months_max))
         when user.admin?
           scope.where(publish: true)
         else
-          scope.where(status: ["active", "upcoming"], publish: true)
+          min_scope
         end
       else
-        scope.where(status: ["active", "upcoming"], publish: true)
+        min_scope
       end
     end
   end

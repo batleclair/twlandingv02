@@ -33,7 +33,7 @@
       <div class="bg-grey pt-3 ps-3 pe-3 d-flex grey-id-card mb-3">
         <div class="d-flex flex-column align-items-center">
           <div class="logo-box flex-shrink-0 mg-resp-r mb-2 downsize90">
-            <%= offer.beneficiary.logo.attached? ? cl_image_tag(offer.beneficiary.logo.key) : cl_image_tag('../default_logo.png') %>
+            <%= logo_for(offer.beneficiary) %>
           </div>
           <%= link_to "en savoir +", offer.beneficiary.publish ? beneficiary_path(offer.beneficiary) : offer_path(offer), class: "button-round btn-light-main no-wrap" %>
         </div>

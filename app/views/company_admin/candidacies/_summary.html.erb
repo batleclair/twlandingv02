@@ -9,7 +9,7 @@
     <% end %>
     <div class="flex-center-left">
       <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-        <%= cl_image_tag(@candidacy.beneficiary.logo.key) %>
+        <%= logo_for(@candidacy.beneficiary) %>
       </div>
       <div class="text-white">
         <h5><%= @candidacy.offer.beneficiary.name %></h5>

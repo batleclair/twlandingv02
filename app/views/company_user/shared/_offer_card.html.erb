@@ -7,7 +7,7 @@
   <% end %>
   <div class="flex-center-left">
     <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-      <%= cl_image_tag(offer.beneficiary.logo.key) %>
+      <%= logo_for(offer.beneficiary) %>
     </div>
     <div class="text-white">
       <h5><%= offer.beneficiary.name %></h5>

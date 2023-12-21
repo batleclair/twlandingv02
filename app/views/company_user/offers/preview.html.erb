@@ -17,7 +17,7 @@
       <h6 class="mb-10">L'association</h6>
       <div class="flex-center-left mb-10">
         <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0 shadow-xs">
-          <%= cl_image_tag(@offer.beneficiary.logo.key) %>
+          <%= logo_for(@offer.beneficiary) %>
         </div>
         <div class="pe-none w-100">
           <h5><%= @offer.beneficiary.name %></h5>

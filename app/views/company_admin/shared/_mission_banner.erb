@@ -2,7 +2,7 @@
 <div class="flex-center mb-20 bg-shade p-20">
   <div class="w-100 position-relative flex-center">
     <div class="bg-white round-20 square-80 flex-center shadow-xs p-10 p-15 logo-box">
-      <%= cl_image_tag( @mission.beneficiary.logo.key) %>
+      <%= logo_for(@mission.beneficiary) %>
     </div>
   </div>
   <span class="fs-30 text-grey-light fw-7">+</span>

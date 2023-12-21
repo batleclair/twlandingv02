@@ -9,7 +9,7 @@
       <%= link_to user_candidacy_path(@active_candidacy), class: "w-100 h-100" do %>
         <div class="flex-center-left w-100 bg-shade p-10 first-main-border round-5">
           <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-            <%= cl_image_tag(@active_candidacy.beneficiary.logo.key) %>
+            <%= logo_for(@active_candidacy.beneficiary) %>
           </div>
           <div class="pe-none w-100">
             <h6><%= @active_candidacy.offer.beneficiary.name %></h6>
@@ -28,7 +28,7 @@
       <%= link_to user_candidacy_path(c), class: "w-100 h-100" do %>
         <div class="flex-center-left w-100">
           <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-            <%= cl_image_tag(c.beneficiary.logo.key) %>
+            <%= logo_for(c.beneficiary) %>
           </div>
           <div class="pe-none w-100">
             <h6><%= c.offer.beneficiary.name %></h6>

@@ -12,7 +12,7 @@
           <%= link_to user_selection_path(s), class: "flex-center-top w-100 h-100" do %>
             <div class="flex-center-left w-100">
               <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-                <%= cl_image_tag(s.beneficiary.logo.key) %>
+                <%= logo_for(s.beneficiary) %>
               </div>
               <div class="pe-none w-100">
                 <h6><%= s.offer.beneficiary.name %></h6>
@@ -35,7 +35,7 @@
           <%= link_to user_selection_path(s), class: "flex-center-top w-100 h-100" do %>
             <div class="flex-center-left w-100">
               <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-                <%= cl_image_tag(s.beneficiary.logo.key) %>
+                <%= logo_for(s.beneficiary) %>
               </div>
               <div class="pe-none w-100">
                 <h6><%= s.offer.beneficiary.name %></h6>
@@ -63,7 +63,7 @@
           <%= link_to user_selection_path(s), class: "flex-center-top w-100 h-100" do %>
             <div class="flex-center-left w-100">
               <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-                <%= cl_image_tag(s.beneficiary.logo.key) %>
+                <%= logo_for(s.beneficiary) %>
               </div>
               <div class="pe-none w-100">
                 <h6><%= s.offer.beneficiary.name %></h6>

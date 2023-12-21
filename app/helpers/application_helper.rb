@@ -36,4 +36,8 @@ module ApplicationHelper
   def canonical(url)
     content_for(:canonical, tag(:link, rel: :canonical, href: url)) if url
   end
+
+  def logo_for(beneficiary)
+    beneficiary.logo.attached? ? cl_image_tag(beneficiary.logo.key) : cl_image_tag('../default_logo.png')
+  end
 end

@@ -10,7 +10,7 @@
       <%= link_to user_offer_path(o), class: "w-100 h-100", data: {turbo_frame: "preview"} do %>
         <div class="flex-center-left w-100">
           <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
-            <%= cl_image_tag(o.beneficiary.logo.key) %>
+            <%= logo_for(o.beneficiary) %>
           </div>
           <div class="pe-none w-100">
             <h6><%= o.beneficiary.name %></h6>
