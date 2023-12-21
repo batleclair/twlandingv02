@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
-    resource.send_welcome_mail if resource.persisted?
+    resource.send_welcome_mail if resource.persisted? && !resource.demo
   end
 
   def edit
