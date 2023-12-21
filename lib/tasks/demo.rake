@@ -60,7 +60,7 @@ task reset_demo: :environment do
   end
 
   def add_candidate_eligibility(user)
-    candidate = Candidate.create(user: user, status: "Salarié.e")
+    candidate = Candidate.create(user: user, status: Candidate.STATUSES[0])
     if user.company_user? && user.first_name != USERS[0][:first_name]
       candidate.update(profile_completed: true, call_status: "done")
       EmployeeApplication.create(

@@ -44,20 +44,20 @@ class OfferPolicy < ApplicationPolicy
     def resolve
       if user
         case
-        when user.company_user? && user.company&.offer_rule&.full_remote
-          scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max).and(
-            scope.where('months_min <= ?', user.company.offer_rule.months_max)).and(
-              scope.where(full_remote: user.company.offer_rule.full_remote))
-        when user.company_user? && !user.company&.offer_rule&.full_remote
-          offers = scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max).and(
-            scope.where('months_min <= ?', user.company.offer_rule.months_max))
+        when user.company_user? && user.company.offer_rule.full_remote
+          scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max)&.and(
+            scope&.where('months_min <= ?', user.company.offer_rule.months_max))&.and(
+              scope&.where(full_remote: user.company.offer_rule.full_remote))
+        when user.company_user? && !user.company.offer_rule.full_remote
+          offers = scope.where('half_days_min <= ?', user.company.offer_rule.half_days_max)&.and(
+            scope&.where('months_min <= ?', user.company.offer_rule.months_max))
         when user.admin?
           scope.where(publish: true)
         else
-          (scope.where(status: "active").or(scope.where(status: "upcoming"))).and(scope.where(publish: true))
+          scope.where(status: ["active", "upcoming"], publish: true)
         end
       else
-        (scope.where(status: "active").or(scope.where(status: "upcoming"))).and(scope.where(publish: true))
+        scope.where(status: ["active", "upcoming"], publish: true)
       end
     end
   end
