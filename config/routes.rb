@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
     scope module: "company_user" do
       get "/", to: "pages#dashboard"
+      get "/info", to: "pages#info", as: :user_info
       get "/on-boarding", to: "pages#on_boarding", as: :user_onboarding
       get "/mission", to: "pages#no_mission", as: :user_no_mission
       patch "/book-call", as: :user_booked_call, to: "pages#book_call", defaults: { format: :json }

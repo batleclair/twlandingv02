@@ -3,12 +3,12 @@
 
   <div class="mb-30">
     <h6 class="mb-10">Bienvenue chez Demain</h6>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    <p><%= current_user.company.name %> vous permet de mettre vos compétences professionnelles au service d'une association.</p>
   </div>
 
   <div class="mb-30">
     <h6 class="mb-10">Pour démarrer</h6>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasiiste laboriosam aspernatur sapiente tempore cum quaerat.</p>
+    <p>Nous vous invitons à compléter votre profil et votre demande auprès de <%= current_user.company.name %>. Demain vous aidera ensuite à trouver la mission qui vous correspond !</p>
   </div>
 
   <div class="on-boarding-grid p-30 on-boarding-cards">
@@ -53,8 +53,9 @@
     <span></span>
   </div>
 
-  <h5>En savoir plus sur le dispositif</h5>
-  <iframe class="w-100 min-h-300" src="https://docs.google.com/document/u/2/d/e/2PACX-1vTgkHNsnmSZ2nN-BxCIVNCwIa5HPKaYoseRI7bWxiBmYD-pShU4ilwgA4knd0CnN6n70hHwNrM1jHYD/pub?embedded=true" frameborder="0"></iframe>
+  <div class="w-100">
+    <%= link_to "En savoir plus sur le dispositif", user_info_path, class:"button round bg-main-to-dark text-white center-margin" %>
+  </div>
 
   <%= turbo_frame_tag "modal" %>
 </div>

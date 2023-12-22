@@ -120,6 +120,7 @@ export default class extends Controller {
   }
 
   setActive(){
+    window.scrollTo(0, 0);
     const activeId = this.hasPreviewTarget ? this.previewTarget.dataset.id : null
     this.cardTargets.forEach((card) => {
       card.dataset.activeCard = card.dataset.id === activeId

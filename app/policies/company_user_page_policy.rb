@@ -20,6 +20,10 @@ class CompanyUserPagePolicy < ApplicationPolicy
     dashboard?
   end
 
+  def info?
+    dashboard?
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

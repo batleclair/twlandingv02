@@ -34,6 +34,11 @@ before_action :set_tab, except: [:book_call, :no_mission]
     end
   end
 
+  def info
+    authorize :company_user_page
+    @tab = "info"
+  end
+
   private
 
   def set_tab

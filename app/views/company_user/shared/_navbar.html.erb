@@ -4,7 +4,7 @@
     <%= link_to root_path, class: "fs-18 ml-20 upsize-120 hover-2", data: {active: @tab==0} do %>
       <i class="fa-solid fa-home"></i>
     <% end %>
-    <%= link_to "", class: "fs-18 ml-20 upsize-120 hover-2" do %>
+    <%= link_to user_info_path, class: "fs-18 ml-20 upsize-120 hover-2", data: {active: @tab=="info"} do %>
       <i class="fa-solid fa-circle-info"></i>
     <% end %>
     <%= link_to "", class: "fs-18 ml-20 text-grey-light pe-none upsize-120 hover-2" do %>
