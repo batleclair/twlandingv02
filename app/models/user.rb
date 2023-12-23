@@ -24,6 +24,13 @@ class User < ApplicationRecord
 
   enum :company_role, { user: "utilisateur", admin: "administrateur" }
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name_and_email,
+    against: [ :first_name, :last_name, :email ],
+    using: {
+      tsearch: { prefix: true }
+    }
+
   def send_welcome_mail
     UserMailer.new_user_email(self).deliver
   end

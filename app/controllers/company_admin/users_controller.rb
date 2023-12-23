@@ -75,6 +75,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
 
   def set_users
     @users = policy_scope(User).order(last_name: :asc)
+    @users = @users.search_by_name_and_email(params[:query]) if !params[:query].blank?
   end
 
   def set_tab

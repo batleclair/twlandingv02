@@ -1,66 +1,77 @@
 <%= render partial: "company_admin/shared/users_tabs", locals: {active: 2} %>
 
-<div class="mb-40" data-controller="popup">
-  <h5 class="mb-10">Comptes utilisateur activés</h5>
+<div class="mb-40" data-controller="search-form">
+  <div class="flex-center-left mb-10">
+    <h6 class="text-grey mr-20">Comptes utilisateur activés</h6>
+    <%= form_tag(request.path, method: :get, data: {turbo_frame: "list", search_form_target: 'form'}) do %>
+        <div class="position-relative input-with-icon">
+          <i class="fa-solid fa-magnifying-glass text-main position-absolute"></i>
+          <%= text_field_tag( :query, nil, class: "input-form", placeholder: 'Rechercher un utilisateur', data: {action: 'keyup->search-form#result'}) %>
+        </div>
+      <%= submit_tag "", hidden: "true", data: { search_form_target: 'submitbtn' } %>
+    <% end %>
+  </div>
   <%= form_tag( destroy_company_admin_users_path, method: :patch, data: {controller: "multi-select", action: "change->multi-select#toggle", turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ces utilisateurs et les données lui étant associées ? Attention, vous ne pourrez pas revenir en arrière."} ) do %>
-    <table class="list-table w-100 max-w-1000">
-      <thead>
-        <th></th>
-        <th class="pb-10">Nom</th>
-        <th class="pb-10">Titre</th>
-        <th class="pb-10">Email</th>
-        <th class="pb-10">Créé le</th>
-        <th class="no-wrap pb-10">ID Custom</th>
-        <th class="text-center pb-10">Eligibilité</th>
-        <th class="text-center p-0">
-          <button type="submit" class="pb-10 pl-05 pr-15 bn-none bg-white text-flag-2" disabled data-multi-select-target="submit">
-            <i class="fa-regular fa-trash-can"></i>
-          </button>
-        </th>
-      </thead>
-      <tbody>
-        <% @users.where(company_role: "user").each do |user| %>
-          <tr class="hidden-btn-ctn">
-            <th class="pr-10">
-              <%= link_to edit_company_admin_user_path(user), class: "hidden-btn hover-2", data: {turbo_frame: "edit"} do %>
-                <i class="fa-solid fa-pen-to-square text-main"></i>
-              <% end %>
-            </th>
-            <td class="fw-5 text-main no-wrap pr-10"><%= "#{user.last_name}, #{user.first_name}"  %></td>
-            <td class="pr-10 no-wrap"><%= user.candidate.title %></td>
-            <td class="pr-10"><%= user.email %></td>
-            <td class="pr-10"><%= user.created_at.strftime("%d/%m/%y") %></td>
-            <td class="w-100"><%= user.custom_id %></td>
-            <td class="text-center">
-              <% case user.eligibility %>
-              <% when nil %>
-                <i class="fa-solid fa-circle-minus text-grey-light"></i>
-              <% when "out" %>
-                <i class="fa-solid fa-circle-xmark text-flag-2"></i>
-              <% when "approved" %>
-                <%= link_to company_admin_employee_application_path(user.last_employee_application) do %>
-                  <i class="fa-solid fa-circle-check text-flag-3"></i>
+    <%= turbo_frame_tag "list" do %>
+      <table class="list-table w-100 max-w-1000">
+        <thead>
+          <th></th>
+          <th class="pb-10">Nom</th>
+          <th class="pb-10">Titre</th>
+          <th class="pb-10">Email</th>
+          <th class="pb-10">Créé le</th>
+          <th class="no-wrap pb-10">ID Custom</th>
+          <th class="text-center pb-10">Eligibilité</th>
+          <th class="text-center p-0">
+            <button type="submit" class="pb-10 pl-05 pr-15 bn-none bg-white text-flag-2" disabled data-multi-select-target="submit">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </th>
+        </thead>
+        <tbody>
+          <% @users.where(company_role: "user").each do |user| %>
+            <tr class="hidden-btn-ctn">
+              <th class="pr-10">
+                <%= link_to edit_company_admin_user_path(user), class: "hidden-btn hover-2", data: {turbo_frame: "edit"} do %>
+                  <i class="fa-solid fa-pen-to-square text-main"></i>
                 <% end %>
-              <% when "pending" %>
-                <%= link_to company_admin_employee_application_path(user.last_employee_application) do %>
-                  <i class="fa-solid fa-circle-question text-flag-1"></i>
+              </th>
+              <td class="fw-5 text-main no-wrap pr-10"><%= "#{user.last_name}, #{user.first_name}"  %></td>
+              <td class="pr-10 no-wrap"><%= user.candidate.title %></td>
+              <td class="pr-10"><%= user.email %></td>
+              <td class="pr-10"><%= user.created_at.strftime("%d/%m/%y") %></td>
+              <td class="w-100"><%= user.custom_id %></td>
+              <td class="text-center">
+                <% case user.eligibility %>
+                <% when nil %>
+                  <i class="fa-solid fa-circle-minus text-grey-light"></i>
+                <% when "out" %>
+                  <i class="fa-solid fa-circle-xmark text-flag-2"></i>
+                <% when "approved" %>
+                  <%= link_to company_admin_employee_application_path(user.last_employee_application) do %>
+                    <i class="fa-solid fa-circle-check text-flag-3"></i>
+                  <% end %>
+                <% when "pending" %>
+                  <%= link_to company_admin_employee_application_path(user.last_employee_application) do %>
+                    <i class="fa-solid fa-circle-question text-flag-1"></i>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </td>
-            <td class="pl-10 pr-10">
-              <%= check_box_tag "destroy[]", user.id, false, data: {multi_select_target: "checkbox"} %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+              </td>
+              <td class="pl-10 pr-10">
+                <%= check_box_tag "destroy[]", user.id, false, data: {multi_select_target: "checkbox"} %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   <% end %>
   <%= turbo_frame_tag "edit" %>
 </div>
 
 
 <div class="mb-40">
-  <h5 class="mb-10">Comptes Entreprise actifs</h5>
+  <h6 class="mb-10 text-grey">Comptes Entreprise actifs</h6>
 
   <table class="list-table w-100 max-w-500">
     <thead>
