@@ -16,11 +16,11 @@
       <table class="list-table w-100 max-w-1000">
         <thead>
           <th></th>
-          <th class="pb-10">Nom</th>
+          <th class="pb-10">Nom <%= render partial: "filter_btn", locals: {filter: :last_name} %></th>
           <th class="pb-10">Titre</th>
-          <th class="pb-10">Email</th>
-          <th class="pb-10">Créé le</th>
-          <th class="no-wrap pb-10">ID Custom</th>
+          <th class="pb-10">Email <%= render partial: "filter_btn", locals: {filter: :email} %></th>
+          <th class="pb-10 no-wrap">Créé le  <%= render partial: "filter_btn", locals: {filter: :created_at} %></th>
+          <th class="no-wrap pb-10">ID Custom <%= render partial: "filter_btn", locals: {filter: :custom_id} %></th>
           <th class="text-center pb-10">Eligibilité</th>
           <th class="text-center p-0">
             <button type="submit" class="pb-10 pl-05 pr-15 bn-none bg-white text-flag-2" disabled data-multi-select-target="submit">
@@ -48,11 +48,11 @@
                 <% when "out" %>
                   <i class="fa-solid fa-circle-xmark text-flag-2"></i>
                 <% when "approved" %>
-                  <%= link_to company_admin_employee_application_path(user.last_employee_application) do %>
+                  <%= link_to company_admin_employee_application_path(user.last_employee_application), data: {turbo: false} do %>
                     <i class="fa-solid fa-circle-check text-flag-3"></i>
                   <% end %>
                 <% when "pending" %>
-                  <%= link_to company_admin_employee_application_path(user.last_employee_application) do %>
+                  <%= link_to company_admin_employee_application_path(user.last_employee_application), data: {turbo: false} do %>
                     <i class="fa-solid fa-circle-question text-flag-1"></i>
                   <% end %>
                 <% end %>

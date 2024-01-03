@@ -103,7 +103,7 @@ Rails.application.configure do
   config.hosts << "lvh.me"
   config.hosts << "clipperton.lvh.me"
   config.hosts << "test.lvh.me"
-  config.hosts << "apec.lvh.me"
+  config.hosts << "equativ.lvh.me"
   config.hosts << "tomorrow.lvh.me"
   config.hosts << "5279-88-126-41-204.ngrok-free.app"
   config.hosts << "demo.lvh.me"

@@ -8,6 +8,7 @@ class Company < ApplicationRecord
   has_many :whitelists, dependent: :destroy
   has_many :eligibility_periods, dependent: :destroy
   has_one :offer_rule, dependent: :destroy
+  enum :status, {inactive: 0, demo: 1, active: 2}, suffix: true
 
   def catch_all_domains
     a = []

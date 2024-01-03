@@ -173,6 +173,7 @@ Rails.application.routes.draw do
         resources :whitelists
         resources :eligibility_periods
       end
+      patch '/companies/:id/reset_demo', to: "companies#reset_demo", as: :reset_company_demo
       resources :offer_rules, only: %i[edit update]
       resources :employee_applications, only: %i[edit update index destroy]
       resources :missions, only: %i[edit index update destroy]

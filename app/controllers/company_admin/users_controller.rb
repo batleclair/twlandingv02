@@ -74,7 +74,9 @@ class CompanyAdmin::UsersController < CompanyAdminController
   end
 
   def set_users
-    @users = policy_scope(User).order(last_name: :asc)
+    filter = params[:filter] ? params[:filter] : :last_name
+    order = params[:order] ? params[:order] : :asc
+    @users = policy_scope(User).order("#{filter}": :"#{order}")
     @users = @users.search_by_name_and_email(params[:query]) if !params[:query].blank?
   end
 

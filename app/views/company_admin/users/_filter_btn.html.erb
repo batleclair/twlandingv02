@@ -1,0 +1,5 @@
+<% if params[:filter] == filter.to_s && params[:order] == "desc" %>
+  <%= link_to "▲", company_admin_users_path(filter: filter, order: :asc), data: {turbo_frame: "list"}, class: (params[:filter] == filter.to_s ? "text-main" : "text-grey-light") %>
+<% else %>
+  <%= link_to "▼", company_admin_users_path(filter: filter, order: :desc), data: {turbo_frame: "list"}, class: (params[:filter] == filter.to_s ? "text-main" : "text-grey-light") %>
+<% end %>

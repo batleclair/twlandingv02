@@ -22,7 +22,6 @@ export default class extends Controller {
 
   cancel() {
     event.preventDefault()
-    console.log("coucou?")
     this.inputTargets.forEach(input => {
       input.classList.add("d-none")
     });

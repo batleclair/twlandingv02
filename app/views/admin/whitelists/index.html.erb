@@ -44,20 +44,35 @@
           </div>
 
         </div>
-        <%= simple_form_for([@company, @whitelist], url: admin_company_whitelists_path) do |f| %>
-          <%= f.input :input_type, collection: Whitelist.input_types.keys %>
-          <%= f.input :input_format %>
-          <%= f.input :custom_id %>
-          <div class="position-relative mb-10">
-            <%= f.input :catch_all, wrapper: false, input_html: {class: "toggle"} %>
-          </div>
-          <div class="position-relative mb-20">
-            <%= f.input :pre_approval, wrapper: false, input_html: {class: "toggle"}  %>
-          </div>
-          <div class="flex-center-right">
-            <%= f.submit "Ajouter", class: "button btn-main-color" %>
-          </div>
-        <% end %>
+        <div data-controller="dynamic-form">
+          <%= simple_form_for([@company, @whitelist], url: admin_company_whitelists_path) do |f| %>
+            <%= f.input :input_type, label: "Autoriser un :", collection: Whitelist.input_types.keys, default: :email, input_html: {data: {
+              dynamic_form_target: "customTrigger", action: "change->dynamic-form#customToggle", trigger: "domain"}} %>
+
+            <%= f.input :input_format, label: "Format" %>
+
+            <div data-dynamic-form-target="customOutput" data-default="true">
+              <h6 class="text-main fw-5">Pré-remplir les informations</h6>
+              <div class="position-relative mb-20">
+                <%= f.input :role, wrapper: false, collection: Whitelist.roles.values, include_blank: false %>
+              </div>
+              <%= f.input :first_name, label: "Prénom" %>
+              <%= f.input :last_name, label: "Nom" %>
+              <%= f.input :custom_id, label: "Identifiant RH fourni" %>
+              <div class="position-relative mb-20">
+                <%= f.input :pre_approval, wrapper: false, input_html: {class: "toggle"}, label: "Eligibile d'office"  %>
+              </div>
+            </div>
+
+            <div class="position-relative mb-10 d-none" data-dynamic-form-target="customOutput">
+              <%= f.input :catch_all, wrapper: false, input_html: {class: "toggle"} %>
+            </div>
+
+            <div class="flex-center-right">
+              <%= f.submit "Ajouter", class: "button btn-main-color" %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
 

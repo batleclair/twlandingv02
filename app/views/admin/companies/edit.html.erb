@@ -8,13 +8,31 @@
 
   <%= render partial: "admin/company_edit_menu" %>
   <div class="navpan-white-ctn">
-    <%= simple_form_for(@company, url: admin_company_path(@company), action: :create) do |f| %>
-      <div class="position-relative">
-        <%= f.input :name %>
-        <%= f.input :slug %>
-        <%= f.input :logo, as: :file %>
+
+    <div class="d-flex">
+      <div class="w-100 max-w-400 mr-20">
+        <%= simple_form_for(@company, url: admin_company_path(@company), action: :create) do |f| %>
+          <div class="position-relative">
+            <%= f.input :name %>
+            <%= f.input :slug %>
+            <%= f.input :logo, as: :file %>
+            <%= f.input :status, collection: Company.statuses.keys, include_blank: false %>
+          </div>
+          <button type="submit" class="button btn-main-color mt-3">Modifier</button>
+        <% end %>
       </div>
-      <button type="submit" class="button btn-main-color mt-3">Modifier</button>
-    <% end %>
-  </div>
+
+      <% if @company.demo_status? %>
+        <div>
+          <h6 class="text-main fw-6">Comptes demo actifs</h6>
+          <ul>
+            <% @demo_users.each do |user| %>
+              <li><%= user.full_name %></li>
+            <% end %>
+          </ul>
+          <%= button_to "RESET DEMO", admin_reset_company_demo_path(@company), method: "patch", class: "button btn-main-color", data: {turbo: false, disable_with: "En cours..."} %>
+        </div>
+      <% end %>
+    </div>
+
 </div>

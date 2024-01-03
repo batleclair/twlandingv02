@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ['output', 'input', 'trigger', 'customOutput', 'customTrigger']
 
   connect() {
+    console.log('dynamic form connecté')
     this.toggle()
     this.customToggle()
   }
@@ -23,10 +24,14 @@ export default class extends Controller {
 
   customToggle() {
     if (this.hasCustomTriggerTarget) {
-      if (this.customTriggerTarget.value === "Autre (préciser)") {
-        this.customOutputTarget.classList.remove("d-none")
+      if (this.customTriggerTarget.value === this.customTriggerTarget.dataset.trigger) {
+        this.customOutputTargets.forEach(t => {
+          t.dataset.default ? t.classList.add("d-none") : t.classList.remove("d-none")
+        });
       } else {
-        this.customOutputTarget.classList.add("d-none")
+        this.customOutputTargets.forEach(t => {
+          t.dataset.default ? t.classList.remove("d-none") : t.classList.add("d-none")
+        });
       }
     }
   }

@@ -73,7 +73,7 @@ class User < ApplicationRecord
   end
 
   def subdomain
-    company&.slug
+    company ? company.slug : Subdomain.generic
   end
 
   def never_applied?
@@ -174,6 +174,7 @@ class User < ApplicationRecord
   def initialize_profile
     Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name)
     if whitelist
+      self.company_role = whitelist.role if whitelist.role
       self.first_name = whitelist.first_name if whitelist.first_name
       self.last_name = whitelist.last_name if whitelist.last_name
       self.custom_id = whitelist.custom_id

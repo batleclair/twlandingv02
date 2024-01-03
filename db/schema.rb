@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_21_151137) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_03_115359) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -166,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_21_151137) do
     t.string "slug"
     t.string "user_info_source"
     t.string "admin_info_source"
+    t.integer "status", default: 0
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -408,6 +409,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_21_151137) do
     t.string "first_name"
     t.string "last_name"
     t.string "title"
+    t.string "role", default: "utilisateur"
     t.index ["company_id"], name: "index_whitelists_on_company_id"
   end
 

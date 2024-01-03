@@ -31,7 +31,7 @@ class Admin::WhitelistsController < ApplicationController
   end
 
   def whitelist_params
-    params.require(:whitelist).permit(:input_type, :input_format, :custom_id, :catch_all, :pre_approval)
+    params.require(:whitelist).permit(:input_type, :input_format, :custom_id, :catch_all, :pre_approval, :first_name, :last_name, :role)
   end
 
 end

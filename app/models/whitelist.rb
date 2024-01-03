@@ -8,6 +8,7 @@ class Whitelist < ApplicationRecord
   validates :input_format, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse invalide" }, if: :email_input_type?
   validate :domain_presence, if: :email_input_type?
   validate :no_user_attached?, on: :create
+  enum :role, { user: "utilisateur", admin: "administrateur" }
 
 
   def to_domain

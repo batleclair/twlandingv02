@@ -30,7 +30,7 @@
             <tr class="position-relative">
               <th class="fw-5 pr-20 pt-15">Fréquence</th>
               <td class="pt-15"><%= f.input :req_periodicity, label: false, wrapper: false, collection: Candidacy::PERIODICITY, selected: @selected_periodicity,
-                                            input_html: {data: {dynamic_form_target: "customTrigger", action: "change->dynamic-form#customToggle"}} %></td>
+                                            input_html: {data: {dynamic_form_target: "customTrigger", action: "change->dynamic-form#customToggle", trigger: "Autre (préciser)"}} %></td>
             </tr>
             <tr data-dynamic-form-target="customOutput" class="d-none">
               <th></th>

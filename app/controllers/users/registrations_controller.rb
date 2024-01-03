@@ -74,7 +74,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if stored_location_for(resource).include?("missions")
       stored_location_for(resource) || new_candidate_path
     else
-      Subdomain.new("tenant").matches?(request) ? root_path : new_candidate_path
+      if Subdomain.new("tenant").matches?(request)
+        resource.company_admin? ? company_admin_path : root_path
+      else
+        new_candidate_path
+      end
     end
   end
 

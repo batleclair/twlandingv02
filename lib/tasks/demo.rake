@@ -14,7 +14,7 @@ task reset_demo: :environment do
     User.new({first_name: "Max", last_name: "Cavalera", company_role: "admin"}) # demo admin account
   ]
   LYRICS = [
-    "Gimme fuel gimme fire gimme, gimme that which I desire",
+    "Gimme fuel gimme fire gimme that which I desire",
     "Did you never give a damn in the first place?",
     "Boom na da noom na nanema! Da boom na da noom na namena!",
     "Wake up! (wake up) Grab a brush and put a little make-up",
