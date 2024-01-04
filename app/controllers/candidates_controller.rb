@@ -59,6 +59,7 @@ class CandidatesController < ApplicationController
       @candidate.clip_to_airtable
       process_profile_completion
       redirect_to users_completed_path
+      send_new_candidate_alert
     else
       render :new, status: :unprocessable_entity
     end
