@@ -29,6 +29,8 @@ class Candidacy < ApplicationRecord
   accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: :no_comment_needed
   scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
 
+  after_commit :auto_approve_beneficiary_steps, on: [:create, :update]
+
   PERIODICITY = [
     "1 demi-journée par semaine",
     "1 jour par semaine",
@@ -236,6 +238,15 @@ class Candidacy < ApplicationRecord
       "Validées": :mission,
       "Refusées": :admin_validation,
     }
+  end
+
+  def auto_approve_beneficiary_steps
+    if active && candidate.user.company.demo_status? && user_application_status?
+      Comment.create(status: "beneficiary_application", commentable_type: "Candidacy", user_id: User.find_by_email("baptiste@demain.works").id, commentable_id: id, content: "Nous serions très intéressés d'échanger avec vous.")
+      Comment.create(status: "in_discussions", commentable_type: "Candidacy", user_id: User.find_by_email("baptiste@demain.works").id, commentable_id: id, content: "Vous êtes désormais en relation avec l'association")
+      Comment.create(status: "beneficiary_validation", commentable_type: "Candidacy", user_id: User.find_by_email("baptiste@demain.works").id, commentable_id: id, content: "Merci pour cet échange téléphonique, je te confirme que nous serions heureux de bénéficier de ton expertise sur le sujet !")
+      beneficiary_validation_status!
+    end
   end
 
 end

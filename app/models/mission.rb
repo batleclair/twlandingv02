@@ -23,6 +23,8 @@ class Mission < ApplicationRecord
   enum :termination_cause, {"la mission touche à sa fin": 0, "la mission ne se passe pas comme prévu": 1}, prefix: true
 
   after_update :deactivate_candidacy, if: :terminated_status?
+  after_commit :auto_approve_beneficiary_step, on: [:update]
+
   scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
   scope :beneficiary_status_as, -> (status) { status.nil? ? order(beneficiary_approval: :asc, created_at: :desc) : where(beneficiary_approval: status).order(beneficiary_approval: :asc, created_at: :desc) }
 
@@ -101,5 +103,9 @@ class Mission < ApplicationRecord
       "En attente de confirmation": :submitted,
       "En attente d'activation": :approved
     }
+  end
+
+  def auto_approve_beneficiary_step
+    beneficiary_approval_approved! if beneficiary_approval_submitted? && candidate.user.company.demo_status?
   end
 end
