@@ -12,7 +12,7 @@ module CompanyDemo
     submission_msg = "Je souhaite mettre mes compétences au service de cette association qui me tient à coeur"
 
     Whitelist.create(input_type: :domain, input_format: domain_format, company_id: company.id)
-    Whitelist.create(input_type: :email, input_format: "demo.admin-account@#{domain_format}", company_id: company.id, first_name: "Demo", last_name: "Admin-Account", role: :admin)
+    admin_wl = Whitelist.create(input_type: :email, input_format: "demo.admin-account@#{domain_format}", company_id: company.id, first_name: "Demo", last_name: "Admin-Account", role: :admin)
     for i in 0..(user_count - 1) do
       Whitelist.create(
         input_type: :email,
@@ -23,7 +23,7 @@ module CompanyDemo
       )
     end
 
-    admin_user = User.create(first_name: "Demo", last_name: "Admin-Account", company_role: :admin, email: "demo.admin-account@#{domain_format}", password: ENV['DEMO_PASSWORD'], demo: true, company_id: company.id)
+    admin_user = User.create(first_name: "Demo", last_name: "Admin-Account", company_role: :admin, email: "demo.admin-account@#{domain_format}", password: ENV['DEMO_PASSWORD'], demo: true, company_id: company.id, whitelist_id: admin_wl.id)
     offers_scope = Offer.where(status: "active", publish: true).where.not(title: "no_offer")
     users = []
     approved_candidacies = []
