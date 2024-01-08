@@ -9,7 +9,6 @@ class Whitelist < ApplicationRecord
   validate :domain_presence, if: :email_input_type?
   validate :no_user_attached?, on: :create
   enum :role, { user: "utilisateur", admin: "administrateur" }
-  has_one :user
 
   include PgSearch::Model
   pg_search_scope :search_by_name_and_email,

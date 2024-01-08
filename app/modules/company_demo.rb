@@ -105,11 +105,11 @@ module CompanyDemo
 
   def delete_demo_for(company)
     domain_format = "#{company.slug}-demain.works"
+    demo_users = company.users.select{|u| u.email.slice(/@.+/)&.delete("@") == domain_format}
+    demo_users.each{|user| user.destroy}
     demo_whitelists = company.whitelists.select{|wl| wl.input_format.slice(/@.+/)&.delete("@") == domain_format}
     demo_whitelists.each{|wl| wl.destroy}
     Whitelist.find_by(company_id: company.id, input_format: domain_format)&.destroy
-    demo_users = company.users.select{|u| u.email.slice(/@.+/)&.delete("@") == domain_format}
-    demo_users.each{|user| user.destroy}
   end
 
   def reset_demo_for(company)
