@@ -1,0 +1,21 @@
+<div class="tenant-modal z-1" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active=<%=@error && @candidacy.active%>>
+  <div>
+    <div class="p-20 shadow-md" data-action="click->popup#keep">
+      <div class="max-w-300">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7 mr-20">Confidentialité des données</h5>
+          <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+        <h6 class="mb-20">Ces informations ne sont pas divulguées à votre employeur</h6>
+
+        <p>Pour vous accompagner et vous orienter au mieux vers les associations et les missions qui vous correspondent, nous avons simplement besoin de mieux comprendre votre profil, vos compétences et vos aspirations en matière d'engagement associatif</p>
+        <button type="button w-100">
+          J'ai compris
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

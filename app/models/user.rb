@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   has_one :candidate, autosave: true, dependent: :destroy
-  has_one :whitelist
   has_many :comment, dependent: :destroy
   has_many :employee_applications, through: :candidate, dependent: :destroy
   has_many :missions, through: :candidate, dependent: :destroy
@@ -23,6 +22,7 @@ class User < ApplicationRecord
     (initialize_profile if whitelisted?) unless demo
     pre_approve if pre_approved?
   end
+  before_destroy :remove_access, prepend: true
 
   enum :company_role, { user: "utilisateur", admin: "administrateur" }
 
@@ -164,6 +164,10 @@ class User < ApplicationRecord
     Whitelist.find_by(input_type: :email, input_format: email)
   end
 
+  def remove_access
+    find_whitelist&.destroy
+  end
+
   def whitelisted?
     if company
       # company.catch_all_domains.include?(email.slice(/@.+/)&.delete("@")) || (
@@ -176,14 +180,14 @@ class User < ApplicationRecord
 
   def initialize_profile
     Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name)
-    if whitelist
-      self.company_role = whitelist.role if whitelist.role
-      self.first_name = whitelist.first_name if whitelist.first_name
-      self.last_name = whitelist.last_name if whitelist.last_name
-      self.custom_id = whitelist.custom_id
-      self.whitelist = whitelist
+    if find_whitelist
+      self.company_role = find_whitelist.role if find_whitelist.role
+      self.first_name = find_whitelist.first_name if find_whitelist.first_name
+      self.last_name = find_whitelist.last_name if find_whitelist.last_name
+      self.custom_id = find_whitelist.custom_id
+      self.whitelist = find_whitelist
       self.save
-      candidate.update(title: whitelist.title)
+      candidate.update(title: find_whitelist.title)
       # raise
     end
   end

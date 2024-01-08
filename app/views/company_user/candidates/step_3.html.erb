@@ -1,46 +1,49 @@
-<h5 class="fw-6 text-main mb-40">1. Je complète mon profil</h5>
+<div data-controller="popup">
+  <h5 class="fw-6 text-main mb-40">1. Je complète mon profil<i class="fa-solid fa-circle-question ml-10 cursor-pointer" data-pop-up-id="1", data-action="click->popup#open"></i></h5>
 
-<div class="max-w-300">
-  <%= simple_form_for(@candidate) do |f| %>
-    <h6 class="text-main mb-20 fw-6">CV</h6>
-    <%= render partial: "progress_bar", locals: {step: 3} %>
+  <div class="max-w-300">
+    <%= simple_form_for(@candidate) do |f| %>
+      <h6 class="text-main mb-20 fw-6">CV</h6>
+      <%= render partial: "progress_bar", locals: {step: 3} %>
 
-    <div class="mb-10 position-relative input-with-icon">
-      <%= f.input :linkedin_url,
-                  label: "LinkedIn",
-                  placeholder: "https://linkedin.com/in/...",
-                  wrapper: false %>
-      <i class="fa-brands fa-linkedin text-main"></i>
-    </div>
-
-    <div class="w-100 center-text mb-10">ou</div>
-
-    <div id=candidate_cv_wrapper class="flex-center-between mb-10 w-100" data-controller="progress">
-      <div class="flex-shrink-0 position-relative center-margin">
-        <% if @candidate.cv.present? %>
-          <%= image_tag('valid.svg', class: "feedback-mark me-10") %>
-        <% end %>
-        <%= f.input :cv,
-                    as: :file,
-                    input_html: { class: 'd-none', data: {'progress-target': 'cv', action: 'change->progress#cv'}},
-                    label: ('<i class="fa-solid fa-file-import mb-0 me-2"></i>Importer un fichier doc/pdf').html_safe,
-                    wrapper: false,
-                    label_html: { class: 'upload'} %>
+      <div class="mb-10 position-relative input-with-icon">
+        <%= f.input :linkedin_url,
+                    label: "LinkedIn",
+                    placeholder: "https://linkedin.com/in/...",
+                    wrapper: false %>
+        <i class="fa-brands fa-linkedin text-main"></i>
       </div>
-    </div>
 
-    <div class="w-100 center-text mb-10">ou</div>
+      <div class="w-100 center-text mb-10">ou</div>
 
-    <%= button_tag(type: 'submit', name: "mode", value: "manual", class: "bg-white-to-shade hover-2 pl-10 pr-10 pt-05 pb-05 flex-center center-margin text-main first-main-border round") do %>
-      <i class="fa-solid fa-pencil mr-10"></i>
-      Compléter manuellement
+      <div id=candidate_cv_wrapper class="flex-center-between mb-10 w-100" data-controller="progress">
+        <div class="flex-shrink-0 position-relative center-margin">
+          <% if @candidate.cv.present? %>
+            <%= image_tag('valid.svg', class: "feedback-mark me-10") %>
+          <% end %>
+          <%= f.input :cv,
+                      as: :file,
+                      input_html: { class: 'd-none', data: {'progress-target': 'cv', action: 'change->progress#cv'}},
+                      label: ('<i class="fa-solid fa-file-import mb-0 me-2"></i>Importer un fichier doc/pdf').html_safe,
+                      wrapper: false,
+                      label_html: { class: 'upload'} %>
+        </div>
+      </div>
+
+      <div class="w-100 center-text mb-10">ou</div>
+
+      <%= button_tag(type: 'submit', name: "mode", value: "manual", class: "bg-white-to-shade hover-2 pl-10 pr-10 pt-05 pb-05 flex-center center-margin text-main first-main-border round") do %>
+        <i class="fa-solid fa-pencil mr-10"></i>
+        Compléter manuellement
+      <% end %>
+
+
+      <%= hidden_field_tag :step, params[:step] %>
+      <div class="flex-between mt-20">
+        <%= link_to "retour", user_profile_path(step: 2), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+        <%= f.submit "continuer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+      </div>
     <% end %>
-
-
-    <%= hidden_field_tag :step, params[:step] %>
-    <div class="flex-between mt-20">
-      <%= link_to "retour", user_profile_path(step: 2), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
-      <%= f.submit "continuer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
-    </div>
-  <% end %>
+  </div>
+  <%= render partial: "info_modal" %>
 </div>

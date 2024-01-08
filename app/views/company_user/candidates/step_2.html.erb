@@ -1,37 +1,40 @@
-<h5 class="fw-6 text-main mb-40">1. Je complète mon profil</h5>
+<div data-controller="popup">
+  <h5 class="fw-6 text-main mb-40">1. Je complète mon profil<i class="fa-solid fa-circle-question ml-10 cursor-pointer" data-pop-up-id="1", data-action="click->popup#open"></i></h5>
 
-<div class="max-w-300">
-  <%= simple_form_for(@candidate) do |f| %>
-    <h6 class="text-main mb-20 fw-6">Informations professionnelles</h6>
-    <%= render partial: "progress_bar", locals: {step: 2} %>
+  <div class="max-w-300">
+    <%= simple_form_for(@candidate) do |f| %>
+      <h6 class="text-main mb-20 fw-6">Informations professionnelles</h6>
+      <%= render partial: "progress_bar", locals: {step: 2} %>
 
-    <div class="mb-10 position-relative">
-      <%= f.input :title,
-                  label: "Intitulé de poste",
-                  wrapper: false %>
-    </div>
-    <div class="input-with-2-icons mb-15 position-relative">
-      <%= f.input :function,
-                  label: "Mon domaine de compétences *",
-                  collection: Candidate::FUNCTIONS,
-                  selected: @candidate.function,
-                  include_blank: true,
-                  input_html: {class: "input-form"},
-                  wrapper: false %>
-      <i class="fa-solid fa-briefcase"></i>
-      <i class="fa-solid fa-angle-down pe-none"></i>
-    </div>
-    <div class="mb-10 position-relative">
-      <%= f.input :skill_list,
-                  input_html: {value: @candidate.skill_list.join(","), data: {controller: "tom-select"}},
-                  placeholder: "Ajouter des compétences détaillées",
-                  label: false,
-                  wrapper: false %>
-    </div>
-    <%= hidden_field_tag :step, params[:step] %>
-    <div class="flex-between mt-20">
-      <%= link_to "retour", user_profile_path(step: 1), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
-      <%= f.submit "continuer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
-    </div>
-  <% end %>
+      <div class="mb-10 position-relative">
+        <%= f.input :title,
+                    label: "Intitulé de poste",
+                    wrapper: false %>
+      </div>
+      <div class="input-with-2-icons mb-15 position-relative">
+        <%= f.input :function,
+                    label: "Mon domaine de compétences *",
+                    collection: Candidate::FUNCTIONS,
+                    selected: @candidate.function,
+                    include_blank: true,
+                    input_html: {class: "input-form"},
+                    wrapper: false %>
+        <i class="fa-solid fa-briefcase"></i>
+        <i class="fa-solid fa-angle-down pe-none"></i>
+      </div>
+      <div class="mb-10 position-relative">
+        <%= f.input :skill_list,
+                    input_html: {value: @candidate.skill_list.join(","), data: {controller: "tom-select"}},
+                    placeholder: "Ajouter des compétences détaillées",
+                    label: false,
+                    wrapper: false %>
+      </div>
+      <%= hidden_field_tag :step, params[:step] %>
+      <div class="flex-between mt-20">
+        <%= link_to "retour", user_profile_path(step: 1), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+        <%= f.submit "continuer", class: "round bg-main-to-dark text-white bn-none max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>
+      </div>
+    <% end %>
+  </div>
+  <%= render partial: "info_modal" %>
 </div>

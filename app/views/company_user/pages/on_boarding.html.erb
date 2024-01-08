@@ -12,13 +12,18 @@
   </div>
 
   <div class="on-boarding-grid p-30 on-boarding-cards">
-    <div class="flex-center center-text flex-col p-10 position-relative shadow-xs" data-active=<%=@active_step == 1%> data-validated=<%=@active_step > 1%>>
-      <% if @active_step > 1 %>
-        <%= image_tag('valid.svg', class:"position-absolute") %>
-      <% end %>
+    <div class="slide-up-ctn shadow-xs position-relative overflow-hidden" data-active=<%=@active_step == 1%> data-validated=<%=@active_step > 1%>>
       <%= link_to "", user_profile_path, class:"h-100 w-100 position-absolute" %>
-      <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">1</h5>
-      <h6>Je complète mon profil</h6>
+      <div class="flex-center center-text flex-col p-10 h-100">
+        <% if @active_step > 1 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">1</h5>
+        <h6>Je complète mon profil</h6>
+      </div>
+      <div class="pe-none w-100 h-100 flex-center position-absolute bg-main slide-up-target hover-2 text-white">
+      <p class="center-text text-white fs-14 p-05">Ces informations permettront à Demain de mieux vous accompagner</p>
+      </div>
     </div>
     <div class="flex-center center-text flex-col p-10 position-relative shadow-xs" data-active=<%=@active_step == 2%> data-validated=<%=@active_step > 2%>>
       <% if @active_step > 2 %>
