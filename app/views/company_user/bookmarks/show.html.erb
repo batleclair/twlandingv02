@@ -23,18 +23,19 @@
         <% else %>
           <% if current_user.eligibility_on_going? && !@active_engagement %>
             <p class="mb-20">Vous pouvez y candidater dès à présent :</p>
+            <p class="mb-10 max-w-400">Présentez-vous à l'association et indiquez en quoi la mission vous intéresse et comment vous pouvez aider</p>
 
             <%= simple_form_for(@selection, url: user_bookmark_path(@selection), data: {turbo: false}) do |f| %>
               <div >
                 <div class="w-100 mr-20">
                   <%= f.input :status, as: :hidden, input_html: {value: "user_application"}, wrapper: false %>
                   <div class="position-relative mb-20">
-                    <%= f.input :motivation_msg, label: false, wrapper: false, input_html: {class: "min-h-100", value: ""}, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}" %>
+                    <%= f.input :motivation_msg, label: false, wrapper: false, input_html: {class: "min-h-200", value: ""}, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}" %>
                   </div>
                 </div>
                 <button type="submit" class="btn-main-color round-10 text-white square-40 w-100 flex-center">
                   <i class="fa-regular fa-paper-plane mr-10"></i>
-                  Envoyer
+                  Envoyer à l'association
                 </button>
               </div>
             <% end %>

@@ -12,6 +12,7 @@
   </div>
 
   <div class="on-boarding-grid p-30 on-boarding-cards">
+
     <div class="slide-up-ctn shadow-xs position-relative overflow-hidden" data-active=<%=@active_step == 1%> data-validated=<%=@active_step > 1%>>
       <%= link_to "", user_profile_path, class:"h-100 w-100 position-absolute" %>
       <div class="flex-center center-text flex-col p-10 h-100">
@@ -22,38 +23,55 @@
         <h6>Je complète mon profil</h6>
       </div>
       <div class="pe-none w-100 h-100 flex-center position-absolute bg-main slide-up-target hover-2 text-white">
-      <p class="center-text text-white fs-14 p-05">Ces informations permettront à Demain de mieux vous accompagner</p>
+        <p class="center-text fs-14 p-05">Votre profil permettra à Demain de vous aider à trouver une association et une mission</p>
       </div>
     </div>
-    <div class="flex-center center-text flex-col p-10 position-relative shadow-xs" data-active=<%=@active_step == 2%> data-validated=<%=@active_step > 2%>>
-      <% if @active_step > 2 %>
-        <%= image_tag('valid.svg', class:"position-absolute") %>
-      <% end %>
+
+    <div class="slide-up-ctn shadow-xs position-relative overflow-hidden" data-active=<%=@active_step == 2%> data-validated=<%=@active_step > 2%>>
       <%= link_to "", new_user_employee_application_path, class:"h-100 w-100 position-absolute" %>
-      <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">2</h5>
-      <h6>Je demande à mon entreprise</h6>
+      <div class="flex-center center-text flex-col p-10 h-100">
+        <% if @active_step > 2 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">2</h5>
+        <h6>Je demande à mon entreprise</h6>
+      </div>
+      <div class="pe-none w-100 h-100 flex-center position-absolute bg-main slide-up-target hover-2 text-white">
+        <p class="center-text fs-14 p-05">Informez <%= current_user.company.name %> de votre intention de réaliser une mission pour une association</p>
+      </div>
     </div>
-    <div class="flex-center center-text flex-col p-10 position-relative shadow-xs" data-active=<%=@active_step == 3%> data-validated=<%=@active_step > 3%>>
-      <% if @active_step > 3 %>
-        <%= image_tag('valid.svg', class:"position-absolute") %>
-      <% end %>
-      <% unless current_user.never_applied? %>
-        <%= link_to "", user_employee_application_path(current_user.last_employee_application), class:"h-100 w-100 position-absolute", data: {turbo_frame: "modal"} %>
-      <% end %>
-      <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">3</h5>
-      <h6>Mon entreprise valide</h6>
+
+    <div class="slide-up-ctn shadow-xs position-relative overflow-hidden" data-active=<%=@active_step == 3%> data-validated=<%=@active_step > 3%>>
+      <%= link_to "", new_user_employee_application_path, class:"h-100 w-100 position-absolute" %>
+      <div class="flex-center center-text flex-col p-10 h-100">
+        <% if @active_step > 3 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">3</h5>
+        <h6>Mon entreprise valide</h6>
+      </div>
+      <div class="pe-none w-100 h-100 flex-center position-absolute bg-main slide-up-target hover-2 text-white">
+        <p class="center-text fs-14 p-05"><%= current_user.company.name %> valide votre demande et vous autorise à candidater auprès d'associations</p>
+      </div>
     </div>
-    <div class="flex-center center-text flex-col p-10 position-relative shadow-xs" data-controller="calendly" data-calendly-email-value=<%= current_user.email %> data-calendly-name-value=<%= current_user.first_name %> data-active=<%=@active_step == 4%> data-validated=<%=@active_step > 4%>>
-      <% if @active_step > 4 %>
-        <%= image_tag('valid.svg', class:"position-absolute") %>
-      <% end %>
+
+
+    <div class="slide-up-ctn shadow-xs position-relative overflow-hidden" data-controller="calendly" data-calendly-email-value=<%= current_user.email %> data-calendly-name-value=<%= current_user.first_name %> data-active=<%=@active_step == 4%> data-validated=<%=@active_step > 4%>>
       <%= link_to "", "", class:"h-100 w-100 position-absolute", data: {action: "click->calendly#popup"} %>
         <!-- Calendly link widget begin -->
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
         <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
         <!-- Calendly link widget end -->
-      <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">4</h5>
-      <h6>J'échange avec Demain</h6>
+      <div class="flex-center center-text flex-col p-10 h-100">
+        <% if @active_step > 4 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">4</h5>
+        <h6>J'échange avec Demain</h6>
+      </div>
+      <div class="pe-none w-100 h-100 flex-center position-absolute bg-main slide-up-target hover-2 text-white">
+        <p class="center-text fs-14 p-05">Programmez un call avec un conseiller Demain qui vous accompagnera dans vos démarches !</p>
+      </div>
     </div>
     <span></span>
   </div>

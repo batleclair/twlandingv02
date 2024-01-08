@@ -8,13 +8,14 @@
         <% end %>
       </div>
       <h6 class="mb-20">Proposer mon aide à l'association</h6>
+      <p class="mb-10 max-w-400">Présentez-vous à l'association et indiquez en quoi la mission vous intéresse et comment vous pouvez aider</p>
 
       <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
 
         <%= f.input :status, as: :hidden, input_html: {value: :user_application} %>
 
         <div class="position-relative mb-20">
-          <%= f.input :motivation_msg, label: false, wrapper: false, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}", input_html:{class:"min-h-100"} %>
+          <%= f.input :motivation_msg, label: false, wrapper: false, placeholder: "Votre message à l'attention de #{@selection.beneficiary.name}", input_html:{class:"min-h-200 min-w-400"} %>
         </div>
 
         <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
