@@ -1,0 +1,22 @@
+<% if resource.class == User %>
+  <% case resource.eligibility %>
+  <% when nil %>
+    <i class="fa-solid fa-circle-minus text-grey-light"></i>
+  <% when "out" %>
+    <i class="fa-solid fa-circle-xmark text-flag-2"></i>
+  <% when "approved" %>
+    <%= link_to company_admin_employee_application_path(resource.last_employee_application), data: {turbo: false} do %>
+      <i class="fa-solid fa-circle-check text-flag-3"></i>
+    <% end %>
+  <% when "pending" %>
+    <%= link_to company_admin_employee_application_path(resource.last_employee_application), data: {turbo: false} do %>
+      <i class="fa-solid fa-circle-question text-flag-1"></i>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if resource.pre_approval %>
+    <i class="fa-solid fa-circle-check text-flag-3"></i>
+  <% else %>
+    <i class="fa-solid fa-circle-minus text-grey-light"></i>
+  <% end %>
+<% end %>

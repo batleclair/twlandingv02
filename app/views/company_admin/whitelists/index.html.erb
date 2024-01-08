@@ -3,7 +3,7 @@
 <div class="mb-40" data-controller="search-form">
   <div class="flex-center-between mb-10" data-controller="popup">
     <div class="flex-center-left">
-      <h6 class="text-grey mr-20">xxxx</h6>
+      <h6 class="text-grey mr-20">Collaborateurs autorisés</h6>
       <%= form_tag(request.path, method: :get, data: {turbo_frame: "list", search_form_target: 'form'}) do %>
           <div class="position-relative input-with-icon">
             <i class="fa-solid fa-magnifying-glass text-main position-absolute"></i>
@@ -44,11 +44,11 @@
               <td><%= resource.custom_id %></td>
               <td class="text-center">
                 <% if whitelist.user %>
-                  <i class="fa-solid fa-circle-check text-flag-3"></i>
+                  <i class="fa-solid fa-check text-flag-3"></i>
                 <% end %>
               </td>
               <td class="text-center">
-                ...
+                <%= render partial: "eligibility", locals: {resource: resource} %>
               </td>
               <td class="pl-10 pr-10">
                 <%= check_box_tag "destroy[]", whitelist.id, false, data: {multi_select_target: "checkbox"} %>
