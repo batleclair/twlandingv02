@@ -20,7 +20,8 @@ Rails.application.routes.draw do
         get "/info", to: "pages#info", as: :company_admin_info
         resources :users, except: %i[show], as: :company_admin_users
         patch "/users", to: "users#destroy_multiple", as: :destroy_company_admin_users
-        resources :whitelists, only: %i[index new create destroy], as: :company_admin_whitelists
+        resources :whitelists, only: %i[index new create edit update destroy], as: :company_admin_whitelists
+        patch "/whitelists", to: "whitelists#destroy_multiple", as: :destroy_company_admin_whitelists
         post "/whitelists/upload", to: "whitelists#upload", as: :upload_company_admin_whitelists
         post "/whitelists/save_batch", to: "whitelists#save_batch", as: :save_company_admin_whitelists
         resources :recherche, controller: 'offers', as: :company_admin_offers, param: :slug, only: %i[index]

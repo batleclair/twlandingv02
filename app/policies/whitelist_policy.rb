@@ -11,6 +11,10 @@ class WhitelistPolicy < ApplicationPolicy
     end
   end
 
+  def edit?
+    create?
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve

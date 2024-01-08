@@ -1,80 +1,63 @@
 <%= render partial: "company_admin/shared/users_tabs", locals: {active: 1} %>
 
-<div class="d-flex">
-  <div class="max-w-300 mb-40 mr-40">
-    <h5 class="mb-10">Domaines autorisés</h5>
-    <p class="mb-10">Noms de domaines autorisés pour créer un compte utilisateur <strong class="fw-6 text-main"><%= current_user.company.name %></strong> :</p>
-    <div class="mb-20">
-      <% @whitelists.where(input_type: "domain").each do |w| %>
-        <div class="flex-center-between mb-05">
-          <p class="fw-5"><%= w.input_format %></p>
-          <% if w.catch_all %>
-            <i class="fa-solid fa-users text-flag-3"></i>
-          <% else %>
-            <i class="fa-solid fa-user text-flag-1"></i>
-          <% end %>
-        </div>
+<div class="mb-40" data-controller="search-form">
+  <div class="flex-center-between mb-10" data-controller="popup">
+    <div class="flex-center-left">
+      <h6 class="text-grey mr-20">xxxx</h6>
+      <%= form_tag(request.path, method: :get, data: {turbo_frame: "list", search_form_target: 'form'}) do %>
+          <div class="position-relative input-with-icon">
+            <i class="fa-solid fa-magnifying-glass text-main position-absolute"></i>
+            <%= text_field_tag( :query, nil, class: "input-form", placeholder: 'Rechercher un collaborateur', data: {action: 'keyup->search-form#result'}) %>
+          </div>
+        <%= submit_tag "", hidden: "true", data: { search_form_target: 'submitbtn' } %>
       <% end %>
     </div>
-    <div>
-      <i class="mb-05 fs-13">Autorisations :</i>
-      <div class="flex-center-left">
-        <p class="fs-13 mr-20"><i class="fa-solid fa-users text-flag-3 min-w-20"></i>Tous les emails</p>
-        <p class="fs-13"><i class="fa-solid fa-user text-flag-1 min-w-20"></i>Email par email</p>
-      </div>
+    <div class="min-w-200 flex-center-right">
+      <%= link_to "+ Inviter des collaborateurs", "#", class: "fs-15 button-tight round bg-main-to-dark hover-2 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
+
     </div>
+    <%= render partial: "form" %>
   </div>
-
-  <div class="max-w-750 mb-40">
-    <div class="flex-center-between" data-controller="popup">
-      <div>
-        <h5 class="mb-10">Adresses autorisées</h5>
-        <p class="mb-10">Autorisation de créer un compte accordée aux personnes dont l'adresse email professionnelle principale figure parmi :</p>
-      </div>
-      <div class="min-w-200 flex-center-right">
-        <%= link_to "", data: {pop_up_id: 1, action: "click->popup#open"} do %>
-          <i class="fa-solid fa-plus round-button btn-round-cta downsize70 pe-none"></i>
-        <% end %>
-      </div>
-      <%= render partial: "form" %>
-    </div>
-
-    <table class="list-table w-100 max-w-750">
-      <thead>
-        <th></th>
-        <th>adresse</th>
-        <th>id interne</th>
-        <th class="text-center">pré-validé</th>
-        <th class="text-center">inscrit.e</th>
-      </thead>
-      <tbody>
-        <% @whitelists.where(input_type: "email").each do |w| %>
-          <tr>
-            <th class="pr-10">></th>
-            <td><%= w.input_format %></td>
-            <td><%= w.custom_id %></td>
-            <td class="text-center">
-              <% if w.pre_approval %>
-                <i class="fa-solid fa-circle-check text-flag-3"></i>
-              <% end %>
-            </td>
-            <td class="text-center">
-              <% if w.user_attached? %>
-                <i class="fa-solid fa-circle-check text-flag-3"></i>
-              <% end %>
-            </td>
-            <td>
-              <% if !w.user_attached? %>
-                <%= link_to company_admin_whitelist_path(w), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
-                  <i class="fa-solid fa-trash text-main ms-3 me-1"></i>
+  <%= form_tag( destroy_company_admin_whitelists_path, method: :patch, data: {controller: "multi-select", action: "change->multi-select#toggle", turbo_confirm: "Cette personne ne pourra plus s'inscrire ou se <connecter></connecter>. Aucune notification ne lui sera envoyée. Êtes-vous sûr.e de vouloir révoquer cet accès ?"} ) do %>
+    <%= turbo_frame_tag "list" do %>
+      <table class="list-table w-100 max-w-1000">
+        <thead>
+          <th class="pb-10">Nom <%= render partial: "filter_btn", locals: {filter: :last_name} %></th>
+          <th class="pb-10">Email <%= render partial: "filter_btn", locals: {filter: :input_format} %></th>
+          <th class="pb-10">Role <%= render partial: "filter_btn", locals: {filter: :role} %></th>
+          <th class="no-wrap pb-10">ID Custom <%= render partial: "filter_btn", locals: {filter: :custom_id} %></th>
+          <th class="text-center pb-10">Inscrit ?</th>
+          <th class="text-center pb-10">Eligibilité</th>
+          <th class="text-center p-0">
+            <button type="submit" class="pb-10 pl-05 pr-15 bn-none bg-white text-flag-2" disabled data-multi-select-target="submit">
+              <i class="fa-solid fa-ban"></i>
+            </button>
+          </th>
+        </thead>
+        <tbody>
+          <% @whitelists.where(input_type: :email).each do |whitelist| %>
+            <% resource = whitelist.user ? whitelist.user : whitelist %>
+            <tr>
+              <td class="fw-5 text-main no-wrap pr-10"><%= link_to "#{resource.last_name}, #{resource.first_name}", resource.class == User ? edit_company_admin_user_path(resource) : edit_company_admin_whitelist_path(resource), class: "text-main fw-5", data: {turbo_frame: "edit"} %></td>
+              <td class="pr-10"><%= resource.email %></td>
+              <td class="pr-10"><%= whitelist.role %></td>
+              <td><%= resource.custom_id %></td>
+              <td class="text-center">
+                <% if whitelist.user %>
+                  <i class="fa-solid fa-circle-check text-flag-3"></i>
                 <% end %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-
-  </div>
+              </td>
+              <td class="text-center">
+                ...
+              </td>
+              <td class="pl-10 pr-10">
+                <%= check_box_tag "destroy[]", whitelist.id, false, data: {multi_select_target: "checkbox"} %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  <% end %>
+  <%= turbo_frame_tag "edit" %>
 </div>

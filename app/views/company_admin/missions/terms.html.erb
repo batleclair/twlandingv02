@@ -1,6 +1,6 @@
 <%= render partial: "header" %>
 
-<div class="d-flex">
+<div class="d-flex" data-controller="popup">
   <%= render partial: "subtabs" %>
   <div class="ml-40 mb-40 w-100">
     <div class="mb-50 max-w-400 w-100" data-controller="hidden-form">
@@ -8,7 +8,7 @@
       <%= simple_form_for(@mission, url: company_admin_mission_path(@mission)) do |f| %>
 
         <div class="pl-10 mb-20">
-          <h6 class="pt-05 fw-7 text-main">Format de contractualisation</h6>
+          <h6 class="pt-05 fw-7 text-main">Format de contractualisation <i class="fa-solid fa-circle-question ml-10 cursor-pointer" data-pop-up-id="1", data-action="click->popup#open"></i></h6>
           <div class="form-wrapper radio-box align-items-start">
             <%= f.input :mission_type,
                         label: false,
@@ -51,4 +51,5 @@
       <% end %>
     </div>
   </div>
+  <%= render partial: "help_modal" %>
 </div>

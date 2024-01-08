@@ -86,7 +86,8 @@ before_action :set_candidate
     if @candidate.mode == 'manual'
       user_experiences_path
     else
-      next_step = {'2': user_profile_path(step: 3), '3': user_profile_path(step: 4), '4': new_user_employee_application_path }
+      post_profile = current_user.eligibility_on_going? ? root_path : new_user_employee_application_path
+      next_step = {'2': user_profile_path(step: 3), '3': user_profile_path(step: 4), '4': post_profile }
       params[:step].present? ? next_step[:"#{params[:step]}"] : root_path
     end
   end

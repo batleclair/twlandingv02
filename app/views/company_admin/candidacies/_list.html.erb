@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "list", class: "w-100 max-w-300" do %>
 
-  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: Candidacy.approval_statuses, scope: candidacies} %>
+  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: Candidacy.approval_statuses, scope: candidacies, blank_option: "Toutes les demandes"} %>
 
   <div class="mb-40">
     <% candidacies.each do |candidacy| %>

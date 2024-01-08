@@ -20,7 +20,7 @@
               <td><%= f.input :title, input_html: {value: "#{@candidacy.beneficiary.name} - #{@candidacy.offer.title}"}, wrapper: false, label: false %></td>
             </tr>
             <tr class="position-relative" data-controller="flatpickr">
-              <th class="fw-5 pr-20 pt-15">Date de début</th>
+              <th class="fw-5 pr-20 pt-15">Date de début ciblée</th>
               <td class="pt-15"><%= f.input :req_start_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></td>
             </tr>
             <tr class="position-relative">

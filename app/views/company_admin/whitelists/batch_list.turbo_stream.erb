@@ -1,27 +1,36 @@
 <%= turbo_stream.replace "batch_list" do %>
   <div data-controller="dynamic-form">
     <%= form_tag save_company_admin_whitelists_path, data: {turbo: false} do %>
-      <%= check_box_tag :headers, 1, false, data: {dynamic_form_target: "trigger", action: "change->dynamic-form#toggle"} %>
-      <%= label_tag :headers, "Les colonnes ont des titres" %>
-      <table>
+      <h6>Veuillez sélectionner les champs correspondants aux données ci-dessous</h6>
+      <div class="flex-center-left mb-05">
+        <%= check_box_tag :headers, 1, false, class: "toggle-sm", data: {dynamic_form_target: "trigger", action: "change->dynamic-form#toggle"} %>
+        <%= label_tag :headers, "x" %>
+        <p class="ml-10">Les colonnes ont des titres</p>
+      </div>
+      <table class="mb-10">
         <thead>
           <% for i in 0..(@array.first.length - 1) do %>
             <th><%= select_tag "column_type[#{i}]", options_for_select([ :id, :email, :first_name, :last_name, :title ]), include_blank: true %></th>
           <% end %>
+          <th>Eligible ?</th>
         </thead>
         <tbody>
           <% @array.each_with_index do |row, i| %>
             <tr data-dynamic-form-target=<%="input" if i == 0%>>
-              <% row.each_with_index do |col| %>
-                <td><%= col %></td>
+              <% row.each_with_index do |col, y| %>
+                <td><%= col %>
               <% end %>
+              <td>
+                <%= check_box_tag("row_#{i}_pre_approval", true, "", class:"toggle-sm") %>
+                <%= label_tag "row_#{i}_pre_approval", "x", class: "  center-margin" %>
+              </td>
             </tr>
           <% end %>
         </tbody>
       </table>
 
       <%= hidden_field_tag :batch_list_path, @path %>
-      <%= submit_tag %>
+      <%= submit_tag "Envoyer les invitations", class: "button btn-main-color" %>
     <% end %>
   </div>
 <% end %>

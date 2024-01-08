@@ -9,14 +9,22 @@ class Whitelist < ApplicationRecord
   validate :domain_presence, if: :email_input_type?
   validate :no_user_attached?, on: :create
   enum :role, { user: "utilisateur", admin: "administrateur" }
+  has_one :user
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name_and_email,
+    against: [ :first_name, :last_name, :input_format ],
+    using: {
+      tsearch: { prefix: true }
+    }
 
   def to_domain
-    input_format.slice(/@.+/)&.delete("@") if email_input_type?
+    # input_format.slice(/@.+/)&.delete("@") if email_input_type?
+    input_format.slice(/@.+/)&.delete("@")
   end
 
   def domain_presence
-    if company.whitelists.find_by(input_type: "domain", input_format: to_domain).nil?
+    unless company.whitelists.find_by(input_type: :domain, input_format: to_domain)
       errors.add(:input_format, "Domaine non autorisé")
     end
   end
@@ -27,5 +35,13 @@ class Whitelist < ApplicationRecord
 
   def no_user_attached?
     errors.add(:input_format, "Cette adresse est déjà utilisée") if (user_attached? && email_input_type?)
+  end
+
+  def email
+    input_format
+  end
+
+  def user
+    User.find_by(company_id: company_id, email: input_format)
   end
 end

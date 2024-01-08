@@ -40,4 +40,8 @@ export default class extends Controller {
     console.log("submit")
     this.formTarget.submit()
   }
+
+  clicksubmit(){
+    this.formTarget.click()
+  }
 }

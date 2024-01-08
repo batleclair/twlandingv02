@@ -1,0 +1,40 @@
+<table class="list-table w-100 max-w-750">
+  <thead>
+    <th></th>
+    <th>adresse</th>
+    <th>id interne</th>
+    <th class="text-center">pré-validé</th>
+    <th class="text-center">inscrit.e</th>
+  </thead>
+  <tbody>
+    <% @whitelists.where(input_type: "email").each do |w| %>
+      <tr>
+        <th class="pr-10">></th>
+        <td><%= w.input_format %></td>
+        <td><%= w.custom_id %></td>
+        <td class="text-center va-middle" data-controller="hidden-form">
+          <% if !w.user_attached? %>
+            <%= simple_form_for(w, url: company_admin_whitelist_path(w)) do |f| %>
+              <div class="position-relative flex-center">
+                <%= f.input :pre_approval, label: "x", as: :boolean, wrapper: false, input_html: {id: "whitelist_pre_approval_#{w.id}", class: "toggle-sm", data: {action: "change->hidden-form#clicksubmit"}} %>
+              </div>
+              <%= f.submit "", class: "d-none", data: {hidden_form_target: "form"} %>
+            <% end %>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <% if w.user_attached? %>
+            <i class="fa-solid fa-circle-check text-flag-3"></i>
+          <% end %>
+        </td>
+        <td>
+          <% if !w.user_attached? %>
+            <%= link_to company_admin_whitelist_path(w), data: {turbo_method: :delete, turbo_confirm: "Cette personne ne pourra plus s'inscrire. Aucune notification ne lui sera envoyée. Êtes-vous sûr.e de vouloir révoquer cet accès ?"} do %>
+              <i class="fa-solid fa-ban text-main ms-3 me-1"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

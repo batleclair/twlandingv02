@@ -37,4 +37,11 @@ export default class extends Controller {
     });
     this.contentTargets[active].dataset.status = "active"
   }
+
+  set() {
+    this.buttonTargets.forEach(btn => {
+      content = this.contentTargets.filter((c) => c.dataset.id === btn.dataset.id)
+      content.dataset.status = btn.dataset.status
+    });
+  }
 }

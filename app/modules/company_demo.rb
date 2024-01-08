@@ -11,9 +11,20 @@ module CompanyDemo
     motivation_msg = "Je trouve le projet de votre association fantastique, et il fait écho à mes convictions personnelles. Je pense pouvoir apporter mon aide sur la problématique que vous rencontrez grâcve à mon expertise !"
     submission_msg = "Je souhaite mettre mes compétences au service de cette association qui me tient à coeur"
 
-    Whitelist.create(input_type: :domain, input_format: domain_format, catch_all: true, company_id: company.id)
+    Whitelist.create(input_type: :domain, input_format: domain_format, company_id: company.id)
+    Whitelist.create(input_type: :email, input_format: "demo.admin-account@#{domain_format}", company_id: company.id, first_name: "Demo", last_name: "Admin-Account", role: :admin)
+    for i in 0..(user_count - 1) do
+      Whitelist.create(
+        input_type: :email,
+        input_format: "#{first_names[i].parameterize}@#{domain_format}",
+        company_id: company.id,
+        first_name: first_names[i],
+        last_name: last_names[i]
+      )
+    end
+
+    admin_user = User.create(first_name: "Demo", last_name: "Admin-Account", company_role: :admin, email: "demo.admin-account@#{domain_format}", password: ENV['DEMO_PASSWORD'], demo: true, company_id: company.id)
     offers_scope = Offer.where(status: "active", publish: true).where.not(title: "no_offer")
-    admin_user = company.users.find_by(company_role: :admin)
     users = []
     approved_candidacies = []
     approved_missions = []
@@ -28,6 +39,8 @@ module CompanyDemo
         company_role: :user,
         demo: true
       )
+      user.whitelist = user.find_whitelist
+      user.save
       candidate = Candidate.create(
         user_id: user.id,
         status: Candidate::STATUSES[0],
@@ -92,7 +105,9 @@ module CompanyDemo
 
   def delete_demo_for(company)
     domain_format = "#{company.slug}-demain.works"
-    Whitelist.find_by(company_id: company.id, input_format: domain_format).destroy
+    demo_whitelists = company.whitelists.select{|wl| wl.input_format.slice(/@.+/)&.delete("@") == domain_format}
+    demo_whitelists.each{|wl| wl.destroy}
+    Whitelist.find_by(company_id: company.id, input_format: domain_format)&.destroy
     demo_users = company.users.select{|u| u.email.slice(/@.+/)&.delete("@") == domain_format}
     demo_users.each{|user| user.destroy}
   end
@@ -102,21 +117,3 @@ module CompanyDemo
     set_demo_for(company)
   end
 end
-
-
-
-
-# pending_user = eligible_users.last
-
-# Candidacy.create(
-#   offer_id: offers_scope.where.not(id: bookmark.id).sample.id,
-#   candidate_id: pending_user.candidate.id,
-#   active: true,
-#   origin: "admin",
-#   status: "user_validation",
-#   comments_attributes: [status: "user_validation", user_id: pending_user.id, content: "Je souhaite candidater"],
-#   req_start_date: Date.today + 45,
-#   req_days: 12,
-#   req_periodicity: "1 jour par semaine",
-#   req_description: "Assister l'association sur une mission en lien avec mes nombreuses compétences"
-# )

@@ -1,0 +1,123 @@
+<%= render partial: "company_admin/shared/users_tabs", locals: {active: 1} %>
+
+
+<div class="max-w-750 mb-40">
+  <div class="flex-center-between" data-controller="popup">
+    <div>
+      <h6 class="mb-05 fw-7 mr-10">Invitations actives</h6>
+      <p class="mb-10">Les adresses email suivantes sont autorisées à s'inscrire</p>
+    </div>
+    <div class="min-w-200 flex-center-right">
+      <%= link_to "", data: {pop_up_id: 1, action: "click->popup#open"} do %>
+        <i class="fa-solid fa-plus round-button btn-round-cta downsize70 pe-none"></i>
+      <% end %>
+    </div>
+    <%= render partial: "form" %>
+  </div>
+
+  <%= turbo_frame_tag "table" do %>
+    <%= render partial: "table" %>
+  <% end %>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%= render partial: "company_admin/shared/users_tabs", locals: {active: 1} %>
+
+<div class="d-flex">
+  <div class="max-w-300 mb-40 mr-40">
+    <h5 class="mb-10">Domaines autorisés</h5>
+    <p class="mb-10">Noms de domaines autorisés pour créer un compte utilisateur <strong class="fw-6 text-main"><%= current_user.company.name %></strong> :</p>
+    <div class="mb-20">
+      <% @whitelists.where(input_type: "domain").each do |w| %>
+        <div class="flex-center-between mb-05">
+          <p class="fw-5"><%= w.input_format %></p>
+          <% if w.catch_all %>
+            <i class="fa-solid fa-users text-flag-3"></i>
+          <% else %>
+            <i class="fa-solid fa-user text-flag-1"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <i class="mb-05 fs-13">Autorisations :</i>
+      <div class="flex-center-left">
+        <p class="fs-13 mr-20"><i class="fa-solid fa-users text-flag-3 min-w-20"></i>Tous les emails</p>
+        <p class="fs-13"><i class="fa-solid fa-user text-flag-1 min-w-20"></i>Email par email</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-750 mb-40">
+    <div class="flex-center-between" data-controller="popup">
+      <div>
+        <h5 class="mb-10">Adresses autorisées</h5>
+        <p class="mb-10">Autorisation de créer un compte accordée aux personnes dont l'adresse email professionnelle principale figure parmi :</p>
+      </div>
+      <div class="min-w-200 flex-center-right">
+        <%= link_to "", data: {pop_up_id: 1, action: "click->popup#open"} do %>
+          <i class="fa-solid fa-plus round-button btn-round-cta downsize70 pe-none"></i>
+        <% end %>
+      </div>
+      <%= render partial: "form" %>
+    </div>
+
+    <table class="list-table w-100 max-w-750">
+      <thead>
+        <th></th>
+        <th>adresse</th>
+        <th>id interne</th>
+        <th class="text-center">pré-validé</th>
+        <th class="text-center">inscrit.e</th>
+      </thead>
+      <tbody>
+        <% @whitelists.where(input_type: "email").each do |w| %>
+          <tr>
+            <th class="pr-10">></th>
+            <td><%= w.input_format %></td>
+            <td><%= w.custom_id %></td>
+            <td class="text-center">
+              <%= check_box_tag :headers, 1, false, data: {dynamic_form_target: "trigger", action: "change->dynamic-form#toggle"} %>
+            </td>
+            <td class="text-center">
+              <% if w.user_attached? %>
+                <i class="fa-solid fa-circle-check text-flag-3"></i>
+              <% end %>
+            </td>
+            <td>
+              <% if !w.user_attached? %>
+                <%= link_to company_admin_whitelist_path(w), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
+                  <i class="fa-solid fa-trash text-main ms-3 me-1"></i>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

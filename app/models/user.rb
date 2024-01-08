@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   has_one :candidate, autosave: true, dependent: :destroy
+  has_one :whitelist
   has_many :comment, dependent: :destroy
   has_many :employee_applications, through: :candidate, dependent: :destroy
   has_many :missions, through: :candidate, dependent: :destroy
@@ -14,6 +15,7 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: "Prénom requis" }
   validates :last_name, presence: { message: "Nom requis" }
   belongs_to :company, optional: true
+  belongs_to :whitelist, optional: true
   validate :not_blacklisted
   validate :company_whitelisted
   acts_as_token_authenticatable
@@ -158,16 +160,17 @@ class User < ApplicationRecord
     end
   end
 
-  def whitelist
-    self.company.whitelists.find_by(input_type: :email, input_format: email)
+  def find_whitelist
+    Whitelist.find_by(input_type: :email, input_format: email)
   end
 
   def whitelisted?
     if company
-      company.catch_all_domains.include?(email.slice(/@.+/)&.delete("@")) || (
-        company.single_use_domains.include?(email.slice(/@.+/)&.delete("@")) &&
-        whitelist.present?
-      )
+      # company.catch_all_domains.include?(email.slice(/@.+/)&.delete("@")) || (
+      #   company.single_use_domains.include?(email.slice(/@.+/)&.delete("@")) &&
+      #   whitelist.present?
+      # )
+      company.catch_all_domains.include?(email.slice(/@.+/)&.delete("@")) || find_whitelist
     end
   end
 
@@ -178,6 +181,7 @@ class User < ApplicationRecord
       self.first_name = whitelist.first_name if whitelist.first_name
       self.last_name = whitelist.last_name if whitelist.last_name
       self.custom_id = whitelist.custom_id
+      self.whitelist = whitelist
       self.save
       candidate.update(title: whitelist.title)
       # raise
@@ -203,4 +207,5 @@ class User < ApplicationRecord
     self.save(validate: false)
     raw
   end
+
 end

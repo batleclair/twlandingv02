@@ -31,3 +31,16 @@
     }
   }
 }
+
+.info-modal-menu{
+  button[data-status="active"]{
+    color: white;
+    @include bg-main-to-dark
+  }
+  ul {
+    display: none;
+  }
+  ul[data-status="active"]{
+    display: block;
+  }
+}

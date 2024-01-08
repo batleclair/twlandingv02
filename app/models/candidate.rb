@@ -17,6 +17,7 @@ class Candidate < ApplicationRecord
   # min_info context for both profile and candidacies
   validates :phone_num, format: { with: /\A((\+33\s?\d)|(0\d))(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}(\s|\.|\-)?\d{2}\z/, message: "Veuillez renseigner un n° français valide" }, on: [:apply, :profile], allow_nil: true
   validates :status, presence: { message: "Sélectionnez parmi les options" }, on: [:apply, :profile]
+  validates :title, presence: { message: "Information requise" }, on: [:profile], allow_nil: true
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, on: [:apply, :profile], if: :employed?
   validate :basics, on: [:apply, :profile]
   validate :cv_file_type, on: [:apply, :profile]

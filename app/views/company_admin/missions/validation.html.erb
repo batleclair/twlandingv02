@@ -5,18 +5,25 @@
   <div class="max-w-300 w-100">
     <%= render partial: "company_admin/shared/mission_banner" %>
 
-    <% if @mission.beneficiary_approval_submitted? %>
+    <% case @mission.beneficiary_approval %>
+    <% when "submitted" %>
       <div class="flex-center-between mb-10 w-100">
         <h6 class="text-main fw-7">En attente de validation par l'association</h6>
         <i class="fa-solid fa-hourglass-half text-flag-1 min-w-20 fs-25"></i>
       </div>
       <p>Les informations ci-contre ont été transmises à l'association pour validation</p>
-    <% else %>
+    <% when "approved" %>
       <div class="flex-center-between mb-10 w-100">
         <h6 class="text-main fw-7">Mission validée par l'association</h6>
         <i class="fa-solid fa-circle-check text-flag-3 min-w-20 fs-25"></i>
       </div>
       <p>L'association a validé les informations transmises et la mission est prête à démarrer</p>
+    <% when "rejected" %>
+      <div class="flex-center-between mb-10 w-100">
+        <h6 class="text-main fw-7">Mission refusée par l'association</h6>
+        <i class="fa-solid fa-circle-xmark text-flag-2 min-w-20 fs-25"></i>
+      </div>
+      <p>L'association a refusé la mission proposée. Veuillez contacter Demain pour plus d'informations.</p>
     <% end %>
   </div>
 

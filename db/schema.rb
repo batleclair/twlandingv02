@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_03_115359) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_08_105150) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -391,10 +391,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_115359) do
     t.string "uid"
     t.string "provider"
     t.string "custom_id"
+    t.bigint "whitelist_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["whitelist_id"], name: "index_users_on_whitelist_id"
   end
 
   create_table "whitelists", force: :cascade do |t|
@@ -436,5 +438,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_115359) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "timesheets", "missions"
   add_foreign_key "users", "companies"
+  add_foreign_key "users", "whitelists"
   add_foreign_key "whitelists", "companies"
 end

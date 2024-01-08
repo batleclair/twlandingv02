@@ -38,7 +38,7 @@
     <% when "beneficiary_validation" %>
       <p>Malheureusement, <%= @candidacy.beneficiary.name %> n'a pas souhaité confirmer votre candidature suite à vos échanges</p>
     <% when "user_validation" %>
-      <p>Malheureusement, vous n'avez pas souhaité confirmer votre candidature suite suite aux échanges avec <%= @candidacy.beneficiary.name %></p>
+      <p>Malheureusement, vous n'avez pas souhaité confirmer votre candidature suite aux échanges avec <%= @candidacy.beneficiary.name %></p>
     <% when "admin_validation" %>
       <p>Malheureusement, <%= @candidacy.candidate.user.company.name %> a refusé votre candidature à cette mission</p>
     <% end %>

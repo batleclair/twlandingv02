@@ -1,0 +1,49 @@
+<div class="tenant-modal z-1" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active=<%=@error && @candidacy.active%>>
+  <div>
+    <div class="p-20 shadow-md" data-action="click->popup#keep">
+      <div class="max-w-500" data-controller="button-menu">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7 mr-20">Choisir un format de convention</h5>
+          <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+        <h6 class="mb-20">Informations relatives aux types de conventions</h6>
+
+        <div class="info-modal-menu">
+          <div class="flex-center-between mb-05">
+            <button class="bn-none button-tight bg-shade-to-light text-main round-10 hover-2 w-100" type="button" data-button-menu-target="button" data-id="1" data-status="active" data-action="click->button-menu#update">La prestation de service offerte</button>
+            <span class="p-10"></span>
+            <button class="bn-none button-tight bg-shade-to-light text-main round-10 hover-2 w-100" type="button" data-button-menu-target="button" data-id="2" data-action="click->button-menu#update">La mise à disposition gratuite de personnel</button>
+          </div>
+
+          <ul data-button-menu-target="content" data-status="active" data-id="1">
+            <li>Principe</li>
+            <p>L’entreprise s’engage à réaliser gratuitement une mission déterminée</p>
+            <li>Application</li>
+            <p>Ce format est adapté lorsque la nature de la mission est cohérente avec l’activité de l’entreprise</p>
+            <p class="text-grey">Exemple : un audit de cybersécurité par une Entreprise de Services Numériques</p>
+            <li>Pilotage</li>
+            <p>C’est <strong>l’entreprise</strong> qui pilote la mission, comme elle pourrait être amenée à le faire pour l’un de ses clients</p>
+            <li>Formalisme</li>
+            <p>Convention de mécénat (prestation de services à titre gracieux) entre l’entreprise et l’organisme bénéficiaire</p>
+          </ul>
+
+          <ul data-button-menu-target="content"  data-id="2">
+            <li>Principe</li>
+            <p>L’entreprise met gratuitement à disposition d’un organisme éligible au mécénat un ou plusieurs salariés</p>
+            <li>Application</li>
+            <p>Lorsque la nature de la mission n’est pas en lien direct avec l’activité de l’entreprise</p>
+            <p class="text-grey">Exemple : une mission de stratégie marketing par une société agroalimentaire</p>
+            <li>Pilotage</li>
+            <p>C’est <strong>l’organismes bénéficiaire</strong> qui pilote la missionet qui peut faire figure d’autorité fonctionnelle dans ce cadre</p>
+            <li>Formalisme</li>
+            <p>Convention de mécénat (prêt de main d’œuvre à titre gracieux) entre l’entreprise et le bénéficiaire</p>
+            <p>Avenant au contrat de travail entre l’entreprise et le ou la salariée concernée</p>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

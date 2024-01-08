@@ -1,10 +1,13 @@
-<div class="max-w-300">
+<div>
+  <h5 class="fw-7 text-main no-wrap mr-30 mb-30">Inviter un batch de collaborateurs</h5>
   <%= turbo_frame_tag "batch_list" do %>
-    <%= simple_form_for(@whitelist, url: upload_company_admin_whitelists_path) do |f| %>
-      <div class="position-relative">
-        <%= f.input :batch_file, as: :file %>
-      </div>
-      <%= f.submit %>
-    <% end %>
+    <div class="max-w-300">
+      <%= simple_form_for(@whitelist, url: upload_company_admin_whitelists_path) do |f| %>
+        <div class="position-relative">
+          <%= f.input :batch_file, as: :file, label: "Importer un fichier csv" %>
+        </div>
+        <%= f.submit "Importer", class: "button btn-main-color" %>
+      <% end %>
+    </div>
   <% end %>
 </div>

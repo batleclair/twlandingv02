@@ -8,14 +8,11 @@
         <% end %>
       </div>
       <div class="mb-20 w-100">
-        <h6 class="mb-10">Créer une autorisation individuelle</h6>
-        <%= link_to new_company_admin_whitelist_path, class: "center-text d-block border-grey text-main fw-5 w-100" do %>
-          Importer une liste<i class="fa-solid fa-file-csv ml-10"></i>
-        <% end %>
+        <h6 class="mb-10">Envoyer une invitation à un ou une collaboratrice</h6>
       </div>
 
       <%= simple_form_for(@whitelist, url: company_admin_whitelists_path) do |f| %>
-        <table class="w-100 mb-20">
+        <table class="w-100 mb-05">
           <tbody>
             <tr class="position-relative">
               <th class="fw-5 pr-20">Email</th>
@@ -40,14 +37,19 @@
           </tbody>
         </table>
         <div class="position-relative mb-20">
-          <%= f.input :pre_approval, label: "Eligibilité pré-approuvée", wrapper: false, input_html: {class: "toggle"}  %>
+          <%= f.input :pre_approval, label: "Eligibilité au dispositif", wrapper: false, input_html: {class: "toggle"}  %>
         </div>
         <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
-          <i class="fa-solid fa-floppy-disk mr-10"></i>
-          Créer l'autorisation
+          <i class="fa-solid fa-paper-plane mr-10"></i>
+          Envoyer l'invitation
         </button>
       <% end %>
 
+      <div class="w-100 mt-10">
+        <%= link_to new_company_admin_whitelist_path, class: "center-text d-block border-grey text-main fw-5 w-100" do %>
+          Inviter plusieurs collaborateurs<i class="fa-solid fa-file-csv ml-10"></i>
+        <% end %>
+      </div>
 
     </div>
   </div>

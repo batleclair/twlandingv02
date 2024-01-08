@@ -3,7 +3,7 @@
       <div data-controller="search-form" class="w-100">
         <%= form_tag request.path, method: :get, data: {turbo_frame: "list", search_form_target: 'form', action: 'change->search-form#result' } do %>
           <div class="input-with-icon position-relative">
-            <%= select_tag :status, options_for_select(statuses, params[:status]), include_blank: "Toutes les demandes", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:status] %>
+            <%= select_tag :status, options_for_select(statuses, params[:status]), include_blank: blank_option, class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:status] %>
             <i class="fa-solid fa-angle-down pe-none"></i>
           </div>
           <%= submit_tag "", hidden: "true", data: { search_form_target: 'submitbtn' } %>

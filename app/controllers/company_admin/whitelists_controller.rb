@@ -1,7 +1,7 @@
 class CompanyAdmin::WhitelistsController < CompanyAdminController
   include ControllerUtilities
 
-  before_action :set_tab, only: [:new, :index, :upload, :save_batch]
+  before_action :set_tab, only: [:new, :index, :edit, :upload, :save_batch]
 
   def new
     @whitelist = Whitelist.new
@@ -32,6 +32,7 @@ class CompanyAdmin::WhitelistsController < CompanyAdminController
     @fails = []
     file = CSV.open(params[:batch_list_path], encoding: 'iso8859-1', headers: false)
     headers = to_boolean(params[:headers]) ? file.first : false
+    i = 1
     file.each do |row|
       unless row == headers
         wl = Whitelist.new(
@@ -41,7 +42,8 @@ class CompanyAdmin::WhitelistsController < CompanyAdminController
           custom_id: row[columns.key("id").to_i],
           first_name: row[columns.key("first_name").to_i],
           last_name: row[columns.key("last_name").to_i],
-          title: row[columns.key("title").to_i]
+          title: row[columns.key("title").to_i],
+          pre_approval: params[:"row_#{i}_pre_approval"].present?
         )
         wl.save ? @saved << wl : @fails << wl
       end
@@ -52,6 +54,25 @@ class CompanyAdmin::WhitelistsController < CompanyAdminController
   def index
     set_whitelists
     @whitelist = Whitelist.new
+  end
+
+  def edit
+    @whitelist = Whitelist.find(params[:id])
+    authorize @whitelist
+  end
+
+  def update
+    @whitelist = Whitelist.find(params[:id])
+    if @whitelist.user_attached?
+      flash[:notice] = "Cet utilisateur s'est inscrit depuis"
+      redirect_back(fallback_location: company_admin_whitelists_path)
+    else
+      if @whitelist.update(whitelist_params)
+        redirect_to company_admin_whitelists_path
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
   end
 
   def create
@@ -75,10 +96,19 @@ class CompanyAdmin::WhitelistsController < CompanyAdminController
     redirect_to company_admin_whitelists_path, status: :see_other
   end
 
+  def destroy_multiple
+    @whitelists = Whitelist.where(id: params[:destroy])
+    @whitelists.each {|whitelist| whitelist.destroy}
+    redirect_to company_admin_whitelists_path, status: :see_other
+  end
+
   private
 
   def set_whitelists
-    @whitelists = policy_scope(Whitelist).order(created_at: :desc)
+    filter = params[:filter] ? params[:filter] : :last_name
+    order = params[:order] ? params[:order] : :asc
+    @whitelists = policy_scope(Whitelist).order("#{filter}": :"#{order}")
+    @whitelists = @whitelists.search_by_name_and_email(params[:query]) if !params[:query].blank?
   end
 
   def whitelist_params

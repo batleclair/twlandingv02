@@ -11,6 +11,11 @@
   }
 }
 
+.button-tight{
+  padding: 10px 20px;
+  line-height: 1;
+}
+
 .round-button{
   width: 40px;
   height: 40px;
@@ -232,7 +237,7 @@ button.fat-btn{
   }
 }
 
-.bg-main-to-dark{
+@mixin bg-main-to-dark{
   background-color: $first-main-color;
   &:hover{
     background-color: $first-main-darker;
@@ -240,6 +245,10 @@ button.fat-btn{
   &:disabled{
     background-color: $grey-low;
   }
+}
+
+.bg-main-to-dark{
+  @include bg-main-to-dark
 }
 
 .bg-shade-to-dark{
@@ -286,4 +295,8 @@ button:disabled{
   pointer-events: none;
   color: white;
   border-color: $grey-low;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

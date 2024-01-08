@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "list", class: "w-100 max-w-300" do %>
 
-  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: Mission.clean_beneficiary_statuses, scope: @missions} %>
+  <%= render partial: "company_admin/shared/status_selector", locals: {statuses: Mission.clean_beneficiary_statuses, scope: @missions, blank_option: "Toutes les missions"} %>
 
   <div class="mb-40">
     <% @missions&.where(status: :draft)&.each do |mission| %>
