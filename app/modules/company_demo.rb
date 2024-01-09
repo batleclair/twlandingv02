@@ -35,7 +35,7 @@ module CompanyDemo
         last_name: last_names[i],
         email: "#{first_names[i].parameterize}@#{domain_format}",
         password: ENV['DEMO_PASSWORD'],
-        company_id: company.id,
+        company_id: company.id
         # company_role: :user,
         # demo: true
       )

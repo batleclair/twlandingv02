@@ -171,7 +171,7 @@ class User < ApplicationRecord
 
   def attach_whitelist
     wl = find_whitelist ? find_whitelist : Whitelist.create(input_type: :email, input_format: self.email, company_id: self.company_id)
-    self.company_role = wl.role unless !wl.role.blank?
+    self.company_role = wl.role
     self.first_name = wl.first_name unless wl.first_name.blank?
     self.last_name = wl.last_name unless wl.last_name.blank?
     self.custom_id = wl.custom_id
@@ -181,7 +181,7 @@ class User < ApplicationRecord
 
   def initialize_profile
     Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name, title: self.whitelist.title) if self.company_user?
-    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise") if whitelist.pre_approval
+    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise") if whitelist.pre_approval && self.company_user?
     # candidate.clip_to_airtable
   end
 

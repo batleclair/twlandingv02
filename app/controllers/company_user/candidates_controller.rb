@@ -27,7 +27,6 @@ before_action :set_candidate
       process_profile_completion if params[:step] == '4'
       redirect_to next_step_path
     else
-      raise
       render current_step, status: :unprocessable_entity
     end
   end
