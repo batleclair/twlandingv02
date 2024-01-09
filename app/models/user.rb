@@ -171,9 +171,9 @@ class User < ApplicationRecord
 
   def attach_whitelist
     wl = find_whitelist ? find_whitelist : Whitelist.create(input_type: :email, input_format: self.email, company_id: self.company_id)
-    self.company_role = wl.role if wl.role
-    self.first_name = wl.first_name if wl.first_name
-    self.last_name = wl.last_name if wl.last_name
+    self.company_role = wl.role unless !wl.role.blank?
+    self.first_name = wl.first_name unless wl.first_name.blank?
+    self.last_name = wl.last_name unless wl.last_name.blank?
     self.custom_id = wl.custom_id
     self.whitelist = wl
     self.save

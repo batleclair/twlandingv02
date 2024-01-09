@@ -7,8 +7,9 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
     if !current_user.candidate.profile_completed
       redirect_to user_profile_path
       flash[:notice] = "Merci de compléter votre profil"
+    else
+      render new_or_renew
     end
-    render new_or_renew
   end
 
   def create

@@ -68,7 +68,7 @@ class Candidate < ApplicationRecord
     if employed?
       phone_num.present? && status.present? && employer_name.present? && (linkedin_url.present? || cv.attached? || !experiences.blank?)
     else
-      phone_num.present? && status.present? && (linkedin_url.present? || cv.attached?)
+      phone_num.present? && status.present? && (linkedin_url.present? || cv.attached? || !experiences.blank?)
     end
   end
 
@@ -95,7 +95,7 @@ class Candidate < ApplicationRecord
     function.present? &&
     location.present? &&
     phone_num.present? &&
-    !info_missing?
+    title.present?
   end
 
   def full_name
@@ -187,9 +187,10 @@ class Candidate < ApplicationRecord
   # end
 
   def basics
+    return if !experiences.blank?
     return unless linkedin_url || cv.attached?
     pattern = /^((https?)(:\/\/))?(www.)?linkedin.[a-z]{2,3}\/in\/.+\/?$/
-    if linkedin_url.blank? && !cv.attached? && mode != 'xp'
+    if linkedin_url.blank? && !cv.attached? && mode != 'manual'
       errors.add(:linkedin_url, "LinkedIn ou CV requis a minima")
     elsif linkedin_url.present? && !linkedin_url.match?(pattern)
       errors.add(:linkedin_url, "URL au format linkedin.com/in/... requis")
