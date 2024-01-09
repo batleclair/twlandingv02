@@ -42,7 +42,9 @@
     </div>
 
     <div class="slide-up-ctn shadow-xs position-relative overflow-hidden" data-active=<%=@active_step == 3%> data-validated=<%=@active_step > 3%>>
-      <%= link_to "", new_user_employee_application_path, class:"h-100 w-100 position-absolute" %>
+      <% unless current_user.never_applied? %>
+        <%= link_to "", user_employee_application_path(current_user.last_employee_application), class:"h-100 w-100 position-absolute", data: {turbo_frame: "modal"} %>
+      <% end %>
       <div class="flex-center center-text flex-col p-10 h-100">
         <% if @active_step > 3 %>
           <%= image_tag('valid.svg', class:"position-absolute") %>

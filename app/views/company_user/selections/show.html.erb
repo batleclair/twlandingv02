@@ -10,12 +10,11 @@
         <% if current_user.eligibility_on_going? && !@active_engagement %>
 
           <div class="w-100 mt-20 flex-center-between">
-            <%= link_to "Candidater","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
-            <%= link_to "Décliner","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
+            <%= link_to "Candidater", edit_user_selection_path(@selection, response: "accept"), class: "button w-100 bg-flag-3 mr-10 text-white", data: {turbo_frame: "modal"} %>
+            <%= link_to "Décliner", edit_user_selection_path(@selection, response: "reject"), class: "button w-100 bg-flag-2 ml-10 text-white", data: {turbo_frame: "modal"} %>
           </div>
 
-          <%= render partial: "accept" %>
-          <%= render partial: "reject" %>
+          <%= turbo_frame_tag "modal" %>
 
         <% else %>
           <% if @active_engagement %>

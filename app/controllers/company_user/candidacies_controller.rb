@@ -115,6 +115,8 @@ class CompanyUser::CandidaciesController < CompanyUserController
     else
       scope
     end
+
+    @rejected_candidacies = policy_scope(Candidacy).where.not(status: ["selection", "mission"]).where(active: "false")
   end
 
   def set_comment

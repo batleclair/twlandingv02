@@ -14,13 +14,15 @@
         <h6 class="text-main mb-10 fw-7">Et maintenant ?</h6>
         <%= render partial: "notice" %>
 
-        <% if @candidacy_on_record.beneficiary_validation_status? %>
-          <div class="w-100 flex-center-between pr-30 pl-30 mt-20">
-            <%= link_to "Accepter","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
-            <%= link_to "Rejeter","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
-          </div>
-          <%= render partial: "accept" %>
-          <%= render partial: "reject" %>
+        <% if current_user.eligibility_on_going? %>
+          <% if @candidacy_on_record.beneficiary_validation_status? %>
+            <div class="w-100 flex-center-between pr-30 pl-30 mt-20">
+              <%= link_to "Accepter","", class: "button w-100 bg-flag-3 mr-10 text-white", data: {pop_up_id: 1, action: "click->popup#open"} %>
+              <%= link_to "Rejeter","", class: "button w-100 bg-flag-2 ml-10 text-white", data: {pop_up_id: 2, action: "click->popup#open"} %>
+            </div>
+            <%= render partial: "accept" %>
+            <%= render partial: "reject" %>
+          <% end %>
         <% end %>
 
       </div>

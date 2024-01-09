@@ -12,6 +12,7 @@ class Candidacy < ApplicationRecord
   validates :motivation_msg, length: { minimum: 1, message: "Veuillez indiquer vos motivations" }, if: -> { active == true && status == "user_application" }, on: :validation_step
   validates :status, presence: {message: "Votre réponse est requise"}, on: :validation_step
   validates :active, length: { minimum: 1, message: "Votre réponse est requise"}, on: :validation_step
+  validates :req_description, presence: {message: "Description requise"}, allow_nil: true
   # validates :manager_validation, acceptance: { message: 'Double-validation requise' }, if: :mission_status?, on: :validation_step
 
   enum :origin, {company_admin: 0, company_user: 1, admin: 2}, suffix: true

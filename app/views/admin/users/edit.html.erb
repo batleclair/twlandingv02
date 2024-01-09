@@ -64,6 +64,16 @@
                       wrapper: false %>
           <i class="fa-solid fa-building"></i>
         </div>
+
+        <div class="input-with-icon mb-10 position-relative">
+
+          <%= p.input :call_status,
+                      label: 'Situation professionnelle',
+                      collection: Candidate.call_statuses.keys,
+                      include_blank: false,
+                      wrapper: false %>
+          <i class="fa-solid fa-angle-down pe-none"></i>
+        </div>
       <% end %>
     <% end %>
 

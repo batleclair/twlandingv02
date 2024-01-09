@@ -63,7 +63,7 @@ Rails.application.routes.draw do
         get "recherche/:slug/candidacies", to: redirect("recherche/%{slug}")
         get "recherche/:slug/candidacies/:id", to: redirect("recherche/%{slug}")
       resources :candidacies, as: :user_candidacies, only: %i[index show update]
-      resources :selections, as: :user_selections, only: %i[index show update]
+      resources :selections, as: :user_selections, only: %i[index show edit update]
       resources :favoris, controller: 'bookmarks', as: :user_bookmarks, only: %i[index show update destroy]
       resources :missions, as: :user_missions, only: %i[index edit update]
       get "/historique/candidatures", to: "candidacies#historicals", as: :user_past_candidacies

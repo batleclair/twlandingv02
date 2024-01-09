@@ -29,7 +29,8 @@
 
     <% if @candidacy_on_record.comments.find_by(status: :user_validation) %>
       <div class="mb-10 bg-grey text-grey p-10 pl-20 pr-20 round-20 max-w-300 align-right-margin" data-messages-target="message">
-        <h6 class="mb-05 fs-15">Demande envoyée à <%= @candidacy.candidate.user.company.name %></h6>
+        <% comment_label = !@candidacy_on_record.active && @candidacy_on_record.user_validation_status? ? "Réponse à #{@candidacy.beneficiary.name}" : "Demande envoyée à #{@candidacy.candidate.user.company.name}" %>
+        <h6 class="mb-05 fs-15"><%= comment_label %></h6>
         <div class="d-flex fs-14">
           <i class="fa-regular fa-message mr-10 mt-05"></i>
           <div><%= simple_format(@candidacy_on_record.comments.find_by(status: :user_validation).content, class: "fw-5") %></div>

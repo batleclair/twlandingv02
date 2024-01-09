@@ -1,38 +1,72 @@
 <div data-controller="popup">
-  <h5 class="mb-40 fw-7 text-main">👋 Bienvenue <%= current_user.first_name %></h5>
+  <h5 class="mb-30 fw-7 text-main">👋 Bonjour <%= current_user.first_name %></h5>
 
-  <div class="flex-stretch-left mb-40">
-    <div class="w-100 max-w-400 p-20 bg-shade-to-dark hover-2 shadow-xs position-relative">
-      <%= link_to "", user_employee_application_path(current_user.last_employee_application), data: {turbo_frame: "modal"}, class: "h-100 w-100 position-absolute" %>
-      <h6 class="mb-10">Vous avez candidaté auprès de votre entreprise :</h6>
-      <div class="flex-center-between">
-        <% if current_user.eligibility == "pending" %>
-          <p class="mr-10">⏳</p>
-          <p>Votre demande est en attente de validation par <span class="text-main fw-6"><%= current_user.company.name %></span>, vous ne pouvez pas encore candidater à des missions</p>
-        <% else %>
-          <p class="mr-10">✔️</p>
-          <p>Votre demande a été acceptée par <span class="text-main fw-6"><%= current_user.company.name %></span> ! Vous pouvez candidater à des missions</p>
+  <div class="bg-shade p-20 mb-30">
+    <h6 class="mb-10 fw-6">A suivre !</h5>
+    <div class="dashboard-grid max-w-750">
+      <% if current_user.candidate.call_status_booked? %>
+        <div class="round-20 first-main-border bg-white">
+          <div class="p-20">
+            <h6 class="mb-05">Call prévu avec <span class="text-main fw-7">Demain</span></h6>
+            <p>L'objectif : définir le type de mission et d'association qui vous correspond !</p>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @active_engagement %>
+        <% path = @active_engagement.class == Mission ? user_mission_path(@active_engagement) : user_candidacy_path(@active_engagement) %>
+        <%= link_to path, class:"round-20 first-main-border bg-white-to-shade hover-2 p-20" do %>
+          <h6 class="mb-10 fw-6"><%= @active_engagement.class == Candidacy ? "Candidature" : "Mission" %> principale</h5>
+          <div class="flex-center-left w-100">
+            <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+              <%= logo_for(@active_engagement.beneficiary) %>
+            </div>
+            <div class="pe-none w-100">
+              <p><%= @active_engagement.offer.title %></p>
+            </div>
+          </div>
         <% end %>
-      </div>
+
+      <% else %>
+        <% if @pending_selections.present? %>
+          <%= link_to user_selections_path, class:"round-20 first-main-border bg-white-to-shade hover-2" do %>
+            <div class="w-100 p-20 d-flex pe-none">
+              <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_selections.count %></h5>
+              <p>recommendation(s) attend(ent) votre réponse</p>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if @pending_candidacies.present? %>
+          <%= link_to user_candidacies_path, class:"round-20 first-main-border bg-white-to-shade hover-2" do %>
+            <div class="w-100 p-20 d-flex pe-none h-100">
+              <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_candidacies.count %></h5>
+              <p>candidature(s) en cours auprès d'associations</p>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 
-  <% if current_user.candidate.call_status_booked? %>
-    <div class="mb-40">
-      <p>Un call est programmé avec votre conseiller pour définir ensemble le type de mission et d'association qui peut vous correspondre</p>
-    </div>
-  <% end %>
-
-  <% if @active_engagement %>
-    <h5 class="mb-10">Votre engagement en cours :</h5>
-    <%= render partial: "company_user/shared/engagement_card" %>
-  <% else %>
-    <% if current_user.eligibility == "on-going" %>
-      <h5 class="mb-10">Vous pouvez candidater aux <%= link_to "Missions", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+  <h6 class="mb-10 fw-6">A propos</h5>
+  <div class="flex-center-left mb-10 max-w-600">
+    <% if current_user.eligibility == "pending" %>
+      <div class="flex-center-left w-100">
+        <i class="fa-solid fa-hourglass-half text-flag-1 min-w-40 fs-25"></i>
+        <p>Votre demande est en attente de validation par <%= current_user.company.name %>, vous ne pouvez pas encore candidater à des missions</p>
+      </div>
     <% else %>
-      <h5 class="mb-10">Vous pouvez parcourir les <%= link_to "Missions", user_offers_path, class:"text-main fw-7" %> dès à présent</h5>
+      <div class="flex-center-left w-100">
+        <i class="fa-solid fa-circle-check text-flag-3 min-w-40 fs-25"></i>
+        <p>Vous êtes actuellement autorisé par <%= current_user.company.name %> à vous engager sur une mission</p>
+      </div>
     <% end %>
-  <% end %>
-
+  <div class="max-w-500 w-100 ml-20">
+    <%= link_to "Votre autorisation en cours", user_employee_application_path(current_user.last_employee_application), data: {turbo_frame: "modal"}, class: "round d-block bg-shade-to-dark text-main w-100 text-center pt-05 pb-05 hover-2 no-wrap" %>
+    <div class="mb-10"></div>
+    <%= link_to "En savoir plus sur le dispositif", user_info_path, class: "round d-block bg-shade-to-dark text-main w-100 text-center pt-05 pb-05 hover-2 no-wrap" %>
+  </div>
+  </div>
   <%= turbo_frame_tag "modal" %>
 </div>

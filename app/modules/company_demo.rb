@@ -8,7 +8,7 @@ module CompanyDemo
     domain_format = "#{company.slug}-demain.works"
 
     application_msg = "Je souhaiterais m'engager sur du mécénat de compétences afin d'aider une association sur mon temps de travail grâce à #{company.name} :)"
-    motivation_msg = "Je trouve le projet de votre association fantastique, et il fait écho à mes convictions personnelles. Je pense pouvoir apporter mon aide sur la problématique que vous rencontrez grâcve à mon expertise !"
+    motivation_msg = "Je trouve le projet de votre association fantastique, et il fait écho à mes convictions personnelles. Je pense pouvoir apporter mon aide sur la problématique que vous rencontrez grâce à mon expertise !"
     submission_msg = "Je souhaite mettre mes compétences au service de cette association qui me tient à coeur"
 
     Whitelist.create(input_type: :domain, input_format: domain_format, company_id: company.id)
@@ -36,20 +36,15 @@ module CompanyDemo
         email: "#{first_names[i].parameterize}@#{domain_format}",
         password: ENV['DEMO_PASSWORD'],
         company_id: company.id,
-        company_role: :user,
-        demo: true
+        # company_role: :user,
+        # demo: true
       )
-      user.whitelist = user.find_whitelist
-      user.save
-      candidate = Candidate.create(
-        user_id: user.id,
-        status: Candidate::STATUSES[0],
-        employer_name: user.company.name,
-        function: Offer::FUNCTIONS.sample
-      )
+      # user.whitelist = user.find_whitelist
+      # user.save
+      user.candidate.update(function: Offer::FUNCTIONS.sample)
       employee_application = EmployeeApplication.create(
-        candidate_id: candidate.id,
-        motivation_msg: motivation_msg,
+        candidate_id: user.candidate.id,
+        motivation_msg: application_msg,
         status: :approved
       )
       users << user

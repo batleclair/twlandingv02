@@ -19,8 +19,8 @@ class User < ApplicationRecord
   validate :company_whitelisted
   acts_as_token_authenticatable
   after_create do
-    (initialize_profile if whitelisted?) unless demo
-    pre_approve if pre_approved?
+    attach_whitelist if whitelisted?
+    initialize_profile if whitelisted?
   end
   before_destroy :remove_access, prepend: true
 
@@ -92,15 +92,6 @@ class User < ApplicationRecord
 
   def initials
     "#{first_name.first}#{last_name.first}"
-  end
-
-  def pre_approved?
-    company&.whitelists&.find_by(input_type: :email, input_format: email)&.pre_approval
-  end
-
-  def pre_approve
-    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise")
-    # candidate.clip_to_airtable
   end
 
   def eligibility
@@ -178,18 +169,20 @@ class User < ApplicationRecord
     end
   end
 
+  def attach_whitelist
+    wl = find_whitelist ? find_whitelist : Whitelist.create(input_type: :email, input_format: self.email, company_id: self.company_id)
+    self.company_role = wl.role if wl.role
+    self.first_name = wl.first_name if wl.first_name
+    self.last_name = wl.last_name if wl.last_name
+    self.custom_id = wl.custom_id
+    self.whitelist = wl
+    self.save
+  end
+
   def initialize_profile
-    Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name)
-    if find_whitelist
-      self.company_role = find_whitelist.role if find_whitelist.role
-      self.first_name = find_whitelist.first_name if find_whitelist.first_name
-      self.last_name = find_whitelist.last_name if find_whitelist.last_name
-      self.custom_id = find_whitelist.custom_id
-      self.whitelist = find_whitelist
-      self.save
-      candidate.update(title: find_whitelist.title)
-      # raise
-    end
+    Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name, title: self.whitelist.title) if self.company_user?
+    EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise") if whitelist.pre_approval
+    # candidate.clip_to_airtable
   end
 
   def not_blacklisted

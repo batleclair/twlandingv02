@@ -29,7 +29,7 @@ class Admin::UsersController < AdminController
   def update
     @user = User.find(params[:id])
     authorize @user
-    @user.update(user_params)
+    @user.assign_attributes(user_params)
     if @user.save
       redirect_to admin_users_path
     else
@@ -54,7 +54,7 @@ class Admin::UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :company_id, :company_role, candidate_attributes: [:status, :employer_name])
+    params.require(:user).permit(:email, :first_name, :last_name, :company_id, :company_role, candidate_attributes: [:id, :status, :employer_name, :call_status])
   end
 
   def set_company_list

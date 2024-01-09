@@ -50,4 +50,25 @@
       <% end %>
     </div>
   <% end %>
+
+  <% if @rejected_candidacies %>
+  <h6 class="mb-10 text-grey">Vos candidatures refusées</h6>
+  <% @rejected_candidacies.each do |c| %>
+    <div class="w-100 p-10 bg-shade mb-10">
+      <%= link_to user_candidacy_path(c), class: "w-100 h-100" do %>
+        <div class="flex-center-left w-100">
+          <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
+            <%= logo_for(c.beneficiary) %>
+          </div>
+          <div class="pe-none w-100">
+            <h6><%= c.offer.beneficiary.name %></h6>
+            <p><%= c.offer.title %></p>
+            <p class="fw-4 fs-13"><i class="fa-solid fa-stop text-grey-light mr-10"></i>Candidature écartée</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <% end %>
+
 </div>

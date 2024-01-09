@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "modal" do %>
+  <% if params[:response] == "accept" || @selection.user_application_status? %>
+    <%= render partial: "accept" %>
+  <% else %>
+    <%= render partial: "reject" %>
+  <% end %>
+<% end %>

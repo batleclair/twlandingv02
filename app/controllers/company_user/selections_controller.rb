@@ -1,5 +1,5 @@
 class CompanyUser::SelectionsController < CompanyUserController
-  before_action :set_selection, only: [:show, :update]
+  before_action :set_selection, only: [:show, :update, :edit]
   before_action :set_selections, only: [:show, :index]
   before_action :set_tab, only: [:show, :index]
 
@@ -11,6 +11,9 @@ class CompanyUser::SelectionsController < CompanyUserController
     render show_view
   end
 
+  def edit
+  end
+
   def update
     @selection.assign_attributes(selection_params)
     # set_active_upon_application
@@ -18,9 +21,9 @@ class CompanyUser::SelectionsController < CompanyUserController
       redirect_to user_selections_path
       flash[:notice] = "Enregistré !"
     else
-      set_tab
-      @error = true
-      render :show, status: :unprocessable_entity
+      # set_tab
+      # @error = true
+      render :edit, status: :unprocessable_entity
       flash[:alert] = "Une erreur s'est produite"
     end
   end

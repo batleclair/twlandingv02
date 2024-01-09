@@ -3,6 +3,8 @@ before_action :set_tab, except: [:book_call, :no_mission]
 
   def dashboard
     authorize :company_user_page
+    @pending_selections = policy_scope(Candidacy).where(origin: [:admin, :company_admin], status: :selection, active: true)
+    @pending_candidacies = policy_scope(Candidacy).where(active: true).where.not(status: :selection)
     if on_boarding_completed?
       render restrictable(:dashboard)
     else

@@ -1,4 +1,4 @@
-<div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active=<%=@error%>>
+<div class="tenant-modal" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active=true>
   <div>
     <div class="p-20 shadow-md" data-action="click->popup#keep">
       <div class="flex-center-between w-100">
@@ -10,7 +10,7 @@
       <h6 class="mb-20">Proposer mon aide à l'association</h6>
       <p class="mb-10 max-w-400">Présentez-vous à l'association et indiquez en quoi la mission vous intéresse et comment vous pouvez aider</p>
 
-      <%= simple_form_for(@selection, url: user_selection_path(@selection), data: {turbo: false}) do |f| %>
+      <%= simple_form_for(@selection, url: user_selection_path(@selection), data: { controller: 'form-redirect', action: 'turbo:submit-end->form-redirect#next' }) do |f| %>
 
         <%= f.input :status, as: :hidden, input_html: {value: :user_application} %>
 
