@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
   before_action :subdomain_authentication!
-  before_action :subdomain_redirection!, if: :user_signed_in?
+  before_action :verify_tenant_acces, if: :user_signed_in?
 
   include Pundit::Authorization
 
@@ -49,8 +49,12 @@ class ApplicationController < ActionController::Base
     authenticate_user! if Subdomain.new("tenant").matches?(request)
   end
 
-  def subdomain_redirection!
-    user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && Subdomain.new("generic").matches?(request) )
+  def verify_tenant_acces
+    if user_signed_in? && current_user.company && !current_user.whitelist
+      sign_out_and_redirect(current_user)
+    else
+      user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && Subdomain.new("generic").matches?(request) )
+    end
   end
 
   private
@@ -58,11 +62,6 @@ class ApplicationController < ActionController::Base
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
-
-  # def after_sign_in_path_for(resource)
-    # admin_url(subdomain: resource.company.slug)
-    # stored_location_for(resource) || root_path
-  # end
 
   # def after_update_path_for
   #   edit_user_registration_path
@@ -94,7 +93,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    if user_signed_in?
+    if user_signed_in? && current_user.whitelist
       if current_user.company_admin?
         redirect_to admin_url(subdomain: current_user.subdomain), allow_other_host: true
       else

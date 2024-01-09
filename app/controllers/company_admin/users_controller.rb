@@ -43,7 +43,7 @@ class CompanyAdmin::UsersController < CompanyAdminController
     @user.update(user_params)
     if @user.save
       @user.whitelist&.update(custom_id: @user.custom_id)
-      redirect_to company_admin_users_path
+      redirect_to company_admin_whitelists_path
     else
       set_users
       set_tab
@@ -85,6 +85,6 @@ class CompanyAdmin::UsersController < CompanyAdminController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :custom_id, candidate_attributes: [:function, :title, :linkedin_url, :status, :employer_name], employee_applications_attributes: [:status])
+    params.require(:user).permit(:email, :first_name, :last_name, :custom_id, candidate_attributes: [:function, :title, :linkedin_url, :status, :employer_name, :id], employee_applications_attributes: [:status])
   end
 end

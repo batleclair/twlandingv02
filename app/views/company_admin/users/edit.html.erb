@@ -27,12 +27,10 @@
                 <th class="fw-5 pr-20">Nom</th>
                 <td><%= @user.last_name %></td>
               </tr>
-              <%= f.simple_fields_for :candidate, @user.candidate do |c| %>
-                <tr class="position-relative">
-                  <th class="fw-5 pr-20">Intitulé de poste</th>
-                  <td><%= c.input :title, label: false, placeholder: "Intitulé de poste", wrapper: false %></td>
-                </tr>
-              <% end %>
+              <tr class="position-relative">
+                <th class="fw-5 pr-20">Intitulé de poste</th>
+                <td><%= @user.candidate.title %></td>
+              </tr>
               <tr class="position-relative">
                 <th class="fw-5 pr-20">ID Interne</th>
                 <td><%= f.input :custom_id, label: false, wrapper: false %></td>
