@@ -10,6 +10,7 @@ class Whitelist < ApplicationRecord
   validate :no_user_attached?, on: :create
   enum :role, { user: "utilisateur", admin: "administrateur" }
   has_one :user, dependent: :nullify
+  before_commit :send_invite_email, on: :create, if: :email_input_type?
 
   include PgSearch::Model
   pg_search_scope :search_by_name_and_email,
@@ -43,5 +44,9 @@ class Whitelist < ApplicationRecord
 
   def user
     User.find_by(company_id: company_id, email: input_format)
+  end
+
+  def send_invite_email
+    mail = Brevo::WhitelistMailer.invitation_email_for(self).deliver
   end
 end

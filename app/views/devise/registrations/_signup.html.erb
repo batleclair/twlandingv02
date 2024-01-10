@@ -4,14 +4,16 @@
               placeholder: "Prénom",
               label: false,
               wrapper: false,
-              required: true %>
+              required: true,
+              input_html: {value: params[:first_name]} %>
 </div>
 <div class="mb-10 position-relative">
   <%= f.input :last_name,
               placeholder: "Nom",
               label: false,
               wrapper: false,
-              required: true %>
+              required: true,
+              input_html: {value: params[:last_name]} %>
 </div>
 <div class="input-with-icon mb-10 position-relative">
   <%= f.input :email,
@@ -19,7 +21,7 @@
               placeholder: "Adresse mail",
               label: false,
               wrapper: false,
-              input_html: { autocomplete: "email" } %>
+              input_html: { autocomplete: "email", value: params[:email] } %>
     <i class="fa-regular fa-envelope"></i>
   </div>
 <div class="input-with-2-icons mb-10 position-relative" data-controller="password">
