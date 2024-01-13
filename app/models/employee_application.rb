@@ -11,7 +11,6 @@ class EmployeeApplication < ApplicationRecord
   belongs_to :eligibility_period, optional: true
   scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
 
-
   def eligibility_on_going?
     approved_status? && (eligibility_period.nil? || eligibility_period.start_date <= Date.today && eligibility_period.end_date > Date.today)
   end
@@ -27,5 +26,9 @@ class EmployeeApplication < ApplicationRecord
       "Refusées": :rejected,
       "Révoquées": :revoked
     }
+  end
+
+  def send_response_email
+    Brevo::EmployeeApplicationMailer.send_response_email(self).deliver
   end
 end

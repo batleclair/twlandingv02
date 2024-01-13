@@ -30,7 +30,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
-    # resource.send_welcome_mail if resource.persisted? && !resource.demo
     resource.send_welcome_mail if resource.persisted? && resource.company.nil?
   end
 
@@ -86,6 +85,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     flash[:notice] = "Vos informations ont bien été enregistrées"
     edit_user_registration_path || root_path
+  end
+
+  def after_inactive_sign_up_path_for(resource)
+    unconfirmed_user_path
   end
 
   private

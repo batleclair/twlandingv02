@@ -29,16 +29,17 @@ class CompanyAdmin::EmployeeApplicationsController < CompanyAdminController
 
   def update
     @employee_application = EmployeeApplication.find(params[:id])
-    status = @employee_application.status
+    status_on_record = @employee_application.status
     @employee_application.assign_attributes(employee_application_params)
     if @employee_application.save
       # @employee_application.user.candidate.clip_to_airtable if @employee_application.approved?
+      @employee_application.send_response_email if status_on_record === "pending"
       redirect_to company_admin_employee_applications_path(status: :pending)
     else
       @employee_applications = policy_scope(EmployeeApplication).status_as(EmployeeApplication.statuses[params[:status]])
       set_tab
       @rejection_error = true
-      render view_for(status)
+      render view_for(status_on_record)
     end
   end
 

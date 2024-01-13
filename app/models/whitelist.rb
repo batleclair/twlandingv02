@@ -6,9 +6,10 @@ class Whitelist < ApplicationRecord
   enum :input_type, {email: 0, domain: 1}, suffix: true
   validates :input_format, uniqueness: { message: "Existe déjà"}, if: :email_input_type?
   validates :input_format, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse invalide" }, if: :email_input_type?
+  validates :first_name, presence: { message: "Prénom requis" }, if: :email_input_type?
   validate :domain_presence, if: :email_input_type?
   validate :no_user_attached?, on: :create
-  enum :role, { user: "utilisateur", admin: "administrateur" }
+  enum :role, { user: "utilisateur", admin: "administrateur" }, suffix: true
   has_one :user, dependent: :nullify
   before_commit :send_invite_email, on: :create, if: :email_input_type?
 
@@ -47,6 +48,6 @@ class Whitelist < ApplicationRecord
   end
 
   def send_invite_email
-    mail = Brevo::WhitelistMailer.invitation_email_for(self).deliver
+    Brevo::WhitelistMailer.invitation_email_for(self).deliver
   end
 end

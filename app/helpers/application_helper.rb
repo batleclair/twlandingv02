@@ -40,4 +40,10 @@ module ApplicationHelper
   def logo_for(beneficiary)
     beneficiary.logo.attached? ? cl_image_tag(beneficiary.logo.key) : cl_image_tag('../default_logo.png')
   end
+
+  Object.prepend(Module.new do
+    def if_not(alt)
+      self ? self : alt
+    end
+  end)
 end

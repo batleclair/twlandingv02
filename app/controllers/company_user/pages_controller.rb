@@ -5,7 +5,7 @@ before_action :set_tab, except: [:book_call, :no_mission]
     authorize :company_user_page
     @pending_selections = policy_scope(Candidacy).where(origin: [:admin, :company_admin], status: :selection, active: true)
     @pending_candidacies = policy_scope(Candidacy).where(active: true).where.not(status: :selection)
-    if on_boarding_completed?
+    if current_user.on_boarding_completed?
       render restrictable(:dashboard)
     else
       redirect_to user_onboarding_path
@@ -14,7 +14,7 @@ before_action :set_tab, except: [:book_call, :no_mission]
 
   def on_boarding
     authorize :company_user_page
-    if !on_boarding_completed?
+    if !current_user.on_boarding_completed?
       set_steps
       render restrictable(:on_boarding)
     else
@@ -45,12 +45,6 @@ before_action :set_tab, except: [:book_call, :no_mission]
 
   def set_tab
     @tab = 0
-  end
-
-  def on_boarding_completed?
-    !current_user.never_applied? &&
-    current_user.candidate.profile_completed &&
-    !current_user.candidate.call_status_pending?
   end
 
   def set_steps

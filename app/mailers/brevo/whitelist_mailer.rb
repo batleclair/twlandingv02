@@ -13,6 +13,7 @@ class Brevo::WhitelistMailer < Brevo::Mailer
       'sub_domain': whitelist.company.slug,
       'link': link
     }
-    Brevo::Mail.new(template_id: 8, to: whitelist.email, name: whitelist.first_name, params: params)
+    id = whitelist.admin_role? ? 12 : 8
+    Brevo::Mail.new(template_id: id, to: whitelist.email, name: whitelist.first_name, params: params)
   end
 end

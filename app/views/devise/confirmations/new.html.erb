@@ -1,20 +1,62 @@
-<h2>Resend confirmation instructions</h2>
+<div class="ctn-resp pe-0 bg-white pt-50">
 
-<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.full_error :confirmation_token %>
+  <div class="d-flex login-form-ctn full-height-ctn">
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-                input_html: { autocomplete: "email" } %>
+    <div class="pt-50 pb-50 flex-shrink-0">
+      <div class="mb-20">
+        <h2>Confirmez votre adresse</h2>
+        <p class="me-1">Vous n'avez pas reçu les instructions de confirmation ? Vous pouvez renvoyer un lien d'activation à l'adresse suivante.</p>
+      </div>
+
+      <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+
+        <div class="position-relative">
+          <%= f.error_notification %>
+          <%= f.full_error :confirmation_token %>
+        </div>
+
+        <div id="user_captcha" class="mb-20 position-relative">
+          <p id="captcha_error" class="invalid-msg"></p>
+        </div>
+
+        <%= invisible_captcha :secret_question %>
+
+        <div class="flex-center-between">
+          <div class="input-with-icon position-relative">
+            <%= f.input :email,
+                        required: true,
+                        placeholder: "Adresse mail",
+                        label: false,
+                        wrapper: false,
+                        value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                        input_html: { autocomplete: "email", value: params[:email] } %>
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <button type="submit" class="position-relative flex-center-between h-100 bn-none bg-main-to-dark hover-2 text-white round-10 h-100 pt-05 pb-05 pl-10 pr-10">
+            Renvoyer
+          </button>
+        </div>
+
+      <% end %>
+
+      <div class="separator w-50 center-margin center-text mt-20 mb-10">
+        ou
+      </div>
+
+      <div class="flex-center">
+        <div class="flex-center max-w-300 w-100">
+            <%= link_to "Se connecter", new_session_path(resource_name), class:"text-main center-text fw-7 w-100" %>
+            |
+            <%= link_to "Créer un compte", new_registration_path(resource_name), class:"text-main center-text fw-7 w-100" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-shade round-top-left login-img-ctn ml-50 flex-center w-100 sm-resp-hide p-20">
+      <div>
+        <%= image_tag('homepage.svg', class: "w-100 max-w-500") %>
+      </div>
+    </div>
+
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions",
     passwords: "users/passwords",
+    confirmations: "users/confirmations",
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
@@ -14,6 +15,9 @@ Rails.application.routes.draw do
 
   # tenant routes
   constraints(Subdomain.new("tenant")) do
+
+    get '/validation', to: "pages#unconfirmed", as: :unconfirmed_user
+
     scope module: "company_admin" do
       scope path: "/admin" do
         get "/", to: "pages#dashboard", as: :company_admin

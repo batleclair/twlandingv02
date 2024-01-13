@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   before_action :new
   skip_before_action :authenticate_user!
-  skip_before_action :subdomain_authentication!
+  # skip_before_action :subdomain_authentication!
 
   def home
     @beneficiaries = Beneficiary.where(publish_logo: true)
@@ -36,6 +36,9 @@ class PagesController < ApplicationController
 
   def about
     add_breadcrumb "A propos", about_path
+  end
+
+  def unconfirmed
   end
 
   def sitemap

@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
-  before_action :subdomain_authentication!
-  before_action :verify_tenant_acces, if: :user_signed_in?
+  # before_action :subdomain_authentication!
+  before_action :enforce_subdomain, if: :user_signed_in?
+  before_action :verify_whitelisting, if: :user_signed_in?
+  # before_action :verify_tenant_acces, if: :user_signed_in?
 
   include Pundit::Authorization
 
@@ -49,11 +51,27 @@ class ApplicationController < ActionController::Base
     authenticate_user! if Subdomain.new("tenant").matches?(request)
   end
 
-  def verify_tenant_acces
-    if user_signed_in? && current_user.company && !current_user.whitelist
+  # def verify_tenant_acces
+  #   if user_signed_in? && current_user.company && !current_user.whitelist
+  #     sign_out_and_redirect(current_user)
+  #   else
+  #     user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && Subdomain.new("generic").matches?(request) )
+  #   end
+  # end
+
+  def enforce_subdomain
+    if current_user.subdomain != request.subdomain
+      user = current_user
+      url = user.company_admin? ? admin_url(subdomain: current_user.subdomain) : root_url(subdomain: current_user.subdomain)
+      redirect_to url, allow_other_host: true
+      sign_in(user)
+    end
+  end
+
+  def verify_whitelisting
+    if current_user.company && !current_user.whitelist
+      @user = current_user
       sign_out_and_redirect(current_user)
-    else
-      user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && Subdomain.new("generic").matches?(request) )
     end
   end
 

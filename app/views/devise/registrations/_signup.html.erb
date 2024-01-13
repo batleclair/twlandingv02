@@ -5,7 +5,7 @@
               label: false,
               wrapper: false,
               required: true,
-              input_html: {value: params[:first_name]} %>
+              input_html: {value: params[:first_name].if_not(resource.first_name)} %>
 </div>
 <div class="mb-10 position-relative">
   <%= f.input :last_name,
@@ -13,7 +13,7 @@
               label: false,
               wrapper: false,
               required: true,
-              input_html: {value: params[:last_name]} %>
+              input_html: {value: params[:last_name].if_not(resource.last_name)} %>
 </div>
 <div class="input-with-icon mb-10 position-relative">
   <%= f.input :email,
@@ -21,7 +21,7 @@
               placeholder: "Adresse mail",
               label: false,
               wrapper: false,
-              input_html: { autocomplete: "email", value: params[:email] } %>
+              input_html: { autocomplete: "email", value: params[:email].if_not(resource.email)} %>
     <i class="fa-regular fa-envelope"></i>
   </div>
 <div class="input-with-2-icons mb-10 position-relative" data-controller="password">

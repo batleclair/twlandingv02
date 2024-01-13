@@ -1,8 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :demo
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # unused devise modules include :lockable, :timeoutable, :trackable
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   has_one :candidate, autosave: true, dependent: :destroy
@@ -44,6 +43,7 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
+      user.skip_confirmation!
       # user.attach_custom_id if user.whitelisted?
       # raise
     end
@@ -130,6 +130,13 @@ class User < ApplicationRecord
     candidate.engaged?
   end
 
+  def on_boarding_completed?
+    company_user? &&
+    !never_applied? &&
+    candidate.profile_completed &&
+    !candidate.call_status_pending?
+  end
+
   def send_invite_email(password_invite_token)
     UserMailer.user_invite_email(self, password_invite_token).deliver
   end
@@ -205,4 +212,9 @@ class User < ApplicationRecord
     raw
   end
 
+  protected
+
+  def confirmation_required?
+    find_whitelist
+  end
 end
