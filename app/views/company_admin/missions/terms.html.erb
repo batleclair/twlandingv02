@@ -32,7 +32,7 @@
             </tr>
             <tr data-controller="flatpickr">
               <th class="pr-10 fw-5">Fin</th>
-              <td class="w-100"><%= f.input :start_date, as: :string, input_html: { value: @mission.start_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "embedded" }, wrapper: false, label: false %></td>
+              <td class="w-100"><%= f.input :end_date, as: :string, input_html: { value: @mission.end_date&.strftime("%d/%m/%Y"), data: { flatpickr_target: "date" }, class: "embedded" }, wrapper: false, label: false %></td>
             </tr>
             <tr>
               <th class="pr-10 fw-5">Périodicité</th>

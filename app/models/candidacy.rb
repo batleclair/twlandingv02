@@ -32,7 +32,7 @@ class Candidacy < ApplicationRecord
 
   after_commit :auto_approve_beneficiary_steps, on: [:create, :update]
   after_create -> {send_notification(:new_suggestion)}, if: :suggestion?
-  after_update -> {send_notification(:new_response)}, if: :noticeable?
+  after_update -> {send_notification(:new_response)}, if: :notifiable?
 
   PERIODICITY = [
     "1 demi-journée par semaine",
@@ -262,7 +262,7 @@ class Candidacy < ApplicationRecord
     Brevo::CandidacyMailer.send(action, self).deliver
   end
 
-  def noticeable?
+  def notifiable?
     beneficiary_validation_status? || mission_status? || (admin_validation_status? && !active)
   end
 end

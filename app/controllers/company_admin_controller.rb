@@ -4,4 +4,9 @@ class CompanyAdminController < ApplicationController
 
   layout 'company_admin'
 
+  private
+
+  def company_admin_authenticate
+    authorize current_user, :company_admin?
+  end
 end

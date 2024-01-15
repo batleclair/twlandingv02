@@ -43,10 +43,6 @@ class ApplicationController < ActionController::Base
     authorize current_user, :admin?
   end
 
-  def company_admin_authenticate
-    authorize current_user, :company_admin?
-  end
-
   def subdomain_authentication!
     authenticate_user! if Subdomain.new("tenant").matches?(request)
   end
@@ -60,7 +56,7 @@ class ApplicationController < ActionController::Base
   # end
 
   def enforce_subdomain
-    if current_user.subdomain != request.subdomain
+    if !current_user.admin? && current_user.subdomain != request.subdomain
       user = current_user
       url = user.company_admin? ? admin_url(subdomain: current_user.subdomain) : root_url(subdomain: current_user.subdomain)
       redirect_to url, allow_other_host: true
@@ -69,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_whitelisting
-    if current_user.company && !current_user.whitelist
+    if current_user.company && !current_user.whitelist && !current_user.admin
       @user = current_user
       sign_out_and_redirect(current_user)
     end

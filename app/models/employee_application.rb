@@ -28,7 +28,7 @@ class EmployeeApplication < ApplicationRecord
     }
   end
 
-  def noticeable?
+  def notifiable?
     rejected_status? || approved_status?
   end
 

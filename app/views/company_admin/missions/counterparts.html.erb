@@ -77,13 +77,13 @@
             </tr>
             <tr>
               <th class="pr-10 fw-5">Intitulé</th>
-              <td class="w-100"><%= f.input :title, placeholder: @mission.beneficiary.name, wrapper: false, label: false, input_html: {class: "embedded"} %></td>
+              <td class="w-100"><%= f.input :title, wrapper: false, label: false, input_html: {class: "embedded"} %></td>
             </tr>
           </tbody>
         </table>
 
         <div class="pl-10">
-          <%= f.input :description, placeholder: @mission.candidacy.req_description, wrapper: false, label: "Description", input_html: {class: "embedded"} %>
+          <%= f.input :description, wrapper: false, label: "Description", input_html: {class: "embedded", value: @mission.candidacy.req_description} %>
         </div>
 
 

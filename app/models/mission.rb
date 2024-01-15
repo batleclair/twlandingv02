@@ -23,6 +23,7 @@ class Mission < ApplicationRecord
   enum :termination_cause, {"la mission touche à sa fin": 0, "la mission ne se passe pas comme prévu": 1}, prefix: true
 
   after_update :deactivate_candidacy, if: :terminated_status?
+  after_update -> {send_notification(:mission_activated)}, if: :activated_status?
   after_commit :auto_approve_beneficiary_step, on: [:update]
 
   scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
@@ -107,5 +108,9 @@ class Mission < ApplicationRecord
 
   def auto_approve_beneficiary_step
     beneficiary_approval_approved! if beneficiary_approval_submitted? && candidate.user.company.demo_status?
+  end
+
+  def send_notification(action)
+    Brevo::MissionMailer.send(action, self).deliver
   end
 end

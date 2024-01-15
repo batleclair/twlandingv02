@@ -1,7 +1,7 @@
 <div id="tenant-menu" class="company-menu fs-15">
   <div data-controller="tenant-menu">
     <div class="w-100 position-relative flex-center mb-10 company-menu-pl">
-      <% if current_user.company.logo.attached? %>
+      <% if current_user.company&.logo&.attached? %>
         <div class="bg-white round-20 square-100 flex-center shadow-sm p-10">
           <%= cl_image_tag(current_user.company.logo.key, class:"w-100") %>
         </div>

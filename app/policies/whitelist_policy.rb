@@ -22,7 +22,7 @@ class WhitelistPolicy < ApplicationPolicy
       when user.company_admin?
         scope.where(company_id: user.company_id)
       when user.admin?
-        true
+        scope.all
       else
         false
       end
