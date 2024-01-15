@@ -19,6 +19,7 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
     @employee_application.status = "pending"
     if @employee_application.save(context: :self_apply)
       redirect_to root_path
+      flash[:notice] = "✔️ Votre demande est envoyée ! Elle doit maintenant être approuvée par votre entreprise "
     else
       @eligibility_periods = current_user.company.eligibility_periods
       render new_or_renew, status: :unprocessable_entity

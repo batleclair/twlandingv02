@@ -33,7 +33,7 @@ class CompanyAdmin::EmployeeApplicationsController < CompanyAdminController
     @employee_application.assign_attributes(employee_application_params)
     if @employee_application.save
       # @employee_application.user.candidate.clip_to_airtable if @employee_application.approved?
-      @employee_application.send_response_email if status_on_record === "pending"
+      @employee_application.send_response_email if status_on_record == "pending" && @employee_application.noticeable?
       redirect_to company_admin_employee_applications_path(status: :pending)
     else
       @employee_applications = policy_scope(EmployeeApplication).status_as(EmployeeApplication.statuses[params[:status]])

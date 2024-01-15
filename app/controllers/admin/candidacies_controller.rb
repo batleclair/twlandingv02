@@ -32,7 +32,7 @@ before_action :set_comments, except: [:new, :create, :index]
   end
 
   def update
-    @candidacy.update(candidacy_params)
+    @candidacy.assign_attributes(candidacy_params)
     @candidacy.comments.each{ |c| c.marked_for_destruction? }
     if @candidacy.save
       redirect_to admin_candidacy_path(@candidacy)

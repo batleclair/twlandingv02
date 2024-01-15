@@ -18,8 +18,7 @@ class CompanyUser::SelectionsController < CompanyUserController
     @selection.assign_attributes(selection_params)
     # set_active_upon_application
     if @selection.save(context: :validation_step)
-      redirect_to user_selections_path
-      flash[:notice] = "Enregistré !"
+      redirect_to user_selection_path(@selection)
     else
       # set_tab
       # @error = true

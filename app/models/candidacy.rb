@@ -31,6 +31,8 @@ class Candidacy < ApplicationRecord
   scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }
 
   after_commit :auto_approve_beneficiary_steps, on: [:create, :update]
+  after_create -> {send_notification(:new_suggestion)}, if: :suggestion?
+  after_update -> {send_notification(:new_response)}, if: :noticeable?
 
   PERIODICITY = [
     "1 demi-journée par semaine",
@@ -241,6 +243,12 @@ class Candidacy < ApplicationRecord
     }
   end
 
+  self.statuses.keys.each do |status|
+    define_method "#{status}_message" do
+      self.comments&.find_by(status: status)
+    end
+  end
+
   def auto_approve_beneficiary_steps
     if active && candidate.user.company.demo_status? && user_application_status?
       Comment.create(status: "beneficiary_application", commentable_type: "Candidacy", user_id: User.find_by_email("baptiste@demain.works").id, commentable_id: id, content: "Nous serions très intéressés d'échanger avec vous.")
@@ -250,4 +258,11 @@ class Candidacy < ApplicationRecord
     end
   end
 
+  def send_notification(action)
+    Brevo::CandidacyMailer.send(action, self).deliver
+  end
+
+  def noticeable?
+    beneficiary_validation_status? || mission_status? || (admin_validation_status? && !active)
+  end
 end

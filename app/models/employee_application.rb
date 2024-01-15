@@ -28,6 +28,10 @@ class EmployeeApplication < ApplicationRecord
     }
   end
 
+  def noticeable?
+    rejected_status? || approved_status?
+  end
+
   def send_response_email
     Brevo::EmployeeApplicationMailer.send_response_email(self).deliver
   end

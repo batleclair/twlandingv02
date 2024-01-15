@@ -9,9 +9,11 @@ class Admin::EmployeeApplicationsController < ApplicationController
   end
 
   def update
+    status_on_record = @employee_application.status
     @employee_application.update(employee_application_params)
     if @employee_application.save
       redirect_to admin_employee_applications_path
+      @employee_application.send_response_email if status_on_record == "pending" && @employee_application.noticeable?
     else
       render :edit, status: :unprocessable_entity
     end

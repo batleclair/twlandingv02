@@ -4,7 +4,8 @@ class Whitelist < ApplicationRecord
 
   belongs_to :company
   enum :input_type, {email: 0, domain: 1}, suffix: true
-  validates :input_format, uniqueness: { message: "Existe déjà"}, if: :email_input_type?
+  validates :input_format, uniqueness: { message: "Adresse déjà utilisée"}, if: :email_input_type?
+  validates :input_format, uniqueness: { message: "Domaine déjà utilisé"}, if: :domain_input_type?
   validates :input_format, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "Adresse invalide" }, if: :email_input_type?
   validates :first_name, presence: { message: "Prénom requis" }, if: :email_input_type?
   validate :domain_presence, if: :email_input_type?
