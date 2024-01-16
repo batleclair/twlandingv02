@@ -3,7 +3,10 @@ class Brevo::DeviseMailer < Devise::Mailer
   extend BrevoRoutes
 
   def self.confirmation_instructions(record, token, opts={})
-    link = routes.user_confirmation_url(confirmation_token: token)
+    link = routes.user_confirmation_url(
+      subdomain: record.company.slug,
+      confirmation_token: token
+    )
     params = {
       'link': link
     }
