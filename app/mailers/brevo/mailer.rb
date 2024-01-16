@@ -1,6 +1,7 @@
 module BrevoRoutes
   def routes
-    Rails.application.routes.default_url_options = {host: (Rails.env.development? ? "lvh.me:3000" : "demain.works")}
+    host = Rails.env.development? ? "lvh.me:3000" : ENV["DOMAIN"]
+    Rails.application.routes.default_url_options = {host: host}
     Rails.application.routes.url_helpers
   end
 end
