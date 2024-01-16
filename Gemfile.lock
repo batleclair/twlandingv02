@@ -265,6 +265,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    redis (4.8.1)
     regexp_parser (2.8.1)
     reline (0.3.6)
       io-console (~> 0.5)
@@ -297,6 +298,12 @@ GEM
       addressable (~> 2.3, >= 2.3.0)
       json (~> 2.1, >= 2.1.0)
       typhoeus (~> 1.0, >= 1.0.1)
+    sidekiq (6.5.12)
+      connection_pool (>= 2.2.5, < 3)
+      rack (~> 2.0)
+      redis (>= 4.5.0, < 5)
+    sidekiq-failures (1.0.4)
+      sidekiq (>= 4.0.0)
     simple_calendar (2.4.3)
       rails (>= 3.0)
     simple_token_authentication (1.18.1)
@@ -380,6 +387,8 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   sib-api-v3-sdk
+  sidekiq (< 7)
+  sidekiq-failures (~> 1.0)
   simple_calendar (~> 2.4)
   simple_form!
   simple_token_authentication

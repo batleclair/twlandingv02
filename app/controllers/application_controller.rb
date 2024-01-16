@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_whitelisting
-    if current_user.company && !current_user.whitelist && !current_user.admin
+    if current_user&.company && !current_user&.whitelist && !current_user&.admin?
       @user = current_user
       sign_out_and_redirect(current_user)
     end

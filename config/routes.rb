@@ -193,4 +193,9 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
+  # Sidekiq Web UI, only for admins.
+  require "sidekiq/web"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/admin/sidekiq'
+  end
 end

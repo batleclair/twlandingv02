@@ -25,12 +25,6 @@ class Brevo::Mail
   end
 
   def deliver
-    api_instance = SibApiV3Sdk::TransactionalEmailsApi.new
-    begin
-      result = api_instance.send_transac_email(self.to_email)
-      p result
-    rescue SibApiV3Sdk::ApiError => e
-      puts "Exception when calling TransactionalEmailsApi->send_transac_email: #{e}"
-    end
+    EmailDeliveryJob.perform_later(self.to_email)
   end
 end

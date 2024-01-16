@@ -93,7 +93,12 @@ gem "simple_calendar", "~> 2.4"
 # Brevo fka SendInBlue SIB gem for transactionnal emails through their API
 gem 'sib-api-v3-sdk'
 
+# search
 gem "pg_search"
+
+# background job queuing back-end
+gem "sidekiq", "< 7"
+gem "sidekiq-failures", "~> 1.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
