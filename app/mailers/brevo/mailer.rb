@@ -1,6 +1,6 @@
 module BrevoRoutes
   def routes
-    host = Rails.env.development? ? "lvh.me:3000" : ENV["DOMAIN"]
+    host = ENV["REDISCLOUD_URL"] ? ENV["DOMAIN"] : "lvh.me:3000"
     Rails.application.routes.default_url_options = {host: host}
     Rails.application.routes.url_helpers
   end
