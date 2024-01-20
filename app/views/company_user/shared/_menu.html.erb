@@ -1,7 +1,7 @@
 <div id="tenant-menu" class="company-menu fs-15">
   <div data-controller="tenant-menu">
     <div class="w-100 position-relative flex-center mb-10 company-menu-pl">
-      <% if current_user.candidate.photo.attached? %>
+      <% if current_user.candidate&.photo&.attached? %>
         <div class="logo-box downsize90 round-20">
           <%= cl_image_tag(current_user.candidate.photo.key) %>
         </div>

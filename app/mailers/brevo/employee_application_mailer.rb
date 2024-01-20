@@ -1,18 +1,28 @@
 class Brevo::EmployeeApplicationMailer < Brevo::Mailer
   def self.send_response_email(employee_application)
-    user = employee_application.user
-    link = routes.user_offers_url(subdomain: user.company.slug)
-    params = {
-      'company_name': user.company.name,
-      'first_name': user.first_name,
-      'last_name': user.last_name,
-      'on_boarded': user.on_boarding_completed?,
-      'link': link,
-      'sub_domain': user.company.slug,
-      'status': employee_application.status,
-      'message': employee_application.response_msg
-    }
-    id = 13
-    Brevo::Mail.new(template_id: id, to: user.email, name: user.first_name, params: params)
+    @template_id = 13
+    @user = employee_application.user
+    @link = routes.user_offers_url(subdomain: @user.company.slug)
+    set_user_recipient
+    set_params
+    @params[:on_boarded] = @user.on_boarding_completed?
+    @params[:status] = employee_application.status
+    @params[:message] = employee_application.response_msg
+    build_brevo_mail
+  end
+
+  def self.new_request(employee_application)
+    @template_id = 21
+    @company = employee_application.company
+    @link = routes.company_admin_employee_application_url(
+      subdomain: @company.slug,
+      id: employee_application.id
+      )
+    set_admin_recipients
+    set_admin_params
+    @params[:first_name] = @company.name
+    @params[:candidate_name] = employee_application.candidate.full_name
+    @params[:message] = employee_application.motivation_msg
+    build_brevo_mail
   end
 end

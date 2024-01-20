@@ -59,6 +59,7 @@ class CompanyUser::CandidaciesController < CompanyUserController
     set_custom_periodicity
     if @candidacy.save(context: :validation_step)
       # @candidacy.clip_to_airtable if @candidacy.status != "selection"
+      @candidacy.send_notification(:admin_submission) if @candidacy.submitted_for_approval?
       redirect_back(fallback_location: user_candidacies_path)
       flash[:notice] = "Enregistré !"
     else

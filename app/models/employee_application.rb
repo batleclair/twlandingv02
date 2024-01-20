@@ -35,4 +35,8 @@ class EmployeeApplication < ApplicationRecord
   def send_response_email
     Brevo::EmployeeApplicationMailer.send_response_email(self).deliver
   end
+
+  def new_request_email
+    Brevo::EmployeeApplicationMailer.new_request(self).deliver
+  end
 end

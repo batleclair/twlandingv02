@@ -18,6 +18,7 @@ class CompanyUser::EmployeeApplicationsController < CompanyUserController
     @employee_application.candidate_id = current_user.candidate.id
     @employee_application.status = "pending"
     if @employee_application.save(context: :self_apply)
+      @employee_application.new_request_email
       redirect_to root_path
       flash[:notice] = "✔️ Votre demande est envoyée ! Elle doit maintenant être approuvée par votre entreprise "
     else

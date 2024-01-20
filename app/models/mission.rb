@@ -24,6 +24,7 @@ class Mission < ApplicationRecord
 
   after_update :deactivate_candidacy, if: :terminated_status?
   after_update -> {send_notification(:mission_activated)}, if: :activated_status?
+  after_update -> {send_notification(:awaiting_activation)}, if: -> {beneficiary_approval_approved? && draft_status?}
   after_commit :auto_approve_beneficiary_step, on: [:update]
 
   scope :status_as, -> (status) { status.nil? ? order(status: :asc, created_at: :desc) : where(status: status).order(status: :asc, created_at: :desc) }

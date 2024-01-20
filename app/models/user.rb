@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :last_name, presence: { message: "Nom requis" }
   belongs_to :company, optional: true
   belongs_to :whitelist, optional: true
-  validate :not_blacklisted
+  # validate :not_blacklisted
   validate :company_whitelisted
   acts_as_token_authenticatable
   after_create do
@@ -187,16 +187,16 @@ class User < ApplicationRecord
   end
 
   def initialize_profile
-    Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name, title: (self.whitelist.title if !self.whitelist.title.blank?)) if self.company_user?
+    Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name, title: self.whitelist.title) if self.company_user?
     EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise") if whitelist.pre_approval && self.company_user?
     # candidate.clip_to_airtable
   end
 
-  def not_blacklisted
-    if first_name.include?('💳')
-      errors.add(:general, "un problème est survenu, réessayez plus tard")
-    end
-  end
+  # def not_blacklisted
+  #   if first_name.include?('💳')
+  #     errors.add(:general, "un problème est survenu, réessayez plus tard")
+  #   end
+  # end
 
   def set_temp_password
     password = Devise.friendly_token

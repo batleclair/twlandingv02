@@ -1,15 +1,15 @@
 class Brevo::DeviseMailer < Devise::Mailer
   require 'brevo/mailer'
-  extend BrevoRoutes
+  extend BrevoHelpers
 
   def self.confirmation_instructions(record, token, opts={})
-    link = routes.user_confirmation_url(
+    @template_id = 9
+    @to = [{email: record.email, name: record.first_name}]
+    @link = routes.user_confirmation_url(
       subdomain: record.company.slug,
       confirmation_token: token
     )
-    params = {
-      'link': link
-    }
-    b = Brevo::Mail.new(template_id: 9, to: record.email, name: record.first_name, params: params)
+    @params = {'link': @link}
+    build_brevo_mail
   end
 end
