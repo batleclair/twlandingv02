@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
   def enforce_subdomain
     if !current_user.admin? && current_user.subdomain != request.subdomain
-      user = User.find(current_user)
+      user = User.find(current_user.id)
       url = user.company_admin? ? admin_url(subdomain: user.subdomain) : root_url(subdomain: user.subdomain)
       redirect_to url, allow_other_host: true
       sign_in(user)
