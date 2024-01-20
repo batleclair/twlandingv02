@@ -25,9 +25,6 @@ application.register("contact", ContactController)
 import DisplayController from "./display_controller"
 application.register("display", DisplayController)
 
-import TenantMenuController from "./tenant_menu_controller"
-application.register("tenant-menu", TenantMenuController)
-
 import DualSliderController from "./dual_slider_controller"
 application.register("dual-slider", DualSliderController)
 
@@ -99,6 +96,9 @@ application.register("slider", SliderController)
 
 import SwipeController from "./swipe_controller"
 application.register("swipe", SwipeController)
+
+import TenantMenuController from "./tenant_menu_controller"
+application.register("tenant-menu", TenantMenuController)
 
 import TimesheetController from "./timesheet_controller"
 application.register("timesheet", TimesheetController)

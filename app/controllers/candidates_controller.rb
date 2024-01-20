@@ -98,6 +98,7 @@ class CandidatesController < ApplicationController
       else
         process_profile_completion if @candidate.first_completion?
         flash[:notice] = "Vos informations ont bien été enregistrées"
+        @experience = Experience.new
         render params[:source].to_sym, status: :see_other
       end
     else

@@ -52,7 +52,7 @@ class Admin::CompaniesController < ApplicationController
   end
 
   def company_params
-    params.require(:company).permit(:name, :slug, :logo, :status)
+    params.require(:company).permit(:name, :slug, :logo, :status, :user_info_source, :admin_info_source)
   end
 
   def set_or_delete_demo_users

@@ -17,16 +17,20 @@
       <div class="w-100 center-text mb-10">ou</div>
 
       <div id=candidate_cv_wrapper class="flex-center-between mb-10 w-100" data-controller="progress">
-        <div class="flex-shrink-0 position-relative center-margin">
-          <% if @candidate.cv.present? %>
-            <%= image_tag('valid.svg', class: "feedback-mark me-10") %>
-          <% end %>
+        <div class="flex-shrink-0 position-relative flex-col flex-center overflow-hidden w-100">
           <%= f.input :cv,
                       as: :file,
                       input_html: { class: 'd-none', data: {'progress-target': 'cv', action: 'change->progress#cv'}},
                       label: ('<i class="fa-solid fa-file-import mb-0 me-2"></i>Importer un fichier doc/pdf').html_safe,
                       wrapper: false,
                       label_html: { class: 'upload'} %>
+          <p data-progress-target="cvmsg" class="fs-10 text-ellipsis center-text">
+            <% if @candidate.cv.present? %>
+              <%= image_tag('valid.svg', class: "feedback-mark me-10") %>
+              CV transmis.
+              <%= link_to 'Télécharger', cl_image_path(@candidate.cv.key), target: "_blank", class: "fw-6 text-main" %></p>
+            <% end %>
+          </p>
         </div>
       </div>
 

@@ -17,6 +17,8 @@
             <%= f.input :slug %>
             <%= f.input :logo, as: :file %>
             <%= f.input :status, collection: Company.statuses.keys, include_blank: false %>
+            <%= f.input :user_info_source, label: "URL infos utilisateur" %>
+            <%= f.input :admin_info_source, label: "URL infos administrateur" %>
           </div>
           <button type="submit" class="button btn-main-color mt-3">Modifier</button>
         <% end %>

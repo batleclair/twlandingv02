@@ -9,7 +9,9 @@ export default class extends Controller {
 
   cv() {
     if (this.cvTarget.files && this.cvTarget.files[0]) {
-      this.cvmsgTarget.innerHTML = this.cvTarget.value.replace('fakepath', '...')
+      const path = this.cvTarget.value.replace('fakepath', '...')
+      const msg = `► ${path}`
+      this.cvmsgTarget.innerHTML = msg
     }
   }
 }

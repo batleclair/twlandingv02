@@ -19,6 +19,7 @@
   h6{
     font-size: 15px;
     font-weight: 400;
+    padding-left: 20px;
   }
   position: relative;
   >div{
@@ -34,7 +35,8 @@
   min-width: calc(4vw + 200px);
   background-color: $first_light_color;
   .company-menu-pl{
-    padding-left: calc(4vw - 20px);
+    // padding-left: 4vw;
+    padding-left: calc(4vw - 40px);
   }
 }
 
@@ -71,7 +73,7 @@
 .company-menu-dropdown{
   i{
     transition: 0.2s ease-in-out;
-    left: -10px;
+    // left: -10px;
   }
   height: 30px;
   cursor: pointer;
