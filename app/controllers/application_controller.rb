@@ -60,11 +60,11 @@ class ApplicationController < ActionController::Base
     puts "subdomain : #{@subdomain}"
     puts "rails env : #{Rails.env}"
     if @subdomain != request.subdomain
-      # user = User.find(current_user.id)
+      user = current_user
       # sign_out(current_user)
       url = current_user.company_admin? ? admin_url(subdomain: @subdomain) : root_url(subdomain: @subdomain)
       redirect_to url, allow_other_host: true
-      # sign_in(user)
+      sign_in(user)
     end
   end
 
