@@ -30,6 +30,6 @@ class Brevo::Mail
   # end
 
   def deliver
-    EmailDeliveryJob.perform_later(self.to_email)
+    EmailDeliveryJob.perform_now(self.to_email)
   end
 end
