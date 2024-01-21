@@ -46,4 +46,9 @@ module ApplicationHelper
       self ? self : alt
     end
   end)
+  String.prepend(Module.new do
+    def to_domain
+      self.slice(/@.+/)&.delete("@")
+    end
+  end)
 end

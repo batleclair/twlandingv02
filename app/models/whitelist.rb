@@ -51,4 +51,8 @@ class Whitelist < ApplicationRecord
   def send_invite_email
     Brevo::WhitelistMailer.invitation_email_for(self).deliver
   end
+
+  def self.active_tenant_domains
+    joins(:company).where(input_type: :domain).where.not(company: {status: :demo})
+  end
 end

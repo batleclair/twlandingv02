@@ -39,6 +39,13 @@ class PagesController < ApplicationController
   end
 
   def unconfirmed
+    if user_signed_in?
+      if current_user.company_admin?
+        redirect_to admin_path
+      else
+        redirect_to root_path
+      end
+    end
   end
 
   def sitemap

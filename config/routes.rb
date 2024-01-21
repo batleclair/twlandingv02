@@ -15,9 +15,6 @@ Rails.application.routes.draw do
 
   # tenant routes
   constraints(Subdomain.new("tenant")) do
-
-    get '/validation', to: "pages#unconfirmed", as: :unconfirmed_user
-
     scope module: "company_admin" do
       scope path: "/admin" do
         get "/", to: "pages#dashboard", as: :company_admin
@@ -99,6 +96,7 @@ Rails.application.routes.draw do
   get "terms", to: "pages#terms"
   get "legal", to: "pages#legal"
   get "privacy-policy", to: "pages#privacy"
+  get '/validation', to: "pages#unconfirmed", as: :unconfirmed_user
 
   constraints(Subdomain.new("generic")) do
   # static pages

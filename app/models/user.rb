@@ -17,9 +17,10 @@ class User < ApplicationRecord
   # validate :not_blacklisted
   validate :company_whitelisted
   acts_as_token_authenticatable
+  before_create :attach_company
   after_create do
-    attach_whitelist if whitelisted?
-    initialize_profile if whitelisted?
+    attach_whitelist if find_whitelist
+    initialize_profile if find_whitelist
   end
   before_destroy :remove_access, prepend: true
 
@@ -38,7 +39,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth, request)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.attach_company(request)
+      # user.attach_company(request)
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.first_name
@@ -141,21 +142,25 @@ class User < ApplicationRecord
     UserMailer.user_invite_email(self, password_invite_token).deliver
   end
 
-  def attach_company(request)
-    if Subdomain.new("tenant").matches?(request)
-      self.company = Company.find_by(slug: request.subdomain)
-      self.company_role = 'user'
-    else
-      company_domain = Whitelist.find_by(input_type: :domain, input_format: email.slice(/@.+/)&.delete("@"))
-      self.company = company_domain&.company
-      self.company_role = 'user' if company_domain
-    end
+  def attach_company
+    self.company = find_whitelist&.company
+    # if Subdomain.new("tenant").matches?(request)
+    #   self.company = Company.find_by(slug: request.subdomain)
+    #   self.company_role = 'user'
+    # else
+    #   company_domain = Whitelist.find_by(input_type: :domain, input_format: email.slice(/@.+/)&.delete("@"))
+    #   self.company = company_domain&.company
+    #   self.company_role = 'user' if company_domain
+    # end
   end
 
   def company_whitelisted
-    if company.present?
-      errors.add(:email, "adresse non autorisée") if !whitelisted?
+    if Whitelist.active_tenant_domains.find_by(input_format: email.to_domain)
+      errors.add(:email, "adresse non autorisée") if !find_whitelist
     end
+    # if company.present?
+    #   errors.add(:email, "adresse non autorisée") if !whitelisted?
+    # end
   end
 
   def find_whitelist
