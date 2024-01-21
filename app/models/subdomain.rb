@@ -15,11 +15,10 @@ class Subdomain
   end
 
   def self.generic
-    ENV["REDISCLOUD_URL"] ? "www" : ""
-    # if Rails.env.production?
-    #   "www"
-    # else
-    #   ""
-    # end
+    if Rails.env.production?
+      "www"
+    else
+      ""
+    end
   end
 end
