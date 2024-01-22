@@ -2,7 +2,6 @@ class Brevo::Mail
   attr_accessor :template_id, :to, :name, :params
 
   def initialize(options={})
-    # self.name = options[:name]
     @to = options[:to]
     @template_id = options[:template_id]
     @params = options[:params]
@@ -11,10 +10,6 @@ class Brevo::Mail
   def to_email
     smtp_email = SibApiV3Sdk::SendSmtpEmail.new
     smtp_email = {
-      # 'to': [{
-      #   'email': @to,
-      #   'name': @name
-      # }],
       'to': @to,
       'templateId': @template_id,
       'params': @params,
@@ -25,11 +20,11 @@ class Brevo::Mail
     return smtp_email
   end
 
-  # def add(recipient)
-  #   self.to << recipient.to_h
-  # end
-
   def deliver
-    EmailDeliveryJob.perform_now(self.to_email)
+    if Rails.env.production?
+      EmailDeliveryJob.perform_later(self.to_email)
+    else
+      EmailDeliveryJob.perform_now(self.to_email)
+    end
   end
 end

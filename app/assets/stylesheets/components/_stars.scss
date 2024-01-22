@@ -1,0 +1,31 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+.star-rating-ctn{
+  display: flex;
+  input{
+    display: none;
+  }
+  label{
+    color: $flag-color-1;
+    font-size: 0;
+  }
+  label:before{
+    margin: 0px 2px;
+    font-size: 20px;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+  }
+
+  input:checked ~ label,
+  // input:not(:checked) > label:hover,
+  input:not(:checked) > label:hover ~ label{
+    color: $grey-mid;
+  }
+  input:checked + label{
+    color: $flag-color-1;
+  }
+  input:not(:checked) ~ label:hover{
+    color: $flag-color-1-light;
+  }
+}

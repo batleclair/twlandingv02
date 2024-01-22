@@ -5,23 +5,37 @@
 <div class="max-w-400">
   <%= simple_form_for([@mission, @feedback], url: user_mission_feedbacks_path) do |f| %>
 
-    <h5>Faites nous part de vos retours 😊</h5>
+    <h6 class="text-main fw-7 mb-10">Qu'avez-vous pensé de la mission ?</h6>
+    <div class="mb-20">
+      <% current_user.company.questions.each do |q| %>
+        <%= f.simple_fields_for :answers, @answer do |a| %>
+          <%= a.input :question_id, as: :hidden, input_html: {value: q.id} %>
 
-    <% current_user.company.questions.each do |q| %>
-      <%= f.simple_fields_for :answers, @answer do |a| %>
-        <%= a.input :question_id, as: :hidden, input_html: {value: q.id} %>
+          <% case q.input_type %>
+          <% when "rating" %>
+            <%= a.label :integer_answer, q.title %>
+            <div class="star-rating-ctn">
+              <%= a.collection_radio_buttons(
+                :integer_answer, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]], :first, :last, item_wrapper_tag: false, checked: 5
+              ) do |b| b.radio_button + b.label
+              end %>
+            </div>
+          <% when "comment" %>
+            <%= a.input :text_answer, label: q.title %>
+          <% when "checkbox" %>
+          <div class="flex-center-left">
+            <%= a.label :boolean_answer, q.title %>
+            <%= a.input_field :boolean_answer, class: "dynamic-checkbox" %>
+            <%= a.label :boolean_answer do %>
+              <i class="fa-solid fa-check"></i>
+              <span></span>
+            <% end %>
+          </div>
+          <% end %>
 
-        <% case q.input_type %>
-        <% when "rating" %>
-          <%= a.input :integer_answer, label: q.title %>
-        <% when "comment" %>
-          <%= a.input :text_answer, label: q.title %>
-        <% when "checkbox" %>
-          <%= a.input :boolean_answer, label: q.title %>
         <% end %>
-
       <% end %>
-    <% end %>
+    </div>
 
   <div class="w-100 flex-center-between mb-40">
     <%= link_to "Retour", user_mission_confirmation_path(step: 2), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>

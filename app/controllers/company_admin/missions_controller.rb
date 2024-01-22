@@ -43,6 +43,7 @@ before_action :redirect_if_active, only: [:checklist, :terms, :counterparts, :do
     @mission.assign_attributes(mission_params)
     assign_company_to_contract
     if @mission.save && candidate_update
+      @mission.send_notification(:mission_activated) if @mission.activated_status?
       redirect_to company_admin_mission_path(@mission, step: @mission.draft_step)
     else
       set_tab

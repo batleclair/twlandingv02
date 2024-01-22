@@ -42,6 +42,9 @@ class Brevo::CandidacyMailer < Brevo::Mailer
     set_admin_recipients
     set_admin_params
     @params[:first_name] = @company.name
+    @params[:beneficiary_name] = candidacy.beneficiary.name
+    @params[:mission_title] = candidacy.offer.title
+    @params[:message] = candidacy.req_description
     @params[:candidate_name] = candidacy.candidate.full_name
     build_brevo_mail
   end

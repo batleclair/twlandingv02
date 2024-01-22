@@ -109,6 +109,9 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
+  # Keep users logged in when redirected to their subdomain
+  config.session_store :cookie_store, key: "_twlandingv02_session", domain: :all, tld_length: 3
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter

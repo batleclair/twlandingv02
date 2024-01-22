@@ -19,7 +19,7 @@
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
         <%= f.error_notification %>
-        <% if Rails.env = "development" %>
+        <% if Rails.env.development? %>
           <h6 class="center-text mb-10">Avec mes identifiants Demain</h6>
         <% end %>
         <div class="input-with-icon mb-10 position-relative">

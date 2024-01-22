@@ -19,6 +19,7 @@ class Candidate < ApplicationRecord
   validates :status, presence: { message: "Sélectionnez parmi les options" }, on: [:apply, :profile]
   validates :title, presence: { message: "Information requise" }, on: [:profile], allow_nil: true
   validates :employer_name, presence: { message: "Renseignez l'employeur actuel" }, on: [:apply, :profile], if: :employed?
+  validates_date :birth_date, before: lambda { 18.years.ago }, before_message: "vous semblez bien jeune", allow_blank: true
   validate :basics, on: [:apply, :profile]
   validate :cv_file_type, on: [:apply, :profile]
 

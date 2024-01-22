@@ -28,11 +28,12 @@
                       label: "Ville",
                       wrapper: false %>
         </div>
-        <div class="mb-10 position-relative" data-controller="flatpickr">
+        <div class="mb-10 position-relative">
           <%= c.input :birth_date,
                       label: "Date de naissance",
                       as: :string,
-                      input_html: { data: { flatpickr_target: "date" } },
+                      placeholder: "jj/mm/aaaa",
+                      input_html: { value: @candidate.birth_date&.strftime("%d/%m/%Y") },
                       wrapper: false %>
         </div>
       <% end %>

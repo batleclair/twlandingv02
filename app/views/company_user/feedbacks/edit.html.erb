@@ -5,18 +5,35 @@
 
     <h6 class="text-main fw-7 mb-10">Qu'avez-vous pensé de la mission ?</h6>
 
-    <% @feedback.answers.each do |answer| %>
-      <%= f.simple_fields_for :answers, answer do |a| %>
-        <% case answer.question.input_type %>
-        <% when "rating" %>
-          <%= a.input :integer_answer, label: answer.question.title %>
-        <% when "comment" %>
-          <%= a.input :text_answer, label: answer.question.title %>
-        <% when "checkbox" %>
-          <%= a.input :boolean_answer, label: answer.question.title, input_html: { class: "toggle" }, wrapper_html: { class: "div-align position-relative" }  %>
+    <div class="mb-20">
+      <% @feedback.answers.each do |answer| %>
+        <%= f.simple_fields_for :answers, answer do |a| %>
+          <div class="position-relative">
+            <% case answer.question.input_type %>
+            <% when "rating" %>
+              <%= a.label :integer_answer, answer.question.title %>
+              <div class="star-rating-ctn">
+                <%= a.collection_radio_buttons(
+                  :integer_answer, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]], :first, :last, item_wrapper_tag: false
+                ) do |b| b.radio_button + b.label
+                end %>
+              </div>
+            <% when "comment" %>
+              <%= a.input :text_answer, label: answer.question.title %>
+            <% when "checkbox" %>
+              <div class="flex-center-left">
+                <%= a.label :boolean_answer, answer.question.title %>
+                <%= a.input_field :boolean_answer, class: "dynamic-checkbox" %>
+                <%= a.label :boolean_answer do %>
+                  <i class="fa-solid fa-check"></i>
+                  <span></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
 
     <div class="w-100 flex-center-between mb-40">
       <%= link_to "Retour", user_mission_confirmation_path(step: 2), class: "round bg-shade-to-dark text-main max-w-100 w-100 text-center pt-05 pb-05 hover-2" %>

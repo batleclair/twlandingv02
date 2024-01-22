@@ -23,7 +23,6 @@ class Mission < ApplicationRecord
   enum :termination_cause, {"la mission touche à sa fin": 0, "la mission ne se passe pas comme prévu": 1}, prefix: true
 
   after_update :deactivate_candidacy, if: :terminated_status?
-  after_update -> {send_notification(:mission_activated)}, if: :activated_status?
   after_update -> {send_notification(:awaiting_activation)}, if: -> {beneficiary_approval_approved? && draft_status?}
   after_commit :auto_approve_beneficiary_step, on: [:update]
 

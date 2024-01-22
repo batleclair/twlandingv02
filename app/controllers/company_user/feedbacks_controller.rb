@@ -19,6 +19,7 @@ class CompanyUser::FeedbacksController < CompanyUserController
     if @feedback.save
       redirect_to user_mission_confirmation_path(user_mission_id: @mission.id, step: 3)
     else
+      raise
       render :new, status: :unprocessable_entity
       flash[:notice] = "marche pas"
     end

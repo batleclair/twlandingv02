@@ -15,11 +15,10 @@ class Subdomain
   end
 
   def self.generic
-    "www"
-    # if Rails.env.development?
-    #   ""
-    # else
-    #   "www"
-    # end
+    if Rails.env.development?
+      ""
+    else
+      "www"
+    end
   end
 end
