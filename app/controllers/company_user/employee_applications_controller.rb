@@ -1,4 +1,5 @@
 class CompanyUser::EmployeeApplicationsController < CompanyUserController
+  before_action :verify_open_access, only: [:new, :create]
 
   def new
     @employee_application = EmployeeApplication.new

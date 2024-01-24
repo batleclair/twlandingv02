@@ -1,5 +1,6 @@
 class CompanyUser::PagesController < CompanyUserController
 before_action :set_tab, except: [:book_call, :no_mission]
+before_action :verify_open_access, except: [:access_closed, :no_mission]
 
   def dashboard
     authorize :company_user_page
@@ -41,6 +42,12 @@ before_action :set_tab, except: [:book_call, :no_mission]
     @tab = "info"
   end
 
+  def access_closed
+    if !current_user.company.inactive_status?
+      redirect_to root_path
+    end
+  end
+
   private
 
   def set_tab
@@ -61,7 +68,7 @@ before_action :set_tab, except: [:book_call, :no_mission]
   end
 
   def restrictable(view)
-    current_user.not_eligible? ? :restricted : view
+    current_user.not_eligible? ? :access_restricted : view
   end
 
 end

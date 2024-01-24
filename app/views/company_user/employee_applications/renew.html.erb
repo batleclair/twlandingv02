@@ -12,7 +12,9 @@
 
           <%= simple_form_for(@employee_application, url: user_employee_applications_path, data: { controller: 'form-redirect', action: 'turbo:submit-end->form-redirect#next' }) do |f| %>
             <div class="position-relative">
-              <%= f.input :eligibility_period_id, collection: @eligibility_periods, label: "Période" %>
+              <% if !@eligibility_periods.empty? %>
+                <%= f.input :eligibility_period_id, collection: @eligibility_periods, label: "Période" %>
+              <% end %>
               <div class="position-relative">
                 <%= f.input :motivation_msg,
                             label: "Message" %>

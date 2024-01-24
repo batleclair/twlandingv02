@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       get "/info", to: "pages#info", as: :user_info
       get "/on-boarding", to: "pages#on_boarding", as: :user_onboarding
       get "/mission", to: "pages#no_mission", as: :user_no_mission
+      get "/closed", to: "pages#access_closed", as: :user_access_closed
       patch "/book-call", as: :user_booked_call, to: "pages#book_call", defaults: { format: :json }
       resources :candidates, as: :user_candidates, only: :update
       resources :experiences, as: :user_experiences

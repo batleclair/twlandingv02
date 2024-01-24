@@ -8,6 +8,7 @@ class Brevo::EmployeeApplicationMailer < Brevo::Mailer
     @params[:on_boarded] = @user.on_boarding_completed?
     @params[:status] = employee_application.status
     @params[:message] = employee_application.response_msg
+    @params[:link2] = routes.user_onboarding_url(subdomain: @user.company.slug)
     build_brevo_mail
   end
 
