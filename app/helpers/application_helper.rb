@@ -41,6 +41,10 @@ module ApplicationHelper
     beneficiary.logo.attached? ? cl_image_tag(beneficiary.logo.key) : cl_image_tag('../default_logo.png')
   end
 
+  def hq_address
+    "27 rue du Chemin Vert, 75011 PARIS"
+  end
+
   Object.prepend(Module.new do
     def if_not(alt)
       self ? self : alt
