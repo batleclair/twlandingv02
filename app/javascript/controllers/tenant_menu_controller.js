@@ -2,10 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="tenant-menu"
 export default class extends Controller {
-  static targets = ['submenu']
+  static targets = ['submenu', 'menu']
 
   connect() {
-    console.log('yo')
   }
 
   expand() {
@@ -16,6 +15,10 @@ export default class extends Controller {
         submenu.removeAttribute("expanded")
       }
     });
+  }
+
+  mobile(){
+    this.menuTarget.toggleAttribute("expanded")
   }
 
   keep(event) {

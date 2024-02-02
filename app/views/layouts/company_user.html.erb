@@ -20,11 +20,11 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 
-<body>
-  <%= render partial: "company_user/shared/navbar" %>
+<body data-controller="tenant-menu">
+  <%= render partial: "company_user/shared/navbar", variant: [:mobile] %>
 
   <div class="d-flex">
-    <%= render partial: "company_user/shared/menu" %>
+    <%= render partial: "company_user/shared/menu", variant: [:mobile] %>
     <div class="company-content-ctn">
       <%= yield %>
     </div>

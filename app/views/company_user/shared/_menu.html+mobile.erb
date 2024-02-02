@@ -1,0 +1,40 @@
+<div class="ctn-resp-tight pt-05 pb-05 company-menu-mobile" data-tenant-menu-target="menu">
+  <div class="mb-30">
+    <button type="button" class="bn-none fs-14 upsize-120 hover-2 round-button bg-main-dark" data-action="click->tenant-menu#mobile">
+      <i class="fa-solid fa-xmark text-white"></i>
+    </button>
+  </div>
+
+  <div class="mb-30">
+    <div class="p-10 bg-main-to-dark hover-2 w-100" btn data-active=<%=@tab == 0%>>
+      <%= link_to "Accueil", root_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100" btn data-active=<%=@tab == 1%>>
+      <%= link_to "Toutes les missions", user_offers_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100" btn data-active=<%=@tab.in?(2..3)%>>
+      <%= link_to "Sélectionnées pour vous", user_selections_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100" btn data-active=<%=@tab == 4%>>
+      <%= link_to "Candidatures en cours", user_selections_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100" btn data-active=<%=@tab == 5%>>
+      <%= link_to "Mission en cours", user_selections_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100" btn data-active=<%=@tab.in?(6..7)%>>
+      <%= link_to "Historique", user_selections_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="mt-05 mb-05 w-100 border-b-light-darker"></div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100">
+      <%= link_to "Vous déconnecter", destroy_user_session_path, method: :delete, class: "text-white fs-16" %>
+    </div>
+  </div>
+
+</div>

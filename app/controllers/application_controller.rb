@@ -1,10 +1,9 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
-  # before_action :subdomain_authentication!
+  before_action :set_request_variant
   before_action :enforce_subdomain, if: :user_signed_in?
   before_action :verify_whitelisting, if: :user_signed_in?
-  # before_action :verify_tenant_acces, if: :user_signed_in?
 
   include Pundit::Authorization
 
@@ -32,28 +31,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, candidate_attributes: [:location, :birth_date, :phone_num, :id]])
-  # end
+  def set_request_variant
+    request.variant = request.user_agent =~ /Mobile|webOS/ ? :mobile : :desktop
+  end
 
   protected
 
   def admin_authenticate
     authorize current_user, :admin?
   end
-
-  def subdomain_authentication!
-    authenticate_user! if Subdomain.new("tenant").matches?(request)
-  end
-
-  # def verify_tenant_acces
-  #   if user_signed_in? && current_user.company && !current_user.whitelist
-  #     sign_out_and_redirect(current_user)
-  #   else
-  #     user_not_authorized unless request.subdomain == current_user.subdomain || ( current_user.subdomain.blank? && Subdomain.new("generic").matches?(request) )
-  #   end
-  # end
 
   def enforce_subdomain
     @subdomain = current_user.subdomain.blank? ? Subdomain.generic : current_user.subdomain

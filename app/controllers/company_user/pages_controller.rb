@@ -17,7 +17,7 @@ before_action :verify_open_access, except: [:access_closed, :no_mission]
     authorize :company_user_page
     if !current_user.on_boarding_completed?
       set_steps
-      render restrictable(:on_boarding)
+      render restrictable(:on_boarding), variant: [:mobile]
     else
       redirect_to root_path
     end

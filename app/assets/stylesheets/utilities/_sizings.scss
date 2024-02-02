@@ -96,6 +96,9 @@
 .min-h-300{
   min-height: 300px;
 }
+.h-100-vh{
+  height: calc(100vh - 50px);
+}
 
 @each $id, $bp in $breakpoints {
   @media(max-width: #{$bp}px) {

@@ -1,0 +1,79 @@
+<div id="on-boarding-complete" class="mb-40 max-w-750 overflow-hidden" data-controller="popup">
+  <h5 class="text-main fw-6 mb-20">👋 Bonjour <%= current_user.first_name %> !</h5>
+
+  <div class="mb-30">
+    <h6 class="mb-10">Bienvenue chez Demain</h6>
+    <p><%= current_user.company.name %> vous permet de mettre vos compétences professionnelles au service d'une association.</p>
+  </div>
+
+  <div class="mb-30">
+    <h6 class="mb-10">Pour démarrer</h6>
+    <p>Nous vous invitons à compléter votre profil et votre demande auprès de <%= current_user.company.name %>. Demain vous aidera ensuite à trouver la mission qui vous correspond !</p>
+  </div>
+
+
+<div data-controller="swipe" data-action="click->swipe#refocus" data-focus="0" class="w-100 overflow-hidden mb-40">
+
+  <div data-swipe-target="ctn" data-focus="0" class="pb-05">
+    <div class="on-boarding-cards-mobile pb-05 position-relative">
+      <div class="hover-2 bg-shade p-20 flex-center center-text flex-col p-10 h-100 position-relative" data-swipe-target="card" data-status="active" data-active=<%=@active_step == 1%> data-validated=<%=@active_step > 1%>>
+        <% if @active_step > 1 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">1</h5>
+        <p class="center-text fs-14 p-05">Votre profil permettra à Demain de vous aider à trouver une association et une mission</p>
+        <%= link_to "Je complète mon profil", user_profile_path, data: {action: "click->swipe#keep"} %>
+      </div>
+
+      <div class="hover-2 bg-shade p-20 flex-center center-text flex-col p-10 h-100 position-relative" data-swipe-target="card" data-status="active" data-active=<%=@active_step == 2%> data-validated=<%=@active_step > 2%>>
+        <% if @active_step > 2 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">2</h5>
+        <p class="center-text fs-14 p-05">Informez <%= current_user.company.name %> de votre intention de réaliser une mission pour une association</p>
+        <%= link_to "Je demande à mon entreprise", new_user_employee_application_path, data: {action: "click->swipe#keep"} %>
+      </div>
+
+      <div class="hover-2 bg-shade p-20 flex-center center-text flex-col p-10 h-100 position-relative" data-swipe-target="card" data-status="active" data-active=<%=@active_step == 3%> data-validated=<%=@active_step > 3%>>
+        <% if @active_step > 3 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">3</h5>
+        <p class="center-text fs-14 p-05"><%= current_user.company.name %> valide votre demande et vous autorise à candidater auprès d'associations</p>
+        <%= link_to "Mon entreprise valide", user_profile_path, data: {action: "click->swipe#keep"} %>
+      </div>
+
+      <div class="hover-2 bg-shade p-20 flex-center center-text flex-col p-10 h-100 position-relative" data-controller="calendly" data-calendly-email-value=<%= current_user.email %> data-calendly-name-value=<%= current_user.first_name %> data-swipe-target="card" data-status="active" data-active=<%=@active_step == 4%> data-validated=<%=@active_step > 4%>>
+        <% if @active_step > 4 %>
+          <%= image_tag('valid.svg', class:"position-absolute") %>
+        <% end %>
+        <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">4</h5>
+        <p class="center-text fs-14 p-05">Programmez un call avec un conseiller Demain qui vous accompagnera dans vos démarches !</p>
+        <div data="click->swipe#keep">
+          <%= link_to "J'échange avec Demain", user_profile_path, data: {action: "click->calendly#popup"} %>
+        </div>
+        <!-- Calendly link widget begin -->
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+        <!-- Calendly link widget end -->
+      </div>
+    </div>
+    <div class="flex-center">
+      <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05" data-active="true"></em>
+      <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
+      <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
+      <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+  <div class="w-100">
+    <%= link_to "En savoir plus sur le dispositif", user_info_path, class:"button btn-light-main center-margin" %>
+  </div>
+
+  <%= turbo_frame_tag "modal" %>
+</div>

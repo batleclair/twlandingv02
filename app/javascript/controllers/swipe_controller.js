@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="swipe"
 export default class extends Controller {
-  static targets = ['ctn', 'card']
+  static targets = ['ctn', 'card', 'dot']
 
   connect() {
     let touchstartX = null
@@ -14,11 +14,18 @@ export default class extends Controller {
     const ctnSize = this.ctnTarget.offsetWidth
     const firstActiveCard = parseInt(this.ctnTarget.dataset.focus, 10)
     const stub = cardCount * cardSize + cardCount * 10 - ctnSize
+    const dots = this.dotTargets
 
-    function adjust(cards) {
+    function adjust(cards, dots) {
+      dots.forEach(dot => {
+        dot.dataset.active="false"
+      });
       cards.forEach(card => {
        for (let i = 0; i < cardCount ; i++) {
-         if (active === i) card.style.transform = `translateX(${Math.max(cardSize*firstActiveCard - i*cardSize, 0 - stub)}px)`
+        if (active === i) {
+          card.style.transform = `translateX(${Math.max(cardSize*firstActiveCard - i*cardSize, 0 - stub)}px)`
+          dots[i].dataset.active="true"
+        }
        }
      });
     }
@@ -40,13 +47,13 @@ export default class extends Controller {
           reset(cards)
           active = Math.min(active + 1, cardCount - 1)
           this.cardTargets[active].dataset.status = "active"
-          adjust(cards)
+          adjust(cards, dots)
         }
         if (touchendX > touchstartX) {
           reset(cards)
           active = Math.max(active - 1, 0)
           this.cardTargets[active].dataset.status = "active"
-          adjust(cards)
+          adjust(cards, dots)
         }
       }
       touchendX = null

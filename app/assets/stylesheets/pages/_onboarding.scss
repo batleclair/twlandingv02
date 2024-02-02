@@ -73,3 +73,63 @@
     }
   }
 }
+
+.on-boarding-cards-mobile{
+  display: inline-flex;
+  p{
+    height: 0;
+    overflow: hidden;
+    transition: 0.1s ease-in-out;
+  }
+  a{
+    pointer-events: none;
+  }
+  &:hover{
+    p{
+      height: 50px;
+    }
+  }
+
+  a, h5 {
+    color: $grey-mid;
+    padding: 5px 10px;
+  }
+  [data-swipe-target="card"]{
+    background-color: $light-gray;
+    height: 100%;
+    width: 96vw;
+    img{
+      top: 15px;
+      right: 15px;
+    }
+    &[data-active="true"] {
+      transition: 0.2s ease-in-out;
+      a{
+        color: $first-main-color;
+        font-weight: 600;
+        pointer-events: all;
+        border: 1px $first-main-color solid;
+        border-radius: 50em;
+      }
+      h5{
+        transition: 0.2s ease-in-out;
+        color: white;
+        background-color: $first-main-color;
+      }
+    }
+    &[data-validated="true"] {
+      background-color: $light-gray;
+      a, h5 {
+        color: $flag-color-3;
+      }
+    }
+  }
+}
+
+[data-swipe-target="dot"]{
+  transition: 0.2s ease-in-out;
+  &[data-active="true"]{
+    background-color: $first-main-color;
+    scale: 1.2;
+  }
+}

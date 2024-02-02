@@ -1,0 +1,13 @@
+<div class="ctn-resp-tight pt-05 pb-05 w-100 company-navbar-mobile flex-center-between">
+  <button type="button" class="bn-none fs-14 upsize-120 hover-2 round-button bg-shade-to-light" data-action="click->tenant-menu#mobile">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <%= link_to root_path, class: "fs-14 ml-10 upsize-120 hover-2" do %>
+    <%= image_tag("logo_dark.svg", class: "sm-logo", alt: "Logo Demain") %>
+  <% end %>
+
+  <%= link_to user_offers_path, class: "fs-14 ml-10 bg-shade-to-light upsize-120 hover-2 round-button" do %>
+    <i class="fa-solid fa-magnifying-glass"></i>
+  <% end %>
+</div>
