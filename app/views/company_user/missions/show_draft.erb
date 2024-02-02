@@ -1,6 +1,6 @@
 <h5 class="fw-7 text-main no-wrap mb-30">Ma mission pour <%= @mission.beneficiary.name %></h5>
 
-<div class="d-flex">
+<div class="d-flex md-resp-flex-col">
   <div class="mb-40 w-100 max-w-400">
     <%= render partial: "company_user/shared/offer_card", locals: {offer: @mission.offer} %>
     <div class="p-20 pt-0 bg-shade">
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="ml-40">
+  <div class="ml-40 md-resp-ml-0">
     <h6 class="text-main mb-10 fw-7">A propos de la mission</h6>
     <%= render partial: "summary", locals: {mission: @mission} %>
   </div>

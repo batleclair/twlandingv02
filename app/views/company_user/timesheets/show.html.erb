@@ -1,8 +1,8 @@
 <%= render partial: "company_user/missions/tabs" %>
 
-<div class="d-flex mb-40">
+<div class="d-flex mb-40 md-resp-flex-col">
   <%= render partial: "calendar" %>
-  <div class="max-w-400 ml-40">
+  <div class="max-w-400 ml-40 md-resp-ml-0">
     <div class="mb-30">
       <h6 class="text-main fw-7 mb-10">Bravo 👏</h6>
       <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @timesheet.reported_hours %> heures</span> ce jour là.</p>

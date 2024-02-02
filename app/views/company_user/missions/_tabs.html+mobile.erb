@@ -1,0 +1,10 @@
+<div class="mb-30 w-100">
+  <h5 class="fw-7 text-main no-wrap mb-20">Ma mission pour <%= @mission.beneficiary.name %></h5>
+  <div class="sub-tabs">
+    <%= link_to "Infos", user_mission_path(@mission), class: "sub-tab w-100", data: {turbo: false, active: @sub_tab == 0} %>
+    <%= link_to "Temps", user_mission_timesheets_path(@mission), class: "sub-tab w-100", data: {turbo: false, active: @sub_tab == 1 } %>
+    <% if @mission.activated_status? %>
+      <%= link_to "Feedback", user_mission_confirmation_path(@mission), class: "sub-tab w-100", data: {turbo: false, active: @sub_tab == 2 } %>
+    <% end %>
+  </div>
+</div>

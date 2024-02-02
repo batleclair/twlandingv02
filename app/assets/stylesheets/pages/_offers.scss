@@ -95,6 +95,9 @@
   >div{
     padding: 20px;
   }
+  @media (max-width: $bp-md) {
+    max-height: calc(100vh - 70px);
+  }
 }
 
 .search-filters-btn{

@@ -127,6 +127,9 @@
   background-color: $first-light-lighter;
   transition: 0.2s ease-in-out;
   padding: 5px 20px;
+  @media(max-width: $bp-sm) {
+    padding: 5px 15px;
+  }
   white-space: nowrap;
   &:hover{
     transition: 0.2s ease-in-out;

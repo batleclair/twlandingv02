@@ -21,6 +21,9 @@
 }
 .min-w-400 {
   min-width: 400px;
+  @media (max-width: $bp-md) {
+    min-width: 100%;
+  }
 }
 .square-30{
   height: 30px;

@@ -1,8 +1,8 @@
 <div class="mb-40 position-sticky top50 border-b-light shadow-xs">
   <div data-search-form-target="filters" class="search-filters-ctn">
     <%= form_tag request.path, method: :get, data: {turbo_frame: "index", search_form_target: 'form', action: 'change->search-form#result' } do %>
-      <div class="flex-between p-20">
-        <div class="w-100">
+      <div class="flex-between p-20 md-resp-flex-col">
+        <div class="w-100 md-resp-mb-10">
           <h6 class="fw-5 fs-15 mb-10">Missions</h6>
           <div class="input-with-icon mb-10 position-relative">
             <%= select_tag :function, options_for_select(@active_functions, params[:function]), include_blank: "Toutes compétences", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:function] %>
@@ -18,7 +18,7 @@
             </div>
           </div>
         </div>
-        <div class="ml-20 mr-20 md-resp-mr-0 md-resp-ml-0 md-resp-mt-40 md-resp-mb-40 w-100">
+        <div class="ml-20 mr-20 md-resp-m-0 w-100">
           <h6 class="fw-5 fs-15 mb-10">Localisation</h6>
           <div class="input-with-icon mb-10 position-relative">
             <%= select_tag :region, options_for_select(@active_regions, params[:region]), include_blank: "Toutes régions", class: 'input-form pill-dropdown', data: { search_form_target: 'select'}, selected: params[:region] %>

@@ -1,8 +1,8 @@
 <%= render partial: "company_user/missions/tabs" %>
 
-<div class="d-flex mb-40">
+<div class="d-flex md-resp-flex-col mb-40">
   <%= render partial: "calendar" %>
-  <div class="max-w-400 ml-40">
+  <div class="max-w-400 ml-40 md-resp-ml-0">
     <div class="mb-30">
       <h6 class="text-main fw-7 mb-10">Temps de travail consacré à <%= @mission.beneficiary.name %></h6>
       <% if @mission.total_hours == 0 %>
