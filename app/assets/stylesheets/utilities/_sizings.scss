@@ -102,6 +102,9 @@
 .h-100-vh{
   height: calc(100vh - 50px);
 }
+.w-100-vw{
+  width: 96vw;
+}
 
 @each $id, $bp in $breakpoints {
   @media(max-width: #{$bp}px) {

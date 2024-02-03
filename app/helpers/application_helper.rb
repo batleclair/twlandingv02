@@ -45,6 +45,10 @@ module ApplicationHelper
     "27 rue du Chemin Vert, 75011 PARIS"
   end
 
+  def mobile_device?
+    request.variant == [:mobile]
+  end
+
   Object.prepend(Module.new do
     def if_not(alt)
       self ? self : alt

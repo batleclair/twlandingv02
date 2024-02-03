@@ -1,0 +1,7 @@
+<div class="mb-30 w-100">
+  <h5 class="fw-7 text-main no-wrap mb-20">Votre historique</h5>
+  <div class="sub-tabs">
+    <%= link_to "Candidatures", user_past_candidacies_path, class: "sub-tab w-100", data: {turbo: false, active: @tab == 6} %>
+    <%= link_to "Missions", user_past_missions_path, class: "sub-tab w-100", data: {turbo: false, active: @tab == 7} %>
+  </div>
+</div>

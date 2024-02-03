@@ -3,7 +3,9 @@
   <%= render partial: "shared/company_offers/search" %>
 
   <div class="w-100">
-    <%= render partial: "list" %>
+    <%= turbo_frame_tag "index", class: "w-100 max-w-400 mr-20", data: {action: "turbo:frame-load->search-form#update"} do %>
+      <%= render partial: "list" %>
+    <% end %>
   </div>
 
 </div>

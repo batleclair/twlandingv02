@@ -7,7 +7,7 @@
   <% end %>
   <% @offers.each do |o| %>
     <div class="w-100 p-10 bg-shade mb-10" data-search-form-target="card" data-id=<%=o.id%> data-active-card=<%=params[:id].to_i == o.id %>>
-      <%= link_to user_offer_path(o), class: "w-100 h-100", data: {turbo_frame: "preview"} do %>
+      <%= link_to user_offer_path(o), class: "w-100 h-100", data: {turbo: !mobile_device?, turbo_frame: "preview"} do %>
         <div class="flex-center-left w-100">
           <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
             <%= logo_for(o.beneficiary) %>

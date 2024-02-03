@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ['submitbtn', 'filters', 'btn', 'counter', 'form', 'select', 'list', 'card', 'preview', 'id', 'loader', 'close']
 
   connect() {
-    console.log('search')
     addEventListener('popstate', (event) => { });
     onpopstate = (event) => {location.reload()};
 
@@ -41,7 +40,6 @@ export default class extends Controller {
   }
 
   result() {
-    console.log('test')
     this.submitbtnTarget.click()
   }
 
@@ -117,7 +115,6 @@ export default class extends Controller {
       this.selectTargets[1].classList.remove('readonly-input')
     }
 
-    console.log(this.previewTarget.dataset.id)
     this.setActive()
   }
 

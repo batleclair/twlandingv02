@@ -15,7 +15,9 @@ export default class extends Controller {
       });
 
     }
-    document.getElementById('navbar').classList.remove("z1")
+    // if (document.getElementById('navbar')) {
+    //   document.getElementById('navbar').classList.remove("z1")
+    // }
   }
 
   keep(event) {
@@ -28,6 +30,8 @@ export default class extends Controller {
     this.windowTargets.forEach(window => {
       window.dataset.active = (window.dataset.popUpId === id)
     });
-    document.getElementById('navbar').classList.add("z1")
+    // if (document.getElementById('navbar')) {
+    //   document.getElementById('navbar').classList.add("z1")
+    // }
   }
 }

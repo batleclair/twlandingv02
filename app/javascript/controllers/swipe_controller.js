@@ -24,7 +24,7 @@ export default class extends Controller {
        for (let i = 0; i < cardCount ; i++) {
         if (active === i) {
           card.style.transform = `translateX(${Math.max(cardSize*firstActiveCard - i*cardSize, 0 - stub)}px)`
-          dots[i].dataset.active="true"
+          if (dots[i]) {dots[i].dataset.active="true"}
         }
        }
      });
