@@ -40,7 +40,11 @@
         <% end %>
         <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">3</h5>
         <p class="center-text fs-14 p-05"><%= current_user.company.name %> valide votre demande et vous autorise à candidater auprès d'associations</p>
-        <%= link_to "Mon entreprise valide", user_profile_path, data: {action: "click->swipe#keep"} %>
+        <% unless current_user.never_applied? %>
+          <div data-action="click->swipe#keep">
+            <%= link_to "Mon entreprise valide", user_employee_application_path(current_user.last_employee_application), data: {turbo: true, turbo_frame: "modal"} %>
+          </div>
+        <% end %>
       </div>
 
       <div class="hover-2 bg-shade p-20 flex-center center-text flex-col p-10 h-100 position-relative" data-controller="calendly" data-calendly-email-value=<%= current_user.email %> data-calendly-name-value=<%= current_user.first_name %> data-swipe-target="card" data-status="active" data-active=<%=@active_step == 4%> data-validated=<%=@active_step > 4%>>
@@ -50,7 +54,7 @@
         <h5 class="round fs-25 flex-center square-40 fw-7 mb-10">4</h5>
         <p class="center-text fs-14 p-05">Programmez un call avec un conseiller Demain qui vous accompagnera dans vos démarches !</p>
         <div data="click->swipe#keep">
-          <%= link_to "J'échange avec Demain", user_profile_path, data: {action: "click->calendly#popup"} %>
+          <%= link_to "J'échange avec Demain", "", data: {action: "click->calendly#popup"} %>
         </div>
         <!-- Calendly link widget begin -->
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
