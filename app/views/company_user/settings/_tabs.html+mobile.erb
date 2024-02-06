@@ -1,0 +1,10 @@
+<div class="mb-30 w-100">
+  <h5 class="fw-7 text-main no-wrap mb-20">Votre compte Demain</h5>
+  <div class="sub-tabs">
+    <%= link_to "Profil perso", user_settings_path, class: "sub-tab w-100", data: {turbo: false, active: @sub_tab == 0} %>
+    <%= link_to "Profil pro", user_profile_settings_path, class: "sub-tab w-100", data: {turbo: false, active: @sub_tab == 1} %>
+    <% if !current_user.provider? %>
+      <%= link_to "Mot de passe", user_account_settings_path, class: "sub-tab w-100", data: {turbo: false, active: @sub_tab == 2} %>
+    <% end %>
+  </div>
+</div>

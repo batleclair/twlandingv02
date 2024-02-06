@@ -1,0 +1,42 @@
+<%= render partial: "tabs" %>
+
+<div class="max-w-300 mb-30">
+  <%= simple_form_for(current_user, url: update_account_user_settings_path) do |f| %>
+    <h6 class="text-main mb-10 fw-6">Modifier votre mot de passe</h6>
+
+      <div class="mb-10 position-relative">
+        <%= f.input :email,
+                    label: "Email",
+                    disabled: true,
+                    wrapper: false %>
+      </div>
+
+
+      <div class="mb-10 position-relative">
+        <%= f.input :current_password,
+                    required: true,
+                    label: "Mot de passe actuel",
+                    wrapper: false %>
+      </div>
+
+      <div class="mb-10 position-relative">
+        <%= f.input :password,
+                    required: false,
+                    label: "Nouveau mot de passe",
+                    label_html: {class: "text-grey"},
+                    wrapper: false %>
+      </div>
+
+      <div class="mb-20 position-relative">
+        <%= f.input :password_confirmation,
+                    required: false,
+                    label: "Confirmation",
+                    label_html: {class: "text-grey"},
+                    wrapper: false %>
+      </div>
+
+    <div class="mt-20">
+      <%= f.submit "Enregistrer", class: "bg-main-to-dark button text-white bn-none w-100 text-center hover-2" %>
+    </div>
+  <% end %>
+</div>

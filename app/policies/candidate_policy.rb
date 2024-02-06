@@ -56,6 +56,14 @@ class CandidatePolicy < ApplicationPolicy
     record.user == user || user.admin? || (user.company_admin? && record.user.company_id == user.company_id)
   end
 
+  def update_candidate?
+    update?
+  end
+
+  def update_user?
+    update?
+  end
+
   def destroy?
     user.user_type == 'admin'
   end

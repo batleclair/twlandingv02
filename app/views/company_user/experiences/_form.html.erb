@@ -1,4 +1,4 @@
-<%= simple_form_for([current_user.candidate, @experience], url: url) do |f| %>
+<%= simple_form_for([current_user.candidate, @experience], url: url, data: {turbo: @turbo_form}) do |f| %>
   <div class="mb-10 position-relative">
     <%= f.input :employer,
                 label: "Employeur, client ou projet",
@@ -24,6 +24,8 @@
                   wrapper: false %>
     </div>
   </div>
+
+  <%= hidden_field_tag :source, value: request.path %>
 
   <button type="submit", class="w-100 button round bg-main-to-dark text-white bn-none">
     <i class="fa-regular fa-paper-plane mr-10"></i>

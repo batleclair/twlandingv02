@@ -1,0 +1,45 @@
+<%= turbo_frame_tag "page" do %>
+    <% if @experiences&.empty? %>
+      <p class="mb-20">Vous n'avez pas encore renseigné vos expériences professionnelles</p>
+    <% end %>
+
+    <div class="w-100 mb-20">
+      <%= link_to new_user_experience_path, class:"bg-white-to-shade hover-2 pl-10 pr-10 pt-05 pb-05 flex-center center-margin text-main first-main-border round", data: {turbo_frame: "modal"} do %>
+        <i class="fa-solid fa-pencil mr-10"></i>
+        Ajouter une expérience
+      <% end %>
+    </div>
+
+    <div class="w-100 mb-2">
+      <% @experiences.each do |xp| %>
+        <div class="d-flex justify-content-between mb-2">
+          <div class="d-flex align-items-center justify-content-between full-width">
+            <div class="flex-resp align-items-center flex-grow-1">
+              <div>
+                <h6 class="me-4 set-width-150"><%= xp.employer %>: </h6>
+                <p><%= xp.title %></p>
+                <div class="d-flex align-items-center">
+                  <% if xp.end_date.present? %>
+                    <p class="me-2 sm-thin-text">(<%= xp.start_date_output %></p>
+                    <i class="fa-solid fa-arrow-right-long me-2 text-main"></i>
+                    <p class="sm-thin-text"><%= xp.end_date_output %>)</p>
+                  <% else %>
+                    <p class="me-2 sm-thin-text">depuis <%= xp.start_date_output %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex">
+              <%= link_to edit_user_experience_path(xp), data: {turbo_frame: "modal"} do %>
+                <i class="fa-solid fa-pen-to-square text-main me-2"></i>
+              <% end %>
+              <%= link_to user_experience_path(xp), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
+                <i class="fa-solid fa-trash text-main"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= turbo_frame_tag "modal" %>
+<% end %>

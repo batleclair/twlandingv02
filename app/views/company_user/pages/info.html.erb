@@ -1,3 +1,8 @@
 <div class="h-100-vh pb-10">
-  <iframe frameborder="0" class="h-100 w-100" src=<%= current_user.company&.user_info_source %>></iframe>
+  <div id="spinner" class="loader-frame">
+    <div class="round-button btn-round-cta">
+      <span class="round-button loader"></span>
+    </div>
+  </div>
+  <iframe frameborder="0" class="h-100 w-100" src=<%= current_user.company&.user_info_source %> onload="document.getElementById('spinner').style.display='none';"></iframe>
 </div>

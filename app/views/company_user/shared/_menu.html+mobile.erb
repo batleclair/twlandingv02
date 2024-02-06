@@ -37,6 +37,10 @@
     <div class="mt-05 mb-05 w-100 border-b-light-darker"></div>
 
     <div class="p-10 bg-main-to-dark hover-2 w-100">
+      <%= link_to "Votre compte", user_settings_path, class: "text-white fs-16" %>
+    </div>
+
+    <div class="p-10 bg-main-to-dark hover-2 w-100">
       <%= link_to "Vous déconnecter", destroy_user_session_path, method: :delete, class: "text-white fs-16" %>
     </div>
   </div>

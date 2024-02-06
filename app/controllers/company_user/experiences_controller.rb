@@ -7,6 +7,7 @@ class CompanyUser::ExperiencesController < CompanyUserController
   end
 
   def new
+    @turbo_form = turbo_frame_request?
   end
 
   def create
@@ -16,18 +17,16 @@ class CompanyUser::ExperiencesController < CompanyUserController
     if @experience.save
       @experiences = policy_scope(Experience)
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.update("page", template: "company_user/experiences/index") }
-        format.html {redirect_to user_experiences_path}
+        format.turbo_stream { render turbo_stream: turbo_stream.update("page", partial: "company_user/experiences/list") }
+        format.html {redirect_to after_action_path}
       end
     else
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream:  turbo_stream.replace("modal", template: "company_user/experiences/edit") }
-        format.html {render :edit, status: :unprocessable_entity}
-      end
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @turbo_form = turbo_frame_request?
   end
 
   def update
@@ -36,14 +35,11 @@ class CompanyUser::ExperiencesController < CompanyUserController
     if @experience.save
       @experiences = policy_scope(Experience)
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.update("page", template: "company_user/experiences/index") }
-        format.html {redirect_to user_experiences_path}
+        format.turbo_stream { render turbo_stream: turbo_stream.update("page", partial: "company_user/experiences/list") }
+        format.html {redirect_to after_action_path}
       end
     else
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream:  turbo_stream.replace("modal", template: "company_user/experiences/edit") }
-        format.html {render :edit, status: :unprocessable_entity}
-      end
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -71,5 +67,9 @@ class CompanyUser::ExperiencesController < CompanyUserController
   def input_to_date
     @experience.start_date = "#{params[:experience][:start_date][3..]}/#{params[:experience][:start_date][0..1]}"
     @experience.end_date = "#{params[:experience][:end_date][3..]}/#{params[:experience][:end_date][0..1]}" unless @experience.end_date.blank?
+  end
+
+  def after_action_path
+    params[:source].start_with?("/settings") ? user_profile_settings_path : user_experiences_path
   end
 end

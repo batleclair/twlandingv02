@@ -56,6 +56,15 @@ Rails.application.routes.draw do
       get "/mon_profil", to: "candidates#profile", as: :user_profile
       resources :ma_demande, controller: 'employee_applications', as: :user_employee_applications, only: %i[new create show]
       get "/ma_demande", to: redirect("/")
+      scope path: "/settings" do
+        get "/", to: "settings#edit", as: :user_settings
+        resources :experiences, controller: "experiences", only: %i[new edit], as: :user_experience_settings
+        get "/profile", to: "settings#profile", as: :user_profile_settings
+        get "/account", to: "settings#account", as: :user_account_settings
+        patch "/", to: "settings#update_user", as: :update_user_settings
+        patch "/profile", to: "settings#update_candidate", as: :update_candidate_user_settings
+        patch "/account", to: "settings#update_account", as: :update_account_user_settings
+      end
       # get "/ma_demande", to: "employee_applications#renew", as: :renew_user_employee_application
       resources :recherche, controller: 'offers', as: :user_offers, param: :slug, only: %i[index show] do
         resources :candidacies, only: %i[new create update]

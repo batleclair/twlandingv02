@@ -1,0 +1,43 @@
+<%= render partial: "tabs" %>
+
+<div class="max-w-300 mb-30">
+  <%= simple_form_for(@user, url: update_user_settings_path) do |f| %>
+    <h6 class="text-main mb-10 fw-6">Modifier vos données principales</h6>
+
+    <div class="mb-10 position-relative">
+        <%= f.input :first_name,
+                    label: "Prénom",
+                    wrapper: false %>
+    </div>
+    <div class="mb-10 position-relative">
+        <%= f.input :last_name,
+                    label: "Nom",
+                    wrapper: false %>
+    </div>
+    <%= f.simple_fields_for :candidate, @user.candidate do |c| %>
+      <div class="mb-10 position-relative input-with-icon">
+        <%= c.input :phone_num,
+                    label: "Téléphone",
+                    wrapper: false %>
+        <i class="fa-solid fa-phone"></i>
+      </div>
+      <div class="mb-10 position-relative">
+        <%= c.input :location,
+                    label: "Ville",
+                    wrapper: false %>
+      </div>
+      <div class="mb-10 position-relative">
+        <%= c.input :birth_date,
+                    label: "Date de naissance",
+                    as: :string,
+                    placeholder: "jj/mm/aaaa",
+                    input_html: { value: @user.candidate.birth_date&.strftime("%d/%m/%Y") },
+                    wrapper: false %>
+      </div>
+    <% end %>
+
+    <div class="mt-20">
+      <%= f.submit "Enregistrer", class: "bg-main-to-dark button text-white bn-none w-100 text-center hover-2" %>
+    </div>
+  <% end %>
+</div>
