@@ -23,7 +23,7 @@
                       input_html: { class: 'd-none', data: {'progress-target': 'cv', action: 'change->progress#cv'}},
                       label: ('<i class="fa-solid fa-file-import mb-0 me-2"></i>Importer un fichier doc/pdf').html_safe,
                       wrapper: false,
-                      label_html: { class: 'upload'} %>
+                      label_html: { class: 'upload bg-white-to-shade'} %>
           <p data-progress-target="cvmsg" class="fs-10 text-ellipsis center-text">
             <% if @candidate.cv.present? %>
               <%= image_tag('valid.svg', class: "feedback-mark me-10") %>

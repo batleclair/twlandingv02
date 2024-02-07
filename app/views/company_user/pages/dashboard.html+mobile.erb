@@ -33,6 +33,13 @@
                 <p>recommendation(s) attend(ent) votre réponse</p>
               </div>
             <% end %>
+          <% else %>
+            <%= link_to user_offers_path, class:"round-20 first-main-border flex-center bg-shade-to-dark hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
+              <div class="center-text pe-none p-20">
+                <h6 class="text-main fw-6 mb-10">Parcourez les missions actuellement disponibles</h6>
+                <%= image_tag("search_illustration.svg", class:"w-100 max-w-100") %>
+              </div>
+            <% end %>
           <% end %>
           <% if @pending_candidacies.present? %>
             <%= link_to user_candidacies_path, class:"round-20 first-main-border bg-white-to-shade hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
@@ -51,9 +58,7 @@
         <% if @active_engagement %>
           <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
         <% else %>
-          <% if @pending_selections.present? %>
-            <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
-          <% end %>
+          <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
           <% if @pending_candidacies.present? %>
             <em data-swipe-target="dot" class="p-10 bg-shade round mr-05 ml-05"></em>
           <% end %>

@@ -33,6 +33,7 @@ class Candidate < ApplicationRecord
   # validates :volunteering, presence: { message: "Avez-vous une expérience associative ?" }, on: :profile
   # validate :skill_present, on: :profile
 
+  before_save :normalize_blanks
   # after_create do
   #   clip_to_airtable
   #   save_to_airtable if first_completion?
@@ -187,6 +188,10 @@ class Candidate < ApplicationRecord
   #   errors.add(:skill_list, "Indiquer au moins une compétence") if skill_list.empty?
   # end
 
+  def normalize_blanks
+    self.linkedin_url = nil if self.linkedin_url == ""
+  end
+
   def basics
     return if !experiences.blank?
     return unless linkedin_url || cv.attached?
@@ -200,7 +205,7 @@ class Candidate < ApplicationRecord
 
   def cv_file_type
     if cv.attached?
-      errors.add(:linkedin_url, 'formats : PDF ou DOC') unless cv.content_type.in?(%w[application/pdf application/msword])
+      errors.add(:linkedin_url, 'formats : PDF ou DOC') unless cv.content_type.in?(%w[application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document])
     end
   end
 end

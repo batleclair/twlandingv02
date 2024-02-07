@@ -1,8 +1,15 @@
-<div class="h-100 pb-10">
-  <div id="spinner" class="loader-frame">
-    <div class="round-button btn-round-cta">
-      <span class="round-button loader"></span>
+<% if current_user.company&.admin_info_source.present? %>
+  <div class="h-100 pb-10">
+    <div id="spinner" class="loader-frame">
+      <div class="round-button btn-round-cta">
+        <span class="round-button loader"></span>
+      </div>
     </div>
+    <iframe frameborder="0" class=" h-100 w-100 pb-50" src=<%= current_user.company&.admin_info_source %> onload="document.getElementById('spinner').style.display='none';"></iframe>
   </div>
-  <iframe frameborder="0" class=" h-100 w-100 pb-50" src=<%= current_user.company&.admin_info_source %> onload="document.getElementById('spinner').style.display='none';"></iframe>
-</div>
+<% else %>
+  <div class="max-w-400">
+    <h5 class="mb-30 fw-7 text-main">👋 Bonjour <%= current_user.first_name %></h5>
+    <p>Votre entreprise n'a pas encore renseigné les informations relatives au dispositif de mécénat de compétences chez <%= current_user.company.name %></p>
+  </div>
+<% end %>

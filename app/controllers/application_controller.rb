@@ -43,8 +43,6 @@ class ApplicationController < ActionController::Base
 
   def enforce_subdomain
     @subdomain = current_user.subdomain.blank? ? Subdomain.generic : current_user.subdomain
-    puts "subdomain : #{@subdomain}"
-    puts "rails env : #{Rails.env}"
     if @subdomain != request.subdomain
       user = current_user
       # sign_out(current_user)

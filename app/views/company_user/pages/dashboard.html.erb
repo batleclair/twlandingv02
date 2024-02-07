@@ -35,6 +35,13 @@
               <p>recommendation(s) attend(ent) votre réponse</p>
             </div>
           <% end %>
+        <% else %>
+          <%= link_to user_offers_path, class:"round-20 first-main-border flex-center bg-shade-to-dark hover-2" do %>
+            <div class="center-text pe-none p-20">
+              <h6 class="text-main fw-6 mb-10">Parcourez les missions actuellement disponibles</h6>
+              <%= image_tag("search_illustration.svg", class:"w-100 max-w-100") %>
+            </div>
+          <% end %>
         <% end %>
 
         <% if @pending_candidacies.present? %>
