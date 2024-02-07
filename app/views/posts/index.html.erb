@@ -12,7 +12,7 @@
 
   <div class="row desktop-only early-resp-900">
     <div class="d-flex p-4">
-      <% bg_img = @last_post.photo.attached? ? cl_image_path(@last_post.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
+      <% bg_img = cl_image_path((@last_post.photo.attached? ? @last_post.photo.key : '../default_banner_bg.jpg'), transformation: {width: 500, crop: "limit"}, alt: "Future of work")%>
       <%= link_to(post_path(slug: @last_post.slug), class: "me-5") do %>
         <div class="full-width upper-post-card upper-post-card-xl d-flex align-items-center" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >
           <h4 class="text-white full-width pt-3 pb-3 me-5 ms-5 center-text"><%= @last_post.title %></h4>
@@ -38,7 +38,7 @@
 
   <div class="row mt-3">
     <div class="col-xxl-4 col-lg-6 col-md-6 col-sm-12 ps-4 pe-4 mobile-only">
-      <% bg_img = @last_post.photo.attached? ? cl_image_path(@last_post.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
+      <% bg_img = cl_image_path((@last_post.photo.attached? ? @last_post.photo.key : '../default_banner_bg.jpg'), transformation: {width: 500, crop: "limit"}, alt: "Future of work")%>
       <%= link_to(post_path(slug: @last_post.slug)) do %>
         <div class="post-card">
           <div class="upper-post-card upper-post-card-sm" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >
@@ -60,7 +60,7 @@
 
     <% @posts.each do |post| %>
       <div class="col-xxl-4 col-lg-6 col-md-6 col-sm-12 ps-4 pe-4">
-        <% bg_img = post.photo.attached? ? cl_image_path(post.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
+       <% bg_img = cl_image_path((post.photo.attached? ? post.photo.key : '../default_banner_bg.jpg'), transformation: {width: 500, crop: "limit"}, alt: "Future of work")%>
         <%= link_to(post_path(slug: post.slug)) do %>
           <div class="post-card">
             <div class="upper-post-card upper-post-card-sm" style="background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('<%= bg_img %>')" >

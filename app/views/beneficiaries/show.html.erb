@@ -1,5 +1,5 @@
-<% content_for :title, "En savoir plus sur l'association #{@beneficiary.name}" %>
-<% content_for :description, "Grâce à Demain, engagez-vous auprès de l'association #{@beneficiary.name} en réalisant une mission de mécénat de compétences." %>
+<% content_for :title, "En savoir plus sur #{@beneficiary.name}" %>
+<% content_for :description, "Grâce à Demain, engagez-vous auprès de #{@beneficiary.name} en réalisant une mission de mécénat de compétences." %>
 <% canonical(beneficiary_url(@beneficiary)) %>
 
 <% if @beneficiary.profile_pic_one.attached? %>
@@ -10,15 +10,15 @@
       { flags: "layer_apply", width: 300, gravity: "west", y: -50, x:100 , crop: :scale },
       { overlay: "og_overlay_2.png" },
       { flags: "layer_apply", width: 300, gravity: "south_east", crop: :scale },
-      { overlay: {font_family: "Verdana", font_size: "30px", text: "Partenaire de l'association #{@beneficiary.name}" }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
+      { overlay: {font_family: "Verdana", font_size: "30px", text: "Partenaire de #{@beneficiary.name}" }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
       ])
   %>
 <% end %>
 
 <% b_logo_path = @beneficiary.logo.attached? ? cl_image_path(@beneficiary.logo.key) : cl_image_path('../default_logo.png') %>
 
-<% bg_img = @beneficiary.photo.attached? ? cl_image_path(@beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
-<% b_logo = @beneficiary.logo.attached? ? cl_image_tag(@beneficiary.logo.key, alt:"logo de l'association #{@beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+<% bg_img = cl_image_path((@beneficiary.photo.attached? ? @beneficiary.photo.key : '../default_banner_bg.jpg'), transformation: {width: 1200, crop: "limit"}) %>
+<% b_logo = cl_image_tag((@beneficiary.logo.attached? ? @beneficiary.logo.key : '../default_logo.png'), alt: "logo de #{@beneficiary.name}") %>
 
 <h1 class="d-none">Travailler pour l'association <%= @beneficiary.name %></h1>
 
@@ -39,7 +39,7 @@
 
       <div class="asso-img-ctn d-flex flex-column justify-content-between full-width mg-resp-r mb-2-resp">
         <div class="position-relative">
-          <%= cl_image_tag((@beneficiary.profile_pic_one.attached? ? @beneficiary.profile_pic_one.key : '../placeholder_1.jpg'), class: "full-width mb-3", alt: "première photo de l'association") %>
+          <%= cl_image_tag((@beneficiary.profile_pic_one.attached? ? @beneficiary.profile_pic_one.key : '../placeholder_1.jpg'), transformation: {width: 500, crop: "scale"}, class: "full-width mb-3", alt: "première photo de l'association") %>
           <span><%= image_tag('purple_shape_1.svg', class: "top-left-shape", alt: "aplat de couleur violet foncé") %></span>
         </div>
         <div class="grey-info-box mb-3 d-flex flex-column justify-content-between" style="height: 260px">
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="position-relative">
-          <%= cl_image_tag((@beneficiary.profile_pic_two.attached? ? @beneficiary.profile_pic_two.key : '../placeholder_2.jpg'), class: "full-width", alt: "deuxième photo de l'association") %>
+          <%= cl_image_tag((@beneficiary.profile_pic_two.attached? ? @beneficiary.profile_pic_two.key : '../placeholder_2.jpg'), transformation: {width: 500, crop: "scale"}, class: "full-width", alt: "deuxième photo de l'association") %>
           <span><%= image_tag('purple_shape_2.svg', class: "bottom-right-shape", alt: "aplat de couleur violet foncé") %></span>
         </div>
       </div>
@@ -132,7 +132,7 @@
     </div>
     <div class="asso-img-ctn full-width mg-resp-l">
       <div class="position-relative">
-        <%= cl_image_tag((@beneficiary.profile_pic_three.attached? ? @beneficiary.profile_pic_three.key : '../default_banner_bg.jpg'), class: "full-width", alt: "troisième photo de l'association") %>
+        <%= cl_image_tag((@beneficiary.profile_pic_three.attached? ? @beneficiary.profile_pic_three.key : '../default_banner_bg.jpg'), transformation: {width: 500, crop: "scale"}, class: "full-width", alt: "troisième photo de l'association") %>
         <span><%= image_tag('purple_shape_3.svg', class: "bottom-right-shape", alt: "aplat de couleur violet foncé") %></span>
       </div>
     </div>

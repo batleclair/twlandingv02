@@ -19,7 +19,7 @@
   <h2 class="center-text text-main mb-5 mt-5">Le blog de <span class="stress">Demain</span> 🙌</h2>
 
   <div class="full-width post-ctn">
-    <%= @post.photo.attached? ? cl_image_tag(@post.photo.key, alt: "illustration de #{@post.title}") : cl_image_tag('../default_banner_bg.jpg', alt: "illustration de #{@post.title}") %>
+    <%= cl_image_tag((@post.photo.attached? ? @post.photo.key : '../default_banner_bg.jpg'), transformation: {width: 700, crop: "limit"}, alt: "illustration de #{@post.title}") %>
     <h2 class="text-main fw-7 mt-3 mb-2"> <%= @post.title %></h2>
     <h6 class="mb-5"><%= @post.published_ago %></h6>
     <div class="post-body">

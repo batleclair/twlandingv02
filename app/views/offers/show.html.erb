@@ -1,5 +1,5 @@
-<% content_for :title, "#{@offer.title} pour l'association #{@offer.beneficiary.name}" %>
-<% content_for :description, "Grâce à Demain, engagez-vous auprès de l'association #{@offer.beneficiary.name} dans le cadre d'un mécénat de compétences. La mission : #{@offer.title}. L'objectif de l'association : #{@offer.beneficiary.cause}" %>
+<% content_for :title, "#{@offer.title} pour #{@offer.beneficiary.name}" %>
+<% content_for :description, "Grâce à Demain, engagez-vous pour #{@offer.beneficiary.name} dans le cadre d'un mécénat de compétences. Leur projet : #{@offer.beneficiary.cause}. Votre mission : #{@offer.title}." %>
 <% canonical(offer_url(@offer)) %>
 
 <% if @offer.beneficiary.photo.attached? %>
@@ -10,7 +10,7 @@
       { flags: "layer_apply", width: 300, gravity: "west", y: -50, x:100 , crop: :scale },
       { overlay: "og_overlay_2.png" },
       { flags: "layer_apply", width: 300, gravity: "south_east", crop: :scale },
-      { overlay: {font_family: "Verdana", font_size: "30px", text: "#{@offer.title} pour aider l'association #{@offer.beneficiary.name}" }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
+      { overlay: {font_family: "Verdana", font_size: "30px", text: "#{@offer.title} pour aider #{@offer.beneficiary.name}" }, gravity: "west", y: 50, x:100 , color: "white", width: 800, crop: "fit" }
       ])
   %>
 <% end %>
@@ -18,8 +18,8 @@
 <% b_logo_path = @offer.beneficiary.logo.attached? ? cl_image_path(@offer.beneficiary.logo.key) : cl_image_path('../default_logo.png') %>
 <% content_for :structured_data, @offer.structured_data(b_logo_path).to_json.html_safe %>
 
-<% bg_img = @offer.beneficiary.photo.attached? ? cl_image_path(@offer.beneficiary.photo.key) : cl_image_path('../default_banner_bg.jpg') %>
-<% b_logo = @offer.beneficiary.logo.attached? ? cl_image_tag(@offer.beneficiary.logo.key, alt:"logo de l'association #{@offer.beneficiary.name}") : image_tag('illustration5.png', alt: "logo d'association") %>
+<% bg_img = cl_image_path((@offer.beneficiary.photo.attached? ? @offer.beneficiary.photo.key : '../default_banner_bg.jpg'), transformation: {width: 1200, crop: "fit"}) %>
+<% b_logo = cl_image_tag((@offer.beneficiary.logo.attached? ? @offer.beneficiary.logo.key : '../default_logo.png'), alt: "logo de #{@offer.beneficiary.name}") %>
 
 <h1 class="d-none">Mécénat de compétences : travailler pour l'association <%= @offer.beneficiary.name %> (<%= @offer.title %>)</h1>
 <div class="position-relative">
