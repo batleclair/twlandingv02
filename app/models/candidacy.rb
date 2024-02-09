@@ -263,6 +263,8 @@ class Candidacy < ApplicationRecord
   end
 
   def notifiable?
-    beneficiary_validation_status? || mission_status? || (admin_validation_status? && !active)
+    beneficiary_validation_status? ||
+    (mission_status? && active) ||
+    (admin_validation_status? && !active)
   end
 end
