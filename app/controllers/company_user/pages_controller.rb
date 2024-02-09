@@ -1,6 +1,6 @@
 class CompanyUser::PagesController < CompanyUserController
 before_action :set_tab, except: [:book_call, :no_mission]
-before_action :verify_open_access, except: [:access_closed, :no_mission]
+before_action :verify_open_access, except: [:access_closed, :no_mission, :info]
 
   def dashboard
     authorize :company_user_page
