@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::ConfirmationsController < Devise::ConfirmationsController
+  before_action :redirect_to_root, only: [:new, :show], if: :user_signed_in?
   # GET /resource/confirmation/new
   # def new
   #   super
@@ -32,5 +33,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     else
       new_session_path(resource_name)
     end
+  end
+
+  def redirect_to_root
+    path = current_user.company_admin? ? admin_path : root_path
+    redirect_to path
   end
 end
