@@ -1,0 +1,37 @@
+<%= turbo_frame_tag "edit" do %>
+  <div class="tenant-modal" data-controller="popup" data-popup-target="window" data-action="click->popup#close" data-pop-up-id="1" data-active="true">
+    <div>
+      <div class="p-20 shadow-md" data-action="click->popup#keep">
+        <div class="flex-center-between w-100">
+          <h5 class="text-main fw-7">Editer</h5>
+          <%= link_to "", data: {action: "click->popup#close", popup_target: "close"} do %>
+            <i class="fs-18 fa-solid fa-circle-xmark text-main"></i>
+          <% end %>
+        </div>
+        <div class="mb-20 w-100">
+          <h6 class="mb-10">Modifier la période d'éligibilité de <%= @company.name %></h6>
+        </div>
+        <%= simple_form_for([@company, @period], url: admin_company_eligibility_period_path(@company, @period), data: {controller: 'form-redirect', action: 'turbo:submit-end->form-redirect#next'}) do |f| %>
+          <div class="position-relative mb-10">
+            <%= f.input :title %>
+          </div>
+          <div class="position-relative mb-10">
+            <h6>Dates :</h6>
+            <div class="flex-center-between mb-10" data-controller="flatpickr">
+              <p class="mr-10 no-wrap w-100">Début :</p>
+              <p><%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+            </div>
+            <div class="flex-center-between" data-controller="flatpickr">
+              <p class="mr-10 no-wrap w-100">Fin :</p>
+              <p><%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "date" }, class: "w-100" }, wrapper: false, label: false %></p>
+            </div>
+          </div>
+          <div class="position-relative mb-10">
+            <%= f.input :comment %>
+          </div>
+          <%= f.submit "Modifier", class: "button btn-main-color" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

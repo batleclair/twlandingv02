@@ -8,7 +8,11 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def after_resetting_password_path_for(resource)
-    params[:user]["created_by_admin"] ? new_candidate_path : offers_path
+    if resource_class.sign_in_after_reset_password
+      params[:user]["created_by_admin"] ? new_candidate_path : after_sign_in_path_for(resource)
+    else
+      new_session_path(resource_name)
+    end
   end
 
 end

@@ -44,11 +44,11 @@ class ApplicationController < ActionController::Base
   def enforce_subdomain
     @subdomain = current_user.subdomain.blank? ? Subdomain.generic : current_user.subdomain
     if @subdomain != request.subdomain
-      user = current_user
+      # user = current_user
       # sign_out(current_user)
       url = current_user.company_admin? ? admin_url(subdomain: @subdomain) : root_url(subdomain: @subdomain)
       redirect_to url, allow_other_host: true
-      sign_in(user)
+      # sign_in(user) unless user_signed_in?
     end
   end
 

@@ -13,10 +13,20 @@
       <div class="max-w-400 w-100">
         <h5 class="text-main mb-20">Périodes</h5>
         <% @periods.each do |period| %>
-          <div class="bg-shade p-10 mb-10 w-100">
-            <h5><%= period.title %></h5>
-            <h6><%= "#{period.start_date.strftime("%m/%Y")} -> #{period.end_date.strftime("%m/%Y")}" %></h6>
-            <p><%= period.comment %></p>
+          <div class="bg-shade p-10 mb-10 w-100 flex-center-between">
+            <div>
+              <h6><%= period.title %></h6>
+              <h6><%= "#{period.start_date&.strftime("%m/%Y")} -> #{period.end_date&.strftime("%m/%Y")}" %></h6>
+              <p><%= period.comment %></p>
+            </div>
+            <div>
+              <%= link_to edit_admin_company_eligibility_period_path(@company, period), data: {turbo: true, turbo_frame: "edit"} do %>
+                <i class="fa-solid fa-pen-to-square text-main"></i>
+              <% end %>
+              <%= link_to admin_company_eligibility_period_path(@company, period), data: {turbo: true, turbo_method: :delete, turbo_confirm: "Êtes-vous sûr.e de vouloir supprimer ?"} do %>
+                <i class="fa-solid fa-trash text-main"></i>
+              <% end %>
+            </div>
           </div>
         <% end %>
       </div>
@@ -25,7 +35,7 @@
         <%= simple_form_for([@company, @period], url: admin_company_eligibility_periods_path) do |f| %>
 
 
-          <div class="mb-10">
+          <div class="mb-10 position-relative">
             <%= f.input :title %>
           </div>
 
@@ -41,6 +51,10 @@
             </div>
           </div>
 
+          <div class="mb-10 position-relative">
+            <%= f.input :comment %>
+          </div>
+
           <%= f.submit "Ajouter", class: "button btn-main-color" %>
 
         <% end %>
@@ -49,3 +63,4 @@
   </div>
 
 </div>
+<%= turbo_frame_tag "edit" %>
