@@ -294,6 +294,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.16.1)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.16.1)
+    sentry-ruby (5.16.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sib-api-v3-sdk (9.1.0)
       addressable (~> 2.3, >= 2.3.0)
       json (~> 2.1, >= 2.1.0)
@@ -390,6 +395,8 @@ DEPENDENCIES
   rails (~> 7.0.3)
   sassc-rails
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   sib-api-v3-sdk
   sidekiq (< 7)
   sidekiq-failures (~> 1.0)
