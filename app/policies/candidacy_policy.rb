@@ -12,19 +12,27 @@ class CandidacyPolicy < ApplicationPolicy
   end
 
   def index?
-    user.company_admin? || user.company_user? || user.admin?
+    # user.company_admin? || user.company_user? || user.admin?
+    true
   end
 
   def new?
     update?
   end
 
-  def show_selection?
-    show?
-  end
+  # def show_selection?
+  #   show?
+  # end
 
   def show?
-    true
+    case
+    when user.admin?
+      true
+    when user.company_admin?
+      record.user.company == user.company
+    else
+      record.user == user
+    end
     # record.user == user || user.user_type == 'admin'
   end
 
@@ -63,12 +71,12 @@ class CandidacyPolicy < ApplicationPolicy
       case
       when user.company_admin?
         scope.joins(:candidate, :user).where(user: {company_id: user.company_id}).where.not(user: {whitelist_id: nil})
-      when user.company_user?
-        scope.joins(candidate: :user).where(user: {id: user.id})
+      # when user.company_user?
+      #   scope.joins(candidate: :user).where(user: {id: user.id})
       when user.admin?
         scope.all
       else
-        false
+        scope.joins(candidate: :user).where(user: {id: user.id})
       end
     end
   end

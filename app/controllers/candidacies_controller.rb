@@ -11,6 +11,10 @@ class CandidaciesController < ApplicationController
     authorize @candidacy
   end
 
+  def index
+    @candidacies = policy_scope(Candidacy)
+  end
+
   def check
     @candidacy = Candidacy.new(candidacy_params)
     authorize @candidacy

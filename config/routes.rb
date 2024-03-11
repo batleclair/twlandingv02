@@ -139,8 +139,10 @@ Rails.application.routes.draw do
     get "offers/:id/preview", to: "offers#preview", as: :offer_preview
     resources :missions, controller: 'offers', as: :offers, param: :slug, only: %i[index show] do
       resources :candidacies, only: :create
+      # resources :bookmarks, only: :create
     end
-    resources :candidacies, only: :show
+    resources :candidacies, only: %i[show]
+    # resources :bookmarks, only: %i[show index destroy]
     # post "offers/:id/check", to: "candidacies#check", as: :candidacy_check
     get '/offers', to: redirect('/missions')
     get '/offers/:slug', to: redirect('/missions/%{slug}')

@@ -74,7 +74,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
     if resource.company
       resource.company_admin? ? company_admin_url(subdomain: resource.subdomain) : root_url(subdomain: resource.subdomain)
-    elsif stored_location_for(resource)&.include?("missions")
+    elsif session["user_return_to"]&.include?("missions")
       stored_location_for(resource)
     else
       new_candidate_url(subdomain: resource.subdomain)
