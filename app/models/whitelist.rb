@@ -2,7 +2,7 @@ class Whitelist < ApplicationRecord
   attr_accessor :batch_file
   attr_accessor :has_headers
 
-  belongs_to :company
+  belongs_to :company, optional: true
   enum :input_type, {email: 0, domain: 1}, suffix: true
   validates :input_format, uniqueness: { message: "Adresse déjà utilisée"}, if: :email_input_type?
   validates :input_format, uniqueness: { message: "Domaine déjà utilisé"}, if: :domain_input_type?
@@ -27,8 +27,10 @@ class Whitelist < ApplicationRecord
   end
 
   def domain_presence
-    unless company.whitelists.find_by(input_type: :domain, input_format: to_domain)
-      errors.add(:input_format, "Domaine non autorisé")
+    if company
+      unless company.whitelists.find_by(input_type: :domain, input_format: to_domain)
+        errors.add(:input_format, "Domaine non autorisé")
+      end
     end
   end
 

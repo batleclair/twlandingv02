@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_11_081027) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_25_094358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -233,6 +233,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_081027) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mission_id"], name: "index_feedbacks_on_mission_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "linkedin_url"
+    t.string "phone_num"
+    t.string "location"
+    t.string "status"
+    t.string "employer_name"
+    t.string "title"
+    t.text "description"
+    t.string "function"
+    t.integer "availability"
+    t.text "volunteering"
+    t.text "comment"
+    t.boolean "profile_completed", default: false
+    t.string "airtable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "primary_cause", default: [], array: true
+    t.text "skill_list", default: [], array: true
+    t.boolean "remote_work", default: false
+    t.text "availability_details"
   end
 
   create_table "missions", force: :cascade do |t|

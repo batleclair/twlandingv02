@@ -75,7 +75,7 @@
             <div class="mb-20 position-relative">
               <%= f.input :volunteering,
                           label: 'Mes expériences de mécénat / bénévolat',
-                          input_html: {class: "min-h-100"},
+                          input_html: {value: @candidate.volunteering, class: "min-h-100"},
                           wrapper: false %>
             </div>
           </div>
@@ -132,6 +132,7 @@
                           input_html: {class: "min-h-100"},
                           label: false,
                           placeholder: "Des contraintes ou disponibilités particulières ?",
+                          input_html: {value: @candidate.availability_details},
                           wrapper: false %>
             </div>
 

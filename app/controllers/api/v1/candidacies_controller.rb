@@ -1,9 +1,8 @@
 class Api::V1::CandidaciesController < Api::V1::BaseController
   skip_before_action :authenticate_user!
-  # skip_before_action :subdomain_authentication!
-  # skip_before_action :verify_tenant_acces
   skip_before_action :verify_authenticity_token
   acts_as_token_authentication_handler_for User
+
   before_action :set_candidacy
   respond_to :json
 

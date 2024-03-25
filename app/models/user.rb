@@ -14,11 +14,11 @@ class User < ApplicationRecord
   validates :last_name, presence: { message: "Nom requis" }
   belongs_to :company, optional: true
   belongs_to :whitelist, optional: true
-  # validate :not_blacklisted
   validate :company_whitelisted
   acts_as_token_authenticatable
   before_create :attach_company
   after_create do
+    prefill_profile if invitation
     attach_whitelist if find_whitelist
     initialize_profile if find_whitelist
   end
@@ -192,17 +192,24 @@ class User < ApplicationRecord
     self.save
   end
 
+  def invitation
+    Invitation.find_by(email: self.email)
+  end
+
+  def prefill_profile
+    candidate = Candidate.new(user_id: self.id)
+    invitation.attributes.each do |k, v|
+      candidate[k] = v unless k.in?(["id", "created_at", "updated_at", "email", "first_name", "last_name"])
+    end
+    candidate.skill_list = invitation.skill_list
+    invitation.destroy if candidate.save
+  end
+
   def initialize_profile
     Candidate.create(user_id: self.id, status: "Salarié·e", employer_name: self.company.name, title: self.whitelist.title) if self.company_user?
     EmployeeApplication.create(candidate_id: candidate.id, status: :approved, response_msg: "Eligibilité pré-validée par l'entreprise") if whitelist.pre_approval && self.company_user?
     # candidate.clip_to_airtable
   end
-
-  # def not_blacklisted
-  #   if first_name.include?('💳')
-  #     errors.add(:general, "un problème est survenu, réessayez plus tard")
-  #   end
-  # end
 
   def set_temp_password
     password = Devise.friendly_token

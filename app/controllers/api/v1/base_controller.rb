@@ -5,6 +5,7 @@
 class Api::V1::BaseController < ApplicationController
   include Pundit
 
+  skip_before_action :verify_whitelisting
   after_action :verify_authorized
   after_action :verify_policy_scoped, only: :index
 
