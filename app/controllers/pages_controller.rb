@@ -50,7 +50,7 @@ class PagesController < ApplicationController
 
   def sitemap
     @offers = Offer.where(publish: true, status: 'active')
-    @beneficiaries = Beneficiary.where(publish_logo: true)
+    @beneficiaries = Beneficiary.where(publish: true)
     @posts = Post.where(publish: true)
   end
 

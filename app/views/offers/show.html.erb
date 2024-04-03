@@ -1,5 +1,5 @@
 <% content_for :title, "#{@offer.title} pour #{@offer.beneficiary.name}" %>
-<% content_for :description, "Grâce à Demain, engagez-vous pour #{@offer.beneficiary.name} dans le cadre d'un mécénat de compétences. Leur projet : #{@offer.beneficiary.cause}. Votre mission : #{@offer.title}." %>
+<% content_for :description, "Réaliser un mécénat de compétences pour #{@offer.beneficiary.name}. La mission : #{@offer.title}." %>
 <% canonical(offer_url(@offer)) %>
 
 <% if @offer.beneficiary.photo.attached? %>
