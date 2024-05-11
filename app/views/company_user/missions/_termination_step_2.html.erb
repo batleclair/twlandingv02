@@ -8,7 +8,7 @@
       <% else %>
         <p>Vous avez déclaré avoir aidé <%= @mission.beneficiary.name %> <span class="fw-6 text-main"><%= @mission.total_days %></span> jour(s) pour un total de <span class="fw-6 text-main"><%= @mission.total_hours %></span> heures.</p>
       <% end %>
-      <%= link_to user_mission_timesheets_path(@mission), class: "w-100 button round first-main-border bg-white-to-shade text-main mt-20" do %>
+      <%= link_to user_mission_timesheets_path(@mission), class: "w-100 button round border-main bg-white-to-shade text-main mt-20" do %>
         <i class="fa-solid fa-pen-to-square"></i>
         Compléter les informations saisies
       <% end %>

@@ -3,6 +3,14 @@ class ContactPolicy < ApplicationPolicy
     true
   end
 
+  def generate?
+    create?
+  end
+
+  def company_contact?
+    create?
+  end
+
   def index?
     user.user_type == 'admin'
   end

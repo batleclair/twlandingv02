@@ -16,12 +16,6 @@
                 <span></span>
               </i>
             <% end %>
-            <%= link_to offers_path do %>
-              <div class="tab flex-center p-10" data-active-tab=<%= controller_name == 'offers' || controller_name == 'candidacies' %>>
-                Je m'engage
-                <span></span>
-              </div>
-            <% end %>
             <%= link_to companies_path do %>
               <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'companies' %>>
                 Entreprises
@@ -31,6 +25,12 @@
             <%= link_to nonprofits_path do %>
               <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'nonprofits' %>>
                 Associations
+                <span></span>
+              </div>
+            <% end %>
+            <%= link_to offers_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= controller_name == 'offers' || controller_name == 'candidacies' %>>
+                Je m'engage
                 <span></span>
               </div>
             <% end %>

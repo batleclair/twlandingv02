@@ -1,0 +1,32 @@
+<% content_for :title, "Formulraire de contact Entreprise" %>
+<% content_for :description, "Demain Works prendra contact pour échanger sur vos objectifs en lien avec le mécénat de compétences" %>
+<% canonical(company_contact_url) %>
+
+
+<div class="bg-white pt-100 pb-50 ctn-resp">
+
+  <div class="flex-evenly center-margin md-resp-flex-col max-w-1200">
+    <div class="screenshot-menu max-w-600 w-100 mr-40 md-resp-mr-0 md-resp-mb-0" data-controller="button-menu">
+      <div class="mb-20">
+        <h6 class="text-main">Nous contacter</h6>
+        <h2 class="fw-6 mb-20">Vous souhaitez réaliser du mécénat de compétences ?</h4>
+        <p class="mb-10">L'équipe Demain.Works est à votre écoute. Laissez-nous vos coordonnées afin d'échanger sur vos besoins et vos objectifs.</p>
+      </div>
+      <div class="xs-resp-hide">
+        <div class="round-20 pt-2 pb-2">
+          <%= image_tag("home_illustration_5.svg", class: "full-width max-w-400 center-margin", alt: "entreprise permettant à une employée de s'engager associativement") %>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-center-top w-100 max-w-400">
+      <div class="bg-shade round-20 shadow-xl p-20 pb-40 w-100 h-100">
+
+        <div class="w-100 max-w-300 center-margin">
+          <%= render partial: "contact_form" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

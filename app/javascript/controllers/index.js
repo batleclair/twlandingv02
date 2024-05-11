@@ -25,6 +25,9 @@ application.register("contact", ContactController)
 import DisplayController from "./display_controller"
 application.register("display", DisplayController)
 
+import DotPathController from "./dot_path_controller"
+application.register("dot-path", DotPathController)
+
 import DualSliderController from "./dual_slider_controller"
 application.register("dual-slider", DualSliderController)
 
@@ -87,6 +90,9 @@ application.register("progress", ProgressController)
 
 import RadioController from "./radio_controller"
 application.register("radio", RadioController)
+
+import ScrollCarouselController from "./scroll_carousel_controller"
+application.register("scroll-carousel", ScrollCarouselController)
 
 import SearchFormController from "./search_form_controller"
 application.register("search-form", SearchFormController)

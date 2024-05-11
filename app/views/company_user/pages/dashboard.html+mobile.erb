@@ -5,7 +5,7 @@
       <h6 class="mb-10 fw-6">A suivre !</h5>
       <div class="flex-inline mb-10">
         <% if current_user.candidate.call_status_booked? %>
-          <div class="round-20 first-main-border bg-white hover-2 w-100-vw" data-swipe-target="card" data-status="active">
+          <div class="round-20 border-main bg-white hover-2 w-100-vw" data-swipe-target="card" data-status="active">
             <div class="p-20">
               <h6 class="mb-05">Call prévu avec <span class="text-main fw-7">Demain</span></h6>
               <p>L'objectif : définir le type de mission et d'association qui vous correspond !</p>
@@ -14,7 +14,7 @@
         <% end %>
         <% if @active_engagement %>
           <% path = @active_engagement.class == Mission ? user_mission_path(@active_engagement) : user_candidacy_path(@active_engagement) %>
-          <%= link_to path, class:"round-20 first-main-border bg-white-to-shade hover-2 p-20 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
+          <%= link_to path, class:"round-20 border-main bg-white-to-shade hover-2 p-20 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
             <h6 class="mb-10 fw-6"><%= @active_engagement.class == Candidacy ? "Candidature" : "Mission" %> principale</h5>
             <div class="flex-center-left w-100">
               <div class="mr-10 bg-white round-20 square-80 logo-box flex-shrink-0">
@@ -27,14 +27,14 @@
           <% end %>
         <% else %>
           <% if @pending_selections.present? %>
-            <%= link_to user_selections_path, class:"round-20 first-main-border bg-white-to-shade hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
+            <%= link_to user_selections_path, class:"round-20 border-main bg-white-to-shade hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
               <div class="w-100 p-20 d-flex pe-none">
                 <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_selections.count %></h5>
                 <p>recommendation(s) attend(ent) votre réponse</p>
               </div>
             <% end %>
           <% else %>
-            <%= link_to user_offers_path, class:"round-20 first-main-border flex-center bg-shade-to-dark hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
+            <%= link_to user_offers_path, class:"round-20 border-main flex-center bg-shade-to-dark hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
               <div class="center-text pe-none p-20">
                 <h6 class="text-main fw-6 mb-10">Parcourez les missions actuellement disponibles</h6>
                 <%= image_tag("search_illustration.svg", class:"w-100 max-w-100") %>
@@ -42,7 +42,7 @@
             <% end %>
           <% end %>
           <% if @pending_candidacies.present? %>
-            <%= link_to user_candidacies_path, class:"round-20 first-main-border bg-white-to-shade hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
+            <%= link_to user_candidacies_path, class:"round-20 border-main bg-white-to-shade hover-2 w-100-vw", data: {"swipe-target": "card", action: "click->swipe#keep"} do %>
               <div class="w-100 p-20 d-flex pe-none h-100">
                 <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_candidacies.count %></h5>
                 <p>candidature(s) en cours auprès d'associations</p>

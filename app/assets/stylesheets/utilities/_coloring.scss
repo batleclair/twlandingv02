@@ -59,6 +59,7 @@
   background-color: transparent;
 }
 
+
 @each $id, $bp in $breakpoints {
   @media(max-width: #{$bp}px) {
     .#{$id}-resp-bg-main{
@@ -80,4 +81,10 @@
 }
 .fade-dark{
   background: linear-gradient(rgba(83, 28, 179, 0), rgba(83, 28, 179, 0.7) 20%, $first-main-color 80%, $first-main-color);
+}
+.fade-light-sides{
+  background: linear-gradient(90deg, $first-light-lighter, $first-light-lighter 10%, rgba(245, 241, 251, 0) 25%, rgba(245, 241, 251, 0) 75%, $first-light-lighter 90%, $first-light-lighter)
+}
+.fade-white-sides{
+  background: linear-gradient(90deg, white, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0) 90%, white)
 }

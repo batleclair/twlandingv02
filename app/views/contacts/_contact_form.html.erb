@@ -1,0 +1,57 @@
+<%= turbo_frame_tag "form" do %>
+  <%= simple_form_for(@contact, url: contact_gen_path, data: {turbo_frame: "form"}) do |f| %>
+
+      <%= f.input :contact_type, as: :hidden, input_html: {value: "Entreprise"} %>
+
+      <div id="contact_organization_wrapper" class="input-with-icon mb-05 position-relative">
+          <%= f.input :organization,
+                      input_html: {data: {"contact-target": "org"}},
+                      label: "Entreprise",
+                      placeholder: "Microsoft",
+                      wrapper: false %>
+        <i class="fa-solid fa-building"></i>
+      </div>
+
+      <div id="contact_first_name_wrapper" class="input-with-icon mb-05 position-relative">
+        <%= f.input :first_name,
+                    label: "Prénom",
+                    placeholder: 'Bill',
+                    wrapper: false %>
+        <i class="fa-solid fa-user"></i>
+      </div>
+
+      <div id="contact_last_name_wrapper" class="input-with-icon mb-05 position-relative">
+        <%= f.input :last_name,
+                    label: "Nom",
+                    placeholder: 'Gates',
+                    wrapper: false %>
+        <i class="fa-regular fa-user"></i>
+      </div>
+
+      <div id="contact_email_wrapper" class="input-with-icon mb-05 position-relative">
+        <%= f.input :email,
+                    label: "Email",
+                    placeholder: 'bill.gates@microsoft.com',
+                    wrapper: false %>
+        <i class="fa-regular fa-envelope"></i>
+      </div>
+
+      <div id="contact_phone_num_wrapper" class="input-with-icon mb-05 position-relative">
+        <%= f.input :phone_num,
+                    label: "Téléphone",
+                    placeholder: '01 23 45 67 89',
+                    wrapper: false %>
+        <i class="fa-solid fa-phone"></i>
+      </div>
+
+      <div id="contact_captcha_wrapper" class="mb-20 position-relative">
+        <span id="contact_captcha"></span>
+      </div>
+
+      <%= invisible_captcha %>
+
+
+      <%= f.submit "Nous contacter", class: "button bg-main-to-dark hover-2 text-white border-main fw-5 hover-zoom", data:{action: "click->candidacy#submit"}%>
+
+  <% end %>
+<% end %>

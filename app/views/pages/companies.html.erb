@@ -2,182 +2,217 @@
 <% content_for :description, "Demain place vos collaborateurs au centre de l'action sociétale de l'entreprise. Nous offrons une réponse individualisée aux questions de sens et d'équilibre, et aux envies d’engagement solidaire moyenne et longue durée de vos talents" %>
 <% canonical(companies_url) %>
 
-<div data-controller="swipe" data-action="click->swipe#refocus" data-focus="0">
-
-  <div class="bg-white pt-5 pb-5">
-    <div class="ctn-resp flex-resp early-resp-900 justify-content-between align-items-center pt-4 pb-2">
-      <div class="full-width max-w-500" data-controller="contact">
-        <h1 class="d-none">Entreprises : le mécénat de compétences à la main des collaborateurs</h1>
-        <h2 class="text-main mb-3 fs-60">entreprises</h2>
-        <h4 class="mb-3">permettez à vos talents en quête d'équilibre et de sens au travail de porter des initiatives à fort impact sociétal</h4>
-        <div class="mt-4" data-controller="contact">
-          <div class="d-flex">
-            <%= link_to '', class: "fat-btn fat-btn-main-color position-relative flex-center-between", data: {action: "click->contact#popup", type: "Entreprise"} do %>
-              <span></span>
-              <strong>Nous contacter</strong>
-              <i class="fa-solid fa-phone round-button bg-white"></i>
-            <% end %>
-          </div>
-          <%= render partial: "pages/contact" %>
+<div class="bg-white pt-50 pb-50 ctn-resp">
+  <div class="flex-center-evenly sm-resp-flex-col max-w-1200 center-margin">
+    <div class="full-width max-w-500 pt-20 pb-20">
+      <h1 class="d-none">demain.works aide les entreperises le mécénat de compétences à la main des collaborateurs</h1>
+      <h2 class="text-main mb-3 fs-60">entreprises</h2>
+      <h4 class="mb-3">Demain.Works vous aide à opérer du <span class="stress">mécénat de compétences</span></h4>
+      <p>Permettez à vos collaborateurs de partager leurs compétences professionnelles auprès d'associations sur leur temps de travail</p>
+      <div class="mt-4">
+        <div class="d-flex">
+          <%= link_to "Nous contacter", company_contact_path, class: "button bg-main-to-dark hover-2 text-white border-main fw-5 hover-zoom" %>
+          <span class="p-10"></span>
+          <%= link_to "Nos services", "#nos-services", class: "button bg-white-to-shade hover-2 text-main border-main fw-5 hover-zoom" %>
         </div>
       </div>
-      <div class="round-20 pt-2 pb-2 max-w-500">
-        <%= image_tag("companies_illustration.svg", class: "full-width", alt: "entreprise permettant à une employée de s'engager associativement") %>
+    </div>
+    <div class="round-20 pt-2 pb-2 max-w-500">
+      <%= image_tag("examples.png", class: "full-width max-w-500", alt: "entreprise permettant à une employée de s'engager associativement") %>
+    </div>
+  </div>
+</div>
+
+<div class="bg-shade pt-50 pb-50 ctn-resp">
+  <div class="flex-center-evenly sm-resp-flex-col sm-resp-flex-left center-margin mb-40 max-w-1200 center-margin">
+    <div class="max-w-500 mr-20 w-100">
+      <h6 class="text-main">Les avantages</h6>
+      <h2 class="fw-6">Pourquoi le mécénat de compétences ?</h4>
+    </div>
+    <p class="max-w-500 w-100">Une initiative RH différenciante à fort impact sociétal, et qui bénéficie des avantages fiscaux du mécénat.</p>
+  </div>
+
+  <div class="flex-center xs-resp-flex-between mobile-x-scroll center-margin gap-20 max-w-1200">
+    <div class="flex-between gap-20 lg-resp-flex-col xs-resp-flex-row">
+      <div class="round-20 bg-white p-40 w-100 min-w-250">
+        <h5>Professionnalisant</h5>
+        <p class="fs-40 fw-7 text-main">71%</p>
+        <p>des collaborateurs engagés dans le dispositif estiment que l’expérience les a fait évoluer</p>
+      </div>
+      <div class="round-20 bg-white p-40 w-100 min-w-250">
+        <h5>Motivant</h5>
+        <p class="fs-40 fw-7 text-main">67%</p>
+        <p>des dirigeants y voient une source d’engagement et de remotivation des équipes</p>
+      </div>
+    </div>
+    <div class="flex-between gap-20 lg-resp-flex-col xs-resp-flex-row">
+      <div class="round-20 bg-white p-40 w-100 min-w-250">
+        <h5>Impactant</h5>
+        <p class="fs-40 fw-7 text-main">83%</p>
+        <p>des responsables associatifs jugent le dispositif structurant pour leur organisation</p>
+      </div>
+      <div class="round-20 bg-white p-40 w-100 min-w-250">
+        <h5>Economique</h5>
+        <p class="fs-40 fw-7 text-main">60%</p>
+        <p>de réduction d'impôt sur le coût employeur des collaborateurs en mécénat de compétences</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-white pt-50 pb-50 ctn-resp">
+  <div class="flex-center-evenly center-margin md-resp-flex-col mb-40 max-w-1200 shaded-scroll-carousel" data-controller="scroll-carousel">
+    <div class="flex-col lg-flex-row md-flex-col md-resp-mb-40 w-100 max-w-500 md-resp-no-max-w">
+      <div class="max-w-500">
+        <h6 class="text-main">Les finalités</h6>
+        <h2 class="fw-6 mb-20">Pour quels collaborateurs ?</h4>
+        <p class="max-w-500 mb-10">Demain Works vous accompagne afin de définir un programme sur-mesure qui réponde à vos problématiques RH et aux attentes de vos collaborateurs en matière d'engagement sociétal</p>
+      </div>
+      <div class="max-w-500 md-resp-no-max-w">
+        <% titles = ["Fins de carrière", "Inter-missions", "Marque employeur", "Développement RH", "Retour en emploi"] %>
+        <% for i in 1..5 do %>
+          <button type="button" class="bg-shade-to-dark hover-2 pr-10 pl-10 pt-05 pb-05 bn-none round mt-05 mb-05" data-anchor=<%=i%> data-scroll-carousel-target="btn" data-action="click->scroll-carousel#update" <%= "btn-active" if i == 1 %>><%=titles[i-1]%></button>
+        <% end %>
+      </div>
+    </div>
+    <div class="max-w-500 w-100 position-relative">
+      <div class="position-absolute w-100 h-100 fade-white-sides pe-none z1 xs-resp-hide"></div>
+      <div style="scroll-behavior: smooth" class="overflow-scroll d-flex gap-20 position-relative pl-100 xs-resp-pl-0 pr-100 xs-resp-pr-0 hover-2 hidden-scrollbar"  data-scroll-carousel-target="slider">
+        <div class="min-w-250 w-100 bg-shade p-20 round-20 cursor-pointer" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" card-active data-anchor="1">
+          <h5 class="pe-none text-main fw-6 mb-10"><%= titles[0] %></h5>
+          <p class="pe-none">Proposez à des collaborateurs seniors une transition vers une retraite active et engagée.</p>
+        </div>
+        <div class="min-w-250 w-100 bg-shade p-20 round-20 cursor-pointer" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="2">
+          <h5 class="pe-none text-main fw-6 mb-10"><%= titles[1] %></h5>
+          <p class="pe-none">Gardez vos collaborateurs actifs, motivés et engagés lors de périodes d'inter-projet.</p>
+        </div>
+        <div class="min-w-250 w-100 bg-shade p-20 round-20 cursor-pointer" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="3">
+          <h5 class="pe-none text-main fw-6 mb-10"><%= titles[2] %></h5>
+          <p class="pe-none">Proposez une expérience collaborateur individualisée et riche de sens pour attirer et fidéliser vos talents.</p>
+        </div>
+        <div class="min-w-250 w-100 bg-shade p-20 round-20 cursor-pointer" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="4">
+          <h5 class="pe-none text-main fw-6 mb-10"><%= titles[3] %></h5>
+          <p class="pe-none">Permettez à des collaborateurs d'enrichir leurs compétences techniques et humaines dans un environnement challengeant.</p>
+        </div>
+        <div class="min-w-250 w-100 bg-shade p-20 round-20 cursor-pointer" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="5">
+          <h5 class="pe-none text-main fw-6 mb-10"><%= titles[4] %></h5>
+          <p class="pe-none">Proposez un parcours progressif de retour en entrerprise après un arrêt de travail long (maladie, parentalité...).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-grey pt-50 pb-50 ctn-resp">
+  <div id="nos-services" class="flex-center-evenly center-margin md-resp-flex-col mb-40 max-w-1200" data-controller="dot-path">
+    <div class="max-w-500">
+      <h6 class="text-main">Nos services</h6>
+      <h2 class="fw-6 mb-20">Demain vous accompagne à chaque étape</h4>
+      <p class="max-w-500 mb-10">Demain Works vous accompagne afin de définir un programme sur-mesure qui réponde à vos problématiques RH et aux attentes de vos collaborateurs en matière d'engagement sociétal</p>
+    </div>
+    <div class="max-w-500 w-100" data-controller="scroll-carousel">
+      <div style="min-height: 55px" data-dot-path-target="ctn" class="w-100 path-with-dots mb-30" data-action="resize@window->dot-path#draw">
+        <svg width="100%" height="55" xmlns="http://www.w3.org/2000/svg">
+          <path data-dot-path-target="path" d="M 5 26
+            C 31 26 57 52 83 26
+            C 109 0 135 0 161 26
+            C 187 52 213 52 239 26
+            S 291 0 317 26
+            S 369 26 395 26"
+            stroke="#531cb3" stroke-width="10px" stroke-linecap="round" fill="transparent"/>
+        </svg>
+        <% for i in 1..8 do %>
+          <div data-dot-path-target="dot" class="flex-center">
+            <button class="hover-2 round p-10 bg-light bg-shade-dark" data-anchor=<%=i%> data-scroll-carousel-target="btn" data-action="click->scroll-carousel#update" <%= "btn-active" if i == 1 %>></button>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="max-w-500 w-100 position-relative">
+        <div style="scroll-behavior: smooth" class="overflow-scroll d-flex gap-20 position-relative w-100 hover-2 hidden-scrollbar" data-scroll-carousel-target="slider">
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="1">
+            <h5 class="pe-none text-main fw-6 mb-10">Animation d’un réseau associatif</h4>
+            <p class="pe-none">Nous recherchons des associations pertinentes et vous aidons à leur apporter votre soutien.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="2">
+            <h5 class="pe-none text-main fw-6 mb-10">Accompagnement des collaborateurs</h4>
+            <p class="pe-none">Nous échangeons avec chaque collaborateur pour comprendre ses attentes et veiller au succès de son engagement.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="3">
+            <h5 class="pe-none text-main fw-6 mb-10">Recherche de missions pertinentes</h4>
+            <p class="pe-none">Nous concevons avec les associations des missions en ligne avec les compétences et disponibilités des collaborateurs.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="4">
+            <h5 class="pe-none text-main fw-6 mb-10">Contractualisation</h4>
+            <p class="pe-none">Nous facilitons la mise en place des éléments contractuels du mécénat de compétences.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="5">
+            <h5 class="pe-none text-main fw-6 mb-10">Suivi opérationnel</h4>
+            <p class="pe-none">Nous veillons au suivi de chaque mission et à l'atteinte des objectifs de toutes les parties.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="6">
+            <h5 class="pe-none text-main fw-6 mb-10">Valorisation économique</h4>
+            <p class="pe-none">Nous facilitons l'obtention des reçus fiscaux auprès des associations aidées.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="7">
+            <h5 class="pe-none text-main fw-6 mb-10">Retours d’expérience</h4>
+            <p class="pe-none">Nous analysons les retours d'expérience des associations et collaborateurs pour faciliter le reporting RH et RSE.</p>
+          </div>
+          <div class="min-w-full w-100" data-scroll-carousel-target="slide" data-action="click->scroll-carousel#update" data-anchor="8">
+            <h5 class="pe-none text-main fw-6 mb-10">Communication</h4>
+            <p class="pe-none">Nous aidons à coordonner la communication interne et externe sur les missions réalisées.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="ctn-resp bg-grey pt-50 pb-50">
-    <div class="button-menu-ctn resp-img-ctn">
-      <%= image_tag('target_illustration.svg', class:"max-w-200 mr-50 md-resp-mr-0 left") %>
+  <div class="flex-evenly center-margin md-resp-flex-col max-w-1200">
+    <div class="screenshot-menu max-w-500 w-100 mr-40 md-resp-mr-0 md-resp-mb-40" data-controller="button-menu">
       <div>
-        <h3 class="mb-20">Le mécénat de compétences de <span class="text-main fw-7">Demain</span></h3>
-        <div data-controller="button-menu" data-swipe-target="ctn" data-focus="0">
-          <div class="flex-center-left button-menu pb-20">
-            <button class="hover-2" data-button-menu-target="button" data-swipe-target="card" data-action="click->button-menu#update" data-status="active">mécénat métier</button>
-            <button class="hover-2" data-button-menu-target="button" data-swipe-target="card" data-action="click->button-menu#update" data-status="">dans la durée</button>
-            <button class="hover-2" data-button-menu-target="button" data-swipe-target="card" data-action="click->button-menu#update" data-status="">particularisé</button>
-            <button class="hover-2" data-button-menu-target="button" data-swipe-target="card" data-action="click->button-menu#update" data-status="">auto-déterminé</button>
-          </div>
-          <div>
-            <div data-button-menu-target="content" data-status="active">
-              <h6 class="mb-20 mt-10">Les compétences font la différence.</h6>
-              <p>Les missions proposées par Demain font appel à des compétences tech, RH, sales ou encore juridiques, courantes en entreprises mais souvent difficiles d’accès pour les associations.</p>
-            </div>
-            <div data-button-menu-target="content" data-status="">
-              <h6 class="mb-20 mt-10">Sans effort soutenu : pas d’impact réel !</h6>
-              <p>Les compétences d’un seul de vos talents pendant 20 jours peuvent avoir bien plus d'impact en association que 20 collaborateurs sur une seule journée. C’est pourquoi Demain propose des missions qui peuvent nécessiter quelques jours par mois à plusieurs par semaine.</p>
-            </div>
-            <div data-button-menu-target="content" data-status="">
-              <h6 class="mb-20 mt-10">S’engager, ce n’est pas pour tout le monde !</h6>
-              <p>Les envies en matière d’engagement associatif diffèrent largement parmi vos collaborateurs. Pourquoi leur proposer une solution à taille unique ? Demain offre un parcours individualisé d’accompagnement vers l’engagement qui correspond à chacun.</p>
-            </div>
-            <div data-button-menu-target="content" data-status="">
-              <h6 class="mb-20 mt-10">Laissez vos collaborateurs décider !</h6>
-              <p>S’engager pour une cause relève d’une démarche très personnelle. Capitalisez là-dessus en permettant à vos talents de décider du projet associatif qu’ils soutiennent.</p>
-            </div>
-          </div>
+        <button class="mb-10" data-button-menu-target="button" data-status="active" data-action="click->button-menu#update">
+          <h5 class="pe-none fs-25">01</h5>
+          <h5 class="pe-none">un accompagnement humain de bout en bout</h5>
+        </button>
+        <div data-button-menu-target="content" data-status="active">
+          <p>Nous vous conseillons en amont et vous accompagne ainsi que vos collaborateurs avant, pendant et après chaque mission afin de veiller à l'atteinte de vos objectifs.</p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="ctn-resp bg-white pt-50 pb-50">
-    <div class="resp-img-ctn mb-50 md-resp-mb-100">
-      <div class="w-100">
-        <h3 class="mb-20">Une démarche à double impact</h3>
-        <p>Une initiative RH différenciante à fort impact sociétal, et qui bénéficie des avantages fiscaux du mécénat</p>
-      </div>
-      <%= image_tag('match_illustration.svg', class:"max-w-200 ml-50 md-resp-ml-0 right") %>
-    </div>
-    <div class="flex-stretch-center resp-card-ctn" data-controller="button-menu">
-
-      <div class="mr-50 sm-resp-mr-0">
-        <button class="round square-80 fs-30 fw-6 bg-shade text-main btn-l" data-button-menu-target="button" data-action="click->button-menu#update" data-status="active">RH</button>
-        <div class="round-20 grey-border shadow-xl p-40 pt-80 max-w-400 h-100" data-button-menu-target="content" data-status="active">
-          <div class="d-flex">
-            <i class="fa-regular fa-circle-check min-w-40 text-flag-1 fs-25 va-top"></i>
-            <span>Motivation, rétention et prévention des risques psycho-sociaux</span>
-          </div>
-          <div class="d-flex mt-10 mb-10">
-            <i class="fa-regular fa-circle-check min-w-40 text-flag-2 fs-25 va-top"></i>
-            <span>Développement des compétences – soft skills en particulier</span>
-          </div>
-          <div class="d-flex">
-            <i class="fa-regular fa-circle-check min-w-40 text-flag-3 fs-25 va-top"></i>
-            <span>Optimisation de la masse salariale et déduction fiscale (60% du coût de revient)</span>
-          </div>
+      <div class="mt-20 mb-20">
+        <button class="mb-10" data-button-menu-target="button" data-status="" data-action="click->button-menu#update">
+          <h5 class="pe-none fs-25">02</h5>
+          <h5 class="pe-none">des outils simples de validation et de gestion</h5>
+        </button>
+        <div data-button-menu-target="content" data-status="">
+          <p>Nous mettons à disposition une plateforme web pour faciliter chaque étape nécessitant validation ou suivi de la part de l’entreprise ou de ses collaborateurs.</p>
         </div>
       </div>
-
       <div>
-        <button class="round square-80 fs-30 fw-6 bg-shade text-main btn-r" data-button-menu-target="button" data-action="click->button-menu#update" data-status="">RSE</button>
-        <div class="round-20 grey-border shadow-xl p-40 pt-80 max-w-400 h-100" data-button-menu-target="content">
-          <div class="d-flex">
-            <i class="fa-regular fa-circle-check min-w-40 text-flag-1 fs-25 va-top"></i>
-            <span>Attractivité / marque employeur, regain de sens au travail</span>
-          </div>
-          <div class="d-flex mt-10 mb-10">
-            <i class="fa-regular fa-circle-check min-w-40 text-flag-2 fs-25 va-top"></i>
-            <span>Communication sur un engagement RSE concret</span>
-          </div>
-          <div class="d-flex">
-            <i class="fa-regular fa-circle-check min-w-40 text-flag-3 fs-25 va-top"></i>
-            <span>Sensibilisation / valorisation du mécénat et impact positif sur la culture interne</span>
-          </div>
+        <button class="mb-20" data-button-menu-target="button" data-status="" data-action="click->button-menu#update">
+          <h5 class="pe-none fs-25">03</h5>
+          <h5 class="pe-none">un réseau de partenaires privilégiés</h5>
+        </button>
+        <div data-button-menu-target="content" data-status="">
+          <p>Nous capitalisations sur votre propre réseau associtiaf et le nôtre pour proposer des missions en cohérence avec votre démarche sociétale et les attentes de vos collaborateurs.</p>
         </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="bg-white">
-    <%= image_tag('purple_triangle_light.svg', class: "tilted-ctn") %>
-  </div>
-
-  <div class="bg-shade ctn-resp pt-50 pb-50">
-    <h3 class="mb-10"><span class="center-text text-main fw-7">Demain</span> vous accompagne</h3>
-    <p class="mb-40">Notre objectif : vous simplifier la mise en place et le suivi de mécénats de compétences grâce à un service sur-mesure et clé-en-main, sans déploiement ni contrainte technique</p>
-    <div class="flex-between md-resp-flex-col pb-50">
-
-      <div class="screenshot-menu w-100 mr-40 md-resp-mr-0 md-resp-mb-40" data-controller="button-menu">
-        <div>
-          <button class="mb-20" data-button-menu-target="button" data-status="active" data-action="click->button-menu#update">
-            <h5 class="pe-none fs-25">01</h5>
-            <h5 class="pe-none">Calibrage</h5>
-          </button>
-          <div data-button-menu-target="content" data-status="active">
-            <p class="mb-10">identification & on-boarding des collaborateurs intéressés</p>
-            <p>entretien & matching avec des besoins associatifs pré-qualifiés</p>
-          </div>
-        </div>
-        <div class="mt-20 mb-20">
-          <button class="mb-20" data-button-menu-target="button" data-status="" data-action="click->button-menu#update">
-            <h5 class="pe-none fs-25">02</h5>
-            <h5 class="pe-none">Exécution</h5>
-          </button>
-          <div data-button-menu-target="content" data-status="">
-            <p class="mb-10">négociation modalités & validation manager / RH</p>
-            <p class="mb-10">contractualisation (modèles type) & onboarding collaborateur</p>
-            <p>suivi opérationnel (points réguliers, reporting, hotline)</p>
-          </div>
-        </div>
-        <div>
-          <button class="mb-20" data-button-menu-target="button" data-status="" data-action="click->button-menu#update">
-            <h5 class="pe-none fs-25">03</h5>
-            <h5 class="pe-none">Valorisation de l'impact</h5>
-          </button>
-          <div data-button-menu-target="content" data-status="">
-            <p class="mb-10">validation des compétences (questionnaire soft skills)</p>
-            <p class="mb-10">comptabilisation (génération attestation & reçu fiscal)</p>
-            <p>valorisation et communication (interne, externe, reporting d’impact)</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex-center-top w-100">
-        <%= image_tag('screenshot_1.png', class: "w-100 max-w-400 shadow-xl") %>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="bg-white pt-5 pb-5 ctn-resp">
-    <h4 class="text-main center-text mb-5">attirez, retenez et motivez les talents engagés</h4>
-    <div class="flex-resp justify-content-around">
-      <div class="max-w-300 mb-4 mg-resp-r">
-        <h5 class="full-width bottom-border-black pb-4 mb-3">soutenez les <span class="stress">initiatives solidaires individuelles</span></h5>
-        <p>orientez vers Demain celles et ceux parmi vos talents qui manifestent des envies d'engagement durable</p>
-      </div>
-      <div class="max-w-300 mb-4 mg-resp-l mg-resp-r">
-        <h5 class="full-width bottom-border-black pb-4 mb-3">boostez votre <span class="stress">dispositif sociétal existant</span></h5>
-        <p>renforcez votre programme de partage de compétences en permettant aux personnes éligibles de bénéficier de notre accompagnement</p>
-      </div>
-      <div class="max-w-300 mb-4 mg-resp-l">
-        <h5 class="full-width bottom-border-black pb-4 mb-3">recrutez de <span class="stress">nouveaux talents</span> solidaires</h5>
-        <p>différenciez-vous en tant que recruteur et attirez les profils les plus qualifiés en proposant notre dispositif à votre future recrue</p>
       </div>
     </div>
-  </div>
 
+    <div class="flex-center-top w-100 max-w-500">
+      <%= image_tag('screenshot.png', class: "w-100 max-w-400 shadow-xl round-10") %>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white pt-50 pb-50 ctn-resp">
+  <div class="flex-center flex-col">
+    <div class="max-w-500 w-100 mb-40">
+      <h3 class="fw-6 mb-20 center-text">Vous souhaitez réaliser du mécénat de compétences ?</h3>
+      <p class="max-w-500 w-100 center-text">L'équipe Demain.Works est à votre écoute. Laissez-nous vos coordonnées afin d'échanger sur vos besoins et vos objectifs.</p>
+    </div>
+    <div>
+      <%= link_to "Nous contacter", company_contact_path, class: "button bg-main-to-dark hover-2 text-white border-main fw-5 hover-zoom" %>
+    </div>
+  </div>
 </div>

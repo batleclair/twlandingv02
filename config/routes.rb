@@ -104,7 +104,7 @@ Rails.application.routes.draw do
   # static pages available to all
   root to: "pages#home"
   get "about", to: "pages#about"
-  get "terms", to: "pages#terms"
+  # get "terms", to: "pages#terms"
   get "legal", to: "pages#legal"
   get "privacy-policy", to: "pages#privacy"
   get '/validation', to: "pages#unconfirmed", as: :unconfirmed_user
@@ -117,6 +117,8 @@ Rails.application.routes.draw do
     get '/companies', to: redirect('/entreprises')
     get '/nonprofits', to: redirect('/associations')
     get '/candidates', to: redirect('/talents')
+    get "entreprises/nous-contacter", to: "contacts#company_contact", as: :company_contact
+    post '/contact-form', to: "contacts#generate", as: :contact_gen
 
     # profile routes
     post "candidates/synch", to: "candidates#synch_create", as: :candidates_synch_create

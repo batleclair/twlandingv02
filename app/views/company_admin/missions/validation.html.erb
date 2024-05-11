@@ -33,7 +33,7 @@
       <div class="mb-20">
         <%= simple_form_for(@mission, url: company_admin_mission_path(@mission), html: {data: {controller: "hidden-form", hidden_form_target: "form"}}) do |f| %>
           <%= f.input :status, as: :hidden, input_html: {value: "activated"}, wrapper: false %>
-          <button type="submit", class="w-100 button round bg-main-to-dark first-main-border text-white bn-none">
+          <button type="submit", class="w-100 button round bg-main-to-dark border-main text-white bn-none">
             <i class="fa-regular fa-circle-play mr-10"></i>
             Activer la mission
           </button>

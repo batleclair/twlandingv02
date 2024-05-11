@@ -3,7 +3,7 @@
     <em>Aucun collaborateur à qui proposer cette mission</em>
   <% else %>
     <div data-controller="popup">
-      <%= link_to "#", class: "w-100 button round-20 bg-main-to-dark first-main-border text-white", data: {pop_up_id: 1, action: "click->popup#open"} do %>
+      <%= link_to "#", class: "w-100 button round-20 bg-main-to-dark border-main text-white", data: {pop_up_id: 1, action: "click->popup#open"} do %>
         <i class="fa-regular fa-user text-white mr-10"></i>
         Proposer à un collaborateur
       <% end %>

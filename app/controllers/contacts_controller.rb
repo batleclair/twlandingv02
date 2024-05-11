@@ -14,6 +14,23 @@ class ContactsController < ApplicationController
     render json: json_response(@contact)
   end
 
+  def company_contact
+    @contact = Contact.new
+    authorize @contact
+  end
+
+  def generate
+    @contact = Contact.new(contact_params)
+    authorize @contact
+    if @contact.save
+      log_event
+      ContactMailer.with(contact: @contact).new_contact_email.deliver_later if Rails.env.production?
+      render partial: "contacts/valid_contact"
+    else
+      render partial: "contacts/contact_form", status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @contact = Contact.find(params[:id])
     @contact.destroy

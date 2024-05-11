@@ -46,7 +46,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body style="background-image: url('<%= image_path "bg2.png" %>')" data-controller="modal" data-action="keyup->modal#close">
+  <body data-controller="modal" data-action="keyup->modal#close">
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRZZ5SG"
@@ -54,7 +54,10 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <%= render partial: "shared/menu" %>
-    <%= yield %>
+
+    <div style="min-height: calc(100vh - 50px)">
+      <%= yield %>
+    </div>
 
     <% if flash.any? %>
       <% flash.each do |notice, msg| %>

@@ -300,3 +300,14 @@ button:disabled{
 .cursor-pointer{
   cursor: pointer;
 }
+
+.hover-zoom{
+  &:hover{
+    scale: 1.1;
+  }
+}
+
+.bg-shade-to-dark[btn-active]{
+  @include bg-main-to-dark;
+  color: white;
+}

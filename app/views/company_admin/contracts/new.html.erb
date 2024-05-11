@@ -15,7 +15,7 @@
           <%= f.input :title, label: "Titre", wrapper_html: {class: "position-relative"} %>
           <%= f.input :contract_type, collection: Contract.contract_types.keys, label: "Type", wrapper_html: {class: "position-relative"} %>
           <%= f.input :document, as: :file, label: "Document", wrapper_html: {class: "position-relative"} %>
-          <button type="submit", class="w-100 button round bg-white-to-shade first-main-border text-main bn-none">
+          <button type="submit", class="w-100 button round bg-white-to-shade border-main text-main bn-none">
             <i class="fa-solid fa-floppy-disk mr-10"></i>
             Enregistrer le document
           </button>

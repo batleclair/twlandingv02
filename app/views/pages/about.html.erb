@@ -2,58 +2,77 @@
 <% content_for :description, "Nous avons fondé Demain pour rééquilibrer l’accès aux compétences entre entreprises et associations. Nous facilitons pour cela la mise en place et le suivi de missions de mécénat de compétences portées par les employés..." %>
 <% canonical(about_url) %>
 
-<div>
-  <div class="light-bg pt-5">
-    <div class="ctn pb-5">
-      <h1 class="center-text text-main mb-5">A propos de <strong>Demain</strong></h1>
-      <div class="lg-center-text">
-        <h4 class="mb-3">Notre <span class="stress">raison d'être</span></h4>
-        <p class="mb-1">Le <strong>capital humain</strong> est aujourd’hui majoritairement au service des entreprises. Il est pourtant selon nous un bien commun à mettre davantage au service de causes sociales et environnementales.</p>
-        <p class="mb-1">Avec Demain, nous souhaitons <strong>favoriser le partage de compétences entre associations et entreprises</strong>, en offrant l'accès à un réseau de talents engagés et désireux d'œuvrer pour l'intérêt général.</p>
-        <p class="mb-1">En comblant l'écart structurel d'attractivité entre associations et entreprises, nous apportons <strong>impact, sens et compétences</strong> à l'ensemble de l'écosystème.</p>
+
+<div class="bg-white pt-50 pb-50 ctn-resp">
+  <div class="flex-center-evenly sm-resp-flex-col max-w-1200 center-margin">
+    <div class="full-width max-w-500 pt-20 pb-20">
+      <h1 class="d-none">l'équipe derrière demain.works</h1>
+      <h2 class="text-main mb-3 fs-60 fw-7">Demain <span class="fw-3">Works</span></h2>
+      <h4 class="mb-3">Pour un meilleur partage des compétences entre entreprises et acteurs de l'intérêt général.</h4>
+      <p>Demain.Works permet aux entreprises et à leurs collaborateurs de partager les compétences professionnelles dont ils disposent auprès d'associations et fondations.</p>
+    </div>
+    <div class="round-20 p-50 sm-resp-p-10 max-w-500">
+      <%= image_tag("homepage.svg", class: "full-width max-w-500", alt: "entreprise permettant à une employée de s'engager associativement") %>
+    </div>
+  </div>
+</div>
+
+<div class="bg-shade pt-50 pb-50 ctn-resp">
+  <div class="flex-evenly sm-resp-flex-col sm-resp-flex-left center-margin max-w-1200 center-margin">
+    <div class="max-w-400 mr-20 w-100">
+      <h6 class="text-main">Notre mission</h6>
+      <h2 class="fw-6">Pourquoi Demain ?</h4>
+    </div>
+    <div class="max-w-600 w-100">
+      <p class="mb-10">Le <strong>capital humain</strong> est aujourd’hui majoritairement au service des entreprises. Il est pourtant selon nous un bien commun à mettre davantage au service de causes sociales et environnementales.</p>
+      <p class="mb-10">Avec Demain, nous souhaitons <strong>favoriser le partage de compétences entre associations et entreprises</strong>, en offrant l'accès à un réseau de talents engagés et désireux d'œuvrer pour l'intérêt général.</p>
+      <p class="mb-10">En comblant l'écart structurel d'attractivité entre associations et entreprises, nous apportons <strong>impact, sens et compétences</strong> à l'ensemble de l'écosystème.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white pt-50 pb-50 ctn-resp">
+  <div class="flex-evenly sm-resp-flex-col sm-resp-flex-left center-margin mb-40 max-w-1200 center-margin">
+    <div class="max-w-500 mr-20 w-100">
+      <h6 class="text-main">L'équipe</h6>
+      <h2 class="fw-6">Qui sommes-nous ?</h4>
+    </div>
+    <div class="max-w-500 w-100">
+    </div>
+  </div>
+  <div class="flex-evenly sm-resp-flex-col sm-resp-flex-left center-margin mb-40 max-w-1200 center-margin gap-20">
+    <div class="max-w-500 w-100 p-50 xs-resp-p-0">
+      <div class="round-20 bg-grey shadow-xl p-30 h-100">
+        <div class="flex-center flex-col">
+          <%= image_tag("pb_avatar.jpg", class: "lg-avatar mb-20", alt: "portrait de Paul Bolardi") %>
+          <h3 class="text-main fw-6 mb-30">Paul</h3>
+        </div>
+        <p class="mb-10"> Après un début de carrière en <strong>conseil puis financement de jeunes entreprises</strong> <i>(Clipperton, AXA Venture Partners)</i>, Paul quitte le monde de la finance <strong>pour se lancer dans un projet à impact fort</strong>.</p>
+        <p class="mb-10">Ses <strong>divers engagements associatifs</strong>, tant au niveau local que national et international lui font prendre conscience de l'importance de <strong>permettre à chaque salarié de mettre à profit ses compétences développées en entreprises au sein de structures d'intérêt général</strong> de toute taille, pour en démultiplier l'impact.</p>
+      </div>
+    </div>
+    <div class="max-w-500 w-100 p-50 xs-resp-p-0">
+      <div class="round-20 bg-grey shadow-xl p-30 h-100">
+        <div class="flex-center flex-col">
+          <%= image_tag("bc_avatar.jpg", class: "lg-avatar mb-20", alt: "portrait de Paul Bolardi") %>
+          <h3 class="text-main fw-6 mb-30">Baptiste</h3>
+        </div>
+        <p class="mb-10">Baptiste a travaillé 12 ans pour des société de <strong>conseil stratégique et financier aux entreprises innovantes</strong> <i>(Jefferies, Clipperton)</i>.</p>
+        <p class="mb-10">Constatant la capacité de cet écosystème à attirer les talents, Baptiste a eu à coeur de trouver une solution pour <strong>rendre aussi attractives les organisations oeuvrant à l'intérêt général</strong>, indépendamment de leurs moyens financiers.</p>
+        <p class="mb-10">Particulièrement sensible au sujet de l'égalité des chances, Baptiste s'investit également dans différents projets associatifs.</p>
       </div>
     </div>
   </div>
-  <div class="ctn-resp">
-    <div class="lg-center-text mt-5 mb-4">
-      <h4>Les <span class="stress">fondateurs</span> 🤓</h4>
+</div>
+
+<div class="bg-grey pt-50 pb-50 ctn-resp">
+  <div class="flex-center flex-col">
+    <div class="max-w-500 w-100 mb-40">
+      <h3 class="fw-6 mb-20 center-text">Vous souhaitez réaliser du mécénat de compétences ?</h3>
+      <p class="max-w-500 w-100 center-text">Nous sommes à votre écoute. Laissez-nous vos coordonnées afin d'échanger sur vos besoins et vos objectifs.</p>
     </div>
-
-    <div class="flex-resp">
-      <div class="text-card-xl mt-3 mg-resp">
-        <div class="d-flex align-items-center">
-          <%= image_tag("pb_avatar.jpg", class: "lg-avatar", alt: "portrait de Paul Bolardi") %>
-            <div class="avatar-card-title mb-1 ms-4">
-              <h4 class="me-3">Paul</h4>
-              <div>
-                <a href="mailto:paul@demain.works"><i class="fa-solid fa-at"></i></a>
-                <a href="https://www.linkedin.com/in/paulbolardi/"><i class="fa-brands fa-linkedin-in ps-1"></i></a>
-              </div>
-          </div>
-        </div>
-        <div class="mt-4">
-          <p class="mb-2"> Après un début de carrière en <strong>conseil puis financement de jeunes entreprises</strong> <i>(Clipperton, AXA Venture Partners)</i>, Paul quitte le monde de la finance <strong>pour se lancer dans un projet à impact fort</strong>.</p>
-          <p class="mb-2">Ses <strong>divers engagements associatifs</strong>, tant au niveau local que national et international <i>(Les Bureaux du Coeur, SAMPAN Kalimantan, Les Shifters, uN p’Tit véLo dAnS La Tête)</i>, lui font prendre conscience de l'importance de <strong>permettre à chaque salarié de mettre à profit ses compétences développées en entreprises au sein de structures d'intérêt général</strong> de toute taille, pour en démultiplier l'impact.</p>
-        </div>
-      </div>
-
-
-      <div class="text-card-xl mt-3 mg-resp">
-        <div class="d-flex align-items-center">
-          <%= image_tag("bc_avatar.jpg", class: "lg-avatar", alt: "portrait de Baptiste Clair") %>
-            <div class="avatar-card-title mb-1 ms-4">
-              <h4 class="me-3">Baptiste</h4>
-              <div>
-                <a href="mailto:baptiste@demain.works"><i class="fa-solid fa-at"></i></a>
-                <a href="https://www.linkedin.com/in/baptisteclair/"><i class="fa-brands fa-linkedin-in ps-1"></i></a>
-              </div>
-          </div>
-        </div>
-        <div class="mt-4">
-          <p class="mb-2">Baptiste a travaillé 12 ans pour des société de <strong>conseil stratégique et financier aux entreprises innovantes</strong> <i>(Jefferies, Clipperton)</i>.</p>
-          <p class="mb-2">Constatant la capacité de cet écosystème à drainer les talents, Baptiste a eu à coeur de trouver une solution pour <strong>rendre aussi attractives les organisations oeuvrant à l'intérêt général</strong>, indépendamment de leurs moyens financiers.</p>
-          <p class="mb-2">Particulièrement sensible au sujet de l'égalité des chances, Baptiste s'investit également dans différents projets associatifs.</p>
-        </div>
-      </div>
+    <div>
+      <%= link_to "Nous contacter", company_contact_path, class: "button bg-main-to-dark hover-2 text-white border-main fw-5 hover-zoom" %>
+    </div>
   </div>
 </div>

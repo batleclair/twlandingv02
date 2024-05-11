@@ -2,21 +2,21 @@
 
 <div class="dashboard-grid ml-20 mr-20 max-w-750">
 
-  <%= link_to company_admin_employee_applications_path(status: :pending), class:"round-20 first-main-border bg-white-to-shade hover-2" do %>
+  <%= link_to company_admin_employee_applications_path(status: :pending), class:"round-20 border-main bg-white-to-shade hover-2" do %>
     <div class="w-100 p-20 d-flex pe-none h-100">
       <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_applications.count %></h5>
       <p>Demandes d'éligibilité en attente d'approbation</p>
     </div>
   <% end %>
 
-  <%= link_to company_admin_candidacies_path(status: :user_validation), class:"round-20 first-main-border bg-white-to-shade hover-2" do %>
+  <%= link_to company_admin_candidacies_path(status: :user_validation), class:"round-20 border-main bg-white-to-shade hover-2" do %>
     <div class="w-100 p-20 d-flex pe-none h-100">
       <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_candidacies.count %></h5>
       <p>Candidatures en attente d'approbation</p>
     </div>
   <% end %>
 
-  <%= link_to company_admin_missions_path, class:"round-20 first-main-border bg-white-to-shade hover-2" do %>
+  <%= link_to company_admin_missions_path, class:"round-20 border-main bg-white-to-shade hover-2" do %>
     <div class="w-100 p-20 d-flex pe-none h-100">
       <h5 class="text-main fw-7 fs-30 min-w-30"><%= @pending_missions.count %></h5>
       <p>Missions en cours de contractualisation</p>

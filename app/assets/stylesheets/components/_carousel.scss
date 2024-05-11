@@ -80,3 +80,29 @@ div:nth-child(3) {
     height: 60vw;
   }
 }
+
+.mobile-x-scroll{
+  @media(max-width: $bp-xs) {
+    overflow-x: scroll;
+    flex-direction: row !important;
+  }
+}
+
+.hidden-scrollbar{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.shaded-scroll-carousel[data-controller="scroll-carousel"]{
+  [data-scroll-carousel-target="slide"]{
+    opacity: 0.5;
+    &[card-active]{
+      background-color: $first-light-lighter;
+      border: solid 0.5px $first-main-color;
+      opacity: 1
+    }
+  }
+}
