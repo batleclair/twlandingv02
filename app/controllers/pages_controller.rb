@@ -22,9 +22,9 @@ class PagesController < ApplicationController
     add_breadcrumb "Entreprises", companies_path
   end
 
-  def terms
-    add_breadcrumb "CGU", terms_path
-  end
+  # def terms
+  #   add_breadcrumb "CGU", terms_path
+  # end
 
   def legal
     add_breadcrumb "Légal", legal_path
