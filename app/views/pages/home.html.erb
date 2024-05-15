@@ -24,21 +24,6 @@
     <div class="flex-center position-absolute home-cards-ctn" data-swipe-target="ctn" data-focus="1">
 
         <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
-          <%= link_to '', companies_path, data: {action: "click->swipe#keep"} %>
-          <h5 class="mb-10">entreprises</h5>
-          <p class="overflow-hidden hover-2">Mobilisez votre entreprise autour d’initiatives à fort impact sociétal en y associant de manière ciblée des collaborateurs en quête de sens</p>
-          <%= image_tag('home_illustration_2.svg', class: "hover-2 pe-none") %>
-          <div>
-          </div>
-          <em class="hover-2 flex-center-between bg-flag-2">
-            <%= link_to companies_path, class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0" do %>
-              <span></span>
-              <strong class="center-margin fw-5">En savoir plus</strong>
-            <% end %>
-          </em>
-        </div>
-
-        <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
           <%= link_to '', nonprofits_path, data: {action: "click->swipe#keep"} %>
           <h5 class="mb-10">associations</h5>
           <p class="overflow-hidden hover-2">Attirez les compétences utiles à la professionnalisation, la structuration ou la digitalisation de votre organisation</p>
@@ -47,6 +32,21 @@
           </div>
           <em class="hover-2 flex-center-between bg-flag-3">
             <%= link_to nonprofits_path, class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0" do %>
+              <span></span>
+              <strong class="center-margin fw-5">En savoir plus</strong>
+            <% end %>
+          </em>
+        </div>
+
+        <div class="home-cta-card round-20 grey-border bg-white p-20 shadow-xl hover-2 m-10" data-swipe-target="card" data-status="">
+          <%= link_to '', companies_path, data: {action: "click->swipe#keep"} %>
+          <h5 class="mb-10">entreprises</h5>
+          <p class="overflow-hidden hover-2">Mobilisez votre entreprise autour d’initiatives à fort impact sociétal en y associant de manière ciblée des collaborateurs en quête de sens</p>
+          <%= image_tag('home_illustration_2.svg', class: "hover-2 pe-none") %>
+          <div>
+          </div>
+          <em class="hover-2 flex-center-between bg-flag-2">
+            <%= link_to companies_path, class: "fat-btn fat-btn-md fat-btn-main-color position-relative flex-center-between flex-shrink-0" do %>
               <span></span>
               <strong class="center-margin fw-5">En savoir plus</strong>
             <% end %>

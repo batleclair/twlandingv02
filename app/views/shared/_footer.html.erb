@@ -1,9 +1,13 @@
 <div class="ctn-resp pt-5 pb-5 bg-main">
   <div class="flex-resp">
 
-    <div class="mb-2-resp max-w-500 flex-shrink-1">
+    <div class="mb-20 max-w-500 flex-shrink-1">
       <%= image_tag("logo_white.svg", class: "sm-logo mg-resp-r mb-4", alt:"logo Demain clair") %>
       <p class="text-white pb-3 pe-5">L'engagement associatif sur son temps de travail : pour ne plus avoir à choisir entre un job qui paye et un job qui compte !</p>
+      <div class="d-flex gap-10">
+        <a href="https://www.linkedin.com/company/demain-works/" class="white-link round border-white square-40 flex-center hover-2 bg-main-to-dark"><i class="fa-brands fa-linkedin-in fs-20"></i></a>
+        <a href="mailto:contact@demain.works" class="white-link round border-white square-40 flex-center"><i class="fa-solid fa-envelope fs-20 bg-main-to-dark"></i></a>
+      </div>
     </div>
 
     <div class="flex-resp full-width max-w-500 footer-flex", data-turbo="false">
@@ -29,11 +33,10 @@
       </div>
 
       <div class="mg-resp-l mb-4 full-width">
-        <h6 class="text-white mb-4">NOUS SUIVRE</h6>
+        <h6 class="text-white mb-4">RESSOURCES</h6>
         <div class="d-flex flex-column">
-          <%= link_to "🙌 Blog Demain", posts_url, target: "blank", class: "white-link mb-2" %>
-          <a href="https://www.linkedin.com/company/demain-works/" target="blank" class="white-link mb-2"><i class="fa-brands fa-linkedin-in pe-2"></i> LinkedIn</a>
-          <a href="mailto:contact@demain.works" class="white-link"><i class="fa-solid fa-envelope pe-2"></i> Contact</a>
+          <a href="https://www.mecenatdecompetences.info/" target="blank" class="white-link mb-2"></i>Le mécénat de compétences</a>
+          <%= link_to "Blog", posts_url, target: "blank", class: "white-link mb-2" %>
         </div>
       </div>
 
