@@ -5,7 +5,7 @@
 
     <div class="pt-50 pb-50 flex-shrink-0">
       <div class="mb-20">
-        <h2>Bienvenue chez <span class="text-main fw-6">Demain</span></h2>
+        <h1 class="fs-30 fw-6">Bienvenue chez <span class="text-main fw-6">Demain</span></h1>
         <p>Il ne vous reste plus qu'à choisir un mot de passe pour finaliser votre inscription</p>
       </div>
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, data: { turbo: false } }) do |f| %>
