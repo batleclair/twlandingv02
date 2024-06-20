@@ -118,7 +118,7 @@ Rails.application.routes.draw do
     get '/nonprofits', to: redirect('/associations')
     get '/candidates', to: redirect('/talents')
     get "entreprises/nous-contacter", to: "contacts#company_contact", as: :company_contact
-    post '/contact-form', to: "contacts#generate", as: :contact_gen
+    post 'entreprises/nous-contacter', to: "contacts#generate", as: :contact_gen
 
     # profile routes
     post "candidates/synch", to: "candidates#synch_create", as: :candidates_synch_create
