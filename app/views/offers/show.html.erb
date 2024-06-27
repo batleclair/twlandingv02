@@ -29,21 +29,15 @@
     </div>
     <h2 id="offer_title"><%= @offer.title %></h2>
     <div class="offer-specs flex-resp">
-      <p class="text-white ms-2 me-2" id="offer_location">📍 <%= @offer.location %></p>
-      <p class="text-white ms-2 me-2">💜 <%= @offer.beneficiary.cause %></p>
-      <p class="text-white ms-2 me-2 d-flex align-items-center info-bubble" id="offer_commitment"><%= @offer.commitment_output %>
-        <strong>?</strong>
-        <% if @offer.commitment.present? %>
-          <% case %>
-          <% when @offer.commitment.start_with?('👍') %>
-            <span>nécessite une implication limitée à quelques jours</span>
-          <% when @offer.commitment.start_with?('👏') %>
-            <span>nécessite une implication soutenue, par exemple 1j/sem pendant plusieurs mois</span>
-          <% when @offer.commitment.start_with?('🙌') %>
-            <span>nécessite une implication durable, par exemple 1 à 2 j/sem pendant 1 an ou +</span>
-          <% end %>
+      <div class="flex-center-left gap-10">
+        <p class="text-white ms-2 me-2">📍 <%= @offer.location %></p>
+        <% if @offer.full_remote %>
+          <p class="text-white"><i class="fa-solid fa-circle-check text-flag-3 min-w-20"></i>Télétravail</p>
         <% end %>
-      </p>
+      </div>
+
+      <p class="text-white ms-2 me-2">💜 <%= @offer.beneficiary.cause %></p>
+
     </div>
   </div>
 

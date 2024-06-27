@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "form" do %>
+<%= turbo_frame_tag "form", data: {action: "turbo:frame-load->gtm#formSend"} do %>
   <%= simple_form_for(@contact, url: contact_gen_path, data: {turbo_frame: "form"}) do |f| %>
 
       <%= f.input :contact_type, as: :hidden, input_html: {value: "Entreprise"} %>

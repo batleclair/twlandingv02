@@ -92,12 +92,13 @@
             actuellement en ligne
           </h4>
           <% @offers.each do |o| %>
-            <%= link_to offer_path(o) do %>
-              <div class="asso-mission-card ms-3 mb-2">
+            <div class="asso-mission-card position-relative ms-3 mb-2">
+              <%= link_to "", offer_path(o), class: "h-100 w-100 position-absolute" %>
+              <div class="p-20">
                 <h5 class="text-main mb-2"><%= o.title %></h5>
                 <p>⏲️ <%= o.frequency_output %> | 📅  <%= o.duration_output %> | 📍 <%= o.location %></p>
               </div>
-            <% end %>
+            </div>
           <% end %>
 
         </div>

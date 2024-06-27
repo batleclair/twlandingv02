@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-controller="gtm">
   <head>
     <% unless Rails.env.development? %>
       <!-- Google Tag Manager -->
@@ -12,6 +12,11 @@
       </script>
       <!-- End Google Tag Manager -->
     <% end %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
 
     <title><%= yield(:title).present? ? yield(:title) : meta_title %></title>
     <meta name="description" content="<%= yield(:description).present? ? yield(:description) : meta_description %>">
@@ -37,16 +42,10 @@
     <meta property="og:site_name" content="<%= meta_title %>" />
 
     <meta name="facebook-domain-verification" content="1umexeuo28refrrubv8z0kdgz7bbb3" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body data-controller="modal" data-action="keyup->modal#close">
+  <body data-controller="modal" data-action="keyup->modal#close" data-action="turbo:load->gtm#test">
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRZZ5SG"

@@ -49,6 +49,9 @@ application.register("form-redirect", FormRedirectController)
 import FormSubmitterController from "./form_submitter_controller"
 application.register("form-submitter", FormSubmitterController)
 
+import GtmController from "./gtm_controller"
+application.register("gtm", GtmController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
