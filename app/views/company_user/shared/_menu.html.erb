@@ -1,91 +1,84 @@
-<div id="tenant-menu" class="company-menu fs-15">
-  <div data-controller="tenant-menu">
-    <div class="w-100 position-relative flex-center mb-10 company-menu-pl">
-      <% if current_user.candidate&.photo&.attached? %>
-        <div class="logo-box downsize90 round-20">
-          <%= cl_image_tag(current_user.candidate.photo.key) %>
-        </div>
-      <% else %>
-        <div class="bg-white round-20 square-100 flex-center shadow-sm p-10 p-15">
-          <span href="" class="round h-100 w-100 flex-center fs-30 fw-6 bg-flag-1 text-white"><%= current_user.initials %></span>
-        </div>
+<div data-controller="menu">
+  <i class="fa-solid fa-bars burger-icon" data-menu-target="icon" data-action="click->menu#toggle"></i>
+
+  <nav class="menu ctn-resp" data-menu-target="nav">
+    <div class="h-100 flex-center-between md-resp-flex-col">
+      <%= link_to root_url(subdomain: Subdomain.generic), allow_other_host: true do %>
+        <%= image_tag("full_logo_white.png", class: "sm-logo", alt: "Logo Demain") %>
+        <%= image_tag("full_logo_white.png", class: "xl-logo", alt: "Logo Demain") %>
       <% end %>
+
+      <div class="flex-center-between md-resp-flex-col">
+        <% if Subdomain.new("generic").matches?(request) %>
+          <div class="d-flex md-resp-flex-col">
+            <%= link_to root_path, class:"flex-center p-10", data: {"active-tab": action_name == 'home'} do %>
+              <i class="fa-solid fa-house-chimney">
+                <span></span>
+              </i>
+            <% end %>
+            <%= link_to companies_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'companies' %>>
+                Entreprises
+                <span></span>
+              </div>
+            <% end %>
+            <%= link_to nonprofits_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= action_name == 'nonprofits' %>>
+                Associations
+                <span></span>
+              </div>
+            <% end %>
+            <%= link_to offers_path do %>
+              <div class="tab flex-center p-10" data-active-tab=<%= controller_name == 'offers' || controller_name == 'candidacies' %>>
+                Je m'engage
+                <span></span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if user_signed_in? %>
+          <div class="d-flex align-items-center">
+            <div class="user-nav-box ml-20 md-resp-ml-0 md-resp-mt-40">
+              <p>👋 Bonjour <span style="font-weight: 500"><%= current_user.first_name %></span> !</p>
+              <div>
+                <% if current_user.candidate.blank? || !current_user.candidate.profile_completed %>
+                  <%= link_to new_candidate_path, class: "sm-thin-text", id: "profile-link" do %>
+                    <i class="fa-solid fa-user me-1"></i>
+                    profil
+                  <% end %>
+                <% else %>
+                  <%= link_to candidate_path(current_user.candidate), class: "sm-thin-text" do %>
+                    <i class="fa-solid fa-user me-1"></i>
+                    profil
+                  <% end %>
+                <% end %>
+                <span class="text-white">|</span>
+                  <%= link_to edit_user_registration_path, class: "sm-thin-text" do %>
+                    <i class="fa-solid fa-gear me-1"></i>
+                    compte
+                <% end %>
+                <span class="text-white">|</span>
+                <%= link_to destroy_user_session_path, method: :delete, class: "sm-thin-text" do %>
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  déconnexion
+                <% end %>
+
+              </div>
+            </div>
+            <% if current_user.admin? %>
+              <%= link_to admin_path, class: "round-button btn-admin-cta ms-3" do %>
+                <i class="fa-solid fa-gear"></i>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+
+        <% end %>
+
+      </div>
+
+
     </div>
-    <div class="w-100 flex-center mb-30 company-menu-pl">
-      <h5 class="fs-15 button-round bg-flag-3 text-white"><%= current_user.first_name %></h5>
-    </div>
-
-    <div class="company-menu-pl overflow-hidden">
-
-      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 0%>>
-        <%= link_to "", root_path, class:"w-100 h-100 position-absolute" %>
-        <div class="flex-center-left pe-none h-100">
-          <h6>Accueil</h6>
-        </div>
-      </div>
-
-      <div class="mt-05 mb-05 w-100 border-b-light-darker"></div>
-
-      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 1%>>
-        <%= link_to "", user_offers_path, class:"w-100 h-100 position-absolute" %>
-        <div class="flex-center-left pe-none h-100">
-          <h6>Toutes les missions</h6>
-        </div>
-      </div>
-
-      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab company-menu-dropdown" data-tenant-menu-target="submenu" data-action="click->tenant-menu#expand" <%= @tab.in?(2..3) ? "expanded" : "" %> <%= @tab.in?(2..3) ? "active" : "" %>>
-        <div class="flex-center-left pe-none position-relative">
-          <h6>Les missions pour vous</h6>
-          <i class="fa-solid fa-chevron-right position-absolute"></i>
-        </div>
-        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 2%> data-action="click->tenant-menu#keep">
-          <%= link_to "", user_bookmarks_path, class:"w-100 h-100 position-absolute" %>
-          <div class="flex-center-left pe-none h-100">
-            <h6>Favoris</h6>
-          </div>
-        </div>
-        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 3%> data-action="click->tenant-menu#keep">
-          <%= link_to "", user_selections_path, class:"w-100 h-100 position-absolute" %>
-          <div class="flex-center-left pe-none h-100">
-            <h6>Recommandations</h6>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 4%>>
-        <%= link_to "", user_candidacies_path, class:"w-100 h-100 position-absolute" %>
-        <div class="flex-center-left pe-none h-100">
-          <h6>Candidatures en cours</h6>
-        </div>
-      </div>
-
-      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 5%>>
-        <%= link_to "", (@active_mission ? user_mission_path(current_user.missions.last) : user_no_mission_path), class:"w-100 h-100 position-absolute" %>
-        <div class="flex-center-left pe-none h-100">
-          <h6>Mission en cours</h6>
-        </div>
-      </div>
-
-      <div class="mt-05 mb-05 w-100 border-b-light-darker"></div>
-
-      <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab company-menu-dropdown" data-tenant-menu-target="submenu" data-action="click->tenant-menu#expand" <%= @tab.in?(6..7) ? "expanded" : "" %> <%= @tab.in?(6..7) ? "active" : "" %>>
-        <div class="flex-center-left pe-none position-relative">
-          <h6>Votre historique</h6>
-          <i class="fa-solid fa-chevron-right position-absolute"></i>
-        </div>
-        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 6%> data-action="click->tenant-menu#keep">
-          <%= link_to "", user_past_candidacies_path, class:"w-100 h-100 position-absolute" %>
-          <div class="flex-center-left pe-none h-100">
-            <h6>Candidatures</h6>
-          </div>
-        </div>
-        <div class="bg-shade-to-dark hover-3 position-relative company-menu-tab" data-active=<%=@tab == 7%> data-action="click->tenant-menu#keep">
-          <%= link_to "", user_past_missions_path, class:"w-100 h-100 position-absolute" %>
-          <div class="flex-center-left pe-none h-100">
-            <h6>Missions</h6>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </nav>
 </div>
